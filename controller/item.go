@@ -12,5 +12,5 @@ func GetItemIndex(ctx *gin.Context) {
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
-	ctx.JSON(http.StatusOK, items)
+	ctx.HTML(http.StatusOK, "item.tpl", items)
 }
