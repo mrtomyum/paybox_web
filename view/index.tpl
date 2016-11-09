@@ -1,43 +1,57 @@
 {{define "index.tpl"}}
 {{template "header.tpl" .}}
-<div class = "container">
-    <!--แสดงรายการเมนูหลักในหน้าแรก -->
-    <h1>Main Menu</h1>
-    <h2>กรุณาเลือกเมนู</h2>
-    <p>Please choose menu. / 请选择菜单</p>
+<div class="container">
 
-    <!--<table class="table table-hover table-condense">-->
-        <!--<tr>-->
-            <!--<th>ID</th>-->
-            <!--<th>Thai</th>-->
-            <!--<th>English</th>-->
-            <!--<th>Chinese</th>-->
-        <!--</tr>-->
-        <!--{{ range . }}-->
-        <!--<tr>-->
-            <!--<td>{{ .Id }}</td>-->
-            <!--<td>{{ .NameTh }}</td>-->
-            <!--<td>{{ .NameEn }}</td>-->
-            <!--<td>{{ .NameCn }}</td>-->
-        <!--</tr>-->
-        <!--{{end}}-->
-    <!--</table>-->
-
-    <div class="container">
-        <div class="row">
-            {{range .}}
-            <div class="col-sm-4 ">
-                {{.Id}}
-                {{.NameTh}}
-                {{.NameEn}}
-                {{.NameCn}}
-            </div>
-            {{end}}
+        <a href="list.tpl">
+        <div class="block-2 menu">
+            <img src="img/hot.png" width="70%" style="margin-bottom: 2%;">
+            <h3 style="margin-top: 0;"><b>HOT</b></h3>
         </div>
-    </div>
+        </a>
 
-    </div>
+        <a href="list.tpl">
+        <div class="block-2 menu">
+            <img src="img/ice.png" width="70%" style="margin-bottom: 2%;">
+            <h3 style="margin-top: 0;"><b>ICE</b></h3>
+        </div>
+        </a>
+
+        <a href="list.tpl">
+        <div class="block-2 menu">
+            <img src="img/snack.png" width="70%" style="margin-bottom: 2%;">
+            <h3 style="margin-top: 0;"><b>SNACK</b></h3>
+        </div>
+        </a>
+
+        <a href="list.tpl">
+        <div class="block-2 menu">
+            <img src="img/kids.png" width="70%" style="margin-bottom: 2%;">
+            <h3 style="margin-top: 0;"><b>KIDS</b></h3>
+        </div>
+        </a>
+
+        <div class="block-2 menu">
+            <img src="img/plus.png" width="70%" style="margin-bottom: 2%;">
+            <h3 style="margin-top: 0;"><b>None</b></h3>
+        </div>
+
+        <div class="block-2 menu">
+            <img src="img/plus.png" width="70%" style="margin-bottom: 2%;">
+            <h3 style="margin-top: 0;"><b>None</b></h3>
+        </div>
+
+        <div class="block-2 menu">
+            <img src="img/plus.png" width="70%" style="margin-bottom: 2%;">
+            <h3 style="margin-top: 0;"><b>None</b></h3>
+        </div>
+
+        <div class="block-2 menu">
+            <img src="img/plus.png" width="70%" style="margin-bottom: 2%;">
+            <h3 style="margin-top: 0;"><b>None</b></h3>
+        </div>
+
+        <div style="clear: both;"></div>
+
 </div>
 
-{{template "footer.tpl" .}}
 {{end}}

@@ -4,31 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>PAYBOX</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <script src="js/jquery-1.11.3.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/main.css">
 
 </head>
 <body>
 
-<nav class="navbar navbar-fixed-top navbar-light bg-faded">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <!-- <img src="/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> -->
-            PAYBOX: Coffee Shop
-        </a>
-        <ul class="nav navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">หน้าแรก <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">แจ้งปัญหา</a>
-            </li>
-        </ul>
-        <div class="btn-group float-lg-right">
-            <button type="button" class="btn btn-primary">ไทย</button>
-            <button type="button" class="btn btn-primary">English</button>
-            <button type="button" class="btn btn-primary">中文</button>
-        </div>
+<nav class="navbar navbar-default" style="margin-bottom: 0;">
+  <div class="container-fluid" style="padding-left: 0;">
+    <div class="navbar-header" style=" width: 20%; text-align: center; padding-top: 0.5%; ">
+      <img src="img/logo.png" width="80%">
     </div>
+    <div style="float: left; width: 65%; text-align: center;">
+        <h3>เมนูประเภท </h3>
+    </div>
+    <div style="float: left; text-align: left; vertical-align: bottom;">
+        <h6>version 0.1 </h6>
+        <h6>เวลา 08.00 น. </h6>
+        
+    </div>
+  </div>
 </nav>
+
 {{end}}
