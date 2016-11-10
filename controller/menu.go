@@ -13,5 +13,5 @@ func MenuIndex(ctx *gin.Context) {
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
-	ctx.HTML(http.StatusOK, "index.tpl", menus)
+	ctx.HTML(http.StatusOK, "menus.tpl", menus)
 }

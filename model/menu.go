@@ -11,6 +11,7 @@ type Menu struct {
 	ShortEn string `json:"short_en" db:"short_en"`
 	ShortCn string `json:"short_cn" db:"short_cn"`
 	Image   string `json:"image" db:"image"`
+	Link    string `json:"link" db:"link"`
 }
 
 func (m *Menu) Index(db *sqlx.DB) (menus []*Menu, err error) {
