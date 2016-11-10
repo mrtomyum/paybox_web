@@ -1,4 +1,4 @@
-{{define "index.tpl"}}
+{{define "list.tpl"}}
 {{template "header.tpl" .}}
 <div class="container" style="padding-top: 1%;">
 

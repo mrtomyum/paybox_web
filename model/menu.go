@@ -3,13 +3,14 @@ package model
 import "github.com/jmoiron/sqlx"
 
 type Menu struct {
-	Id int
-	NameTh  string `json:"name_th" db:"name_th"`
+	Id      int
+	Name    string `json:"name" db:"name"`
 	NameEn  string `json:"name_en" db:"name_en"`
 	NameCn  string `json:"name_cn" db:"name_cn"`
-	ShortTh string `json:"short_th" db:"short_th"`
+	Short   string `json:"short" db:"short"`
 	ShortEn string `json:"short_en" db:"short_en"`
 	ShortCn string `json:"short_cn" db:"short_cn"`
+	Image   string `json:"image" db:"image"`
 }
 
 func (m *Menu) Index(db *sqlx.DB) (menus []*Menu, err error) {

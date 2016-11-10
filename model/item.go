@@ -16,15 +16,15 @@ const (
 
 type Item struct {
 	sys.Base
-	NameTh string `json:"name_th" db:"name_th"`
-	NameEn string `json:"name_en" db:"name_en"`
-	NameCn string `json:"name_cn" db:"name_cn"`
-	Unit   string
-	Price  float32
-	PriceS float32
-	PriceM float32
-	PriceL float32
-	MenuId uint64
+	Name    string `json:"name" db:"name"`
+	NameEn  string `json:"name_en" db:"name_en"`
+	NameCn  string `json:"name_cn" db:"name_cn"`
+	Unit    string
+	Price   float32
+	PriceS  float32
+	PriceM  float32
+	PriceL  float32
+	MenuId  uint64
 	MenuSeq int
 }
 
