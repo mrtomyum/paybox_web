@@ -4,11 +4,14 @@ import (
 	"github.com/mrtomyum/paybox_terminal/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
-func GetItemIndex(ctx *gin.Context) {
+func GetItemByMenu(ctx *gin.Context) {
 	var i model.Item
-	items, err := i.GetIndex(DB)
+	id := ctx.Param("id")
+	menuId, _ := strconv.ParseInt(id, 10, 64)
+	items, err := i.GetIndex(menuId)
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}

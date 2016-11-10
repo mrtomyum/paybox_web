@@ -5,7 +5,7 @@
     <div class="title">
         <div id="itemname">
             <label>"ชื่อเมนู"</label>
-            <label id="img"><img src="public/img/hot.png" width="100%"></label>
+            <label id="img"><img src="../public/img/hot.png" width="100%"></label>
         </div>
     </div>
 
@@ -61,7 +61,7 @@
 
 {{range .}}
 <div class="block-3 menu">
-    <img src="public/img/{{.Image}}" width="70%" style="margin-bottom: 2%;">
+    <img src="../public/img/{{.Image}}" width="70%" style="margin-bottom: 2%;">
     <h6 style="margin-top: 0;"><b>{{.Name}}</b></h6>
 </div>
 {{end}}

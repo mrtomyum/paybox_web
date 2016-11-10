@@ -1,7 +1,6 @@
 package model
 
 import (
-	"github.com/jmoiron/sqlx"
 	sys "github.com/mrtomyum/sys/model"
 )
 
@@ -29,10 +28,10 @@ type Item struct {
 	Image   string  `json:"image" db:"image"`
 }
 
-func (i *Item) GetIndex(db *sqlx.DB) ([]*Item, error) {
+func (i *Item) GetIndex(menuId int64) ([]*Item, error) {
 	var items []*Item
-	sql := `SELECT * FROM item`
-	err := db.Select(&items, sql)
+	sql := `SELECT * FROM item WHERE menu_id = ?`
+	err := db.Select(&items, sql, menuId)
 	if err != nil {
 		return nil, err
 	}

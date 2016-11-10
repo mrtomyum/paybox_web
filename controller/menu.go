@@ -9,7 +9,7 @@ import (
 
 func MenuIndex(ctx *gin.Context) {
 	var m model.Menu
-	menus, err := m.Index(DB)
+	menus, err := m.Index()
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}

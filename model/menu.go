@@ -1,7 +1,5 @@
 package model
 
-import "github.com/jmoiron/sqlx"
-
 type Menu struct {
 	Id      int
 	Name    string `json:"name" db:"name"`
@@ -14,7 +12,7 @@ type Menu struct {
 	Link    string `json:"link" db:"link"`
 }
 
-func (m *Menu) Index(db *sqlx.DB) (menus []*Menu, err error) {
+func (m *Menu) Index() (menus []*Menu, err error) {
 	sql := `SELECT * FROM menu`
 	err = db.Select(&menus, sql)
 	if err != nil {
