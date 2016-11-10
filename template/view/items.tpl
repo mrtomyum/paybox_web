@@ -65,58 +65,6 @@
     <h6 style="margin-top: 0;"><b>{{.Name}}</b></h6>
 </div>
 {{end}}
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>เอสเพรสโซนมสด</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>ลาเต้นมสด</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>คาปูชิโนนมสด</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>มอคค่านมสด</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>ชาเนสทีนมาสด</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>ช็อคโกแลตนมสด</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>โกโก้นมสด</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>มอคค่า</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>ฮาเซลนัก ลาเต้</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>คาราเมล คาปูชิโน่</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>ไอริท เอสเปรสโซ่</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;"><b>วานิลา อเมริกาโน่</b></h6>-->
-<!--</div>-->
-<!--<div class="block-3 menu">-->
-<!--<img src="public/img/hot.png" width="70%" style="margin-bottom: 2%;">-->
-<!--<h6 style="margin-top: 0;">บัตเตอร์สก๊อต คาปูชิโน่</b></h6>-->
-<!--</div>-->
 
 <div style="clear: both;"></div>
 
