@@ -6,7 +6,7 @@
 <div class="blockorder">
     <div class="title">
         <div id="itemname">
-            <label>"ชื่อเมนู"</label>
+            <label>"ชื่อเมนู"</labe¢l>
             <label id="img"><img src="../public/img/hot.png" width="100%"></label>
         </div>
     </div>
