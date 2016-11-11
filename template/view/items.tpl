@@ -2,7 +2,7 @@
 {{template "header.tpl" .}}
 
 <div class="container" style="padding-top: 1%;">
-<h1>Item Index</h1>
+<h1>Item Index new</h1>
 <div class="blockorder">
     <div class="title">
         <div id="itemname">
