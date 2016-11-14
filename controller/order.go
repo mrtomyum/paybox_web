@@ -10,13 +10,13 @@ var (
 	o model.Order
 )
 
-func PostAddOrderItem(ctx *gin.Context) {
+func PostNewOrderSub(ctx *gin.Context) {
 	itemId := ctx.PostForm("itemId")
 	size := ctx.PostForm("size")
 	price := ctx.PostForm("price")
 	qty := ctx.PostForm("qty")
 
-	newItem := new(model.OrderItem)
+	newItem := new(model.OrderSub)
 	newItem.ItemId = itemId
 	newItem.Size = size
 	newItem.Price = price
