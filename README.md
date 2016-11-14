@@ -43,6 +43,9 @@ Paybox Ticket Terminal software Service and Application written in Qt5 and inter
   + Price update.
   + Send heartbeat/online Status every minute etc.
 
++ Menu/Item Status online update.
+  + Client can control Item sale status as "OPEN_SALE", "CLOSE_SALE" prevent payment and no available products
+  
 ## What's Next.
 + Add first time activation and "token" authentication practice.
 + OpenBox request by UserID and use mobile app receive "password" before open Box
