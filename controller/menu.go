@@ -6,8 +6,7 @@ import (
 	"net/http"
 )
 
-
-func MenuIndex(ctx *gin.Context) {
+func GetMenuIndex(ctx *gin.Context) {
 	var m model.Menu
 	menus, err := m.Index()
 	if err != nil {
