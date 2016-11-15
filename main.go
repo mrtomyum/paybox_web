@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	c "github.com/mrtomyum/paybox_terminal/controller"
-	"net/http"
 )
 
 func main() {

@@ -14,5 +14,18 @@
     <div style="clear: both;"></div>
 
 </div>
+<div id="app">
+    {{message}}
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+
+</script>
 {{template "footer.tpl" .}}
 {{end}}
