@@ -1,7 +1,7 @@
 {{define "items.tpl"}}
 {{template "header.tpl" .}}
 
-<div class="container" style="padding-top: 1%;">
+<!--<div class="container" style="padding-top: 1%;"> -->
 <h1>Item Index</h1>
 <div class="blockorder">
     <div class="title">
@@ -68,8 +68,6 @@
 </div>
 {{end}}
 
-<div style="clear: both;"></div>
-</div>
-</div>
+<!--</div> -->
 {{template "footer.tpl" .}}
 {{end}}
