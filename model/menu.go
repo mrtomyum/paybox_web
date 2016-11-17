@@ -20,3 +20,4 @@ func (m *Menu) Index() (menus []*Menu, err error) {
 	}
 	return menus, nil
 }
+

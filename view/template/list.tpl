@@ -119,124 +119,126 @@
     <div id="centitem">
         <div id="itemlist">
             <div id="menu_scroll">
-                <a href="#">
+                {{range .}}
+                <a href="{{.Link}}">
                     <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                        <img src="img/{{.Image}}" onError="this.src = 'img/noimg.jpg'" class="block-img">
                         <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
+                            <div style="width: 80%; float: left;"><b>{{.Name}}</b></div>
+                            <div style="width: 20%; float: left;"><b>xx฿</b></div>
                         </h5>
                     </div>
                 </a>
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                {{end}}
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
-                <a href="#">
-                    <div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-                        <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                            <div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>
-                            <div style="width: 20%; float: left;"><b>35฿</b></div>
-                        </h5>
-                    </div>
-                </a>
+                <!--<a href="#">-->
+                <!--<div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">-->
+                <!--<img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">-->
+                <!--<h5 style="margin-top: 0;">-->
+                <!--<div style="width: 80%; float: left;"><b>คาปูชิโน</b></div>-->
+                <!--<div style="width: 20%; float: left;"><b>35฿</b></div>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--</a>-->
 
             </div>
 

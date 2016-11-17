@@ -8,11 +8,10 @@ import (
 )
 
 func Router(r *gin.Engine) *gin.Engine {
-	r.GET("/", GetMenuIndex)
+	r.GET("/", GetIndex)
 	r.GET("/item/:id", GetItemByMenu)
-	//r.POST("/order", PostNewOrderSub)
-	//r.DELETE("/order", DeleteOrder)
-	//r.DELETE("/order/item/:line", DeleteOrderItem)
+	r.GET("/list", GetMenu)
+	r.GET("/menu/:id/item", GetItemByMenuId)
 
 	r.GET("/ws", func(c *gin.Context) {
 		wsView(c.Writer, c.Request)

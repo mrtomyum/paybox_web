@@ -1,32 +1,26 @@
 {{define "header.tpl"}}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>PAYBOX</title>
+    <title>terminal order</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../public/css/main.css">
-
-
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/select_main.css">
 </head>
 <body>
 
-<nav class="navbar navbar-default" style="margin-bottom: 0;">
-  <div class="container-fluid" style="padding-left: 0;">
-    <div class="navbar-header" style=" width: 20%; text-align: center; padding-top: 0.5%; ">
-        <img src="../public/img/logo.png" width="80%">
+<nav class="navbar navbar-default" style="margin-bottom: 0.2%; height: 60px; background: #262626;">
+    <div class="container-fluid" style="padding-left: 0;">
+        <div class="navbar-header" style=" width: 20%; text-align: left; padding-left: 1%; padding-top: 0.5%; ">
+            <img src="img/logo.png" class="logo">
+        </div>
+        <div class="nav-r">
+            version 0.1<br>เวลา 08.00 น.
+        </div>
     </div>
-    <div style="float: left; width: 65%; text-align: center;">
-        <h3>เมนูประเภท </h3>
-    </div>
-    <div style="float: left; text-align: left; vertical-align: bottom;">
-        <h6>version 0.1 </h6>
-        <h6>เวลา 08.00 น. </h6>
-        
-    </div>
-  </div>
 </nav>
-
 {{end}}
+

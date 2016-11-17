@@ -39,7 +39,7 @@ function takethiseng(){
     responsiveVoice.setDefaultVoice("UK English Female")
     responsiveVoice.speak("take this");
     setTimeout(function (){
-        window.location = "list.html";
+        window.location = "list";
         localStorage.action = 1;
     },1500);
 }
@@ -48,7 +48,7 @@ function takethisthai(){
     responsiveVoice.setDefaultVoice("Thai Female")
     responsiveVoice.speak("รับประทานที่ร้าน");
     setTimeout(function (){
-        window.location = "list.html";
+        window.location = "list";
         localStorage.action = 1;
     },1500);
 }
@@ -57,7 +57,7 @@ function takethischina(){
     responsiveVoice.setDefaultVoice("Chinese Female")
     responsiveVoice.speak("拿著它");
     setTimeout(function (){
-        window.location = "list.html";
+        window.location = "list";
         localStorage.action = 1;
     },1500);
 }
@@ -67,7 +67,7 @@ function takeouteng(){
     responsiveVoice.setDefaultVoice("UK English Female")
     responsiveVoice.speak("take out");
     setTimeout(function (){
-        window.location = "list.html";
+        window.location = "list";
         localStorage.action = 2;
     },1500);
 }
@@ -76,7 +76,7 @@ function takeoutthai(){
     responsiveVoice.setDefaultVoice("Thai Female")
     responsiveVoice.speak("ซื้อกลับบ้านค่ะ");
     setTimeout(function (){
-        window.location = "list.html";
+        window.location = "list";
         localStorage.action = 2;
     },1500);
 }
@@ -85,7 +85,7 @@ function takeoutchina(){
     responsiveVoice.setDefaultVoice("Chinese Female")
     responsiveVoice.speak("取出");
     setTimeout(function (){
-        window.location = "list.html";
+        window.location = "list";
         localStorage.action = 2;
     },1500);
 }

@@ -14,9 +14,6 @@
     <div style="clear: both;"></div>
 
 </div>
-<div id="app">
-    {{message}}
-</div>
 
 <script>
     new Vue({

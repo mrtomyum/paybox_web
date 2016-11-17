@@ -37,3 +37,12 @@ func (i *Item) GetIndex(menuId int64) ([]*Item, error) {
 	}
 	return items, nil
 }
+
+func (i *Item) FindById(id int64) (items []*Item, err error) {
+	sql := `SELECT * FROM item WHERE menu_id = ?`
+	err = db.Select(&items, sql, id)
+	if err != nil {
+		return nil, err
+	}
+	return items, nil
+}
