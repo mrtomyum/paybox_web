@@ -68,6 +68,5 @@
 </div>
 {{end}}
 
-<!--</div> -->
 {{template "footer.tpl" .}}
 {{end}}

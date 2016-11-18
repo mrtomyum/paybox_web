@@ -13,7 +13,7 @@ func main() {
 	r.Static("/css", "./view/public/css")
 	r.Static("/img", "./view/public/img")
 	app := c.Router(r)
-	app.Run(":8080")
+	app.Run(":8888")
 }
 
 
