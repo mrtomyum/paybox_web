@@ -569,7 +569,13 @@
       <option name="project" value="LOCAL" />
       <updated>1479621570487</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="go back to docker golang:1.7-onbuild">
+      <created>1479621739509</created>
+      <option name="number" value="00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1479621739510</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TodoView">
