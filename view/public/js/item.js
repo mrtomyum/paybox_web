@@ -41,7 +41,11 @@ function item(lang,menuId){
 					for(var i = 0; i < listitem.length; i++){
 						var size = listitem[i].size;
 						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
+											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
+											'`+size[0].name+'/'+size[0].price+`'
+											,'`+size[1].name+'/'+size[1].price+`'
+											,'`+size[2].name+'/'+size[2].price+`')">
 											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
@@ -61,7 +65,11 @@ function item(lang,menuId){
 					for(var i = 0; i < listitem.length; i++){
 						var size = listitem[i].size;
 						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
+											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
+											'`+size[0].name+'/'+size[0].price+`'
+											,'`+size[1].name+'/'+size[1].price+`'
+											,'`+size[2].name+'/'+size[2].price+`')">
 											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
@@ -81,7 +89,11 @@ function item(lang,menuId){
 					for(var i = 0; i < listitem.length; i++){
 						var size = listitem[i].size;
 						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
+											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
+											'`+size[0].name+'/'+size[0].price+`'
+											,'`+size[1].name+'/'+size[1].price+`'
+											,'`+size[2].name+'/'+size[2].price+`')">
 											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
@@ -101,7 +113,11 @@ function item(lang,menuId){
 					for(var i = 0; i < listitem.length; i++){
 						var size = listitem[i].size;
 						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
+											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
+											'`+size[0].name+'/'+size[0].price+`'
+											,'`+size[1].name+'/'+size[1].price+`'
+											,'`+size[2].name+'/'+size[2].price+`')">
 											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
@@ -121,7 +137,11 @@ function item(lang,menuId){
 					for(var i = 0; i < listitem.length; i++){
 						var size = listitem[i].size;
 						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
+											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
+											'`+size[0].name+'/'+size[0].price+`'
+											,'`+size[1].name+'/'+size[1].price+`'
+											,'`+size[2].name+'/'+size[2].price+`')">
 											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
@@ -141,7 +161,11 @@ function item(lang,menuId){
 					for(var i = 0; i < listitem.length; i++){
 						var size = listitem[i].size;
 						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
+											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
+											'`+size[0].name+'/'+size[0].price+`'
+											,'`+size[1].name+'/'+size[1].price+`'
+											,'`+size[2].name+'/'+size[2].price+`')">
 											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
@@ -160,11 +184,59 @@ function item(lang,menuId){
 }
 
 
-function active_size(id) {
+function active_size(id,price) {
  		$("h1").removeClass("acsize");
 		$("#"+id).addClass("acsize");
+		var qty = document.getElementById("mo_qty").value;
+		var totalPrice = qty*price;
+
+		console.log("ราคา " + totalPrice);
+		document.getElementById("mo-pri").value = totalPrice+` ฿`;
 		//alert('$("#'+id+'").addClass("acsize")');
 }
+
+function addQty(){
+	var qty = document.getElementById("mo_qty").value;
+	var pri = document.getElementById("mo-pri").value;
+
+	var price = "";
+	price = pri.split(" ");
+	price = price[0];
+
+	var size_pri = parseInt(price)/parseInt(qty);
+
+	var addQty = 0;
+	if(qty>=1){
+		addQty = parseInt(qty)+1;
+	}
+	document.getElementById("mo_qty").value = addQty;
+	document.getElementById("mo-pri").value = size_pri*addQty+` ฿`;
+}
+
+function removeQty(){
+	var qty = document.getElementById("mo_qty").value;
+	var pri = document.getElementById("mo-pri").value;
+
+	var price = "";
+	price = pri.split(" ");
+	price = price[0];
+
+	var size_pri = parseInt(price)/parseInt(qty);
+
+	var addQty = 0;
+	if(qty>=1){
+		addQty = qty-1;
+	}
+
+	if(addQty<1){
+		document.getElementById("mo_qty").value = 1;
+		document.getElementById("mo-pri").value = size_pri*1+` ฿`;
+	}else{		
+		document.getElementById("mo_qty").value = addQty;
+		document.getElementById("mo-pri").value = size_pri*addQty+` ฿`;
+	}
+}
+
 
 function active(id) {
 	if(localStorage.getID!=null){
@@ -196,9 +268,53 @@ function active(id) {
 	item(localStorage.language,localStorage.getID);
 }
 
-function showmodal(){
+function showmodal(id,name,img,s,m,l){
 	$("h1").removeClass("acsize");
 	$("#s").addClass("acsize");
+
+	//console.log(id+", "+name+", "+img+", "+s+", "+m+", "+l);
+	
+
+	var Mitem = id+` : `+name;
+	var Mimg = `<img class="crop" src="`+img+`" onError="this.src = '/img/noimg.jpg'" width="100%"/>`;
+
+	var s = s.split("/");
+	var sName = s[0];
+	var sPrice = s[1];
+
+	var m = m.split("/");
+	var mName = m[0];
+	var mPrice = m[1];
+
+	var l = l.split("/");
+	var lName = l[0];
+	var lPrice = l[1];
+	var size = "";
+
+		if( sPrice != "0"){
+		size += `<a href="#"><h1 id="`+sName+`" onclick="active_size('`+sName+`','`+sPrice+`')" class="acsize">
+					<img src="/img/s.png" class="img-size"><b>Small </b></h1>
+				</a>`;
+		}
+
+		if( mPrice != "0"){
+   		size += `<a href="#"><h1 id="`+mName+`" onclick="active_size('`+mName+`','`+mPrice+`')">
+          			<img src="/img/m.png" class="img-size"><b>Medium </b></h1>
+          		</a>`;
+        }
+
+        if( lPrice != "0"){
+        size += `<a href="#"><h1 id="`+lName+`" onclick="active_size('`+lName+`','`+lPrice+`')">
+          			<img src="/img/l.png" class="img-size"><b>large </b></h1>
+          		</a>`;
+        }
+    var totalPrice = 1*sPrice;
+    document.getElementById("mo_qty").value = 1;
+	document.getElementById("Mitem_title").innerHTML = Mitem;
+	document.getElementById("Mimg").innerHTML = Mimg;
+	document.getElementById("menusize").innerHTML = size;
+	document.getElementById("mo-pri").value = totalPrice+` ฿`;
+
 	$('#myModal').show();
 }
 

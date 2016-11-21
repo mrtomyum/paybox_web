@@ -224,33 +224,27 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-name"><h1 class="modal-title">ItemCode : ItemName</h1></div>
+                <div class="modal-name"><h1 class="modal-title"><span id="Mitem_title"></span></h1></div>
             </div>
             <div class="modal-body">
                 <div id="modal-left">
                     <div id="modal-img">
-                        <div>
-                            <img class="crop" src="/img/capu.jpg" onError="this.src = '/img/noimg.jpg'"
-                                 width="100%"/>
+                        <div id="Mimg">
+
                         </div>
                     </div>
                     <div id="modal-price">
-                        <input type="text" id="mo-pri" name="mo-pri" value="35 ฿" readonly>
+                        <input type="text" id="mo-pri" name="mo-pri" readonly>
                     </div>
                 </div>
                 <div id="modal-right">
                     <div id="modal-qty">
-                        <img src="/img/delete.png"><input type="text" id="mo_qty" value="1" readonly><img
-                            src="/img/add.png">
+                        <a href="#"><img src="/img/delete.png" onclick="removeQty()"></a>
+                        <input type="text" id="mo_qty" value="1" readonly>
+                        <a href="#"><img src="/img/add.png" onclick="addQty()"></a>
                     </div>
                     <div id="modal-size">
-                        <a href="#"><h1 id="s" onclick="active_size('s')" class="acsize"><img src="/img/s.png"
-                                                                                              class="img-size"><b>Small </b>
-                        </h1></a>
-                        <a href="#"><h1 id="m" onclick="active_size('m')"><img src="/img/m.png" class="img-size"><b>Medium </b>
-                        </h1></a>
-                        <a href="#"><h1 id="l" onclick="active_size('l')"><img src="/img/l.png" class="img-size"><b>large </b>
-                        </h1></a>
+                        <div id="menusize"></div>
                     </div>
                     <div id="modal-submit">
                         <a href="#"><img src="/img/ok.png" style="margin-left: 0;"></a>
