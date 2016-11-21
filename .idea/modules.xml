@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/paybox.iml" filepath="$PROJECT_DIR$/paybox.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/paybox_terminal.iml" filepath="$PROJECT_DIR$/.idea/paybox_terminal.iml" />
-      <module fileurl="file://$PROJECT_DIR$/paybox_terminal.iml" filepath="$PROJECT_DIR$/paybox_terminal.iml" />
     </modules>
   </component>
 </project>
