@@ -9,6 +9,7 @@ import (
 func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("view/**/*.tpl")
+	r.Static("/html", "./view/html")
 	r.Static("/public", "./view/public")
 	app := c.Router(r)
 	app.Run(":8080")
