@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	//"github.com/gin-gonic/contrib/static"
+	"github.com/gin-gonic/contrib/static"
 	"net/http"
 	"github.com/gorilla/websocket"
 	"fmt"
@@ -14,11 +14,19 @@ var wsUpgrader = websocket.Upgrader{
 }
 
 func Router(r *gin.Engine) *gin.Engine {
-	r.GET("/", GetIndex)
-	//r.Use(static.Serve("/", static.LocalFile("/view/html", true)))
-	r.GET("/item/:id", GetItemByMenu)
+	r.LoadHTMLGlob("view/**/*.tpl")
+	r.Static("/html", "./view/html")
+	r.Static("/public", "./view/public")
+	r.Static("/js", "./view/public/js")
+	r.Static("/css", "./view/public/css")
+	r.Static("/img", "./view/public/img")
+	r.Static("/json", "./view/public/json")
+
+	//r.GET("/", GetIndex)
+	r.Use(static.Serve("/", static.LocalFile("view", true)))
 	r.GET("/menu", GetMenu)
 	r.GET("/menu/:id/", GetItemByMenuId)
+	r.GET("/item/:id", GetItemByMenu)
 	r.GET("/dev", GetDeviceIndexPage)
 
 	r.GET("/view", func(c *gin.Context) {

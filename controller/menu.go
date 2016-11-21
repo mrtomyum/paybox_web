@@ -18,7 +18,7 @@ func GetMenu(ctx *gin.Context) {
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
-	ctx.HTML(http.StatusOK, "list", menus)
+	ctx.JSON(http.StatusOK, menus)
 
 }
 
@@ -30,5 +30,5 @@ func GetItemByMenuId(ctx *gin.Context) {
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
-	ctx.HTML(http.StatusOK, "items", items)
+	ctx.JSON(http.StatusOK, items)
 }

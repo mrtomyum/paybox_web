@@ -1,56 +1,97 @@
-data = `[
 {
-"langId": "1",
-"langName": "UK English Female",
-"menu":[
-{"id": "1", "name": "Hot", "img": "img/hot_list.png"
-},
-{
-"id": "2", "name": "Ice", "img": "img/ice_list.png"
-},
-{
-"id": "3", "name": "Frapee", "img": "img/Smoothies.png"},
-{
-"id": "4", "name": "Kids", "img": "img/kids_list.png"
-},
-{
-"id": "5", "name": "Snake", "img": "img/snack_list.png"}
-]
-},
-{
-"langId": "2",
-"langName": "Thai Female",
-"menu":[
-{"id": "1", "name": "ร้อน", "img": "img/hot_list.png"
-},
-{
-"id": "2", "name": "เย็น", "img": "img/ice_list.png"
-},
-{
-"id": "3", "name": "ปั่น", "img": "img/Smoothies.png"},
-{
-"id": "4", "name": "สำหรับเด็ก", "img": "img/kids_list.png"
-},
-{
-"id": "5", "name": "อาหารว่าง", "img": "img/snack_list.png"}
-]
-},
-{
-"langId": "3",
-"langName": "Chinese Female",
-"menu":[
-{"id": "1", "name": "熱飲", "img": "img/hot_list.png"
-},
-{
-"id": "2", "name": "冷飲", "img": "img/ice_list.png"
-},
-{
-"id": "3", "name": "冰沙", "img": "img/Smoothies.png"},
-{
-"id": "4", "name": "飲料為孩子", "img": "img/kids_list.png"
-},
-{
-"id": "5", "name": "小吃", "img": "img/snack_list.png"}
-]
+  "data": [
+    {
+      "langId": "1",
+      "langName": "UK English Female",
+      "menu": [
+        {
+          "id": "1",
+          "name": "Hot",
+          "img": "img/hot_list.png"
+        },
+        {
+          "id": "2",
+          "name": "Ice",
+          "img": "img/ice_list.png"
+        },
+        {
+          "id": "3",
+          "name": "Freppe",
+          "img": "img/Smoothies.png"
+        },
+        {
+          "id": "4",
+          "name": "Kids",
+          "img": "img/kids_list.png"
+        },
+        {
+          "id": "5",
+          "name": "Snake",
+          "img": "img/snack_list.png"
+        }
+      ]
+    },
+    {
+      "langId": "2",
+      "langName": "Thai Female",
+      "menu": [
+        {
+          "id": "1",
+          "name": "ร้อน",
+          "img": "img/hot_list.png"
+        },
+        {
+          "id": "2",
+          "name": "เย็น",
+          "img": "img/ice_list.png"
+        },
+        {
+          "id": "3",
+          "name": "ปั่น",
+          "img": "img/Smoothies.png"
+        },
+        {
+          "id": "4",
+          "name": "สำหรับเด็ก",
+          "img": "img/kids_list.png"
+        },
+        {
+          "id": "5",
+          "name": "อาหารว่าง",
+          "img": "img/snack_list.png"
+        }
+      ]
+    },
+    {
+      "langId": "3",
+      "langName": "Chinese Female",
+      "menu": [
+        {
+          "id": "1",
+          "name": "熱飲",
+          "img": "img/hot_list.png"
+        },
+        {
+          "id": "2",
+          "name": "冷飲",
+          "img": "img/ice_list.png"
+        },
+        {
+          "id": "3",
+          "name": "冰沙",
+          "img": "img/Smoothies.png"
+        },
+        {
+          "id": "4",
+          "name": "飲料為孩子",
+          "img": "img/kids_list.png"
+        },
+        {
+          "id": "5",
+          "name": "小吃",
+          "img": "img/snack_list.png"
+        }
+      ]
+    }
+  ]
 }
-]`;
