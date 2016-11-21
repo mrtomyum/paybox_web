@@ -20,14 +20,14 @@ type Item struct {
 	NameEn  string  `json:"name_en,omitempty" db:"name_en"`
 	NameCn  string  `json:"name_cn,omitempty" db:"name_cn"`
 	Unit    string  `json:"unit"`
-	UnitEn  string  `json:"unit_en"`
-	UnitCn  string  `json:"unit_cn"`
-	Price   float32 `json:"price"`
-	PriceS  float32 `json:"price_s" db:"price_s"`
-	PriceM  float32 `json:"price_m" db:"price_m"`
-	PriceL  float32 `json:"price_l" db:"price_l"`
-	MenuId  uint64  `json:"menu_id" db:"menu_id"`
-	MenuSeq int     `json:"menu_seq" db:"menu_seq"`
+	UnitEn  string  `json:"unit_en,omitempty"`
+	UnitCn  string  `json:"unit_cn,omitempty"`
+	//Price   float32 `json:"price"`
+	//PriceS  float32 `json:"price_s" db:"price_s"`
+	//PriceM  float32 `json:"price_m" db:"price_m"`
+	//PriceL  float32 `json:"price_l" db:"price_l"`
+	MenuId  uint64  `json:"menu_id,omitempty" db:"menu_id"`
+	MenuSeq int     `json:"menu_seq,omitempty" db:"menu_seq"`
 	Image   string  `json:"image" db:"image"`
 	Sizes   []*Size `json:"sizes"`
 }
@@ -55,11 +55,11 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 		items := []*Item{}
 		switch l.Id {
 		case 1:
-			sql = `SELECT id, name, unit, image FROM item WHERE menu_id = ?`
+			sql = `SELECT id, name, unit, menu_seq, image FROM item WHERE menu_id = ?`
 		case 2:
-			sql = `SELECT id, name_en as name, unit_en as unit, image FROM item WHERE menu_id = ?`
+			sql = `SELECT id, name_en as name, unit_en as unit, menu_seq, image FROM item WHERE menu_id = ?`
 		case 3:
-			sql = `SELECT id, name_cn as name, unit_cn as unit, image FROM item WHERE menu_id = ?`
+			sql = `SELECT id, name_cn as name, unit_cn as unit, menu_seq, image FROM item WHERE menu_id = ?`
 		}
 		log.Println("case:", l.Id, l.Name)
 		err := db.Select(&items, sql, id)
