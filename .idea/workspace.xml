@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="Add &quot;/view/html/&quot; for static with js.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/router.go" afterPath="$PROJECT_DIR$/controller/router.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.go" afterPath="$PROJECT_DIR$/main.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/html/menu.html" afterPath="$PROJECT_DIR$/view/html/menu.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/js/index.js" afterPath="$PROJECT_DIR$/view/public/js/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/template/index.tpl" afterPath="$PROJECT_DIR$/view/template/index.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/js/menu.js" afterPath="$PROJECT_DIR$/view/public/js/menu.js" />
     </list>
     <list id="5b54e2c5-fc8a-4659-b016-2967afcff956" name="New changelist" comment="" />
     <ignored path="paybox_terminal.iws" />
@@ -46,11 +44,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
+          <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main.go">
               <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="menu.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/view/public/js/menu.js">
+              <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.5185185">
-                  <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+                  <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
                   <folding />
                 </state>
               </provider>
@@ -110,11 +118,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/view/public/js/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-45.11111">
-                  <caret line="87" column="42" selection-start-line="87" selection-start-column="42" selection-end-line="87" selection-end-column="42" />
+                <state vertical-scroll-proportion="2.0681818">
+                  <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
                   <folding />
                 </state>
               </provider>
@@ -133,18 +141,18 @@
           <file leaf-file-name="item.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/view/html/item.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-0.0">
-                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <state vertical-scroll-proportion="-3.0434783">
+                  <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="menu.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="menu.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/view/html/menu.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5235602">
-                  <caret line="85" column="10" selection-start-line="85" selection-start-column="10" selection-end-line="85" selection-end-column="10" />
+                <state vertical-scroll-proportion="-7.304348">
+                  <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -186,7 +194,6 @@
         <option value="$PROJECT_DIR$/model/device.go" />
         <option value="$PROJECT_DIR$/go-wrapper" />
         <option value="$PROJECT_DIR$/no-pic.patch" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/controller/order.go" />
         <option value="$PROJECT_DIR$/model/menu.go" />
         <option value="$PROJECT_DIR$/model/item.go" />
@@ -208,9 +215,11 @@
         <option value="$PROJECT_DIR$/view/html/index.html" />
         <option value="$PROJECT_DIR$/controller/router.go" />
         <option value="$PROJECT_DIR$/view/template/index.tpl" />
-        <option value="$PROJECT_DIR$/view/public/js/index.js" />
         <option value="$PROJECT_DIR$/view/html/menu.html" />
         <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/view/public/js/index.js" />
+        <option value="$PROJECT_DIR$/view/public/js/menu.js" />
       </list>
     </option>
   </component>
@@ -288,10 +297,6 @@
               <option name="myItemId" value="view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="template" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -308,10 +313,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="json" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -334,60 +335,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paybox_terminal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paybox_terminal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paybox_terminal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paybox_terminal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paybox_terminal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paybox_terminal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="html" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -459,11 +406,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/main.go</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/html/index.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/css/main.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/css/select_main.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/js/index.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/js/item.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -471,16 +415,7 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/html/item.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/html/menu.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/css/main480.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/css/menu.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/json/menu1.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/json/menu2.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/json/menu3.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/json/menu4.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/json/menu5.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/json/menu_all.json</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/js/menu.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -488,7 +423,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="true" />
           <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view/public/img/capu.jpg</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Restored" />
@@ -1008,7 +942,13 @@
       <option name="project" value="LOCAL" />
       <updated>1479703746476</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Add &quot;/view/html/&quot; for static with js.">
+      <created>1479705998587</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1479705998587</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1161,7 +1101,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
-          <folding />
+          <folding>
+            <element signature="e#20#150#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1263,14 +1205,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/html/item.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/template/menus.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.18716578">
@@ -1314,8 +1248,10 @@
     <entry file="file://$PROJECT_DIR$/controller/router.go">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
+          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+          <folding>
+            <element signature="e#20#150#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1343,26 +1279,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/public/js/index.js">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-45.11111">
-          <caret line="87" column="42" selection-start-line="87" selection-start-column="42" selection-end-line="87" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.57377046">
+          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5185185">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/html/menu.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5235602">
-          <caret line="85" column="10" selection-start-line="85" selection-start-column="10" selection-end-line="85" selection-end-column="10" />
+        <state vertical-scroll-proportion="-7.304348">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/html/item.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.0434783">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/public/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.0681818">
+          <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/public/js/menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5185185">
+          <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
           <folding />
         </state>
       </provider>

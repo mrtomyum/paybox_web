@@ -20,7 +20,7 @@ function detailmenu(id){
     for (var i = 0; i < listmenu.length; i++) {
       menu += `<a href="javascript:active_menu(`+listmenu[i].id+`,'`+listmenu[i].name+`','`+mydata[id-1].langName+`');">
                     <div class="block-2">            
-                      <img src="`+listmenu[i].img+`" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                      <img src="/`+listmenu[i].img+`" onError="this.src = 'img/noimg.jpg'" class="block-img">
                         <h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>`+listmenu[i].name+`</b></div></h5>
                     </div> 
                 </a>`;
