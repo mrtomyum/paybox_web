@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	//"github.com/gin-gonic/contrib/static"
 	"net/http"
 	"github.com/gorilla/websocket"
 	"fmt"
@@ -14,6 +15,7 @@ var wsUpgrader = websocket.Upgrader{
 
 func Router(r *gin.Engine) *gin.Engine {
 	r.GET("/", GetIndex)
+	//r.Use(static.Serve("/", static.LocalFile("/view/html", true)))
 	r.GET("/item/:id", GetItemByMenu)
 	r.GET("/menu", GetMenu)
 	r.GET("/menu/:id/", GetItemByMenuId)

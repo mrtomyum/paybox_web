@@ -11,8 +11,12 @@ func main() {
 	r.LoadHTMLGlob("view/**/*.tpl")
 	r.Static("/html", "./view/html")
 	r.Static("/public", "./view/public")
+	r.Static("/js", "./view/public/js")
+	r.Static("/css", "./view/public/css")
+	r.Static("/img", "./view/public/img")
+	r.Static("/json", "./view/public/json")
 	app := c.Router(r)
-	app.Run(":8080")
+	app.Run(":8888")
 }
 
 
