@@ -8,6 +8,7 @@ import (
 func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("view/**/*.tpl")
+	r.Static("/html", "./view/html")
 	r.Static("/public", "./view/public")
 	r.Static("/js", "./view/public/js")
 	r.Static("/css", "./view/public/css")
