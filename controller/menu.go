@@ -26,9 +26,9 @@ func GetItemByMenuId(ctx *gin.Context) {
 	idStr := ctx.Param("id")
 	id, _ := strconv.ParseInt(idStr, 10, 64)
 	var i model.Item
-	items, err := i.FindById(id)
+	langs, err := i.FindById(id)
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
-	ctx.JSON(http.StatusOK, items)
+	ctx.JSON(http.StatusOK, langs)
 }

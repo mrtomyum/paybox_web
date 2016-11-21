@@ -1,275 +1,419 @@
-menu_hot = `[
-{
-"langId": "1",
-"langName": "UK English Female",
-"menuId": "1",
-"itemList":[
-{
-"id": "1",
-"name": "espresso",
-"img": "img/espresso_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
+[
+  {
+    "lang_id": "1",
+    "lang_name": "UK English Female",
+    "menu_id": "1",
+    "item": [
+      {
+        "id": "1",
+        "name": "espresso",
+        "img": "img/espresso_hot.jpg",
+        "size": [
+          {
+            "id": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "id": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "id": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "name": "Cappuccino",
+        "img": "img/cappuccino_hot.jpg",
+        "size": [
+          {
+            "id": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "id": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "id": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "name": "Latte",
+        "img": "img/Latte_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "name": "mocha",
+        "img": "img/mocha_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "name": "cocoa",
+        "img": "img/cocoa_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "name": "Vanilla Latte",
+        "img": "img/Vanilla_Latte_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "langId": "2",
+    "langName": "Thai Female",
+    "menuId": "1",
+    "itemList": [
+      {
+        "id": "1",
+        "name": "เอสเพรสโซ่",
+        "img": "img/espresso_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "name": "คาปูชิโน่",
+        "img": "img/cappuccino_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "name": "ลาเต้",
+        "img": "img/Latte_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "name": "มอคค่า",
+        "img": "img/mocha_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "name": "โกโก้",
+        "img": "img/cocoa_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "name": "วนิลาลาเต้",
+        "img": "img/Vanilla_Latte_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "langId": "3",
+    "langName": "Chinese Female",
+    "menuId": "1",
+    "itemList": [
+      {
+        "id": "1",
+        "name": "濃咖啡",
+        "img": "img/espresso_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "name": "熱奶咖啡",
+        "img": "img/cappuccino_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "name": "拿鐵",
+        "img": "img/Latte_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "name": "摩卡",
+        "img": "img/mocha_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "name": "可可",
+        "img": "img/cocoa_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "name": "香草拿鐵",
+        "img": "img/Vanilla_Latte_hot.jpg",
+        "size": [
+          {
+            "sizeId": "1",
+            "name": "s",
+            "price": "30"
+          },
+          {
+            "sizeId": "2",
+            "name": "m",
+            "price": "35"
+          },
+          {
+            "sizeId": "3",
+            "name": "l",
+            "price": "40"
+          }
+        ]
+      }
+    ]
+  }
 ]
-},
-{
-"id": "2",
-"name": "Cappuccino",
-"img": "img/cappuccino_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "3",
-"name": "Latte",
-"img": "img/Latte_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "4",
-"name": "mocha",
-"img": "img/mocha_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "5",
-"name": "cocoa",
-"img": "img/cocoa_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "6",
-"name": "Vanilla Latte",
-"img": "img/Vanilla_Latte_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-}
-]
-},
-{
-"langId": "2",
-"langName": "Thai Female",
-"menuId": "1",
-"itemList":[
-{
-"id": "1",
-"name": "เอสเพรสโซ่",
-"img": "img/espresso_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "2",
-"name": "คาปูชิโน่",
-"img": "img/cappuccino_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "3",
-"name": "ลาเต้",
-"img": "img/Latte_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "4",
-"name": "มอคค่า",
-"img": "img/mocha_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "5",
-"name": "โกโก้",
-"img": "img/cocoa_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "6",
-"name": "วนิลาลาเต้",
-"img": "img/Vanilla_Latte_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-}
-]
-},
-{
-"langId": "3",
-"langName": "Chinese Female",
-"menuId": "1",
-"itemList":[
-{
-"id": "1",
-"name": "濃咖啡",
-"img": "img/espresso_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "2",
-"name": "熱奶咖啡",
-"img": "img/cappuccino_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "3",
-"name": "拿鐵",
-"img": "img/Latte_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "4",
-"name": "摩卡",
-"img": "img/mocha_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "5",
-"name": "可可",
-"img": "img/cocoa_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-},
-{
-"id": "6",
-"name": "香草拿鐵",
-"img": "img/Vanilla_Latte_hot.jpg",
-"size":[
-{"sizeId": "1", "name": "s", "price": "30"
-},
-{
-"sizeId": "2", "name": "m", "price": "35"
-},
-{
-"sizeId": "3", "name": "l", "price": "40"}
-]
-}
-]
-}
-]`;

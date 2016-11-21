@@ -3,9 +3,11 @@ package model
 import "log"
 
 type Lang struct {
-	Id   int     `json:"lang_id"`
-	Name string  `json:"lang_name"`
-	Menu []*Menu `json:"menu"`
+	Id     int     `json:"lang_id"`
+	Name   string  `json:"lang_name"`
+	Menus  []*Menu `json:"menus,omitempty"`
+	MenuId int     `json:"menu_id,omitempty"`
+	Items  []*Item `json:"items,omitempty"`
 }
 
 type Menu struct {
@@ -43,7 +45,7 @@ func (m *Menu) Index() ([]*Lang, error) {
 		if err != nil {
 			return nil, err
 		}
-		l.Menu = menus
+		l.Menus = menus
 		log.Println(l)
 	}
 	log.Println(langs)
