@@ -14,11 +14,11 @@ func GetIndex(ctx *gin.Context) {
 
 func GetMenu(ctx *gin.Context) {
 	var m model.Menu
-	menus, err := m.Index()
+	langs, err := m.Index()
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
-	ctx.JSON(http.StatusOK, menus)
+	ctx.JSON(http.StatusOK, langs)
 
 }
 

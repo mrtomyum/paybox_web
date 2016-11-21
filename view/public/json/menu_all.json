@@ -1,8 +1,8 @@
 {
   "data": [
     {
-      "langId": "1",
-      "langName": "UK English Female",
+      "lang_id": "1",
+      "lang_name": "UK English Female",
       "menu": [
         {
           "id": "1",
