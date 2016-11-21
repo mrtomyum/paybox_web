@@ -42,7 +42,7 @@ function item(lang,menuId){
 						var size = listitem[i].size;
 						item += `
 										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-											<img src="`+listitem[i].img+`" onError="this.src = 'img/noimg.jpg'" class="block-img">
+											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
 										</div></a>
@@ -62,7 +62,7 @@ function item(lang,menuId){
 						var size = listitem[i].size;
 						item += `
 										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-											<img src="`+listitem[i].img+`" onError="this.src = 'img/noimg.jpg'" class="block-img">
+											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
 										</div></a>
@@ -82,7 +82,7 @@ function item(lang,menuId){
 						var size = listitem[i].size;
 						item += `
 										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-											<img src="`+listitem[i].img+`" onError="this.src = 'img/noimg.jpg'" class="block-img">
+											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
 										</div></a>
@@ -102,7 +102,7 @@ function item(lang,menuId){
 						var size = listitem[i].size;
 						item += `
 										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-											<img src="`+listitem[i].img+`" onError="this.src = 'img/noimg.jpg'" class="block-img">
+											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
 										</div></a>
@@ -122,7 +122,7 @@ function item(lang,menuId){
 						var size = listitem[i].size;
 						item += `
 										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-											<img src="`+listitem[i].img+`" onError="this.src = 'img/noimg.jpg'" class="block-img">
+											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
 										</div></a>
@@ -142,7 +142,7 @@ function item(lang,menuId){
 						var size = listitem[i].size;
 						item += `
 										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
-											<img src="`+listitem[i].img+`" onError="this.src = 'img/noimg.jpg'" class="block-img">
+											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
 									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
 									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
 										</div></a>
