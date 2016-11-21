@@ -39,7 +39,7 @@ function active_menu(menuId,mName,lName){
     localStorage.menuId = menuId;
     menu_say(mName,lName);
     setTimeout(function(){
-      window.location = "/html/item.html";
+      window.location = "item.html";
     },2000);
     
 }
