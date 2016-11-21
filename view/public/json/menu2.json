@@ -1,0 +1,275 @@
+menu_ice = `[
+{
+"langId": "1",
+"langName": "en",
+"menuId": "2",
+"itemList":[
+{
+"id": "1",
+"name": "espresso",
+"img": "img/espresso_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "2",
+"name": "Cappuccino",
+"img": "img/cappuccino_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "3",
+"name": "Latte",
+"img": "img/Latte_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "4",
+"name": "mocha",
+"img": "img/mocha_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "5",
+"name": "cocoa",
+"img": "img/cocoa_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "6",
+"name": "Vanilla Latte",
+"img": "img/Vanilla_Latte_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+}
+]
+},
+{
+"langId": "2",
+"langName": "th",
+"menuId": "2",
+"itemList":[
+{
+"id": "1",
+"name": "เอสเพรสโซ่",
+"img": "img/espresso_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "2",
+"name": "คาปูชิโน่",
+"img": "img/cappuccino_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "3",
+"name": "ลาเต้",
+"img": "img/Latte_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "4",
+"name": "มอคค่า",
+"img": "img/mocha_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "5",
+"name": "โกโก้",
+"img": "img/cocoa_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "6",
+"name": "วนิลาลาเต้",
+"img": "img/Vanilla_Latte_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+}
+]
+},
+{
+"langId": "3",
+"langName": "ch",
+"menuId": "2",
+"itemList":[
+{
+"id": "1",
+"name": "濃咖啡",
+"img": "img/espresso_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "2",
+"name": "熱奶咖啡",
+"img": "img/cappuccino_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "3",
+"name": "拿鐵",
+"img": "img/Latte_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "4",
+"name": "摩卡",
+"img": "img/mocha_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "5",
+"name": "可可",
+"img": "img/cocoa_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+},
+{
+"id": "6",
+"name": "香草拿鐵",
+"img": "img/Vanilla_Latte_ice.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "35"
+},
+{
+"sizeId": "2", "name": "m", "price": "40"
+},
+{
+"sizeId": "3", "name": "l", "price": "45"}
+]
+}
+]
+}
+]`;

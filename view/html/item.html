@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>terminal order</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-1.11.3.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/main480.css">
+</head>
+<body>
+<div id="cleft">
+    <div id="contentleft">
+
+        <div class="logo">
+            <img src="img/logo.png">
+        </div>
+        <div id="l480" style="width: 100%; clear: both; padding: 2% 0 5% 0; height: 50px;">
+            <div style="width: 50%; height: 40px; padding-left: 2%; float: left;">
+                <img src="../img/logo.png" style="width: 50%;">
+            </div>
+            <div style="width: 20%; color: #fff; float: left; line-height:11px; text-align: right; padding-right: 2%;">
+                <h3 style="font-size: 18px; margin: 0; padding: 0;">language</h3>
+                <span>เวลา 08.00 น.</span>
+                <span>version 0.1</span>
+            </div>
+            <div style="width: 30%; float: left;">
+                <a href="javascript:onsayeng(1)"><img src="../img/uk-flag.png" id="l1" class="lang"></a>
+                <a href="javascript:onsaythai(2)"><img src="../img/thaiflag.png" id="l2" class="lang"></a>
+                <a href="javascript:onsaychina(3)"><img src="../img/China.png" id="l3" class="lang"></a>
+            </div>
+        </div>
+
+        <div class="status"><h4>Status : take this</h4></div>
+        <div class="order">
+            <h2>รายการ</h2>
+            <div class="scroll">
+                <label class="orderlist">
+                    <div class="ordername"> คาปูชิโน S</div>
+                    <div class="orderqty">1 แก้ว</div>
+                    <div class="orderprice">35 ฿</div>
+                    <div class="ordercancel">
+                        <button class="btn btn-danger btn-xs" style="padding-left: 22.5%; padding-right: 22.5%;">-
+                        </button>
+                    </div>
+                </label>
+
+                <label class="orderlist">
+                    <div class="ordername"> คาปูชิโน S</div>
+                    <div class="orderqty">1 แก้ว</div>
+                    <div class="orderprice">35 ฿</div>
+                    <div class="ordercancel">
+                        <button class="btn btn-danger btn-xs" style="padding-left: 22.5%; padding-right: 22.5%;">-
+                        </button>
+                    </div>
+                </label>
+
+                <label class="orderlist">
+                    <div class="ordername"> คาปูชิโน S</div>
+                    <div class="orderqty">1 แก้ว</div>
+                    <div class="orderprice">35 ฿</div>
+                    <div class="ordercancel">
+                        <button class="btn btn-danger btn-xs" style="padding-left: 22.5%; padding-right: 22.5%;">-
+                        </button>
+                    </div>
+                </label>
+
+                <label class="orderlist">
+                    <div class="ordername"> คาปูชิโน S</div>
+                    <div class="orderqty">1 แก้ว</div>
+                    <div class="orderprice">35 ฿</div>
+                    <div class="ordercancel">
+                        <button class="btn btn-danger btn-xs" style="padding-left: 22.5%; padding-right: 22.5%;">-
+                        </button>
+                    </div>
+                </label>
+
+                <label class="orderlist">
+                    <div class="ordername"> คาปูชิโน S</div>
+                    <div class="orderqty">1 แก้ว</div>
+                    <div class="orderprice">35 ฿</div>
+                    <div class="ordercancel">
+                        <button class="btn btn-danger btn-xs" style="padding-left: 22.5%; padding-right: 22.5%;">-
+                        </button>
+                    </div>
+                </label>
+
+                <label class="orderlist">
+                    <div class="ordername"> คาปูชิโน S</div>
+                    <div class="orderqty">1 แก้ว</div>
+                    <div class="orderprice">35 ฿</div>
+                    <div class="ordercancel">
+                        <button class="btn btn-danger btn-xs" style="padding-left: 22.5%; padding-right: 22.5%;">-
+                        </button>
+                    </div>
+                </label>
+
+            </div> <!-- scroll -->
+
+            <div id="price1"><h4>ราคาทั้งหมด
+                <input type="number" name="pri1" id="pri1" readonly> บาท</h4>
+            </div>
+            <div id="price2"><h4 style="padding-left: 4%;">จำนวนเงิน
+                <input type="number" name="pri2" id="pri2" readonly> บาท</h4>
+            </div>
+
+            <div id="sub">
+                <a href="#">
+                    <button class="ok">
+                        <b>พิมพ์ใบเสร็จ</b>
+                    </button>
+                </a>
+                <a href="index.html">
+                    <button class="cancel">
+                        <b>ยกเลิก</b>
+                    </button>
+                </a>
+            </div>
+        </div> <!-- order -->
+
+    </div><!-- contentleft -->
+</div><!-- cleft --><br>
+<div id="chead">
+    <div class="contenthead"></div>
+    <div class="language">
+        <div id="lang_detail">
+            <h3>language</h3>
+            <span>เวลา 08.00 น.</span>
+            <span>version 0.1</span>
+        </div>
+        <div id="img_lang">
+            <a href="javascript:onsayeng(1)"><img src="../img/uk-flag.png" id="r1" class="lang "></a>
+            <a href="javascript:onsaythai(2)"><img src="../img/thaiflag.png" id="r2" class="lang"></a>
+            <a href="javascript:onsaychina(3)"><img src="../img/China.png" id="r3" class="lang"></a>
+        </div>
+        <br style="clear: both;">
+    </div>
+</div>
+
+<div id="cent">
+    <div id="centitem">
+        <div id="itemlist">
+            <div id="menu_scroll">
+
+                <div id="list_item"></div>
+                <!-- <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a>
+
+                <a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" onclick="showmodal()">
+                    <img src="img/capu.jpg" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                    <h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>คาปูชิโน</b></div><div style="width: 20%; float: left;"><b>35฿</b></div></h5>
+                </div></a> -->
+
+            </div>
+
+        </div>
+        <div id="bt_menu">
+            <ul>
+                <div id="li_menu"></div>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-name"><h1 class="modal-title">ItemCode : ItemName</h1></div>
+            </div>
+            <div class="modal-body">
+                <div id="modal-left">
+                    <div id="modal-img">
+                        <div>
+                            <img class="crop" src="../img/capu.jpg" onError="this.src = '../img/noimg.jpg'"
+                                 width="100%"/>
+                        </div>
+                    </div>
+                    <div id="modal-price">
+                        <input type="text" id="mo-pri" name="mo-pri" value="35 ฿" readonly>
+                    </div>
+                </div>
+                <div id="modal-right">
+                    <div id="modal-qty">
+                        <img src="../img/delete.png"><input type="text" id="mo_qty" value="1" readonly><img
+                            src="../img/add.png">
+                    </div>
+                    <div id="modal-size">
+                        <a href="#"><h1 id="s" onclick="active_size('s')" class="acsize"><img src="../img/s.png"
+                                                                                              class="img-size"><b>Small </b>
+                        </h1></a>
+                        <a href="#"><h1 id="m" onclick="active_size('m')"><img src="../img/m.png" class="img-size"><b>Medium </b>
+                        </h1></a>
+                        <a href="#"><h1 id="l" onclick="active_size('l')"><img src="../img/l.png" class="img-size"><b>large </b>
+                        </h1></a>
+                    </div>
+                    <div id="modal-submit">
+                        <a href="#"><img src="../img/ok.png" style="margin-left: 0;"></a>
+                        <a href="#"><img src="../img/no.png" data-dismiss="modal"></a>
+                    </div>
+                </div>
+                <br style="clear: both;">
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="../js/item.js"></script>
+<script type="text/javascript" src="../js/voice.js"></script>
+<script type="text/javascript" src="../json/menu_all.json"></script>
+<script type="text/javascript" src="../json/menu1.json"></script>
+<script type="text/javascript" src="../json/menu2.json"></script>
+<script type="text/javascript" src="../json/menu3.json"></script>
+<script type="text/javascript" src="../json/menu4.json"></script>
+<script type="text/javascript" src="../json/menu5.json"></script>
+
+
+</body>
+</html>

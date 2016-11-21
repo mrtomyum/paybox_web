@@ -1,0 +1,275 @@
+menu_snake = `[
+{
+"langId": "1",
+"langName": "en",
+"menuId": "5",
+"itemList":[
+{
+"id": "1",
+"name": "Bread, butter, milk",
+"img": "img/Bread.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "15"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "2",
+"name": "Potatoes dipped chocolate",
+"img": "img/Potatoes_dipped_chocolate.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "3",
+"name": "fried",
+"img": "img/fried.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "4",
+"name": "fried cheese",
+"img": "img/fried_cheese.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "5",
+"name": "garlic bread",
+"img": "img/garlic_bread.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "6",
+"name": "pizza ham",
+"img": "img/pizza_ham.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+}
+]
+},
+{
+"langId": "2",
+"langName": "th",
+"menuId": "5",
+"itemList":[
+{
+"id": "1",
+"name": "ขนมปังเนยนม",
+"img": "img/Bread.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "15"
+},
+{
+"sizeId": "2", "name": "m", "price": "20"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "2",
+"name": "มันฝรั่งชุบช็อกโกแลต",
+"img": "img/Potatoes_dipped_chocolate.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "3",
+"name": "หมูทอด",
+"img": "img/fried.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "4",
+"name": "ชีสทอด",
+"img": "img/fried_cheese.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "5",
+"name": "ขนมปังกระเทียม",
+"img": "img/garlic_bread.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "6",
+"name": "พิซซ่าแฮม",
+"img": "img/pizza_ham.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+}
+]
+},
+{
+"langId": "3",
+"langName": "ch",
+"menuId": "5",
+"itemList":[
+{
+"id": "1",
+"name": "麵包，黃油，奶",
+"img": "img/Bread.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "2",
+"name": "土豆蘸巧克力",
+"img": "img/Potatoes_dipped_chocolate.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "3",
+"name": "炒",
+"img": "img/fried.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "4",
+"name": "炸奶酪",
+"img": "img/fried_cheese.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "5",
+"name": "大蒜麵包",
+"img": "img/garlic_bread.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "6",
+"name": "比薩餅火腿",
+"img": "img/pizza_ham.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "20"
+},
+{
+"sizeId": "2", "name": "m", "price": "30"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+}
+]
+}
+]`;

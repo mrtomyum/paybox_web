@@ -17,7 +17,7 @@ body{
 
 
 .container{
-	padding: 0 0 0 8%;
+	padding: 0;
 	margin: 0;
 }
 
@@ -52,12 +52,49 @@ body{
 	display: none;
 }
 
+.block-2 {
+	width: 17%;
+	height: 165px;
+	margin: 1% 0% 0 2.26%;
+	/*background: red;*/
+	/*border: 1px solid black;*/
+	padding: 0%;
+	border-radius: 9px;
+	text-align: center;
+	vertical-align: middle;
+	float: left;
+}
+.block-img{
+	margin-bottom: 0%; 
+	width: 70%;
+	border-radius: 5px 5px 0 0; 
+}
+
+.block-2 h5{
+	color: #000;
+	height: 45px;
+	background: #fff;
+	vertical-align: middle;
+	text-align: center;
+	padding-top: 5%;
+	font-size: 20px;
+	border-radius: 0 0 5px 5px;
+	/*border-top: 3px solid #602c06;*/
+}
+.scroll{
+	width: 100%;
+	/*border: 1px solid red;*/
+	height: 370px;
+	overflow: auto;
+}
+
 	#menu_main{
-		width: 100%;
+		width: 90%;
 		text-align: center;
-		padding-left: 4%;
-		margin-top: 5%;
+		padding:auto;
+		margin-top: 0%;
 		margin-bottom: 0;
+		margin-left: 5%;
 	}
 	.img_menu{
 		width: 30%;
@@ -78,6 +115,7 @@ body{
 		width: 100%;
 		height: 100px;
 		/*border: 1px solid black;*/
+
 	}
 	#language h1{
 		text-align: center; 
@@ -86,7 +124,7 @@ body{
 		padding:0;
 	}
 	.lang{
-		width: 10%;
+		width: 6%;
 		border: 5px solid #fff;
 		border-radius: 100%;
 	}
@@ -144,13 +182,49 @@ body{
 #l480{
 	display: none;
 }
+.block-2 {
+	width: 17%;
+	height: 165px;
+	margin: 1% 0% 0 2.26%;
+	/*background: red;*/
+	/*border: 1px solid black;*/
+	padding: 0%;
+	border-radius: 9px;
+	text-align: center;
+	vertical-align: middle;
+	float: left;
+}
+.block-img{
+	margin-bottom: 0%; 
+	width: 70%;
+	border-radius: 5px 5px 0 0; 
+}
+
+.block-2 h5{
+	color: #000;
+	height: 45px;
+	background: #fff;
+	vertical-align: middle;
+	text-align: center;
+	padding-top: 12%;
+	font-size: 20px;
+	border-radius: 0 0 5px 5px;
+	/*border-top: 3px solid #602c06;*/
+}
+.scroll{
+	width: 100%;
+	/*border: 1px solid red;*/
+	height: 200px;
+	overflow: auto;
+}
 
 	#menu_main{
-		width: 100%;
+		width: 90%;
 		text-align: center;
-		padding-left: 4%;
-		margin-top: 5%;
+		padding:auto;
+		margin-top: 0%;
 		margin-bottom: 0;
+		margin-left: 5%;
 	}
 	.img_menu{
 		width: 30%;
@@ -171,6 +245,7 @@ body{
 		width: 100%;
 		height: 100px;
 		/*border: 1px solid black;*/
+
 	}
 	#language h1{
 		text-align: center; 
@@ -179,7 +254,7 @@ body{
 		padding:0;
 	}
 	.lang{
-		width: 10%;
+		width: 6%;
 		border: 5px solid #fff;
 		border-radius: 100%;
 	}
@@ -188,13 +263,13 @@ body{
 		border-radius: 100%;
 		border: 5px solid #f00;
 	}
-
 }
 
 @media (min-width: 400px) and (max-width: 799px) {
 
+
 .container{
-	padding-top: 20%;
+	padding-top: 2%;
 	padding-left: 0;
 	margin: 0;
 }
@@ -215,7 +290,7 @@ body{
 }
 
 .logo{
-	width: 20%;
+	width: 18%;
 }
 
 #l800{
@@ -230,12 +305,46 @@ body{
 	margin-top: 1%;
 	display: block;
 }
+	.block-2 {
+		width: 30%;
+		height: 132px;
+		margin: 1% 0% 5% 2.26%;
+		/*background: red;*/
+		/*border: 1px solid black;*/
+		padding: 0%;
+		border-radius: 9px;
+		text-align: center;
+		vertical-align: middle;
+		float: left;
+	}
+	.block-img{
+		margin-bottom: 0%; 
+		width: 70%;
+		border-radius: 5px 5px 0 0; 
+	}
 
+	.block-2 h5{
+		color: #000;
+		height: 40px;
+		background: #fff;
+		vertical-align: middle;
+		text-align: center;
+		padding-top: 5%;
+		font-size: 20px;
+		border-radius: 0 0 5px 5px;
+		/*border-top: 3px solid #602c06;*/
+	}
+	.scroll{
+		width: 100%;
+		/*border: 1px solid red;*/
+		max-height: 500px;
+		overflow: auto;
+	}
 	#menu_main{
 		width: 100%;
 		text-align: center;
 		padding-left: 0;
-		margin-top: 5%;
+		margin-top: 2%;
 		margin-bottom: 0;
 	}
 	.img_menu{
@@ -279,14 +388,5 @@ body{
 		border: 5px solid #f00;
 	}
 
-
-.footer{
-	width: 100%;
-	position: fixed;
-	left:0px;
-	bottom: 1%;
-	margin-top: 1%;
-	background-color: #FFF8DC;
-}
 
 }

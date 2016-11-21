@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>terminal order</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-1.11.3.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/menu.css">
+</head>
+<body>
+
+<nav class="navbar navbar-default" style="margin-bottom: 0.2%; height: 60px; background: #262626;">
+    <div class="container-fluid" style="padding-left: 0;">
+        <div class="navbar-header" style=" width: 20%; text-align: left; padding-left: 1%; padding-top: 0.5%;"
+             id="l800">
+            <img src="img/logo.png" class="logo">
+        </div>
+        <div class="nav-r" id="l802">
+            version 0.1<br>เวลา 08.00 น.
+        </div>
+    </div>
+    <div class="navbar-header" id="l480">
+        <img src="img/logo.png" class="logo">
+        <br>
+        version 0.1 เวลา 08.00 น.
+    </div>
+
+</nav>
+
+<div class="container" style="width: 100%;">
+    <div id="menu_main" style="width: 90%;">
+        <div class="scroll">
+            <div id="img_bt">
+                <div id="menu_data"></div>
+                <!--<a href="list.html">
+                  <div class="block-2">
+                    <img src="img/hot_list.png" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                      <h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>HOT</b></div></h5>
+                  </div>
+                </a>
+
+                <a href="#">
+                  <div class="block-2">
+                    <img src="img/ice_list.png" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                      <h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>ice</b></div></h5>
+                  </div>
+                </a>
+
+                <a href="#">
+                  <div class="block-2">
+                    <img src="img/Smoothies.png" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                      <h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>frapee</b></div></h5>
+                  </div>
+                </a>
+
+                <a href="#">
+                  <div class="block-2">
+                    <img src="img/kids_list.png" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                      <h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>kids</b></div></h5>
+                  </div>
+                </a>
+
+                <a href="#">
+                  <div class="block-2">
+                    <img src="img/snack_list.png" onError="this.src = 'img/noimg.jpg'" class="block-img">
+                      <h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>snake</b></div></h5>
+                  </div>
+                </a>-->
+
+            </div>
+        </div>
+        <p style="clear: both;">
+            <a href="index.html">
+                <button class="btn btn-danger btn-lg"><b>ย้อนกลับ<b></button>
+            </a>
+        </p>
+        <hr/>
+    </div>
+    <div id="language">
+        <a href="javascript:onsayeng(1)"><img src="../img/uk-flag.png" id="1" class="lang active_img"></a>
+        <a href="javascript:onsaythai(2)"><img src="../img/thaiflag.png" id="2" class="lang"></a>
+        <a href="javascript:onsaychina(3)"><img src="../img/China.png" id="3" class="lang"></a>
+        <h1>language </h1>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/menu.js"></script>
+<script src='../js/voice.js'></script>
+<script type="text/javascript" src="../json/menu_all.json"></script>
+</body>
+</html>
