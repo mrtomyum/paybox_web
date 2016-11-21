@@ -15,7 +15,7 @@ var wsUpgrader = websocket.Upgrader{
 func Router(r *gin.Engine) *gin.Engine {
 	r.GET("/", GetIndex)
 	r.GET("/item/:id", GetItemByMenu)
-	r.GET("/list", GetMenu)
+	r.GET("/menu", GetMenu)
 	r.GET("/menu/:id/", GetItemByMenuId)
 	r.GET("/dev", GetDeviceIndexPage)
 
