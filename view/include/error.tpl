@@ -1,4 +1,4 @@
-{{define "error.tpl"}}
+{{define "error"}}
 {{template "header.tpl" . }}
 <div class="container">
     <h1>Error from query...</h1>

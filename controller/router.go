@@ -16,7 +16,7 @@ func Router(r *gin.Engine) *gin.Engine {
 	r.GET("/", GetIndex)
 	r.GET("/item/:id", GetItemByMenu)
 	r.GET("/list", GetMenu)
-	r.GET("/menu/:id/item", GetItemByMenuId)
+	r.GET("/menu/:id/", GetItemByMenuId)
 	r.GET("/dev", GetDeviceIndexPage)
 
 	r.GET("/view", func(c *gin.Context) {

@@ -9,7 +9,7 @@ import (
 
 func GetIndex(ctx *gin.Context) {
 
-	ctx.HTML(http.StatusOK, "index.tpl", nil)
+	ctx.HTML(http.StatusOK, "index", nil)
 }
 
 func GetMenu(ctx *gin.Context) {
@@ -18,7 +18,7 @@ func GetMenu(ctx *gin.Context) {
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
-	ctx.HTML(http.StatusOK, "list.tpl", menus)
+	ctx.HTML(http.StatusOK, "list", menus)
 
 }
 
@@ -30,5 +30,5 @@ func GetItemByMenuId(ctx *gin.Context) {
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
-	ctx.JSON(http.StatusOK, items)
+	ctx.HTML(http.StatusOK, "items", items)
 }

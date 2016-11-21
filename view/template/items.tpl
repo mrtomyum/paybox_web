@@ -1,5 +1,5 @@
-{{define "items.tpl"}}
-{{template "header.tpl" .}}
+{{define "items"}}
+{{template "header" .}}
 
 <!--<div class="container" style="padding-top: 1%;"> -->
 <h1>Item Index</h1>
@@ -7,7 +7,7 @@
     <div class="title">
         <div id="itemname">
             <label>"ชื่อเมนู"</labe¢l>
-            <label id="img"><img src="../public/img/hot.png" width="100%"></label>
+                <label id="img"><img src="/img/hot.png" width="100%"></label>
         </div>
     </div>
 
@@ -63,10 +63,10 @@
 
 {{range .}}
 <div class="block-3 menu">
-    <img src="../public/img/{{.Image}}" width="70%" style="margin-bottom: 2%;">
+    <img src="/img/{{.Image}}" width="70%" style="margin-bottom: 2%;">
     <h6 style="margin-top: 0;"><b>{{.Name}}</b></h6>
 </div>
 {{end}}
 
-{{template "footer.tpl" .}}
+{{template "footer" .}}
 {{end}}

@@ -1,5 +1,5 @@
-{{define "index.tpl"}}
-{{template "header.tpl" .}}
+{{define "index"}}
+{{template "header" .}}
 
 <div class="container">
     <div id="menu_main">
@@ -13,5 +13,5 @@
         <h1>language </h1>
     </div>
 </div>
-{{template "footer.tpl" .}}
+{{template "footer" .}}
 {{end}}

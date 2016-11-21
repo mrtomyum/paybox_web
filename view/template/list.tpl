@@ -1,3 +1,4 @@
+{{define "list"}}
 <!DOCTYPE html>
 <html>
 <head>
@@ -195,3 +196,4 @@
 <script type="text/javascript" src="js/item.js"></script>
 </body>
 </html>
+{{end}}

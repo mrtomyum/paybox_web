@@ -1,5 +1,5 @@
-{{define "menus.tpl"}}
-{{template "header.tpl" .}}
+{{define "menus"}}
+{{template "header" .}}
 <div class="container">
 
     {{range .}}
@@ -24,5 +24,5 @@
     });
 
 </script>
-{{template "footer.tpl" .}}
+{{template "footer" .}}
 {{end}}
