@@ -38,9 +38,7 @@ function menu_say(mName,lName){
 function active_menu(menuId,mName,lName){
     localStorage.menuId = menuId;
     menu_say(mName,lName);
-    setTimeout(function(){
       window.location = "item.html";
-    },2000);
     
 }
 
