@@ -25,9 +25,9 @@ func Router(r *gin.Engine) *gin.Engine {
 	//r.GET("/", GetIndex)
 	r.Use(static.Serve("/", static.LocalFile("view", true)))
 	r.GET("/menu", GetMenu)
-	r.GET("/menu/:id/", GetItemByMenuId)
-	r.GET("/item/:id", GetItemByMenu)
-	r.GET("/dev", GetDeviceIndexPage)
+	r.GET("/menu/:id/", GetItemsByMenuId)
+	r.GET("/item/:id", GetItemById)
+	//r.GET("/dev", GetDeviceIndexPage)
 
 	r.GET("/view", func(c *gin.Context) {
 		wsView(c.Writer, c.Request)

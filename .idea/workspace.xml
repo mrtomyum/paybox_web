@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="เพิ่ม endpoint /menu return JSON ให้ view เสร็จละ&#10;และแก้ไขที่สับสนว่าทำไม menu.html ไม่แสดงรายการ menu เพราะยังเป็น Static data และถูกปิด comment ไว้">
+    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="ปรับโครงสร้าง Lang{} ให้เพิ่มฟิลด์รองรับส่งข้อมูล Items กลับไป &#10;ถัดไป แก้โครงสร้าง Item{} แยก Size{} ออกมา">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paybox.db" afterPath="$PROJECT_DIR$/paybox.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/item.go" afterPath="$PROJECT_DIR$/controller/item.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/menu.go" afterPath="$PROJECT_DIR$/controller/menu.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/router.go" afterPath="$PROJECT_DIR$/controller/router.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main_test.go" afterPath="$PROJECT_DIR$/main_test.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/item.go" afterPath="$PROJECT_DIR$/model/item.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/menu.go" afterPath="$PROJECT_DIR$/model/menu.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/json/menu1.json" afterPath="$PROJECT_DIR$/view/public/json/menu1.json" />
     </list>
     <list id="5b54e2c5-fc8a-4659-b016-2967afcff956" name="New changelist" comment="" />
     <ignored path="paybox_terminal.iws" />
@@ -32,14 +36,34 @@
     <splitter split-orientation="horizontal" split-proportion="0.3302682">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="router.go" pinned="false" current-in-tab="true">
+          <file leaf-file-name="router.go" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/controller/router.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.556701">
-                  <caret line="27" column="26" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
                   <folding>
                     <element signature="e#20#148#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="item.go" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/controller/item.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.58074075">
+                  <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="menu.go" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/controller/menu.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -50,21 +74,21 @@
         <splitter split-orientation="horizontal" split-proportion="0.5">
           <split-first>
             <leaf>
-              <file leaf-file-name="menu.go" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/controller/menu.go">
+              <file leaf-file-name="item.go" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/model/item.go">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="28" column="26" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+                    <state vertical-scroll-proportion="0.43555555">
+                      <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="item.go" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/model/item.go">
+              <file leaf-file-name="menu1.json" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/view/public/json/menu1.json">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.48453608">
-                      <caret line="28" column="1" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+                    <state vertical-scroll-proportion="-14.608696">
+                      <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
                       <folding />
                     </state>
                   </provider>
@@ -77,8 +101,8 @@
               <file leaf-file-name="menu.go" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/model/menu.go">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.16494845">
-                      <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+                    <state vertical-scroll-proportion="0.642963">
+                      <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
                       <folding>
                         <element signature="e#15#27#0" expanded="true" />
                       </folding>
@@ -132,7 +156,6 @@
         <option value="$PROJECT_DIR$/view/template/pong.tpl" />
         <option value="$PROJECT_DIR$/controller/device.go" />
         <option value="$PROJECT_DIR$/Dockerfile" />
-        <option value="$PROJECT_DIR$/controller/item.go" />
         <option value="$PROJECT_DIR$/view/template/list.tpl" />
         <option value="$PROJECT_DIR$/view/template/menus.tpl" />
         <option value="$PROJECT_DIR$/view/include/footer.tpl" />
@@ -145,13 +168,14 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/view/public/js/menu.js" />
         <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/controller/router.go" />
         <option value="$PROJECT_DIR$/view/public/js/index.js" />
         <option value="$PROJECT_DIR$/view/public/json/menu_all.json" />
         <option value="$PROJECT_DIR$/view/menu.html" />
         <option value="$PROJECT_DIR$/view/public/json/menu1.json" />
-        <option value="$PROJECT_DIR$/model/menu.go" />
+        <option value="$PROJECT_DIR$/controller/router.go" />
         <option value="$PROJECT_DIR$/controller/menu.go" />
+        <option value="$PROJECT_DIR$/controller/item.go" />
+        <option value="$PROJECT_DIR$/model/menu.go" />
         <option value="$PROJECT_DIR$/model/item.go" />
       </list>
     </option>
@@ -167,7 +191,7 @@
     <option name="x" value="89" />
     <option name="y" value="-1080" />
     <option name="width" value="1499" />
-    <option name="height" value="1080" />
+    <option name="height" value="1076" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -917,7 +941,13 @@
       <option name="project" value="LOCAL" />
       <updated>1479729220854</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="ปรับโครงสร้าง Lang{} ให้เพิ่มฟิลด์รองรับส่งข้อมูล Items กลับไป &#10;ถัดไป แก้โครงสร้าง Item{} แยก Size{} ออกมา">
+      <created>1479740670367</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1479740670367</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TodoView">
@@ -930,7 +960,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="89" y="-1080" width="1499" height="1080" extended-state="0" />
+    <frame x="89" y="-1080" width="1499" height="1076" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -940,7 +970,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3305648" sideWeight="0.5104261" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.140625" sideWeight="0.49624062" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26507276" sideWeight="0.4852018" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26617953" sideWeight="0.4852018" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3305648" sideWeight="0.4895739" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11705007" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1037,7 +1067,8 @@
     <MESSAGE value="Modify .js form relative path img/... etc to static path /img/..." />
     <MESSAGE value="ใช้ middleware แสดง index.html แบบ static file ได้แล้ว โดยเก็บ .html ไว้ใน /view สามารถเรียกใช้ได้จาก :8080/ ได้เลย" />
     <MESSAGE value="เพิ่ม endpoint /menu return JSON ให้ view เสร็จละ&#10;และแก้ไขที่สับสนว่าทำไม menu.html ไม่แสดงรายการ menu เพราะยังเป็น Static data และถูกปิด comment ไว้" />
-    <option name="LAST_COMMIT_MESSAGE" value="เพิ่ม endpoint /menu return JSON ให้ view เสร็จละ&#10;และแก้ไขที่สับสนว่าทำไม menu.html ไม่แสดงรายการ menu เพราะยังเป็น Static data และถูกปิด comment ไว้" />
+    <MESSAGE value="ปรับโครงสร้าง Lang{} ให้เพิ่มฟิลด์รองรับส่งข้อมูล Items กลับไป &#10;ถัดไป แก้โครงสร้าง Item{} แยก Size{} ออกมา" />
+    <option name="LAST_COMMIT_MESSAGE" value="ปรับโครงสร้าง Lang{} ให้เพิ่มฟิลด์รองรับส่งข้อมูล Items กลับไป &#10;ถัดไป แก้โครงสร้าง Item{} แยก Size{} ออกมา" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1048,7 +1079,7 @@
           <url>file://$PROJECT_DIR$/controller/order.go</url>
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1105,14 +1136,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/item.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -1277,49 +1300,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/public/json/menu1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.030905077">
-          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/menu.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.6258065">
           <caret line="90" column="57" selection-start-line="90" selection-start-column="57" selection-end-line="90" selection-end-column="57" />
           <folding>
-            <element signature="n#style#0;n#h5#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#h5#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h5#0;n#div#0;n#a#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#h5#0;n#div#0;n#a#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h5#0;n#div#0;n#a#2;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#h5#0;n#div#0;n#a#2;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h5#0;n#div#0;n#a#3;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#h5#0;n#div#0;n#a#3;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h5#0;n#div#0;n#a#4;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#h5#0;n#div#0;n#a#4;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h5#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#h5#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#h5#0;n#div#0;n#a#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#h5#0;n#div#0;n#a#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#h5#0;n#div#0;n#a#2;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#h5#0;n#div#0;n#a#2;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#h5#0;n#div#0;n#a#3;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#h5#0;n#div#0;n#a#3;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#h5#0;n#div#0;n#a#4;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#h5#0;n#div#0;n#a#4;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/public/json/menu1.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.608696">
+          <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controller/router.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.556701">
-          <caret line="27" column="26" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
           <folding>
             <element signature="e#20#148#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/menu.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16494845">
-          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-          <folding>
-            <element signature="e#15#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1327,15 +1340,33 @@
     <entry file="file://$PROJECT_DIR$/controller/menu.go">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="26" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/menu.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.642963">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/item.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58074075">
+          <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model/item.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48453608">
-          <caret line="28" column="1" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.43555555">
+          <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
           <folding />
         </state>
       </provider>

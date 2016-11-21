@@ -14,7 +14,7 @@ import (
 func TestGetItemIndex(t *testing.T) {
 	var i model.Item
 	var items []*model.Item
-	items, err := i.GetIndex(controller.DB)
+	items, err := i.Get(controller.DB)
 	if err != nil {
 		t.Fail()
 	}

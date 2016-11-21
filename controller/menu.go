@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/mrtomyum/paybox_terminal/model"
 	"net/http"
-	"strconv"
 )
 
 func GetIndex(ctx *gin.Context) {
@@ -13,22 +12,11 @@ func GetIndex(ctx *gin.Context) {
 }
 
 func GetMenu(ctx *gin.Context) {
-	var m model.Menu
-	langs, err := m.Index()
+	var menu model.Menu
+	langs, err := menu.Index()
 	if err != nil {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
 	ctx.JSON(http.StatusOK, langs)
 
-}
-
-func GetItemByMenuId(ctx *gin.Context) {
-	idStr := ctx.Param("id")
-	id, _ := strconv.ParseInt(idStr, 10, 64)
-	var i model.Item
-	langs, err := i.FindById(id)
-	if err != nil {
-		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
-	}
-	ctx.JSON(http.StatusOK, langs)
 }

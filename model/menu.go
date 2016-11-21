@@ -22,14 +22,16 @@ type Menu struct {
 	Link    string `json:"link" db:"link"`
 }
 
-func (m *Menu) Index() ([]*Lang, error) {
-	langs := make([]*Lang, 3)
+var langs = make([]*Lang, 3)
+
+func init() {
 	langs[0] = &Lang{Id: 1, Name: "Thai Female"}
 	langs[1] = &Lang{Id: 2, Name: "UK English Female"}
 	langs[2] = &Lang{Id: 3, Name: "Chinese Female"}
+}
 
+func (m *Menu) Index() ([]*Lang, error) {
 	var sql string
-
 	for _, l := range langs {
 		menus := []*Menu{}
 		switch l.Id {
@@ -40,7 +42,7 @@ func (m *Menu) Index() ([]*Lang, error) {
 		case 3:
 			sql = `SELECT id, name_cn as name, image, link FROM menu`
 		}
-		log.Println("case:", l.Id)
+		log.Println("case:", l.Id, l.Name)
 		err := db.Select(&menus, sql)
 		if err != nil {
 			return nil, err
