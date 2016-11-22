@@ -1,5 +1,4 @@
-{
-  "data": [
+data = `[
     {
       "lang_id": "1",
       "lang_name": "UK English Female",
@@ -93,5 +92,4 @@
         }
       ]
     }
-  ]
-}
+]`;
