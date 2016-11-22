@@ -4,7 +4,7 @@ $(document).ready(function(){
      document.getElementById('img_bt').innerHTML = detail;
      localStorage.action = 0;
      localStorage.getID = 0;
-     localStorage.language = 2;
+     localStorage.language = 1;
 });
 
 function onsayeng(id){
@@ -15,7 +15,7 @@ function onsayeng(id){
     document.getElementById('img_bt').innerHTML = detail;
     $("img").removeClass("active_img");
     $("#"+id).addClass("active_img");
-    localStorage.language = 1;
+    localStorage.language = 2;
 }
 
 function onsaythai(id){
@@ -26,7 +26,7 @@ function onsaythai(id){
     document.getElementById('img_bt').innerHTML = detail;
     $("img").removeClass("active_img");
     $("#"+id).addClass("active_img");
-    localStorage.language = 2;
+    localStorage.language = 1;
 }
 
 function onsaychina(id){
@@ -44,30 +44,27 @@ function takethiseng(){
     console.log("active uk");
     responsiveVoice.setDefaultVoice("UK English Female")
     responsiveVoice.speak("take this");
-    setTimeout(function (){
         window.location = "menu.html";
         localStorage.action = 1;
-    },1500);
 }
 
 function takethisthai(){
     console.log("active th");
     responsiveVoice.setDefaultVoice("Thai Female")
     responsiveVoice.speak("รับประทานที่ร้าน");
-    setTimeout(function (){
+    setTimeout(function(){
         window.location = "menu.html";
         localStorage.action = 1;
     },1500);
+
 }
 
 function takethischina(){
     console.log("active ch");
     responsiveVoice.setDefaultVoice("Chinese Female")
     responsiveVoice.speak("拿著它");
-    setTimeout(function (){
         window.location = "menu.html";
         localStorage.action = 1;
-    },1500);
 }
 /*////////////////// take this  //////////////////////////////*/
 /*////////////////// take out  //////////////////////////////*/
@@ -75,17 +72,15 @@ function takeouteng(){
     console.log("active uk");
     responsiveVoice.setDefaultVoice("UK English Female")
     responsiveVoice.speak("take out");
-    setTimeout(function (){
         window.location = "menu.html";
         localStorage.action = 2;
-    },1500);
 }
 
 function takeoutthai(){
     console.log("active th");
     responsiveVoice.setDefaultVoice("Thai Female")
     responsiveVoice.speak("ซื้อกลับบ้านค่ะ");
-    setTimeout(function (){
+    setTimeout(function(){
         window.location = "menu.html";
         localStorage.action = 2;
     },1500);
@@ -95,9 +90,7 @@ function takeoutchina(){
     console.log("active ch");
     responsiveVoice.setDefaultVoice("Chinese Female")
     responsiveVoice.speak("取出");
-    setTimeout(function (){
         window.location = "menu.html";
         localStorage.action = 2;
-    },1500);
 }
 /*////////////////// take out  //////////////////////////////*/

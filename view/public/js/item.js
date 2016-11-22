@@ -5,181 +5,101 @@ $("document").ready(function(){
 	/*console.log("lang " + id);
 	console.log("menuId " + menuId);*/
 
-    $("img").removeClass("active_img");
+    /*$("img").removeClass("active_img");
     $("#l"+id).addClass("active_img");
-    $("#r"+id).addClass("active_img");
+    $("#r"+id).addClass("active_img");*/
     main_menu(id);
-    item(id,menuId);
-	active(menuId-1);
+    console.log("menuid "+menuId);
+    item(id,(parseInt(menuId)-1));
+	//active(menuId);
 
 
 });
 
 function main_menu(id){
-	var mydata = jQuery.parseJSON(data);
-    var menu = "";
-    //console.log(JSON.stringify(mydata));
-   // console.log(mydata[0].langId);
-    var listmenu = mydata[id-1].menu;
-    //console.log(listmenu);
-    for (var i = 0; i < listmenu.length; i++) {
-      menu += `<li onclick="active(`+i+`)"><a href="#" id="`+i+`">`+listmenu[i].name+`</a></li>`;
-      
-    }
+	//var mydata = jQuery.parseJSON(data);
+	console.log("menuid "+id);
+     $.ajax({
+            url: "http://localhost:8888/menu/",
+          //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: "GET",
+            cache: false,
+                success: function(result){
+                        var menu = "";
+                        //console.log(JSON.stringify(result));
+                       // console.log(mydata[0].langId);
+                        var listmenu = result[id-1].menus;
+                        var sId = localStorage.menuId-1;
+                        //console.log(listmenu);
+                        for (var i = 0; i < listmenu.length; i++) {
+                          if(localStorage.menuId==i){
+                            menu += `<li onclick="active(`+i+`)"><a href="#" id="`+i+`">`+listmenu[i].name+`</a></li>`;
+                          }else{
+                            menu += `<li onclick="active(`+i+`)"><a href="#" id="`+i+`">`+listmenu[i].name+`</a></li>`;
+                          }
+                        }
 
-    document.getElementById("li_menu").innerHTML = menu;
+                        document.getElementById("li_menu").innerHTML = menu;
+                        $("a").removeClass("active");
+                        $("#"+parseInt(sId)).addClass("active");
+                        var x = document.getElementsByTagName("LI");
+                        	for(var i = 0;i < x.length; i++){
+                        		x[i].style.background = "#272727";
+                        		if(i!=parseInt(sId)){
+                        			//console.log(i);
+                        			x[i].style.borderBottom = "1px dashed #fff";
+                        		}else{
+                        			x[i].style.borderBottom = "0px dashed #fff";
+                        		}
+                        	}
+                        //	console.log(sId);
+                        $("#"+parseInt(sId)).css("background-color", "#272727");
+                        $("#"+parseInt(sId)).css("color", "#fff");
+                        document.getElementById("itemlist").style.background = "#272727";
+                        document.getElementById("centitem").style.background = "#272727";
+               },
+                error: function(err){
+                    console.log(JSON.stringify(err));
+                }
+            });
+
 }
 
 function item(lang,menuId){
-	//console.log(lang+", "+menuId);
-	switch( parseInt(menuId)){
-		case 0 : var menu_one = jQuery.parseJSON(menu_hot);
-				
-				var listitem = menu_one[lang-1].itemList;
-				//console.log(JSON.stringify(listitem));
-				var item = "";
-					for(var i = 0; i < listitem.length; i++){
-						var size = listitem[i].size;
-						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
-											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
-											'`+size[0].name+'/'+size[0].price+`'
-											,'`+size[1].name+'/'+size[1].price+`'
-											,'`+size[2].name+'/'+size[2].price+`')">
-											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
-									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
-										</div></a>
-
-								`;	
-					}
-					//console.log(item);
-				document.getElementById("list_item").innerHTML = item;
-				break;
-
-		case 1 : var menu_two = jQuery.parseJSON(menu_ice);
-				
-				var listitem = menu_two[lang-1].itemList;
-				//console.log(JSON.stringify(listitem));
-				var item = "";
-					for(var i = 0; i < listitem.length; i++){
-						var size = listitem[i].size;
-						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
-											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
-											'`+size[0].name+'/'+size[0].price+`'
-											,'`+size[1].name+'/'+size[1].price+`'
-											,'`+size[2].name+'/'+size[2].price+`')">
-											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
-									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
-										</div></a>
-
-								`;	
-					}
-					//console.log(item);
-				document.getElementById("list_item").innerHTML = item;
-				break;
-
-		case 2 : var menu_three = jQuery.parseJSON(menu_frappe);
-				
-				var listitem = menu_three[lang-1].itemList;
-				//console.log(JSON.stringify(listitem));
-				var item = "";
-					for(var i = 0; i < listitem.length; i++){
-						var size = listitem[i].size;
-						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
-											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
-											'`+size[0].name+'/'+size[0].price+`'
-											,'`+size[1].name+'/'+size[1].price+`'
-											,'`+size[2].name+'/'+size[2].price+`')">
-											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
-									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
-										</div></a>
-
-								`;	
-					}
-					//console.log(item);
-				document.getElementById("list_item").innerHTML = item;
-				break;
-
-		case 3 : var menu_four = jQuery.parseJSON(menu_kids);
-				
-				var listitem = menu_four[lang-1].itemList;
-				//console.log(JSON.stringify(listitem));
-				var item = "";
-					for(var i = 0; i < listitem.length; i++){
-						var size = listitem[i].size;
-						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
-											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
-											'`+size[0].name+'/'+size[0].price+`'
-											,'`+size[1].name+'/'+size[1].price+`'
-											,'`+size[2].name+'/'+size[2].price+`')">
-											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
-									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
-										</div></a>
-
-								`;	
-					}
-					//console.log(item);
-				document.getElementById("list_item").innerHTML = item;
-				break;
-
-		case 4 : var menu_five = jQuery.parseJSON(menu_snake);
-				
-				var listitem = menu_five[lang-1].itemList;
-				//console.log(JSON.stringify(listitem));
-				var item = "";
-					for(var i = 0; i < listitem.length; i++){
-						var size = listitem[i].size;
-						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
-											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
-											'`+size[0].name+'/'+size[0].price+`'
-											,'`+size[1].name+'/'+size[1].price+`'
-											,'`+size[2].name+'/'+size[2].price+`')">
-											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
-									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
-										</div></a>
-
-								`;	
-					}
-					//console.log(item);
-				document.getElementById("list_item").innerHTML = item;
-				break;
-
-		case 5 : var menu_two = jQuery.parseJSON(menu_ice);
-				
-				var listitem = menu_two[lang-1].itemList;
-				//console.log(JSON.stringify(listitem));
-				var item = "";
-					for(var i = 0; i < listitem.length; i++){
-						var size = listitem[i].size;
-						item += `
-										<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal" 
-											onclick="showmodal('`+listitem[i].id+`','`+listitem[i].name+`','/`+listitem[i].img+`',
-											'`+size[0].name+'/'+size[0].price+`'
-											,'`+size[1].name+'/'+size[1].price+`'
-											,'`+size[2].name+'/'+size[2].price+`')">
-											<img src="/`+listitem[i].img+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-									    	<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+listitem[i].name+`
-									    	</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
-										</div></a>
-
-								`;	
-					}
-					//console.log(item);
-				document.getElementById("list_item").innerHTML = item;
-				break;
-
-		default : console.log("error menu id "+menuId);
-				break;
-	}
+	console.log(lang+", "+menuId);
+    $.ajax({
+            url: "http://localhost:8888/menu/"+(parseInt(menuId)+1),
+          //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: "GET",
+            cache: false,
+                success: function(result){
+                    //console.log(JSON.stringify(result));
+                    var items = result[parseInt(lang)-1].items;;
+                    console.log("new "+JSON.stringify(items));
+                    var item = "";
+                    for(var i = 0; i < items.length; i++){
+                    	var size = items[i].sizes;
+                    	item += `<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal"
+                    			onclick="showmodal('`+items[i].id+`','`+items[i].name+`','/img/`+items[i].image+`',
+                    			'`+size[0].name+'/'+size[0].price+`'
+                    			,'`+size[1].name+'/'+size[1].price+`'
+                    			,'`+size[2].name+'/'+size[2].price+`')">
+                    			<img src="/img/`+items[i].image+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
+                    			<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+items[i].name+`
+                    			</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
+                    			</div></a>`;
+                    }
+                    					//console.log(item);
+                    document.getElementById("list_item").innerHTML = item;
+                },
+                error: function (err){
+                    console.log(JSON.stringify(err));
+                }
+          });
 
 }
 
@@ -239,18 +159,24 @@ function removeQty(){
 
 
 function active(id) {
+console.log("active id "+id);
 	if(localStorage.getID!=null){
 		console.log(localStorage.getID);
 		document.getElementById(localStorage.getID).style.background = "#f3f3f4";
 		document.getElementById(localStorage.getID).style.color = "#000";
+		/*$("#"+localStorage.getID).css("background-color", "#f3f3f4");
+		$("#"+localStorage.getID).css("color", "#000");*/
 		localStorage.getID = id;
 	}else{
 		localStorage.getID = id;
-	}	
+	}
 	console.log("menuId " + localStorage.getID);
 	$("a").removeClass("active");
+	$("a").removeAttr("style");
+	$("li").removeAttr("style");
 	$("#"+id).addClass("active");
 	var x = document.getElementsByTagName("LI");
+
 	for(var i = 0;i < x.length; i++){
 		x[i].style.background = "#272727";
 		if(i!=id){
@@ -260,9 +186,11 @@ function active(id) {
 			x[i].style.borderBottom = "0px dashed #fff";
 		}
 	}
-	x[id].style.background = "#272727";	
-	document.getElementById(id).style.background = "#272727";
-	document.getElementById(id).style.color = "#fff";
+	//x[id].style.background = "#272727";
+	/*document.getElementById(id).style.background = "#272727";
+	document.getElementById(id).style.color = "#fff";*/
+	$("#"+id).css("background-color", "#272727");
+    $("#"+id).css("color", "#fff");
 	document.getElementById("itemlist").style.background = "#272727";
 	document.getElementById("centitem").style.background = "#272727";
 	item(localStorage.language,localStorage.getID);
@@ -272,7 +200,7 @@ function showmodal(id,name,img,s,m,l){
 	$("h1").removeClass("acsize");
 	$("#s").addClass("acsize");
 
-	//console.log(id+", "+name+", "+img+", "+s+", "+m+", "+l);
+	console.log(id+", "+name+", "+img+", "+s+", "+m+", "+l);
 	
 
 	var Mitem = id+` : `+name;
