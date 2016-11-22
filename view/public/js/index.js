@@ -42,27 +42,25 @@ function onsaychina(id){
 /*////////////////// take this  //////////////////////////////*/
 function takethiseng(){
     console.log("active uk");
-    responsiveVoice.setDefaultVoice("UK English Female")
-    responsiveVoice.speak("take this");
+        localStorage.lName = "UK English Female";
+        localStorage.nName = "take this";
         window.location = "menu.html";
         localStorage.action = 1;
 }
 
 function takethisthai(){
     console.log("active th");
-    responsiveVoice.setDefaultVoice("Thai Female")
-    responsiveVoice.speak("รับประทานที่ร้าน");
-    setTimeout(function(){
+    localStorage.lName = "Thai Female";
+    localStorage.nName = "รับประทานที่ร้าน";
         window.location = "menu.html";
         localStorage.action = 1;
-    },1500);
 
 }
 
 function takethischina(){
     console.log("active ch");
-    responsiveVoice.setDefaultVoice("Chinese Female")
-    responsiveVoice.speak("拿著它");
+    localStorage.lName = "Chinese Female";
+    localStorage.nName = "拿著它";
         window.location = "menu.html";
         localStorage.action = 1;
 }
@@ -70,26 +68,24 @@ function takethischina(){
 /*////////////////// take out  //////////////////////////////*/
 function takeouteng(){
     console.log("active uk");
-    responsiveVoice.setDefaultVoice("UK English Female")
-    responsiveVoice.speak("take out");
+    localStorage.lName = "UK English Female";
+    localStorage.nName = "take out";
         window.location = "menu.html";
         localStorage.action = 2;
 }
 
 function takeoutthai(){
     console.log("active th");
-    responsiveVoice.setDefaultVoice("Thai Female")
-    responsiveVoice.speak("ซื้อกลับบ้านค่ะ");
-    setTimeout(function(){
+    localStorage.lName = "Thai Female";
+    localStorage.nName = "ซื้อกลับบ้านค่ะ";
         window.location = "menu.html";
         localStorage.action = 2;
-    },1500);
 }
 
 function takeoutchina(){
     console.log("active ch");
-    responsiveVoice.setDefaultVoice("Chinese Female")
-    responsiveVoice.speak("取出");
+    localStorage.lName = "Chinese Female";
+    localStorage.nName = "取出";
         window.location = "menu.html";
         localStorage.action = 2;
 }
