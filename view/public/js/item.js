@@ -436,7 +436,7 @@ function print(){
     //console.log(changeMoney);
 
     var output = [];
-    output.push({"change":changeMoney,"list_order":listOrder});
+    output.push({"change":changeMoney,"bill_price":pri1,"list_order":listOrder});
     if(changeMoney<0){
         alert("ยอดเงินไม่พอชำระ");
     }else{
