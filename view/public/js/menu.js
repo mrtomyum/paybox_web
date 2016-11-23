@@ -15,6 +15,12 @@ $(document).ready(function(){
               localStorage.nName = null;
             };
 
+            var worker = new Worker('/js/time.js');
+                 worker.onmessage = function (event) {
+                 document.getElementById('timer').innerText =event.data ;
+                 document.getElementById('timer2').innerText =event.data;
+                 };
+
 
 	switch(parseInt(id)){
 	    case 1:
@@ -22,18 +28,30 @@ $(document).ready(function(){
 	            document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
 
 	            document.getElementById("bt_back").innerHTML = "ย้อนกลับ";
+
+
+                 document.getElementById("Name_time").innerHTML = "เวลา ";
+                 document.getElementById("Name_time2").innerHTML = "เวลา ";
+
 	            break;
 	    case 2:
                 document.getElementById("version").innerHTML = "version 0.1";
                 document.getElementById("version2").innerHTML = "version 0.1 ";
 
                 document.getElementById("bt_back").innerHTML = "back";
+
+                 document.getElementById("Name_time").innerHTML = "time ";
+                 document.getElementById("Name_time2").innerHTML = "time ";
 	            break;
 	    case 3:
                	document.getElementById("version").innerHTML = "版本 0.1";
                	document.getElementById("version2").innerHTML = "版本 0.1 ";
 
                	document.getElementById("bt_back").innerHTML = "背部";
+
+               	document.getElementById("Name_time").innerHTML = "時間 ";
+                document.getElementById("Name_time2").innerHTML = "時間 ";
+
 	            break;
 	}
 
@@ -103,6 +121,9 @@ function onsayeng(id){
 
     document.getElementById("bt_back").innerHTML = "back";
 
+    document.getElementById("Name_time").innerHTML = "time ";
+    document.getElementById("Name_time2").innerHTML = "time ";
+
     localStorage.language = 1;
     detailmenu(id);
 }
@@ -118,6 +139,9 @@ function onsaythai(id){
 	document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
 
 	document.getElementById("bt_back").innerHTML = "ย้อนกลับ";
+
+    document.getElementById("Name_time").innerHTML = "เวลา ";
+    document.getElementById("Name_time2").innerHTML = "เวลา ";
 
     setTimeout(function(){
         localStorage.language = 2;
@@ -137,6 +161,9 @@ function onsaychina(id){
     document.getElementById("version2").innerHTML = "版本 0.1 ";
 
     document.getElementById("bt_back").innerHTML = "背部";
+
+	document.getElementById("Name_time").innerHTML = "時間 ";
+    document.getElementById("Name_time2").innerHTML = "時間 ";
 
     localStorage.language = 3;
     detailmenu(id);
