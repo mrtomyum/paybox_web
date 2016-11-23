@@ -35,8 +35,8 @@ $("document").ready(function(){
 	    case 2: if(status==1){ status = "take this"}else{ status = "this out"}
                 document.getElementById("status").innerHTML = "status : "+status;
 
-                document.getElementById("txtTotalPri").innerHTML = "Total";
-                document.getElementById("txtmacPri").innerHTML = "Amount";
+                document.getElementById("txtTotalPri").innerHTML = "Total Order";
+                document.getElementById("txtmacPri").innerHTML = "Payment";
                 document.getElementById("txtUnit").innerHTML = "baht";
                 document.getElementById("txtUnit2").innerHTML = "baht";
 
@@ -511,7 +511,7 @@ function print(){
     //console.log(changeMoney);
 
     var output = [];
-    output.push({"change":changeMoney,"bill_price":pri1,"status":localStorage.action,"list_order":listOrder});
+    output.push({"total":pri1,"payment":pri2,"change":changeMoney,"status":localStorage.action,"list_order":listOrder});
     if(changeMoney<0){
         alert("ยอดเงินไม่พอชำระ");
     }else{
