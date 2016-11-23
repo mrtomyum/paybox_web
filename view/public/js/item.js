@@ -407,8 +407,8 @@ function payment(){
     bt_payment[0].style.display = "none";
     bt_print[0].style.display = "block";
     websocket.onopen();
-    doSend("เริ่มจ่ายตังค์ได้แล้วแน๊ะแจ๊ะ");
-    console.log("kkk");
+    doSend("10");
+    //console.log("kkk");
 }
 
 function print(){
@@ -417,5 +417,6 @@ function print(){
 
     var changeMoney = parseInt(pri1)-parseInt(pri2);
     websocket.close();
-    console.log(changeMoney);
+    //console.log(changeMoney);
+    alert("เงินทอน "+changeMoney);
 }

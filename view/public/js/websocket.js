@@ -21,6 +21,8 @@
     function onMessage(evt)
     {
       console.log('RESPONSE: ' + evt.data);
+
+      document.getElementById("pri2").value = evt.data;
      // websocket.close();
     //  websocket.close();
     }
