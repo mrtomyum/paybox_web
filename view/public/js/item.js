@@ -409,6 +409,10 @@ function payment(){
         block[i].style.pointerEvents = 'none';
     }
 
+    $(".btn-xs").removeAttr("onclick");
+    $(".btn-xs").addClass("disabled");
+
+
     anchors = document.querySelectorAll('.ul_menu li'),
     elems = {};
     [].forEach.call(anchors, function(anchor) {
