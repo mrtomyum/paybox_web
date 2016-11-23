@@ -37,7 +37,12 @@
         <div class="order">
             <h2>รายการ</h2>
             <div class="scroll">
-                <label class="orderlist">
+                <div id="order_list">
+                    <label class="orderlist">
+                        <h4 style="color:red; text-align:center; padding:0;">** กรุณาเลือกสินค้า **</h4>
+                    </label>
+                </div>
+                <!--<label class="orderlist">
                     <div class="ordername"> คาปูชิโน S</div>
                     <div class="orderqty">1 แก้ว</div>
                     <div class="orderprice">35 ฿</div>
@@ -95,15 +100,15 @@
                         <button class="btn btn-danger btn-xs" style="padding-left: 22.5%; padding-right: 22.5%;">-
                         </button>
                     </div>
-                </label>
+                </label>-->
 
             </div> <!-- scroll -->
 
             <div id="price1"><h4>ราคาทั้งหมด
-                <input type="number" name="pri1" id="pri1" readonly> บาท</h4>
+                <input type="text" name="pri1" id="pri1" readonly> บาท</h4>
             </div>
             <div id="price2"><h4 style="padding-left: 4%;">จำนวนเงิน
-                <input type="number" name="pri2" id="pri2" readonly> บาท</h4>
+                <input type="text" name="pri2" id="pri2" readonly> บาท</h4>
             </div>
 
             <div id="sub">
@@ -225,6 +230,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-name"><h1 class="modal-title"><span id="Mitem_title"></span></h1></div>
+                <input type="hidden" id="MitemNo"><input type="hidden" id="MitemName">
+                <input type="hidden" id="Munit">
             </div>
             <div class="modal-body">
                 <div id="modal-left">
@@ -245,9 +252,10 @@
                     </div>
                     <div id="modal-size">
                         <div id="menusize"></div>
+                        <input type="hidden" id="Msize">
                     </div>
                     <div id="modal-submit">
-                        <a href="#"><img src="/img/ok.png" style="margin-left: 0;"></a>
+                        <a href="javascript:send_order()"><img src="/img/ok.png" style="margin-left: 0;"></a>
                         <a href="#"><img src="/img/no.png" data-dismiss="modal"></a>
                     </div>
                 </div>

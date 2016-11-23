@@ -16,6 +16,7 @@ $("document").ready(function(){
 
 
 });
+var listOrder = [];
 
 function main_menu(id){
 	//var mydata = jQuery.parseJSON(data);
@@ -85,7 +86,7 @@ function item(lang,menuId){
                     for(var i = 0; i < items.length; i++){
                     	var size = items[i].sizes;
                     	item += `<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal"
-                    			onclick="showmodal('`+items[i].id+`','`+items[i].name+`','/img/`+items[i].image+`',
+                    			onclick="showmodal('`+items[i].id+`','`+items[i].name+`','/img/`+items[i].image+`','`+items[i].unit+`',
                     			'`+size[0].name+'/'+size[0].price+`'
                     			,'`+size[1].name+'/'+size[1].price+`'
                     			,'`+size[2].name+'/'+size[2].price+`')">
@@ -109,9 +110,12 @@ function active_size(id,price) {
  		$("h1").removeClass("acsize");
 		$("#"+id).addClass("acsize");
 		var qty = document.getElementById("mo_qty").value;
+		document.getElementById("Msize").value = id;
+
 		var totalPrice = qty*price;
 
-		console.log("ราคา " + totalPrice);
+
+		console.log("ราคา " + totalPrice+", nameSize = "+id);
 		document.getElementById("mo-pri").value = totalPrice+` ฿`;
 		//alert('$("#'+id+'").addClass("acsize")');
 }
@@ -199,11 +203,11 @@ console.log("active id "+id);
 	item(localStorage.language,localStorage.getID);
 }
 
-function showmodal(id,name,img,s,m,l){
+function showmodal(id,name,img,unit,s,m,l){
 	$("h1").removeClass("acsize");
 	$("#s").addClass("acsize");
 
-	console.log(id+", "+name+", "+img+", "+s+", "+m+", "+l);
+	//console.log(id+", "+name+", "+img+", "+unit+", "+s+", "+m+", "+l);
 	
 
 	var Mitem = id+` : `+name;
@@ -240,6 +244,11 @@ function showmodal(id,name,img,s,m,l){
           		</a>`;
         }
     var totalPrice = 1*sPrice;
+
+    document.getElementById("MitemNo").value = id;
+    document.getElementById("MitemName").value = name;
+    document.getElementById("Munit").value = unit;
+    document.getElementById("Msize").value = sName;
     document.getElementById("mo_qty").value = 1;
 	document.getElementById("Mitem_title").innerHTML = Mitem;
 	document.getElementById("Mimg").innerHTML = Mimg;
@@ -247,6 +256,75 @@ function showmodal(id,name,img,s,m,l){
 	document.getElementById("mo-pri").value = totalPrice+` ฿`;
 
 	$('#myModal').show();
+}
+
+function send_order(){
+    var itemCode = document.getElementById("MitemNo").value;
+    var itemName = document.getElementById("MitemName").value;
+    var qty = document.getElementById("mo_qty").value;
+    var price = document.getElementById("mo-pri").value;
+    var unit = document.getElementById("Munit").value;
+    var size = document.getElementById("Msize").value;
+
+    price = price.split(" ");
+
+    order_list(itemCode,itemName,size,qty,unit,price[0]);
+    $('#myModal').modal('toggle');
+   // console.log("itemCode = "+itemCode+", itemName = "+itemName+", qty = "+qty+", size ="+size+", unit = "+unit+", price = "+price);
+}
+
+function order_list(itemCode,itemName,size,qty,unit,price){
+   // console.log(itemCode+","+itemName+","+size+","+qty+","+unit+","+price);
+   listOrder.push({"item_code":itemCode,"item_name":itemName,"item_size":size,"qty":qty,"unit":unit,"price":price});
+
+   console.log(JSON.stringify(listOrder));
+   var list = "";
+   var totalPrice = 0;
+   for(var i = 0; i < listOrder.length; i++){
+       list += `
+                  <label class="orderlist">
+                       <div class="ordername"> `+listOrder[i].item_name+` `+listOrder[i].item_size+`</div>
+                       <div class="orderqty">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
+                       <div class="orderprice">`+listOrder[i].price+` ฿</div>
+                       <div class="ordercancel">
+                       <button class="btn btn-danger btn-xs" onclick="item_cancel(`+i+`)" style="padding-left: 22.5%; padding-right: 22.5%;">-
+                       </button>
+                     </div>
+                  </label>
+                `;
+       totalPrice += parseInt(listOrder[i].price);
+   }
+    console.log(formatMoney(totalPrice));
+    var ttPrice = formatMoney(totalPrice);
+   document.getElementById("pri1").value = ttPrice;
+   document.getElementById("order_list").innerHTML = list;
+   console.log(list);
+}
+
+function formatMoney(inum){  // ฟังก์ชันสำหรับแปลงค่าตัวเลขให้อยู่ในรูปแบบ เงิน
+    var s_inum=new String(inum);
+    var num2=s_inum.split(".");
+    var n_inum="";
+    if(num2[0]!=undefined){
+        var l_inum=num2[0].length;
+        for(i=0;i<l_inum;i++){
+            if(parseInt(l_inum-i)%3==0){
+                if(i==0){
+                    n_inum+=s_inum.charAt(i);
+                }else{
+                    n_inum+=","+s_inum.charAt(i);
+                }
+            }else{
+                n_inum+=s_inum.charAt(i);
+            }
+        }
+    }else{
+        n_inum=inum;
+    }
+    if(num2[1]!=undefined){
+        n_inum+="."+num2[1];
+    }
+    return n_inum;
 }
 
 function onsayeng(id){

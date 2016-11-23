@@ -310,7 +310,8 @@
 		color: #000; 
 		font-weight: bold;
 		font-size: 26px; 
-		padding-right: 5%; 
+		padding-right: 5%;
+		text-align:right;
 	}
 
 	#sub{
