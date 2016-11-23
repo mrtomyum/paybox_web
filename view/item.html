@@ -105,15 +105,21 @@
             </div> <!-- scroll -->
 
             <div id="price1"><h4>ราคาทั้งหมด
-                <input type="text" name="pri1" id="pri1" readonly> บาท</h4>
+                <input type="text" name="pri1" id="pri1" readonly value="0"> บาท</h4>
             </div>
             <div id="price2"><h4 style="padding-left: 4%;">จำนวนเงิน
-                <input type="text" name="pri2" id="pri2" readonly> บาท</h4>
+                <input type="text" name="pri2" id="pri2" readonly value="0"> บาท</h4>
             </div>
 
             <div id="sub">
-                <a href="#">
-                    <button class="ok">
+                <a href="javascript:payment();">
+                    <button class="Payment">
+                        <b>ชำระเงิน</b>
+                    </button>
+                </a>
+
+                <a href="javascript:print();">
+                    <button class="print" style="display:none;">
                         <b>พิมพ์ใบเสร็จ</b>
                     </button>
                 </a>

@@ -301,6 +301,34 @@ function order_list(itemCode,itemName,size,qty,unit,price){
    console.log(list);
 }
 
+function item_cancel(index){
+   listOrder.splice(index, 1);
+   alert("ยกเลิกรายการที่ท่านต้องการเรียบร้อย");
+
+     var list = "";
+      var totalPrice = 0;
+      for(var i = 0; i < listOrder.length; i++){
+          list += `
+                     <label class="orderlist">
+                          <div class="ordername"> `+listOrder[i].item_name+` `+listOrder[i].item_size+`</div>
+                          <div class="orderqty">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
+                          <div class="orderprice">`+listOrder[i].price+` ฿</div>
+                          <div class="ordercancel">
+                          <button class="btn btn-danger btn-xs" onclick="item_cancel(`+i+`)" style="padding-left: 22.5%; padding-right: 22.5%;">-
+                          </button>
+                        </div>
+                     </label>
+                   `;
+          totalPrice += parseInt(listOrder[i].price);
+      }
+       console.log(formatMoney(totalPrice));
+       var ttPrice = formatMoney(totalPrice);
+      document.getElementById("pri1").value = ttPrice;
+      document.getElementById("order_list").innerHTML = list;
+      console.log(list);
+
+}
+
 function formatMoney(inum){  // ฟังก์ชันสำหรับแปลงค่าตัวเลขให้อยู่ในรูปแบบ เงิน
     var s_inum=new String(inum);
     var num2=s_inum.split(".");
@@ -370,4 +398,18 @@ function onsaychina(id){
 	active(localStorage.getID);
 	item(localStorage.language,localStorage.getID);
     //detailmenu(id);
+}
+
+function payment(){
+    var bt_payment = document.getElementsByClassName("Payment");
+    var bt_print = document.getElementsByClassName("print");
+
+    bt_payment[0].style.display = "none";
+    bt_print[0].style.display = "block";
+
+    console.log("kkk");
+}
+
+function print(){
+
 }
