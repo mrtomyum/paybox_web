@@ -24,7 +24,7 @@
             <div style="width: 50%; color: #fff; float: left; line-height:11px; padding-left:30%; padding-right: 0%;">
                 <!-- <h3 style="font-size: 18px; margin: 0; padding: 0;">language</h3>-->
                 <h4>เวลา 08.00 น.</h4>
-                <h4>version 0.1</h4>
+                <h4><span id="version"></span></h4>
             </div>
             <!--<div style="width: 30%; float: left;">
                 <a href="javascript:onsayeng(1)"><img src="/img/uk-flag.png" id="l1" class="lang"></a>
@@ -33,13 +33,14 @@
             </div>-->
         </div>
 
-        <div class="status"><h4>Status : take this</h4></div>
+        <div class="status"><h4><span id="status"></span></h4></div>
         <div class="order">
-            <h2>รายการ</h2>
+            <h2><span id="title_order"></span></h2>
             <div class="scroll">
                 <div id="order_list">
                     <label class="orderlist">
-                        <h4 style="color:red; text-align:center; padding:0;">** กรุณาเลือกสินค้า **</h4>
+                        <h4 style="color:red; text-align:center; padding:0; width:95%;"><span id="default_order"></span>
+                        </h4>
                     </label>
                 </div>
                 <!--<label class="orderlist">
@@ -104,28 +105,28 @@
 
             </div> <!-- scroll -->
 
-            <div id="price1"><h4>ราคาทั้งหมด
-                <input type="text" name="pri1" id="pri1" readonly value="0"> บาท</h4>
+            <div id="price1"><h4><span id="txtTotalPri"></span>
+                <input type="text" name="pri1" id="pri1" readonly value="0"> <span id="txtUnit"></span></h4>
             </div>
-            <div id="price2"><h4 style="padding-left: 4%;">จำนวนเงิน
-                <input type="text" name="pri2" id="pri2" readonly value="0"> บาท</h4>
+            <div id="price2"><h4 style="padding-left: 4%;"><span id="txtmacPri"></span>
+                <input type="text" name="pri2" id="pri2" readonly value="0"> <span id="txtUnit2"></span></h4>
             </div>
 
             <div id="sub">
                 <a href="javascript:payment();">
                     <button class="Payment">
-                        <b>ชำระเงิน</b>
+                        <b><span id="bt_payment"></span></b>
                     </button>
                 </a>
 
                 <a href="javascript:print();">
                     <button class="print" style="display:none">
-                        <b>พิมพ์ใบเสร็จ</b>
+                        <b><span id="bt_print"></span></b>
                     </button>
                 </a>
                 <a href="index.html">
                     <button class="cancel">
-                        <b>ยกเลิก</b>
+                        <b><span id="bt_cancel"></span></b>
                     </button>
                 </a>
             </div>
@@ -141,7 +142,7 @@
         </div>-->
         <div id="img_lang">
             <h4>เวลา 08.00 น.</h4>
-            <h4>version 0.1</h4>
+            <h4><span id="version2"></span></h4>
             <!--   <a href="javascript:onsayeng(1)"><img src="/img/uk-flag.png" id="r1" class="lang "></a>
                 <a href="javascript:onsaythai(2)"><img src="/img/thaiflag.png" id="r2" class="lang"></a>
                 <a href="javascript:onsaychina(3)"><img src="/img/China.png" id="r3" class="lang"></a>-->

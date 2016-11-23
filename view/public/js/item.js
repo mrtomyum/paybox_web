@@ -1,6 +1,65 @@
 $("document").ready(function(){
     var menuId = localStorage.menuId;
 	var id = localStorage.language;
+	var status = localStorage.action;
+
+	switch(parseInt(id)){
+	    case 1: if(status==1){ status = "รับประทานที่ร้าน"}else{ status = "ซื้อกลับบ้าน"}
+	            document.getElementById("status").innerHTML = "สถานะ : "+status;
+
+	            document.getElementById("txtTotalPri").innerHTML = "ราคาทั้งหมด";
+	            document.getElementById("txtmacPri").innerHTML = "จำนวนเงิน";
+	            document.getElementById("txtUnit").innerHTML = "บาท";
+	            document.getElementById("txtUnit2").innerHTML = "บาท";
+
+	            document.getElementById("bt_payment").innerHTML = "ชำระเงิน";
+	            document.getElementById("bt_print").innerHTML = "พิมพ์ใบเสร็จ";
+	            document.getElementById("bt_cancel").innerHTML = "ยกเลิก";
+
+	            document.getElementById("default_order").innerHTML = "** กรุณาเลือกรายการ **";
+	            document.getElementById("title_order").innerHTML = "รายการ";
+
+	            document.getElementById("version").innerHTML = "เวอร์ชั่น 0.1";
+	            document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1";
+	            break;
+	    case 2: if(status==1){ status = "take this"}else{ status = "this out"}
+                document.getElementById("status").innerHTML = "status : "+status;
+
+                document.getElementById("txtTotalPri").innerHTML = "Total";
+                document.getElementById("txtmacPri").innerHTML = "Amount";
+                document.getElementById("txtUnit").innerHTML = "baht";
+                document.getElementById("txtUnit2").innerHTML = "baht";
+
+                document.getElementById("bt_payment").innerHTML = "Payment";
+                document.getElementById("bt_print").innerHTML = "Print Lipts";
+                document.getElementById("bt_cancel").innerHTML = "cancel";
+
+                document.getElementById("default_order").innerHTML = "** Please select an item **";
+                document.getElementById("title_order").innerHTML = "Order";
+
+                document.getElementById("version").innerHTML = "version 0.1";
+                document.getElementById("version2").innerHTML = "version 0.1";
+	            break;
+	    case 3: if(status==1){ status = "拿著它"}else{ status = "取出"}
+               	document.getElementById("status").innerHTML = "狀態 : "+status;
+
+               	document.getElementById("txtTotalPri").innerHTML = "全平衡";
+               	document.getElementById("txtmacPri").innerHTML = "全平衡";
+               	document.getElementById("txtUnit").innerHTML = "銖";
+               	document.getElementById("txtUnit2").innerHTML = "銖";
+
+               	document.getElementById("bt_payment").innerHTML = "付款";
+               	document.getElementById("bt_print").innerHTML = "打印收據";
+               	document.getElementById("bt_cancel").innerHTML = "取消";
+
+               	document.getElementById("default_order").innerHTML = "** 請選擇一個項目 **";
+               	document.getElementById("title_order").innerHTML = "名單";
+
+               	document.getElementById("version").innerHTML = "版本 0.1";
+               	document.getElementById("version2").innerHTML = "版本 0.1";
+	            break;
+	}
+
       responsiveVoice.OnVoiceReady = function() {
           console.log("speech time?");
           if(localStorage.nName!="null"){
@@ -283,11 +342,11 @@ function order_list(itemCode,itemName,size,qty,unit,price){
    for(var i = 0; i < listOrder.length; i++){
        list += `
                   <label class="orderlist">
-                       <div class="ordername"> `+listOrder[i].item_name+` `+listOrder[i].item_size+`</div>
-                       <div class="orderqty">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
-                       <div class="orderprice">`+listOrder[i].price+` ฿</div>
+                       <div class="ordername" onclick="return false;"> `+listOrder[i].item_name+` `+listOrder[i].item_size+`</div>
+                       <div class="orderqty" onclick="return false;">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
+                       <div class="orderprice" onclick="return false;">`+listOrder[i].price+` ฿</div>
                        <div class="ordercancel">
-                       <button class="btn btn-danger btn-xs" onclick="item_cancel(`+i+`)" style="padding-left: 22.5%; padding-right: 22.5%;">-
+                       <button class="btn btn-danger btn-xs"  onclick="item_cancel(`+i+`)" style="padding-left: 22.5%; padding-right: 22.5%;">-
                        </button>
                      </div>
                   </label>
@@ -436,7 +495,7 @@ function print(){
     //console.log(changeMoney);
 
     var output = [];
-    output.push({"change":changeMoney,"bill_price":pri1,"list_order":listOrder});
+    output.push({"change":changeMoney,"bill_price":pri1,"status":localStorage.action,"list_order":listOrder});
     if(changeMoney<0){
         alert("ยอดเงินไม่พอชำระ");
     }else{
