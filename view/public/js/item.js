@@ -56,8 +56,8 @@ $("document").ready(function(){
 	    case 3: if(status==1){ status = "拿著它"}else{ status = "取出"}
                	document.getElementById("status").innerHTML = "狀態 : "+status;
 
-               	document.getElementById("txtTotalPri").innerHTML = "全平衡";
-               	document.getElementById("txtmacPri").innerHTML = "全平衡";
+               	document.getElementById("txtTotalPri").innerHTML = "總價";
+               	document.getElementById("txtmacPri").innerHTML = "付款";
                	document.getElementById("txtUnit").innerHTML = "銖";
                	document.getElementById("txtUnit2").innerHTML = "銖";
 
@@ -166,8 +166,9 @@ function item(lang,menuId){
                     			,'`+size[1].name+'/'+size[1].price+`'
                     			,'`+size[2].name+'/'+size[2].price+`')">
                     			<img src="/img/`+items[i].image+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-                    			<h5 style="margin-top: 0;"><div style="width: 80%; float: left;"><b>`+items[i].name+`
-                    			</b></div><div style="width: 20%; float: left;"><b>`+size[0].price+` ฿</b></div></h5>
+                    			<h5 style="margin-top: 0;">
+                    			<div style="width: 80%; float: left;">`+items[i].name+`
+                    			</div><div style="width: 20%; float: left; padding:0;">`+size[0].price+` ฿</div></h5>
                     			</div></a>`;
                     }
                     					//console.log(item);

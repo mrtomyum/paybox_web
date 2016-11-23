@@ -50,16 +50,15 @@
 
 	}
 	.block-3 h5{
-		color: #000;
-		height:  40px;
+	    color: #000;
+		height: 35px;
 		background: #fff;
 		vertical-align: middle;
 		text-align: left;
-		padding-top: 5%;
-		padding-left: 5%;
-		font-size: 14px;
+		padding:3% 1% 0 1%;
+		font-size: 11.5px;
+		line-height:13.5px;
 		border-top: 3px solid #602c06;
-		margin-bottom: 5%;
 	}
 
 	.block-img{
@@ -326,7 +325,7 @@
 		width: 50%;
 		height:30px;
 		/*border: 1px yellow solid;*/
-		padding: 0 0 0 5%;
+		padding: 0 0 0 0%;
 		padding-bottom: 1%;
 		margin-top:2%;
 		text-align: right;
@@ -338,11 +337,13 @@
 		margin:0;
 		padding: 0% 0 0 0;
 		font-size: 16px;
+		text-align:center;
 	}
 	#price2 h4{
 		margin:0;
 		padding: 0% 0 0 0;
 		font-size: 16px;
+		text-align:center;
 	}
 
 	#pri1,#pri2{

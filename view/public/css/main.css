@@ -777,9 +777,9 @@ br{display: none;}
 		background: #fff;
 		vertical-align: middle;
 		text-align: left;
-		padding-top: 5%;
-		padding-left: 5%;
-		font-size: 16px;
+		padding:5% 2% 0 2%;
+		font-size: 13.5px;
+		line-height:16px;
 		border-top: 3px solid #602c06;
 	}
 
@@ -1036,7 +1036,7 @@ br{display: none;}
 		width: 100%;
 		height: 40px;
 		/*border: 1px yellow solid;*/
-		padding: 0 0 0 5%;
+		padding: 0 10% 0 0%;
 		padding-bottom: 1%;
 		margin-top:2%;
 		text-align: right;
@@ -1047,11 +1047,13 @@ br{display: none;}
 		margin:0;
 		padding: 0% 0 0 0;
 		font-size: 18px;
+		text-align:right;
 	}
 	#price2 h4{
 		margin:0;
 		padding: 0% 0 0 0;
 		font-size: 18px;
+		text-align:right;
 	}
 
 	#pri1,#pri2{
