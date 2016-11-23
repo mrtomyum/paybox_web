@@ -5,6 +5,18 @@ $(document).ready(function(){
      localStorage.action = 0;
      localStorage.getID = 0;
      localStorage.language = 1;
+
+     document.getElementById("version").innerHTML = "เวอร์ชั่น 0.1";
+     document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
+
+     var worker = new Worker('/js/time.js');
+     worker.onmessage = function (event) {
+     document.getElementById('timer').innerText =event.data ;
+     document.getElementById('timer2').innerText =event.data;
+     };
+
+     document.getElementById("Name_time").innerHTML = "เวลา ";
+     document.getElementById("Name_time2").innerHTML = "เวลา ";
 });
 
 function onsayeng(id){
@@ -15,6 +27,11 @@ function onsayeng(id){
     document.getElementById('img_bt').innerHTML = detail;
     $("img").removeClass("active_img");
     $("#"+id).addClass("active_img");
+    document.getElementById("version").innerHTML = "version 0.1";
+    document.getElementById("version2").innerHTML = "version 0.1 ";
+
+     document.getElementById("Name_time").innerHTML = "time ";
+     document.getElementById("Name_time2").innerHTML = "time ";
     localStorage.language = 2;
 }
 
@@ -26,6 +43,11 @@ function onsaythai(id){
     document.getElementById('img_bt').innerHTML = detail;
     $("img").removeClass("active_img");
     $("#"+id).addClass("active_img");
+         document.getElementById("version").innerHTML = "เวอร์ชั่น 0.1";
+         document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
+     document.getElementById("Name_time").innerHTML = "เวลา ";
+     document.getElementById("Name_time2").innerHTML = "เวลา ";
+
     localStorage.language = 1;
 }
 
@@ -37,6 +59,12 @@ function onsaychina(id){
     document.getElementById('img_bt').innerHTML = detail;
     $("img").removeClass("active_img");
     $("#"+id).addClass("active_img");
+    document.getElementById("version").innerHTML = "版本 0.1";
+    document.getElementById("version2").innerHTML = "版本 0.1 ";
+
+     document.getElementById("Name_time").innerHTML = "時間 ";
+     document.getElementById("Name_time2").innerHTML = "時間 ";
+
     localStorage.language = 3;
 }
 /*////////////////// take this  //////////////////////////////*/

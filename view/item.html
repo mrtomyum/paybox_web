@@ -23,8 +23,8 @@
             </div>
             <div style="width: 50%; color: #fff; float: left; line-height:11px; padding-left:30%; padding-right: 0%;">
                 <!-- <h3 style="font-size: 18px; margin: 0; padding: 0;">language</h3>-->
-                <h4>เวลา 08.00 น.</h4>
-                <h4>version 0.1</h4>
+                <h4><span id="Name_time2"></span><span id="timer2"></span></h4>
+                <h4><span id="version"></span></h4>
             </div>
             <!--<div style="width: 30%; float: left;">
                 <a href="javascript:onsayeng(1)"><img src="/img/uk-flag.png" id="l1" class="lang"></a>
@@ -33,11 +33,17 @@
             </div>-->
         </div>
 
-        <div class="status"><h4>Status : take this</h4></div>
+        <div class="status"><h4><span id="status"></span></h4></div>
         <div class="order">
-            <h2>รายการ</h2>
+            <h2><span id="title_order"></span></h2>
             <div class="scroll">
-                <label class="orderlist">
+                <div id="order_list">
+                    <label class="orderlist">
+                        <h4 style="color:red; text-align:center; padding:0; width:95%;"><span id="default_order"></span>
+                        </h4>
+                    </label>
+                </div>
+                <!--<label class="orderlist">
                     <div class="ordername"> คาปูชิโน S</div>
                     <div class="orderqty">1 แก้ว</div>
                     <div class="orderprice">35 ฿</div>
@@ -95,26 +101,32 @@
                         <button class="btn btn-danger btn-xs" style="padding-left: 22.5%; padding-right: 22.5%;">-
                         </button>
                     </div>
-                </label>
+                </label>-->
 
             </div> <!-- scroll -->
 
-            <div id="price1"><h4>ราคาทั้งหมด
-                <input type="number" name="pri1" id="pri1" readonly> บาท</h4>
+            <div id="price1"><h4><span id="txtTotalPri"></span>
+                <input type="text" name="pri1" id="pri1" readonly value="0"> <span id="txtUnit"></span></h4>
             </div>
-            <div id="price2"><h4 style="padding-left: 4%;">จำนวนเงิน
-                <input type="number" name="pri2" id="pri2" readonly> บาท</h4>
+            <div id="price2"><h4><span id="txtmacPri"></span>
+                <input type="text" name="pri2" id="pri2" readonly value="0"> <span id="txtUnit2"></span></h4>
             </div>
 
             <div id="sub">
-                <a href="#">
-                    <button class="ok">
-                        <b>พิมพ์ใบเสร็จ</b>
+                <a href="javascript:payment();">
+                    <button class="Payment">
+                        <b><span id="bt_payment"></span></b>
+                    </button>
+                </a>
+
+                <a href="javascript:print();">
+                    <button class="print" style="display:none">
+                        <b><span id="bt_print"></span></b>
                     </button>
                 </a>
                 <a href="index.html">
                     <button class="cancel">
-                        <b>ยกเลิก</b>
+                        <b><span id="bt_cancel"></span></b>
                     </button>
                 </a>
             </div>
@@ -129,8 +141,8 @@
             <h3>language</h3>
         </div>-->
         <div id="img_lang">
-            <h4>เวลา 08.00 น.</h4>
-            <h4>version 0.1</h4>
+            <h4><span id="Name_time"></span><span id="timer"></span></h4>
+            <h4><span id="version2"></span></h4>
             <!--   <a href="javascript:onsayeng(1)"><img src="/img/uk-flag.png" id="r1" class="lang "></a>
                 <a href="javascript:onsaythai(2)"><img src="/img/thaiflag.png" id="r2" class="lang"></a>
                 <a href="javascript:onsaychina(3)"><img src="/img/China.png" id="r3" class="lang"></a>-->
@@ -209,7 +221,7 @@
 
         </div>
         <div id="bt_menu">
-            <ul>
+            <ul class="ul_menu">
                 <div id="li_menu"></div>
             </ul>
         </div>
@@ -225,6 +237,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-name"><h1 class="modal-title"><span id="Mitem_title"></span></h1></div>
+                <input type="hidden" id="MitemNo"><input type="hidden" id="MitemName">
+                <input type="hidden" id="Munit">
             </div>
             <div class="modal-body">
                 <div id="modal-left">
@@ -245,9 +259,10 @@
                     </div>
                     <div id="modal-size">
                         <div id="menusize"></div>
+                        <input type="hidden" id="Msize">
                     </div>
                     <div id="modal-submit">
-                        <a href="#"><img src="/img/ok.png" style="margin-left: 0;"></a>
+                        <a href="javascript:send_order()"><img src="/img/ok.png" id="send" style="margin-left: 0;"></a>
                         <a href="#"><img src="/img/no.png" data-dismiss="modal"></a>
                     </div>
                 </div>
@@ -260,6 +275,7 @@
 </div>
 <script type="text/javascript" src="/js/item.js"></script>
 <script type="text/javascript" src="/js/voice.js"></script>
+<script src="/js/websocket.js"></script>
 <!--<script type="text/javascript" src="/json/menu_all.json"></script>
 <script type="text/javascript" src="/json/menu1.json"></script>
 <script type="text/javascript" src="/json/menu2.json"></script>
