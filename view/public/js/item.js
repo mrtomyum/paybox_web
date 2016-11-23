@@ -85,7 +85,7 @@ function item(lang,menuId){
                     var item = "";
                     for(var i = 0; i < items.length; i++){
                     	var size = items[i].sizes;
-                    	item += `<a href="#"><div class="block-3" data-toggle="modal" data-target="#myModal"
+                    	item += `<a href="#"><div class="block-3"
                     			onclick="showmodal('`+items[i].id+`','`+items[i].name+`','/img/`+items[i].image+`','`+items[i].unit+`',
                     			'`+size[0].name+'/'+size[0].price+`'
                     			,'`+size[1].name+'/'+size[1].price+`'
@@ -255,7 +255,7 @@ function showmodal(id,name,img,unit,s,m,l){
 	document.getElementById("menusize").innerHTML = size;
 	document.getElementById("mo-pri").value = totalPrice+` ฿`;
 
-	$('#myModal').show();
+	 $('#myModal').modal('show');
 }
 
 function send_order(){
@@ -403,6 +403,18 @@ function onsaychina(id){
 function payment(){
     var bt_payment = document.getElementsByClassName("Payment");
     var bt_print = document.getElementsByClassName("print");
+
+    var block = document.getElementsByClassName("block-3");
+    for(var i = 0; i < block.length; i++){
+        block[i].style.pointerEvents = 'none';
+    }
+
+    anchors = document.querySelectorAll('.ul_menu li'),
+    elems = {};
+    [].forEach.call(anchors, function(anchor) {
+        elems[anchor.id] = anchor.getAttribute('onclick');
+        anchor.setAttribute('onclick', '');
+    });
 
     bt_payment[0].style.display = "none";
     bt_print[0].style.display = "block";
