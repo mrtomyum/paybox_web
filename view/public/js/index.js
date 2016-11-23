@@ -5,6 +5,9 @@ $(document).ready(function(){
      localStorage.action = 0;
      localStorage.getID = 0;
      localStorage.language = 1;
+
+     document.getElementById("version").innerHTML = "เวอร์ชั่น 0.1";
+     document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
 });
 
 function onsayeng(id){
@@ -15,6 +18,9 @@ function onsayeng(id){
     document.getElementById('img_bt').innerHTML = detail;
     $("img").removeClass("active_img");
     $("#"+id).addClass("active_img");
+    document.getElementById("version").innerHTML = "version 0.1";
+    document.getElementById("version2").innerHTML = "version 0.1 ";
+
     localStorage.language = 2;
 }
 
@@ -26,6 +32,9 @@ function onsaythai(id){
     document.getElementById('img_bt').innerHTML = detail;
     $("img").removeClass("active_img");
     $("#"+id).addClass("active_img");
+         document.getElementById("version").innerHTML = "เวอร์ชั่น 0.1";
+         document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
+
     localStorage.language = 1;
 }
 
@@ -37,6 +46,9 @@ function onsaychina(id){
     document.getElementById('img_bt').innerHTML = detail;
     $("img").removeClass("active_img");
     $("#"+id).addClass("active_img");
+    document.getElementById("version").innerHTML = "版本 0.1";
+    document.getElementById("version2").innerHTML = "版本 0.1 ";
+
     localStorage.language = 3;
 }
 /*////////////////// take this  //////////////////////////////*/
