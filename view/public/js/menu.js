@@ -29,7 +29,6 @@ $(document).ready(function(){
 
 	            document.getElementById("bt_back").innerHTML = "ย้อนกลับ";
 
-
                  document.getElementById("Name_time").innerHTML = "เวลา ";
                  document.getElementById("Name_time2").innerHTML = "เวลา ";
 
