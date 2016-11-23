@@ -407,9 +407,15 @@ function payment(){
     bt_payment[0].style.display = "none";
     bt_print[0].style.display = "block";
 
+    payment_socket();
     console.log("kkk");
 }
 
 function print(){
+    var pri1 = document.getElementById("pri1").value;
+    var pri2 = document.getElementById("pri2").value;
 
+    var changeMoney = parseInt(pri1)-parseInt(pri2);
+
+    console.log(changeMoney);
 }
