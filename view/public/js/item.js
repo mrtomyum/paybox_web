@@ -406,8 +406,8 @@ function payment(){
 
     bt_payment[0].style.display = "none";
     bt_print[0].style.display = "block";
-
-    payment_socket();
+    websocket.onopen();
+    doSend("เริ่มจ่ายตังค์ได้แล้วแน๊ะแจ๊ะ");
     console.log("kkk");
 }
 
@@ -416,6 +416,6 @@ function print(){
     var pri2 = document.getElementById("pri2").value;
 
     var changeMoney = parseInt(pri1)-parseInt(pri2);
-
+    websocket.close();
     console.log(changeMoney);
 }

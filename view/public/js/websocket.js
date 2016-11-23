@@ -1,23 +1,39 @@
-function payment_socket(){
     var wsUri = "ws://echo.websocket.org/";
-         var output;
 
-         function init() {
-            output = document.getElementById("output");
-            testWebSocket();
-         }
 
-         function testWebSocket() {
-            websocket = new WebSocket(wsUri);
+      websocket = new WebSocket(wsUri);
+      websocket.onopen = function(evt) { onOpen(evt) };
+      websocket.onclose = function(evt) { onClose(evt) };
+      websocket.onmessage = function(evt) { onMessage(evt) };
+      websocket.onerror = function(evt) { onError(evt) };
 
-            websocket.onopen = function(evt) {
-               onOpen(evt)
-            };
-         }
 
-         function onOpen(evt) {
-            console.log("CONNECTED");
-         }
+    function onOpen(evt)
+    {
+      console.log("CONNECTED");
+    }
 
-         window.addEventListener("load", init, false);
-}
+    function onClose(evt)
+    {
+      console.log("DISCONNECTED");
+    }
+
+    function onMessage(evt)
+    {
+      console.log('RESPONSE: ' + evt.data);
+     // websocket.close();
+    //  websocket.close();
+    }
+
+    function onError(evt)
+    {
+      console.log('Error : ' + evt.data);
+    }
+
+    function doSend(message)
+    {
+      console.log("SENT: " + message);
+      websocket.send(message);
+    }
+
+
