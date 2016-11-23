@@ -1,14 +1,10 @@
 @font-face {
-font-family: 'WR Tish Smile';
-src: url('font_page/WR Tish Smile.ttf');
-}
-@font-face {
-font-family: 'Arabica';
-src: url('font_page/Arabica.ttf');
+font-family: 'RSU_BOLD';
+src: url('font_page/RSU_BOLD.ttf');
 }
 
 * {
-font-family:  'Arabica';
+font-family:  'RSU_BOLD';
 }
 
 body{
