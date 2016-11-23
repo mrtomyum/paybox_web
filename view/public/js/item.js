@@ -421,9 +421,9 @@ function payment(){
     });
 
     bt_payment[0].style.display = "none";
-    bt_print[0].style.display = "block";
+    bt_print[0].style.display = "inline-block";
     websocket.onopen();
-    doSend("10");
+    doSend("500");
     //console.log("kkk");
 }
 
@@ -431,8 +431,16 @@ function print(){
     var pri1 = document.getElementById("pri1").value;
     var pri2 = document.getElementById("pri2").value;
 
-    var changeMoney = parseInt(pri1)-parseInt(pri2);
+    var changeMoney = parseInt(pri2)-parseInt(pri1);
     websocket.close();
     //console.log(changeMoney);
-    alert("เงินทอน "+changeMoney);
+
+    var output = [];
+    output.push({"change":changeMoney,"list_order":listOrder});
+    if(changeMoney<0){
+        alert("ยอดเงินไม่พอชำระ");
+    }else{
+        alert(JSON.stringify(output));
+    }
+
 }
