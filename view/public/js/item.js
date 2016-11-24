@@ -13,7 +13,7 @@ $("document").ready(function(){
 	    case 1: if(status==1){ status = "รับประทานที่ร้าน"}else{ status = "ซื้อกลับบ้าน"}
 	            document.getElementById("status").innerHTML = "สถานะ : "+status;
 
-	            document.getElementById("txtTotalPri").innerHTML = "ราคาทั้งหมด";
+	            document.getElementById("txtTotalPri").innerHTML = "ราคารวม";
 	            document.getElementById("txtmacPri").innerHTML = "จำนวนเงิน";
 	            document.getElementById("txtUnit").innerHTML = "บาท";
 	            document.getElementById("txtUnit2").innerHTML = "บาท";
@@ -35,7 +35,7 @@ $("document").ready(function(){
 	    case 2: if(status==1){ status = "take this"}else{ status = "this out"}
                 document.getElementById("status").innerHTML = "status : "+status;
 
-                document.getElementById("txtTotalPri").innerHTML = "Total Order";
+                document.getElementById("txtTotalPri").innerHTML = "Total";
                 document.getElementById("txtmacPri").innerHTML = "Payment";
                 document.getElementById("txtUnit").innerHTML = "baht";
                 document.getElementById("txtUnit2").innerHTML = "baht";
@@ -97,7 +97,7 @@ function main_menu(id){
 	//var mydata = jQuery.parseJSON(data);
 	console.log("menuid "+id);
      $.ajax({
-            url: "http://localhost:8888/menu/",
+            url: "http://nava.work:8888/menu/",
           //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -147,7 +147,7 @@ function main_menu(id){
 function item(lang,menuId){
 	console.log(lang+", "+menuId);
     $.ajax({
-            url: "http://localhost:8888/menu/"+(parseInt(menuId)+1),
+            url: "http://nava.work:8888/menu/"+(parseInt(menuId)+1),
           //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",

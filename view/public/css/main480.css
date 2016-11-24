@@ -102,7 +102,7 @@
 		padding:2% 0 0 0;
 		text-decoration:none;
 		text-shadow:0px 1px 0px #528009;
-		width:45%; 
+		width:100%;
 		height: 35px; 
 		font-size: 18px;
 		float: left;
@@ -147,7 +147,7 @@
     	padding:6px 12px;
     	text-decoration:none;
     	text-shadow:0px 1px 0px #5b8a3c;
-        width:45%;
+        width:100%;
 		height: 35px;
 		font-size: 18px;
 		float: left;
@@ -190,7 +190,7 @@
 		padding:6px 24px;
 		text-decoration:none;
 		text-shadow:0px 1px 0px #b23e35;
-		width:45%; 
+		width:100%;
 		height: 35px; 
 		font-size: 18px;
 		float: left;
@@ -251,13 +251,14 @@
 			width: 100%;
 		}
 		.order{
-			width: 100%;
+			width: 60%;
 			background-color: #fff;
 			height: 220px;
 			border-radius: 2%;
 			margin: 0;
 			padding: 0;
 			border: 0.1px solid #fff;
+			float:left;
 		}
 		.order h2{
 			width: 100%;
@@ -314,6 +315,7 @@
 			border-radius: 2%;
 			overflow: auto;
 			margin-bottom: 2.5%;
+			float:left;
 		}
 
 	#cleft img{
@@ -322,28 +324,30 @@
 	}
 
 	#price1,#price2{
-		width: 50%;
+		width: 36%;
 		height:30px;
 		/*border: 1px yellow solid;*/
 		padding: 0 0 0 0%;
 		padding-bottom: 1%;
 		margin-top:2%;
-		text-align: right;
+		text-align: canter;
 		float: left;
+		margin-left:2%;
+		margin-right:2%;
 	}
 
 
 	#price1 h4{
 		margin:0;
-		padding: 0% 0 0 0;
+		padding: 0;
 		font-size: 16px;
-		text-align:center;
+		text-align:right;
 	}
 	#price2 h4{
 		margin:0;
-		padding: 0% 0 0 0;
+		padding: 0;
 		font-size: 16px;
-		text-align:center;
+		text-align:right;
 	}
 
 	#pri1,#pri2{
@@ -361,10 +365,14 @@
 	}
 
 	#sub{
-		width: 100%;
+		width: 38%;
 		height: 60px;
-		/*border: 1px #fff solid;*/
+		border: 1px #fff solid;
 		float: left;
+		padding:0;
+		margin-left:1%;
+		margin-right:1%;
+		margin-top:5%;
 	}
 
 	#chead{

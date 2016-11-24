@@ -62,7 +62,7 @@ $(document).ready(function(){
 function detailmenu(id){
 
      $.ajax({
-            url: "http://localhost:8888/menu/",
+            url: "http://nava.work:8888/menu/",
           //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
