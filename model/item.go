@@ -5,15 +5,6 @@ import (
 	"log"
 )
 
-type ItemSize int
-
-const (
-	REGULAR ItemSize = iota
-	SMALL
-	MEDIUM
-	LARGE
-)
-
 type Item struct {
 	sys.Base
 	Name    string  `json:"name" db:"name"`
@@ -51,6 +42,7 @@ func (i *Item) Get(id int64) (err error) {
 func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 	log.Println("call method: Item.ByMenuId::lang:", langs)
 	var sql string
+	langInit()
 	for _, l := range langs {
 		items := []*Item{}
 		switch l.Id {
@@ -72,7 +64,7 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 		for _, i := range items {
 			sizes := []*Size{}
 			sql = `SELECT * FROM size WHERE item_id = ?`
-			item_id := int(i.ID)
+			item_id := int(i.Id)
 			err = db.Select(&sizes, sql, item_id)
 			if err != nil {
 				return nil, err

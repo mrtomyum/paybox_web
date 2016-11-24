@@ -24,7 +24,7 @@ type Menu struct {
 
 var langs = make([]*Lang, 3)
 
-func init() {
+func langInit() {
 	langs[0] = &Lang{Id: 1, Name: "Thai Female"}
 	langs[1] = &Lang{Id: 2, Name: "UK English Female"}
 	langs[2] = &Lang{Id: 3, Name: "Chinese Female"}
@@ -32,6 +32,7 @@ func init() {
 
 func (m *Menu) Index() ([]*Lang, error) {
 	var sql string
+	langInit()
 	for _, l := range langs {
 		menus := []*Menu{}
 		switch l.Id {
