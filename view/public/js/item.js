@@ -385,7 +385,7 @@ function item_cancel(index){
       var totalPrice = 0;
       for(var i = 0; i < listOrder.length; i++){
           list += `
-                     <label class="orderlist">
+                     <label class="orderlist" onclick="return false">
                           <div class="ordername"> `+listOrder[i].item_name+` `+listOrder[i].item_size+`</div>
                           <div class="orderqty">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
                           <div class="orderprice">`+listOrder[i].price+` ฿</div>
@@ -400,8 +400,13 @@ function item_cancel(index){
        console.log(formatMoney(totalPrice));
        var ttPrice = formatMoney(totalPrice);
       document.getElementById("pri1").value = ttPrice;
+         if(list!=""){
+              list = list;
+         }else{
+              list = `<h4 style='color:red; text-align:center; padding:0; width:95%;'>** กรุณาเลือกรายการ **</h4>`;
+         }
       document.getElementById("order_list").innerHTML = list;
-      console.log(list);
+     // console.log(list);
 
 }
 
