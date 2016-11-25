@@ -97,7 +97,7 @@ function main_menu(id){
 	//var mydata = jQuery.parseJSON(data);
 	console.log("menuid "+id);
      $.ajax({
-            url: "http://nava.work:8888/menu/",
+            url: "http://"+window.location.host+"/menu",
           //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -147,7 +147,7 @@ function main_menu(id){
 function item(lang,menuId){
 	console.log(lang+", "+menuId);
     $.ajax({
-            url: "http://nava.work:8888/menu/"+(parseInt(menuId)+1),
+            url: "http://"+window.location.host+"/menu/"+(parseInt(menuId)+1),
           //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
