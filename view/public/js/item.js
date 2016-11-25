@@ -403,7 +403,7 @@ function item_cancel(index){
          if(list!=""){
               list = list;
          }else{
-              list = `<h4 style='color:red; text-align:center; padding:0; width:95%;'>** กรุณาเลือกรายการ **</h4>`;
+              list = `<label class="orderlist"><h4 style='color:red; text-align:center; padding:0; width:95%;'>** กรุณาเลือกรายการ **</h4></label>`;
          }
       document.getElementById("order_list").innerHTML = list;
      // console.log(list);
