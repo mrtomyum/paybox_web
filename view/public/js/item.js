@@ -97,7 +97,7 @@ function main_menu(id){
 	//var mydata = jQuery.parseJSON(data);
 	console.log("menuid "+id);
      $.ajax({
-            url: "http://nava.work:8888/menu/",
+            url: "http://"+window.location.host+"/menu",
           //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -147,7 +147,7 @@ function main_menu(id){
 function item(lang,menuId){
 	console.log(lang+", "+menuId);
     $.ajax({
-            url: "http://nava.work:8888/menu/"+(parseInt(menuId)+1),
+            url: "http://"+window.location.host+"/menu/"+(parseInt(menuId)+1),
           //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -385,7 +385,7 @@ function item_cancel(index){
       var totalPrice = 0;
       for(var i = 0; i < listOrder.length; i++){
           list += `
-                     <label class="orderlist">
+                     <label class="orderlist" onclick="return false">
                           <div class="ordername"> `+listOrder[i].item_name+` `+listOrder[i].item_size+`</div>
                           <div class="orderqty">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
                           <div class="orderprice">`+listOrder[i].price+` ฿</div>
@@ -400,8 +400,13 @@ function item_cancel(index){
        console.log(formatMoney(totalPrice));
        var ttPrice = formatMoney(totalPrice);
       document.getElementById("pri1").value = ttPrice;
+         if(list!=""){
+              list = list;
+         }else{
+              list = `<label class="orderlist"><h4 style='color:red; text-align:center; padding:0; width:95%;'>** กรุณาเลือกรายการ **</h4></label>`;
+         }
       document.getElementById("order_list").innerHTML = list;
-      console.log(list);
+     // console.log(list);
 
 }
 
