@@ -24,18 +24,19 @@
     function onMessage(evt)
     {
       console.log('RESPONSE: ' + evt.data);
-      setInterval(function(){
+
         var pathname = location.pathname.split("/");
               console.log(pathname[1]);
             if(pathname[1]=="item.html"){
-                  var t = JSON.parse(evt.data);
-                  document.getElementById("pri2").value = t['message'];
+
+                      var t = JSON.parse(evt.data);
+                      document.getElementById("pri2").value = t['message'];
+
                   console.log("item "+evt.data);
             }else if(pathname[1]=="model.html"){
                   console.log(evt.data);
                   $("#datatext").append(evt.data);
             }
-      },1000);
 
 
     }
