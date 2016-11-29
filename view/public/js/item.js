@@ -480,7 +480,7 @@ function onsaychina(id){
 	item(localStorage.language,localStorage.getID);
     //detailmenu(id);
 }
-
+var onHend = "";
 function payment(){
     var bt_payment = document.getElementsByClassName("Payment");
     var bt_print = document.getElementsByClassName("print");
@@ -505,7 +505,7 @@ function payment(){
     bt_print[0].style.display = "inline-block";
     call_websocket();
     websocket.onopen();
-    setInterval(function(){ doSend(`{"job":"onHand"}`);},1000);
+    onHend = setInterval(function(){ doSend(`{"job":"onHand"}`);},1000);
 
 
     //console.log("kkk");
@@ -516,6 +516,7 @@ function print(){
     var pri2 = document.getElementById("pri2").value;
 
     var changeMoney = parseInt(pri2)-parseInt(pri1);
+    clearInterval(onHend);
     websocket.close();
     //console.log(changeMoney);
 
