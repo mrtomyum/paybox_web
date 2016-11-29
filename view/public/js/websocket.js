@@ -1,4 +1,4 @@
-    var wsUri = "ws://echo.websocket.org/";
+    var wsUri = "ws://localhost:8888/ws";
 
 
       websocket = new WebSocket(wsUri);
