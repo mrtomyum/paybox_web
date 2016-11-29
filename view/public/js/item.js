@@ -506,7 +506,7 @@ function payment(){
     call_websocket();
     websocket.onopen();
 
-    doSend("onHand");
+    doSend(`{"job":"onHand"}`);
 
     //console.log("kkk");
 }

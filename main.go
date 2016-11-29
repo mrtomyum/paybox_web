@@ -5,7 +5,7 @@ import (
 	c "github.com/mrtomyum/paybox_terminal/controller"
 	"net/http"
 	"github.com/gorilla/websocket"
-	"github.com/labstack/gommon/log"
+//"github.com/labstack/gommon/log"
 	"fmt"
 	"encoding/json"
 )
@@ -27,7 +27,22 @@ var wsupgrader = websocket.Upgrader{
 }
 
 
+
+type Money struct {
+	Job    string
+	Amount int
+}
+
+type Onhand struct {
+	OnhandAmount int
+}
+
+var Remain = Onhand{}
+
+//Remain.OnhandAmount = 0
+
 func wshandler(w http.ResponseWriter, r *http.Request) {
+
 	conn, err := wsupgrader.Upgrade(w, r, nil)
 	if err != nil {
 		fmt.Println("Failed to set websocket upgrade: %+v", err)
@@ -36,6 +51,31 @@ func wshandler(w http.ResponseWriter, r *http.Request) {
 	go func() {
 		for {
 			t, msg, err := conn.ReadMessage()
+			data := Money{}
+			json.Unmarshal(msg, &data)
+
+
+			if data.Job == "onHand" {
+				// return onhand
+				msg, err = json.Marshal(Remain)
+				conn.WriteMessage(t, msg)
+
+			}
+			if data.Job == "money" {
+				// เพิ่ม Onhand
+
+
+				fmt.Println("Amount:", data.Amount)
+				fmt.Println("job :", data.Job)
+
+				Remain.OnhandAmount = Remain.OnhandAmount + data.Amount
+				conn.WriteMessage(t, msg)
+				fmt.Println("ON Hand Amount : ", Remain.OnhandAmount)
+			}
+
+
+
+
 			//log.Print(string(msg))
 
 			fmt.Println("received data :", string(msg))
@@ -44,12 +84,12 @@ func wshandler(w http.ResponseWriter, r *http.Request) {
 				break
 			}
 
-			msg, err = json.Marshal(gin.H{"message":string(msg)})
-			if err != nil {
-				log.Print("Eror Marshal gin.H")
-			}
+			//			msg, err = json.Marshal(gin.H{"message":string(msg)})
+			//			if err != nil {
+			//				log.Print("Eror Marshal gin.H")
+			//			}
 			//conn.WriteMessage(t, msg)
-			conn.WriteMessage(t, msg)
+			//			conn.WriteMessage(t, msg)
 
 		}
 	}()

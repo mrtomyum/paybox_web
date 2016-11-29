@@ -30,7 +30,7 @@
             if(pathname[1]=="item.html"){
 
                       var t = JSON.parse(evt.data);
-                      document.getElementById("pri2").value = t['message'];
+                      document.getElementById("pri2").value = t['OnhandAmount'];
 
                   console.log("item "+evt.data);
             }else if(pathname[1]=="model.html"){
