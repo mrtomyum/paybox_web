@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="Test Web socket - simple test &#10;">
+    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="Test receive money &amp; interact to Menu &#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/js/item.js" afterPath="$PROJECT_DIR$/view/public/js/item.js" />
     </list>
     <list id="5b54e2c5-fc8a-4659-b016-2967afcff956" name="New changelist" comment="" />
     <ignored path="paybox_terminal.iws" />
@@ -91,8 +90,8 @@
       <file leaf-file-name="item.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/view/public/js/item.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.61451244">
-              <caret line="513" column="17" selection-start-line="513" selection-start-column="17" selection-end-line="513" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.53741497">
+              <caret line="511" column="1" selection-start-line="511" selection-start-column="1" selection-end-line="511" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -876,7 +875,13 @@
       <option name="project" value="LOCAL" />
       <updated>1480410170818</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Test receive money &amp; interact to Menu &#10;">
+      <created>1480410450137</created>
+      <option name="number" value="00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1480410450137</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TodoView">
@@ -999,7 +1004,8 @@
     <MESSAGE value="ปรับโครงสร้าง Lang{} ให้เพิ่มฟิลด์รองรับส่งข้อมูล Items กลับไป &#10;ถัดไป แก้โครงสร้าง Item{} แยก Size{} ออกมา" />
     <MESSAGE value="Add Model Item.ByMenuId(id) change return from items -&gt; langs&#10;success return JSON from ctrl.GetItemByMenuId() and return unit in selected language." />
     <MESSAGE value="Test Web socket - simple test &#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test Web socket - simple test &#10;" />
+    <MESSAGE value="Test receive money &amp; interact to Menu &#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test receive money &amp; interact to Menu &#10;" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1394,8 +1400,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/view/public/js/item.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.61451244">
-          <caret line="513" column="17" selection-start-line="513" selection-start-column="17" selection-end-line="513" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.53741497">
+          <caret line="511" column="1" selection-start-line="511" selection-start-column="1" selection-end-line="511" selection-end-column="1" />
           <folding />
         </state>
       </provider>
