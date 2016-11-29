@@ -517,15 +517,19 @@ function print(){
 
     var changeMoney = parseInt(pri2)-parseInt(pri1);
     clearInterval(onHend);
-    websocket.close();
+
     //console.log(changeMoney);
 
     var output = [];
-    output.push({"total":pri1,"payment":pri2,"change":changeMoney,"status":localStorage.action,"list_order":listOrder});
+    output.push({"job":"print","total":pri1,"payment":pri2,"change":changeMoney,"status":localStorage.action,"list_order":listOrder});
+
     if(changeMoney<0){
         alert("ยอดเงินไม่พอชำระ");
     }else{
         alert(JSON.stringify(output));
     }
-    return false;
+    var str = JSON.stringify(output);
+        var i = str.length-1;
+        var res = str.substring(1,i);
+    doSend(res);
 }

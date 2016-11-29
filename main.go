@@ -35,9 +35,11 @@ type Money struct {
 
 type Onhand struct {
 	OnhandAmount int
+	Job          string
 }
 
 var Remain = Onhand{}
+
 
 //Remain.OnhandAmount = 0
 
@@ -57,6 +59,7 @@ func wshandler(w http.ResponseWriter, r *http.Request) {
 
 			if data.Job == "onHand" {
 				// return onhand
+				Remain.Job = "onHand"
 				msg, err = json.Marshal(Remain)
 				conn.WriteMessage(t, msg)
 
@@ -78,7 +81,7 @@ func wshandler(w http.ResponseWriter, r *http.Request) {
 				Remain.OnhandAmount = 0
 
 				// connect to ws printer board
-				msg, err = json.Marshal(gin.H{"message":"success", "job":"print"})
+				msg, err = json.Marshal(gin.H{"message":"success", "Job":"print"})
 				conn.WriteMessage(t, msg)
 				fmt.Println("ON Hand Amount : ", Remain.OnhandAmount)
 			}

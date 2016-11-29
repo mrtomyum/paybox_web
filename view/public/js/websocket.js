@@ -29,8 +29,13 @@
               console.log(pathname[1]);
             if(pathname[1]=="item.html"){
 
-                      var t = JSON.parse(evt.data);
-                      document.getElementById("pri2").value = t['OnhandAmount'];
+                  var t = JSON.parse(evt.data);
+                  if(t['Job']=="onHand"){
+                    document.getElementById("pri2").value = t['OnhandAmount'];
+                  }else if(t['Job']=="print"){
+                    alert(t['message']);
+                    if(t['message']=="success"){websocket.close();window.location = "index.html";}
+                  }
 
                   console.log("item "+evt.data);
             }else if(pathname[1]=="model.html"){
@@ -50,6 +55,7 @@
     {
       console.log("SENT: " + message);
       websocket.send(message);
+
     }
 
 
