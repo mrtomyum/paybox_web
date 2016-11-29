@@ -505,8 +505,8 @@ function payment(){
     bt_print[0].style.display = "inline-block";
     call_websocket();
     websocket.onopen();
+    setInterval(function(){ doSend(`{"job":"onHand"}`);},1000);
 
-    doSend(`{"job":"onHand"}`);
 
     //console.log("kkk");
 }
@@ -526,5 +526,5 @@ function print(){
     }else{
         alert(JSON.stringify(output));
     }
-
+    return false;
 }
