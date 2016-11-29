@@ -62,13 +62,23 @@ func wshandler(w http.ResponseWriter, r *http.Request) {
 
 			}
 			if data.Job == "money" {
-				// เพิ่ม Onhand
-
+				// เติมเงินเข้าตู้
 
 				fmt.Println("Amount:", data.Amount)
 				fmt.Println("job :", data.Job)
 
+				// Update Onhand amount
 				Remain.OnhandAmount = Remain.OnhandAmount + data.Amount
+				conn.WriteMessage(t, msg)
+				fmt.Println("ON Hand Amount : ", Remain.OnhandAmount)
+			}
+
+			if data.Job == "print" {
+				// เติมเงินเข้าตู้
+				Remain.OnhandAmount = 0
+
+				// connect to ws printer board
+				msg, err = json.Marshal(gin.H{"message":"success", "job":"print"})
 				conn.WriteMessage(t, msg)
 				fmt.Println("ON Hand Amount : ", Remain.OnhandAmount)
 			}
