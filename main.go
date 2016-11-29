@@ -44,7 +44,7 @@ func wshandler(w http.ResponseWriter, r *http.Request) {
 				break
 			}
 
-			msg, err = json.Marshal(gin.H{"message":50})
+			msg, err = json.Marshal(gin.H{"message":string(msg)})
 			if err != nil {
 				log.Print("Eror Marshal gin.H")
 			}

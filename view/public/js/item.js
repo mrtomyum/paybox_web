@@ -503,8 +503,11 @@ function payment(){
 
     bt_payment[0].style.display = "none";
     bt_print[0].style.display = "inline-block";
+    call_websocket();
     websocket.onopen();
-    doSend("500");
+
+    doSend("onHand");
+
     //console.log("kkk");
 }
 

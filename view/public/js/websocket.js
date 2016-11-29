@@ -1,11 +1,14 @@
-    var wsUri = "ws://localhost:8888/ws";
 
+        var wsUri = "ws://localhost:8888/ws";
+          websocket = new WebSocket(wsUri);
 
-      websocket = new WebSocket(wsUri);
-      websocket.onopen = function(evt) { onOpen(evt) };
-      websocket.onclose = function(evt) { onClose(evt) };
-      websocket.onmessage = function(evt) { onMessage(evt) };
-      websocket.onerror = function(evt) { onError(evt) };
+    function call_websocket(){
+          websocket.onopen = function(evt) { onOpen(evt) };
+          websocket.onclose = function(evt) { onClose(evt) };
+          websocket.onmessage = function(evt) { onMessage(evt) };
+          websocket.onerror = function(evt) { onError(evt) };
+    }
+
 
 
     function onOpen(evt)
@@ -21,10 +24,20 @@
     function onMessage(evt)
     {
       console.log('RESPONSE: ' + evt.data);
+      setInterval(function(){
+        var pathname = location.pathname.split("/");
+              console.log(pathname[1]);
+            if(pathname[1]=="item.html"){
+                  var t = JSON.parse(evt.data);
+                  document.getElementById("pri2").value = t['message'];
+                  console.log("item "+evt.data);
+            }else if(pathname[1]=="model.html"){
+                  console.log(evt.data);
+                  $("#datatext").append(evt.data);
+            }
+      },1000);
 
-      document.getElementById("pri2").value = evt.data;
-     // websocket.close();
-    //  websocket.close();
+
     }
 
     function onError(evt)
