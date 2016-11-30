@@ -98,7 +98,7 @@ function disabled_payment(){
         console.log(JSON.stringify(listOrder));
         console.log("listOrder is isset");
          payment1 = function() {
-                 return false;
+             alert("ท่านยังไม่ได้เลือกรายการที่ต้องการ");
          }
     }else{
         console.log("listOrder is empty");
@@ -533,9 +533,7 @@ function print(){
     var pri2 = document.getElementById("pri2").value;
 
     var changeMoney = parseInt(pri2)-parseInt(pri1);
-    clearInterval(onHend);
-
-    //console.log(changeMoney);
+   //console.log(changeMoney);
 
     var output = [];
     output.push({"job":"print","total":pri1,"payment":pri2,"change":changeMoney,"status":localStorage.action,"list_order":listOrder});
@@ -548,6 +546,7 @@ function print(){
         var i = str.length-1;
         var res = str.substring(1,i);
         doSend(res);
+        clearInterval(onHend);
     }
 
 }
