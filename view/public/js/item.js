@@ -1,3 +1,4 @@
+var listOrder = [];
 $("document").ready(function(){
     var menuId = localStorage.menuId;
 	var id = localStorage.language;
@@ -88,10 +89,24 @@ $("document").ready(function(){
     main_menu(id);
     console.log("menuid "+menuId);
     item(id,(parseInt(menuId)-1));
-
+    disabled_payment();
 
 });
-var listOrder = [];
+
+function disabled_payment(){
+    if(JSON.stringify(listOrder)=="[]"){
+        console.log(JSON.stringify(listOrder));
+        console.log("listOrder is isset");
+         payment1 = function() {
+                 return false;
+         }
+    }else{
+        console.log("listOrder is empty");
+        payment1 = function() {
+           payment();
+        }
+    }
+}
 
 function main_menu(id){
 	//var mydata = jQuery.parseJSON(data);
@@ -375,6 +390,7 @@ function order_list(itemCode,itemName,size,qty,unit,price){
    document.getElementById("pri1").value = ttPrice;
    document.getElementById("order_list").innerHTML = list;
    console.log(list);
+   disabled_payment();
 }
 
 function item_cancel(index){
@@ -407,6 +423,7 @@ function item_cancel(index){
          }
       document.getElementById("order_list").innerHTML = list;
      // console.log(list);
+     disabled_payment();
 
 }
 
@@ -527,9 +544,10 @@ function print(){
         alert("ยอดเงินไม่พอชำระ");
     }else{
         alert(JSON.stringify(output));
-    }
-    var str = JSON.stringify(output);
+        var str = JSON.stringify(output);
         var i = str.length-1;
         var res = str.substring(1,i);
-    doSend(res);
+        doSend(res);
+    }
+
 }

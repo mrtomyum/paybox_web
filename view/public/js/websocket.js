@@ -40,7 +40,7 @@
                   console.log("item "+evt.data);
             }else if(pathname[1]=="model.html"){
                   console.log(evt.data);
-                  $("#datatext").append(evt.data);
+                  $("#datatext").append(evt.data+"<br>");
             }
 
 
