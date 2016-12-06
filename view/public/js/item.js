@@ -4,6 +4,11 @@ $("document").ready(function(){
 	var id = localStorage.language;
 	var status = localStorage.action;
 
+    call_websocket();
+    //websocket.onopen();
+   /* onHend = setInterval(function(){ doSend(`{"job":"onHand"}`);},1000);*/
+   // onHend = setInterval(function(){  websocket.onmessage(); },1000);
+
       var worker = new Worker('/js/time.js');
                  worker.onmessage = function (event) {
                  document.getElementById('timer').innerText =event.data ;
@@ -520,9 +525,9 @@ function payment(){
 
     bt_payment[0].style.display = "none";
     bt_print[0].style.display = "inline-block";
-    call_websocket();
+  /*  call_websocket();
     websocket.onopen();
-    onHend = setInterval(function(){ doSend(`{"job":"onHand"}`);},1000);
+    onHend = setInterval(function(){ doSend(`{"job":"onHand"}`);},1000);*/
 
 
     //console.log("kkk");
@@ -534,10 +539,14 @@ function print(){
 
     var changeMoney = parseInt(pri2)-parseInt(pri1);
    //console.log(changeMoney);
-
+    if(localStorage.action==2){
+        var take_home = true;
+    }else{
+        var take_home = false;
+    }
     var output = [];
-    output.push({"job":"print","total":pri1,"payment":pri2,"change":changeMoney,"status":localStorage.action,"list_order":listOrder});
-
+    output.push({"device":window.location.host,"payload":{"type":"request","command":"billing","result": true,"data":{"total":pri1,"payment":pri2,"change":changeMoney,"take_home":take_home,"items":listOrder}}});
+    console.log(JSON.stringify(output));
     if(changeMoney<0){
         alert("ยอดเงินไม่พอชำระ");
     }else{
