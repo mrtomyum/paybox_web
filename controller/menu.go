@@ -18,5 +18,4 @@ func GetMenu(ctx *gin.Context) {
 		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
 	ctx.JSON(http.StatusOK, langs)
-
 }
