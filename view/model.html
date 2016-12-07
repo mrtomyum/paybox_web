@@ -29,10 +29,14 @@
 </div>
 
 <script>
+$("document").ready(function(){
+       call_websocket();
+       websocket.onopen();
+});
     function send_socket(){
         var data = document.getElementById("text").value;
-        call_websocket();
-        doSend(data);
+
+        //doSend(data);
         console.log(data);
     }
 

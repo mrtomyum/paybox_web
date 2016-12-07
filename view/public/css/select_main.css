@@ -51,7 +51,7 @@ body{
 	#menu_main{
 		width: 100%;
 		text-align: center;
-		padding-left: 4%;
+		padding-left: 8%;
 		margin-top: 5%;
 		margin-bottom: 0;
 	}
@@ -60,6 +60,7 @@ body{
 		margin-right: 5%;
 		border-radius: 100%;
 		border: 5px solid #fff;
+		margin-left:5%;
 	}
 	#menu_main hr {
 		  border: 0; 
