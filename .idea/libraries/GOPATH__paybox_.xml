@@ -1,13 +1,9 @@
 <component name="libraryTable">
   <library name="GOPATH &lt;paybox&gt;">
     <CLASSES>
-      <root url="file:///usr/local/go/src/internal" />
-      <root url="file:///usr/local/go/src/bufio" />
-      <root url="file:///usr/local/go/src/syscall" />
       <root url="file:///usr/local/go/src/regexp" />
       <root url="file://$PROJECT_DIR$/../../../gopkg.in" />
       <root url="file:///usr/local/go/src/hash" />
-      <root url="file://$PROJECT_DIR$/../.." />
       <root url="file:///usr/local/go/src/errors" />
       <root url="file:///usr/local/go/src/math" />
       <root url="file://$PROJECT_DIR$/../../../google.golang.org" />
@@ -32,6 +28,7 @@
       <root url="file:///usr/local/go/src/image" />
       <root url="file:///usr/local/go/src/builtin" />
       <root url="file:///usr/local/go/src/os" />
+      <root url="file://$PROJECT_DIR$/../.." />
       <root url="file:///usr/local/go/src/net" />
       <root url="file:///usr/local/go/src/sync" />
       <root url="file:///usr/local/go/src/text" />
@@ -49,16 +46,15 @@
       <root url="file:///usr/local/go/src/flag" />
       <root url="file:///usr/local/go/src/context" />
       <root url="file:///usr/local/go/src/expvar" />
+      <root url="file:///usr/local/go/src/internal" />
+      <root url="file:///usr/local/go/src/bufio" />
+      <root url="file:///usr/local/go/src/syscall" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="file:///usr/local/go/src/internal" />
-      <root url="file:///usr/local/go/src/bufio" />
-      <root url="file:///usr/local/go/src/syscall" />
       <root url="file:///usr/local/go/src/regexp" />
       <root url="file://$PROJECT_DIR$/../../../gopkg.in" />
       <root url="file:///usr/local/go/src/hash" />
-      <root url="file://$PROJECT_DIR$/../.." />
       <root url="file:///usr/local/go/src/errors" />
       <root url="file:///usr/local/go/src/math" />
       <root url="file://$PROJECT_DIR$/../../../google.golang.org" />
@@ -83,6 +79,7 @@
       <root url="file:///usr/local/go/src/image" />
       <root url="file:///usr/local/go/src/builtin" />
       <root url="file:///usr/local/go/src/os" />
+      <root url="file://$PROJECT_DIR$/../.." />
       <root url="file:///usr/local/go/src/net" />
       <root url="file:///usr/local/go/src/sync" />
       <root url="file:///usr/local/go/src/text" />
@@ -100,6 +97,9 @@
       <root url="file:///usr/local/go/src/flag" />
       <root url="file:///usr/local/go/src/context" />
       <root url="file:///usr/local/go/src/expvar" />
+      <root url="file:///usr/local/go/src/internal" />
+      <root url="file:///usr/local/go/src/bufio" />
+      <root url="file:///usr/local/go/src/syscall" />
     </SOURCES>
     <excluded>
       <root url="file://$PROJECT_DIR$" />

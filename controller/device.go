@@ -15,52 +15,55 @@ var wsUpgrader = websocket.Upgrader{
 }
 
 // Web socket client for Web Front end.
-func wsClient(w http.ResponseWriter, r *http.Request) {
-	addr := "localhost:9999"
-	u := url.URL{Scheme:"ws", Host: addr, Path: "/"}
-	log.Printf("กำลังเชื่อมต่อไปที่ %s", u.String())
-
-	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-	if err != nil {
-		log.Fatal("dial:", err)
-	}
-	defer conn.Close()
-
-	m := model.Msg{}
-	// Listening to Event from server
-	go func() {
-		defer conn.Close()
-		for {
-			err := conn.ReadJSON(&m)
-			if err != nil {
-				log.Println("read:", err)
-				break
-			}
-
-			switch m.Device {
-			case "coin_hopper":
-				// implementing
-				ch := model.CoinHopper{}
-				ch.CheckMsg()
-			case "coin_acc":
-			case "bill_acc":
-			case "printer":
-			}
-			conn.WriteJSON(&m)
-		}
-	}()
-
-}
+//func WsClient() {
+//	addr := "localhost:9999"
+//	u := url.URL{Scheme:"ws", Host: addr, Path: "/ws"}
+//	log.Printf("กำลังเชื่อมต่อไปที่ %s", u.String())
+//
+//	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+//	if err != nil {
+//		log.Fatal("dial:", err)
+//	}
+//	defer conn.Close()
+//
+//	m := model.Msg{}
+//	// Listening to Event from server
+//	go func() {
+//		defer conn.Close()
+//		for {
+//			err := conn.ReadJSON(&m)
+//			if err != nil {
+//				log.Println("read:", err)
+//				break
+//			}
+//
+//			switch m.Device {
+//			case "coin_hopper":
+//				// implementing
+//				ch := model.CoinHopper{}
+//				ch.CheckMsg()
+//			case "coin_acc":
+//			case "bill_acc":
+//			case "printer":
+//			}
+//			conn.WriteJSON(&m)
+//		}
+//	}()
+//
+//}
 
 // Web socket server waiting for Web Front end connection.
 func wsServer(w http.ResponseWriter, r *http.Request) {
 	conn, err := wsUpgrader.Upgrade(w, r, nil)
 	if err != nil {
 		fmt.Println("Failed to set websocket upgrade: %+v", err)
+		http.NotFound(w, r)
 		return
 	}
+
 	msg := model.Msg{}
 	onHand := model.OnHand{}
+	event := make(chan string, 10)
 
 	go func() {
 		for {
@@ -71,7 +74,15 @@ func wsServer(w http.ResponseWriter, r *http.Request) {
 			data := model.Money{}
 			//json.Unmarshal(msg, &data)
 
+			switch msg.Payload.Command {
+			case "onhand":
+			case "cancel":
+			case "billing":
 
+
+
+
+			}
 			if data.Job == "onHand" {
 				// return onhand
 				onHand.Job = "onHand"
@@ -105,6 +116,11 @@ func wsServer(w http.ResponseWriter, r *http.Request) {
 			}
 
 			log.Println(msg)
+			e := <-event
+			if e != nil {
+				msg.Payload.Command = e
+				conn.WriteJSON(msg)
+			}
 
 		}
 	}()
