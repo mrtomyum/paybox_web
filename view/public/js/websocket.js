@@ -28,20 +28,20 @@
 
         var pathname = location.pathname.split("/");
               console.log(pathname[1]);
+              var t = JSON.parse(evt.data);
+              var p = t['payload'];;
+              console.log(p);
             if(pathname[1]=="item.html"){
-
-                  var t = JSON.parse(evt.data);
-
-                  if(t['command']=="onhand"){
-                        document.getElementById("pri2").value = t['data'];
+                  if(p['command']=="onhand"){
+                        document.getElementById("pri2").value = p['data'];
 
 
-                  }else if(t['command']=="billing"){
-                    alert("การทำรายการ "+t['data']);
-                    if(t['result']==true){websocket.close();window.location = "index.html";}
-                  }else if(t['command']=="cancel"){
-                    alert("ยกเลิกรายการ "+t['data']);
-                    if(t['result']==true){
+                  }else if(p['command']=="billing"){
+                    alert("การทำรายการ "+p['data']);
+                    if(p['result']==true){websocket.close();window.location = "index.html";}
+                  }else if(p['command']=="cancel"){
+                    alert("ยกเลิกรายการ "+JSON.stringify(p['data']));
+                    if(p['result']==true){
                         window.location = "index.html";
                     }
                   }
