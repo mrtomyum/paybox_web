@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	c "github.com/paybox_terminal/controller"
+	c "github.com/mrtomyum/paybox_terminal/controller"
 )
 
 func main() {
