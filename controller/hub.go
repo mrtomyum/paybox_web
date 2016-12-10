@@ -9,7 +9,7 @@ import (
 	"github.com/mrtomyum/paybox_terminal/model"
 	"github.com/gin-gonic/gin"
 //"strconv"
-	"strconv"
+//	"strconv"
 )
 
 
@@ -154,6 +154,8 @@ func (c *Client) read() {
 			//ปรับยอด Onhand ตามเงินที่เข้ามา
 			amount := msg.Payload.Data
 			fmt.Println("amount : ", amount)
+
+			// todo : must be fix now - calc onHand Update
 			//onHand.OnhandAmount = onHand.OnhandAmount
 
 

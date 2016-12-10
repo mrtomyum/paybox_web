@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="GO Websocket - Broadcast-workshop&#10;test - interactive with ui &#10;- cancel &#10;- billing &#10;- onhand (static return)">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/device.go" afterPath="$PROJECT_DIR$/controller/device.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/hub.go" afterPath="$PROJECT_DIR$/controller/hub.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/router.go" afterPath="$PROJECT_DIR$/controller/router.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/device.go" afterPath="$PROJECT_DIR$/model/device.go" />
     </list>
     <list id="5b54e2c5-fc8a-4659-b016-2967afcff956" name="New changelist" comment="" />
     <ignored path="paybox_terminal.iws" />
@@ -44,10 +41,10 @@
       <file leaf-file-name="hub.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controller/hub.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5290023">
-              <caret line="161" column="31" selection-start-line="161" selection-start-column="31" selection-end-line="161" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.5916473">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
-                <element signature="e#29#195#0" expanded="true" />
+                <element signature="e#29#196#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1035,7 +1032,13 @@
       <option name="project" value="LOCAL" />
       <updated>1481357119854</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="GO Websocket - Broadcast-workshop&#10;test - interactive with ui &#10;- cancel &#10;- billing &#10;- onhand (static return)">
+      <created>1481358862381</created>
+      <option name="number" value="00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1481358862381</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1552,10 +1555,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controller/hub.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5290023">
-          <caret line="161" column="31" selection-start-line="161" selection-start-column="31" selection-end-line="161" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.5916473">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
-            <element signature="e#29#195#0" expanded="true" />
+            <element signature="e#29#196#0" expanded="true" />
           </folding>
         </state>
       </provider>
