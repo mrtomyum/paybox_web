@@ -6,7 +6,7 @@ import (
 //"log"
 	"net/http"
 	"fmt"
-	"github.com/paybox_terminal/model"
+	"github.com/mrtomyum/paybox_terminal/model"
 	"github.com/gin-gonic/gin"
 )
 

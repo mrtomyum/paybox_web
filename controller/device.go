@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 	"github.com/gorilla/websocket"
-	"github.com/paybox_terminal/model"
+	"github.com/mrtomyum/paybox_terminal/model"
 //"net/url"
 	"log"
 	"fmt"
