@@ -23,7 +23,7 @@ var Ghub = Hub{
 	Clients:      make(map[*Client]bool),
 }
 
-func (hub *Hub) start() {
+func (hub *Hub) Start() {
 	for {
 		select {
 		case conn := <-hub.AddClient:
@@ -108,7 +108,7 @@ func wsPage(res http.ResponseWriter, req *http.Request) {
 }
 
 func homePage(res http.ResponseWriter, req *http.Request) {
-	http.ServeFile(res, req, "index.html")
+	http.ServeFile(res, req, "send.html")
 }
 func aa(res http.ResponseWriter, req *http.Request) {
 	http.ServeFile(res, req, "model.html")
