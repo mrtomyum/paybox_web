@@ -34,6 +34,8 @@
 
                   if(t['command']=="onhand"){
                         document.getElementById("pri2").value = t['data'];
+
+
                   }else if(t['command']=="billing"){
                     alert("การทำรายการ "+t['data']);
                     if(t['result']==true){websocket.close();window.location = "index.html";}

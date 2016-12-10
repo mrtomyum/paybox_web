@@ -26,7 +26,6 @@ type Hub struct {
 var Ghub = Hub{
 	//Broadcast:    make(chan []byte),
 	Broadcast:    make(chan model.Msg),
-
 	AddClient:    make(chan *Client),
 	RemoveClient: make(chan *Client),
 	Clients:      make(map[*Client]bool),
@@ -83,20 +82,29 @@ func (c *Client) write() {
 }
 
 func (c *Client) read() {
-	defer func() {
-		Ghub.RemoveClient <- c
-		c.ws.Close()
-	}()
+	//	defer func() {
+	//		Ghub.RemoveClient <- c
+	//		c.ws.Close()
+	//	}()
 	msg := model.Msg{}
 	for {
 		//_, message, err := c.ws.ReadMessage()
 		err := c.ws.ReadJSON(&msg)
+		fmt.Println("command received : ", msg.Payload.Command)
+
 
 		if err != nil {
-			Ghub.RemoveClient <- c
-			c.ws.Close()
+
+			//Ghub.RemoveClient <- c
+			fmt.Println("Ghub.RemoveClient working")
+			fmt.Println("Formate Not working : ", msg)
+			//c.ws.Close()
+			c.ws.WriteJSON(gin.H{"Message":"invalid format received"})
+
 			break
 		}
+
+		//todo : command  : onhand -> Get OnHandAmount and Bind data to payload & return to Client
 
 		Ghub.Broadcast <- msg
 	}
@@ -122,12 +130,12 @@ func wsPage(res http.ResponseWriter, req *http.Request) {
 	go client.read()
 }
 
-func homePage(res http.ResponseWriter, req *http.Request) {
-	http.ServeFile(res, req, "send.html")
-}
-func aa(res http.ResponseWriter, req *http.Request) {
-	http.ServeFile(res, req, "model.html")
-}
+//func homePage(res http.ResponseWriter, req *http.Request) {
+//	http.ServeFile(res, req, "send.html")
+//}
+//func aa(res http.ResponseWriter, req *http.Request) {
+//	http.ServeFile(res, req, "model.html")
+//}
 //func main() {
 //	go Ghub.start()
 //	http.HandleFunc("/ws", wsPage)

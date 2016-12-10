@@ -561,5 +561,5 @@ function print(){
 }
 
 function cancel_menu(){
-    doSend({"device": "host","payload": {"type" : "request","command" : "cancel","result" : true}});
+    doSend(`{"device": "host","payload": {"type" : "request","command" : "cancel","result" : true}}`);
 }
