@@ -3,12 +3,10 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/contrib/static"
-	"log"
+	"fmt"
 )
 
 func Router(r *gin.Engine) *gin.Engine {
-	go Ghub.start()
-	log.Println("hub.start() here!!!")
 	r.LoadHTMLGlob("view/**/*.tpl")
 	r.Static("/html", "./view/html")
 	r.Static("/public", "./view/public")
@@ -24,16 +22,9 @@ func Router(r *gin.Engine) *gin.Engine {
 	r.GET("/item/:id", GetItemById)
 	//r.GET("/dev", GetDeviceIndexPage)
 
-	//	r.GET("/ws", func(c *gin.Context) {
-	//		//wsPage(c.Writer, c.Request)
-	//		log.Println("/ws stating.....")
-	//	})
-
 	r.GET("/ws", func(c *gin.Context) {
-		//wshandler(c.Writer, c.Request)
-		log.Println("/ws stating.....")
+		fmt.Println("ws start")
 	})
-
 
 	return r
 }
