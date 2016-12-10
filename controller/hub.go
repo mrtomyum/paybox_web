@@ -3,8 +3,9 @@ package controller
 //import
 import (
 	"github.com/gorilla/websocket"
-	"log"
+//"log"
 	"net/http"
+	"fmt"
 )
 
 var upgrader = websocket.Upgrader{}
@@ -90,7 +91,7 @@ func (c *Client) read() {
 
 func wsPage(res http.ResponseWriter, req *http.Request) {
 	conn, err := upgrader.Upgrade(res, req, nil)
-	log.Println("ws : wsPage start")
+	fmt.Println("ws : wsPage start")
 	if err != nil {
 		http.NotFound(res, req)
 		return
