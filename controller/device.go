@@ -3,8 +3,8 @@ package controller
 import (
 	"net/http"
 	"github.com/gorilla/websocket"
-	"github.com/mrtomyum/paybox_terminal/model"
-	"net/url"
+	"github.com/paybox_terminal/model"
+//"net/url"
 	"log"
 	"fmt"
 )
@@ -63,7 +63,7 @@ func wsServer(w http.ResponseWriter, r *http.Request) {
 
 	msg := model.Msg{}
 	onHand := model.OnHand{}
-	event := make(chan string, 10)
+	//	event := make(chan string, 10)
 
 	go func() {
 		for {
@@ -116,11 +116,11 @@ func wsServer(w http.ResponseWriter, r *http.Request) {
 			}
 
 			log.Println(msg)
-			e := <-event
-			if e != nil {
-				msg.Payload.Command = e
-				conn.WriteJSON(msg)
-			}
+			//			e := <-event
+			//			 if e != nil {
+			//				msg.Payload.Command = e
+			//				conn.WriteJSON(msg)
+			//			}
 
 		}
 	}()

@@ -3,8 +3,9 @@ package controller
 //import
 import (
 	"github.com/gorilla/websocket"
-	"log"
+//"log"
 	"net/http"
+	"fmt"
 )
 
 var upgrader = websocket.Upgrader{}
@@ -23,7 +24,7 @@ var Ghub = Hub{
 	Clients:      make(map[*Client]bool),
 }
 
-func (hub *Hub) start() {
+func (hub *Hub) Start() {
 	for {
 		select {
 		case conn := <-hub.AddClient:
@@ -90,7 +91,7 @@ func (c *Client) read() {
 
 func wsPage(res http.ResponseWriter, req *http.Request) {
 	conn, err := upgrader.Upgrade(res, req, nil)
-	log.Println("ws : wsPage start")
+	fmt.Println("ws : wsPage start")
 	if err != nil {
 		http.NotFound(res, req)
 		return
@@ -108,7 +109,7 @@ func wsPage(res http.ResponseWriter, req *http.Request) {
 }
 
 func homePage(res http.ResponseWriter, req *http.Request) {
-	http.ServeFile(res, req, "index.html")
+	http.ServeFile(res, req, "send.html")
 }
 func aa(res http.ResponseWriter, req *http.Request) {
 	http.ServeFile(res, req, "model.html")
