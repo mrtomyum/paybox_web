@@ -69,8 +69,8 @@ func (c *Client) write() {
 		select {
 		case msg, ok := <-c.send:
 			if !ok {
-				//c.ws.WriteMessage(websocket.CloseMessage, []byte{})
-				//c.ws.WriteMessage(websocket.CloseMessage, []byte{})
+				//  c.ws.WriteMessage(websocket.CloseMessage, []byte{})
+				//  c.ws.WriteMessage(websocket.CloseMessage, []byte{})
 				c.ws.WriteJSON(gin.H{"message" :"Connot to Send data" })
 				return
 			}
