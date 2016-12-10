@@ -105,8 +105,36 @@ func (c *Client) read() {
 		}
 
 		//todo : command  : onhand -> Get OnHandAmount and Bind data to payload & return to Client
+		switch
+		{
+		case msg.Payload.Command == "cancel":
+			res := model.Msg{}
+			res.Payload.Command = "cancel"
+			res.Payload.Data = "Cancel - Successful"
+			res.Payload.Result = true
+			res.Device = "Host"
+			res.Payload.Type = "response"
+			Ghub.Broadcast <- res
+		case msg.Payload.Command == "billing":
+			res := model.Msg{}
+			res.Payload.Command = "billing"
+			res.Payload.Data = "Docno : xxxxxx sucessful"
+			res.Payload.Result = true
+			res.Device = "Host"
+			res.Payload.Type = "response"
+			Ghub.Broadcast <- res
+		case msg.Payload.Command == "onhand":
+			res := model.Msg{}
+			res.Payload.Command = "onhand"
+			res.Payload.Data = 200
+			res.Payload.Result = true
+			res.Device = "Host"
+			res.Payload.Type = "response"
+			Ghub.Broadcast <- res
+		default :
+			Ghub.Broadcast <- msg
+		}
 
-		Ghub.Broadcast <- msg
 	}
 }
 

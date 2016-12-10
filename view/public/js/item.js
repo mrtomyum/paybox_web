@@ -565,8 +565,8 @@ function cancel_menu(){
         cancel += '"payload":';
         cancel += '{';
         cancel += '"type" : "request",';
-        cancel += '"command" : "cancel",';
-        cancel += '"result" : true';
+        cancel += '"command" : "cancel"';
+       // cancel += '"result" : true';
         cancel += '}';
         cancel += '}';
     doSend(cancel);
