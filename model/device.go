@@ -9,7 +9,7 @@ type Money struct {
 
 type OnHand struct {
 	OnhandAmount int
-	Job          string
+	//Job          string
 }
 
 type Payload struct {

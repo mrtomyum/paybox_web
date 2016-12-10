@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="GO Websocket - Broadcast-workshop&#10;">
+    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="GO Websocket - Broadcast-workshop&#10;test - interactive with ui &#10;- cancel &#10;- billing &#10;- onhand (static return)">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/device.go" afterPath="$PROJECT_DIR$/controller/device.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/hub.go" afterPath="$PROJECT_DIR$/controller/hub.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/js/item.js" afterPath="$PROJECT_DIR$/view/public/js/item.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/router.go" afterPath="$PROJECT_DIR$/controller/router.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/device.go" afterPath="$PROJECT_DIR$/model/device.go" />
     </list>
     <list id="5b54e2c5-fc8a-4659-b016-2967afcff956" name="New changelist" comment="" />
     <ignored path="paybox_terminal.iws" />
@@ -29,12 +31,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="router.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/router.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="hub.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controller/hub.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3689095">
-              <caret line="88" column="22" selection-start-line="88" selection-start-column="22" selection-end-line="88" selection-end-column="22" />
-              <folding />
+            <state vertical-scroll-proportion="0.5290023">
+              <caret line="161" column="31" selection-start-line="161" selection-start-column="31" selection-end-line="161" selection-end-column="31" />
+              <folding>
+                <element signature="e#29#195#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -63,10 +77,20 @@
         <entry file="file://$PROJECT_DIR$/model/device.go">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+              <caret line="30" column="1" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
               <folding>
                 <element signature="e#15#27#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="device.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/device.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="103" column="36" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -106,7 +130,6 @@
         <option value="$PROJECT_DIR$/template/include/header.tpl" />
         <option value="$PROJECT_DIR$/template/include/footer.tpl" />
         <option value="$PROJECT_DIR$/template/view/items.tpl" />
-        <option value="$PROJECT_DIR$/model/device.go" />
         <option value="$PROJECT_DIR$/go-wrapper" />
         <option value="$PROJECT_DIR$/no-pic.patch" />
         <option value="$PROJECT_DIR$/controller/order.go" />
@@ -144,10 +167,11 @@
         <option value="$PROJECT_DIR$/view/model.html" />
         <option value="$PROJECT_DIR$/view/public/js/websocket.js" />
         <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/controller/router.go" />
         <option value="$PROJECT_DIR$/view/item.html" />
-        <option value="$PROJECT_DIR$/controller/device.go" />
         <option value="$PROJECT_DIR$/view/public/js/item.js" />
+        <option value="$PROJECT_DIR$/model/device.go" />
+        <option value="$PROJECT_DIR$/controller/router.go" />
+        <option value="$PROJECT_DIR$/controller/device.go" />
         <option value="$PROJECT_DIR$/controller/hub.go" />
       </list>
     </option>
@@ -1005,7 +1029,13 @@
       <option name="project" value="LOCAL" />
       <updated>1481354986364</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="GO Websocket - Broadcast-workshop&#10;test - interactive with ui &#10;- cancel &#10;- billing &#10;- onhand (static return)">
+      <created>1481357119853</created>
+      <option name="number" value="00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1481357119854</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1131,7 +1161,8 @@
     <MESSAGE value="Test receive money &amp; interact to Menu &#10;" />
     <MESSAGE value="Test receive money &amp; interact to Menu  + Print reset Onhand &#10;" />
     <MESSAGE value="GO Websocket - Broadcast-workshop&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="GO Websocket - Broadcast-workshop&#10;" />
+    <MESSAGE value="GO Websocket - Broadcast-workshop&#10;test - interactive with ui &#10;- cancel &#10;- billing &#10;- onhand (static return)" />
+    <option name="LAST_COMMIT_MESSAGE" value="GO Websocket - Broadcast-workshop&#10;test - interactive with ui &#10;- cancel &#10;- billing &#10;- onhand (static return)" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1169,9 +1200,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
-          <folding>
-            <element signature="e#20#104#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1208,9 +1237,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
-          <folding>
-            <element signature="e#20#104#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1261,9 +1288,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
-          <folding>
-            <element signature="e#20#104#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1431,16 +1456,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controller/device.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
-          <folding>
-            <element signature="e#20#145#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/order.go">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2637931">
@@ -1493,13 +1508,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controller/router.go">
+    <entry file="file://$PROJECT_DIR$/view/public/js/item.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4051724">
-          <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
-          <folding>
-            <element signature="e#20#104#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="564" column="27" selection-start-line="564" selection-start-column="27" selection-end-line="564" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1511,29 +1524,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/controller/router.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/device.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="103" column="36" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/model/device.go">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+          <caret line="30" column="1" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
           <folding>
             <element signature="e#15#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/public/js/item.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="564" column="27" selection-start-line="564" selection-start-column="27" selection-end-line="564" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controller/hub.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3689095">
-          <caret line="88" column="22" selection-start-line="88" selection-start-column="22" selection-end-line="88" selection-end-column="22" />
-          <folding />
+        <state vertical-scroll-proportion="0.5290023">
+          <caret line="161" column="31" selection-start-line="161" selection-start-column="31" selection-end-line="161" selection-end-column="31" />
+          <folding>
+            <element signature="e#29#195#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

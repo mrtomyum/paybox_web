@@ -85,7 +85,7 @@ func wsServer(w http.ResponseWriter, r *http.Request) {
 			}
 			if data.Job == "onHand" {
 				// return onhand
-				onHand.Job = "onHand"
+				//				onHand.Job = "onHand"
 				conn.WriteJSON(msg)
 
 			}

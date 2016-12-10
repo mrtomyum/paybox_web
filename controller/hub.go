@@ -8,7 +8,11 @@ import (
 	"fmt"
 	"github.com/mrtomyum/paybox_terminal/model"
 	"github.com/gin-gonic/gin"
+//"strconv"
+	"strconv"
 )
+
+
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -22,6 +26,15 @@ type Hub struct {
 	AddClient    chan *Client
 	RemoveClient chan *Client
 }
+
+
+var onHand = model.OnHand{
+	OnhandAmount : 0,
+}
+
+
+
+
 
 var Ghub = Hub{
 	//Broadcast:    make(chan []byte),
@@ -108,6 +121,8 @@ func (c *Client) read() {
 		switch
 		{
 		case msg.Payload.Command == "cancel":
+			onHand.OnhandAmount = 0
+
 			res := model.Msg{}
 			res.Payload.Command = "cancel"
 			res.Payload.Data = "Cancel - Successful"
@@ -116,6 +131,7 @@ func (c *Client) read() {
 			res.Payload.Type = "response"
 			Ghub.Broadcast <- res
 		case msg.Payload.Command == "billing":
+			// todo: save into databse sqlite
 			res := model.Msg{}
 			res.Payload.Command = "billing"
 			res.Payload.Data = "Docno : xxxxxx sucessful"
@@ -123,10 +139,25 @@ func (c *Client) read() {
 			res.Device = "Host"
 			res.Payload.Type = "response"
 			Ghub.Broadcast <- res
-		case msg.Payload.Command == "onhand":
+		case msg.Payload.Command == "onhand" && msg.Payload.Type == "request":
 			res := model.Msg{}
 			res.Payload.Command = "onhand"
-			res.Payload.Data = 200
+			res.Payload.Data = onHand.OnhandAmount
+			res.Payload.Result = true
+			res.Device = "Host"
+			res.Payload.Type = "response"
+			Ghub.Broadcast <- res
+		case msg.Payload.Command == "onhand" && msg.Payload.Type == "event" :
+			res := model.Msg{}
+			res.Payload.Command = "onhand"
+
+			//ปรับยอด Onhand ตามเงินที่เข้ามา
+			amount := msg.Payload.Data
+			fmt.Println("amount : ", amount)
+			//onHand.OnhandAmount = onHand.OnhandAmount
+
+
+			res.Payload.Data = onHand.OnhandAmount
 			res.Payload.Result = true
 			res.Device = "Host"
 			res.Payload.Type = "response"

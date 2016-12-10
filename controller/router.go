@@ -27,5 +27,9 @@ func Router(r *gin.Engine) *gin.Engine {
 		fmt.Println("wsPage starting!")
 	})
 
+
+	// onhand initial value = 0
+
+
 	return r
 }
