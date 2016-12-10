@@ -561,5 +561,13 @@ function print(){
 }
 
 function cancel_menu(){
-    doSend({"device": "host","payload": {"type" : "request","command" : "cancel","result" : true}});
+    var cancel = '{"device": "'+window.location.host+'",';
+        cancel += '"payload":';
+        cancel += '{';
+        cancel += '"type" : "request",';
+        cancel += '"command" : "cancel",';
+        cancel += '"result" : true';
+        cancel += '}';
+        cancel += '}';
+    doSend(cancel);
 }
