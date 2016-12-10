@@ -31,13 +31,18 @@
             if(pathname[1]=="item.html"){
 
                   var t = JSON.parse(evt.data);
-                  if(t['Job']=="onHand"){
-                    document.getElementById("pri2").value = t['OnhandAmount'];
-                  }else if(t['Job']=="print"){
-                    alert(t['message']);
-                    if(t['message']=="success"){websocket.close();window.location = "index.html";}
-                  }
 
+                  if(t['command']=="onhand"){
+                        document.getElementById("pri2").value = t['data'];
+                  }else if(t['command']=="billing"){
+                    alert("การทำรายการ "+t['data']);
+                    if(t['result']==true){websocket.close();window.location = "index.html";}
+                  }else if(t['command']=="cancel"){
+                    alert("ยกเลิกรายการ "+t['data']);
+                    if(t['result']==true){
+                        window.location = "index.html";
+                    }
+                  }
                   console.log("item "+evt.data);
             }else if(pathname[1]=="model.html"){
                   console.log(evt.data);
