@@ -1,48 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
 
-<div class="jumbotron text-center">
-    <h1>TEST SEND Websocket</h1>
-</div>
-
-<div class="container">
-    <form class="form-inline" onsubmit="send_socket()" action="#">
-        <div class="form-group">
-            <label class="sr-only" for="text">Data :</label>
-            <input type="text" class="form-control" id="text" placeholder="text data">
-        </div>
-        <button type="submit" class="btn btn-default">send</button>
-    </form>
-    data:
-    <div style="border:1px solid black; width:500px; height:150px; background-color:#fff;">
-        <label id="datatext"></label>
-    </div>
-</div>
-
-<script>
-$("document").ready(function(){
-       call_websocket();
-       websocket.onopen();
-});
-    function send_socket(){
-        var data = document.getElementById("text").value;
-
-        //doSend(data);
-        console.log(data);
-    }
-
-</script>
-<script>
-     var wsUri = "ws://"+window.location.host+"/ws";
+        var wsUri = "ws://"+window.location.host+"/ws";
 
           websocket = new WebSocket(wsUri);
     console.log(window.location.host);
@@ -82,7 +39,7 @@ $("document").ready(function(){
                   }
 
                   console.log("item "+evt.data);
-            }else if(pathname[1]=="a"){
+            }else if(pathname[1]=="model.html"){
                   console.log(evt.data);
                   $("#datatext").append(evt.data+"<br>");
             }
@@ -103,9 +60,3 @@ $("document").ready(function(){
     }
 
 
-
-
-
-</script>
-</body>
-</html>
