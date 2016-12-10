@@ -23,7 +23,8 @@ func Router(r *gin.Engine) *gin.Engine {
 	//r.GET("/dev", GetDeviceIndexPage)
 
 	r.GET("/ws", func(c *gin.Context) {
-		fmt.Println("ws start")
+		wsPage(c.Writer, c.Request)
+		fmt.Println("wsPage starting!")
 	})
 
 	return r

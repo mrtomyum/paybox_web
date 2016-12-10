@@ -6,19 +6,27 @@ import (
 //"log"
 	"net/http"
 	"fmt"
+	"github.com/paybox_terminal/model"
+	"github.com/gin-gonic/gin"
 )
 
-var upgrader = websocket.Upgrader{}
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+}
 
 type Hub struct {
 	Clients      map[*Client]bool
-	Broadcast    chan []byte
+	//Broadcast    chan []byte
+	Broadcast    chan model.Msg
 	AddClient    chan *Client
 	RemoveClient chan *Client
 }
 
 var Ghub = Hub{
-	Broadcast:    make(chan []byte),
+	//Broadcast:    make(chan []byte),
+	Broadcast:    make(chan model.Msg),
+
 	AddClient:    make(chan *Client),
 	RemoveClient: make(chan *Client),
 	Clients:      make(map[*Client]bool),
@@ -34,13 +42,13 @@ func (hub *Hub) Start() {
 				delete(hub.Clients, conn)
 				close(conn.send)
 			}
-		case message := <-hub.Broadcast:
+		case msg := <-hub.Broadcast:
 			for conn := range hub.Clients {
 				select {
-				case conn.send <- message:
-				default:
-					close(conn.send)
-					delete(hub.Clients, conn)
+				case conn.send <- msg:
+				//default:
+				//close(conn.send)
+				//delete(hub.Clients, conn)
 				}
 			}
 		}
@@ -49,7 +57,8 @@ func (hub *Hub) Start() {
 
 type Client struct {
 	ws   *websocket.Conn
-	send chan []byte
+	//send chan []byte
+	send chan model.Msg
 }
 
 func (c *Client) write() {
@@ -59,14 +68,16 @@ func (c *Client) write() {
 
 	for {
 		select {
-		case message, ok := <-c.send:
+		case msg, ok := <-c.send:
 			if !ok {
-				c.ws.WriteMessage(websocket.CloseMessage, []byte{})
-
+				//c.ws.WriteMessage(websocket.CloseMessage, []byte{})
+				//c.ws.WriteMessage(websocket.CloseMessage, []byte{})
+				c.ws.WriteJSON(gin.H{"message" :"Connot to Send data" })
 				return
 			}
 
-			c.ws.WriteMessage(websocket.TextMessage, message)
+		//c.ws.WriteMessage(websocket.TextMessage, message)
+			c.ws.WriteJSON(msg)
 		}
 	}
 }
@@ -76,16 +87,18 @@ func (c *Client) read() {
 		Ghub.RemoveClient <- c
 		c.ws.Close()
 	}()
-
+	msg := model.Msg{}
 	for {
-		_, message, err := c.ws.ReadMessage()
+		//_, message, err := c.ws.ReadMessage()
+		err := c.ws.ReadJSON(&msg)
+
 		if err != nil {
 			Ghub.RemoveClient <- c
 			c.ws.Close()
 			break
 		}
 
-		Ghub.Broadcast <- message
+		Ghub.Broadcast <- msg
 	}
 }
 
@@ -99,7 +112,8 @@ func wsPage(res http.ResponseWriter, req *http.Request) {
 
 	client := &Client{
 		ws:   conn,
-		send: make(chan []byte),
+		//send: make(chan []byte),
+		send: make(chan model.Msg),
 	}
 
 	Ghub.AddClient <- client
