@@ -117,20 +117,21 @@ func (c *Client) read() {
 			break
 		}
 
+		command := msg.Payload.Command
+		t := msg.Payload.Type
 		//todo : command  : onhand -> Get OnHandAmount and Bind data to payload & return to Client
-		switch
-		{
-		case msg.Payload.Command == "cancel":
-			onHand.OnhandAmount = 0
 
+		select {
+		case command == "cancel":
+			onHand.OnhandAmount = 0
 			res := model.Msg{}
-			res.Payload.Command = "cancel"
-			res.Payload.Data = "Cancel - Successful"
-			res.Payload.Result = true
 			res.Device = "Host"
+			res.Payload.Command = "cancel"
 			res.Payload.Type = "response"
+			res.Payload.Result = true
+			res.Payload.Data = "Cancel - Successful"
 			Ghub.Broadcast <- res
-		case msg.Payload.Command == "billing":
+		case command == "billing":
 			// todo: save into databse sqlite
 			res := model.Msg{}
 			res.Payload.Command = "billing"
@@ -139,7 +140,7 @@ func (c *Client) read() {
 			res.Device = "Host"
 			res.Payload.Type = "response"
 			Ghub.Broadcast <- res
-		case msg.Payload.Command == "onhand" && msg.Payload.Type == "request":
+		case command == "onhand" && t == "request":
 			res := model.Msg{}
 			res.Payload.Command = "onhand"
 			res.Payload.Data = onHand.OnhandAmount
@@ -147,7 +148,7 @@ func (c *Client) read() {
 			res.Device = "Host"
 			res.Payload.Type = "response"
 			Ghub.Broadcast <- res
-		case msg.Payload.Command == "onhand" && msg.Payload.Type == "event" :
+		case command == "onhand" && t == "event":
 			res := model.Msg{}
 			res.Payload.Command = "onhand"
 
@@ -158,7 +159,6 @@ func (c *Client) read() {
 			// todo : must be fix now - calc onHand Update
 			//onHand.OnhandAmount = onHand.OnhandAmount
 
-
 			res.Payload.Data = onHand.OnhandAmount
 			res.Payload.Result = true
 			res.Device = "Host"
@@ -167,7 +167,6 @@ func (c *Client) read() {
 		default :
 			Ghub.Broadcast <- msg
 		}
-
 	}
 }
 
