@@ -15,6 +15,7 @@
     function onOpen(evt)
     {
       console.log("CONNECTED");
+      doSend('{"Device":"host","Payload":{"type":"request","command":"onhand"}}');
     }
 
     function onClose(evt)

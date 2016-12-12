@@ -121,6 +121,8 @@ func (c *Client) read() {
 		switch
 		{
 		case msg.Payload.Command == "cancel":
+			// Reset Onhand
+			// todo: must be send return money to Hardware
 			onHand.OnhandAmount = 0
 
 			res := model.Msg{}
@@ -130,6 +132,8 @@ func (c *Client) read() {
 			res.Device = "Host"
 			res.Payload.Type = "response"
 			Ghub.Broadcast <- res
+
+
 		case msg.Payload.Command == "billing":
 			// todo: save into databse sqlite
 			res := model.Msg{}
@@ -139,6 +143,8 @@ func (c *Client) read() {
 			res.Device = "Host"
 			res.Payload.Type = "response"
 			Ghub.Broadcast <- res
+
+		// for Client - UI/UX call check current onhand amount
 		case msg.Payload.Command == "onhand" && msg.Payload.Type == "request":
 			res := model.Msg{}
 			res.Payload.Command = "onhand"
@@ -147,31 +153,37 @@ func (c *Client) read() {
 			res.Device = "Host"
 			res.Payload.Type = "response"
 			Ghub.Broadcast <- res
+
+		// for push  totalAmount Update from hardware event and sum new onhand amount and send to UI
 		case msg.Payload.Command == "onhand" && msg.Payload.Type == "event" :
 			res := model.Msg{}
 			res.Payload.Command = "onhand"
 			fmt.Println("onhand_event_starting....")
 			//ปรับยอด Onhand ตามเงินที่เข้ามา
 
+			// bind interface{} to i variable
 			i := msg.Payload.Data
+
+
+			//check type of interface{}
+			//int_amount, _ := amount.(int)
+
+			switch  i.(type) {
+			case float64:
+				fmt.Println("amnount type : float64")
+			case float32:
+				fmt.Println("amnount type : float32")
+			case int64:
+				fmt.Println("amnount type : int64")
+
+			}
+
 
 			// convert interface{} to int
 			// example onhand_event
-
 			var iAreaId int = int(i.(float64))
 
-			//int_amount, _ := amount.(int)
-
-			//			switch  i.(type) {
-			//			case float64:
-			//				fmt.Println("amnount type : float64")
-			//			case float32:
-			//				fmt.Println("amnount type : float32")
-			//			case int64:
-			//				fmt.Println("amnount type : int64")
-			//
-			//			}
-			// todo : must be fix now - calc onHand Update
+			// Update Current OnHand TOTAL
 			onHand.OnhandAmount = onHand.OnhandAmount + iAreaId
 			fmt.Println("Current Totalamount : ", onHand.OnhandAmount)
 
