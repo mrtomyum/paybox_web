@@ -17,6 +17,7 @@ import (
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
 type Hub struct {
@@ -83,7 +84,6 @@ func (c *Client) write() {
 		case msg, ok := <-c.send:
 			if !ok {
 				//  c.ws.WriteMessage(websocket.CloseMessage, []byte{})
-				//  c.ws.WriteMessage(websocket.CloseMessage, []byte{})
 				c.ws.WriteJSON(gin.H{"message" :"Connot to Send data" })
 				return
 			}
@@ -117,23 +117,26 @@ func (c *Client) read() {
 			break
 		}
 
-		//todo : command  : onhand -> Get OnHandAmount and Bind data to payload & return to Client
+		// command check
 		switch
 		{
+		// cancel order  command
+		// reset ยอดเงินในตู้เป็น 0 (hardware ต้องสั่งคืนเงิน)
 		case msg.Payload.Command == "cancel":
 			// Reset Onhand
 			// todo: must be send return money to Hardware
 			onHand.OnhandAmount = 0
 
+
 			res := model.Msg{}
 			res.Payload.Command = "cancel"
-			res.Payload.Data = "Cancel - Successful"
+			res.Payload.Data = "Cancel-Successful"
 			res.Payload.Result = true
 			res.Device = "Host"
 			res.Payload.Type = "response"
 			Ghub.Broadcast <- res
 
-
+		// billing command ใช้สำหรับให้ Client เรียกบันทึกเข้ามาที่ Websocket
 		case msg.Payload.Command == "billing":
 			// todo: save into databse sqlite
 			res := model.Msg{}
@@ -159,7 +162,6 @@ func (c *Client) read() {
 			res := model.Msg{}
 			res.Payload.Command = "onhand"
 			fmt.Println("onhand_event_starting....")
-			//ปรับยอด Onhand ตามเงินที่เข้ามา
 
 			// bind interface{} to i variable
 			i := msg.Payload.Data
