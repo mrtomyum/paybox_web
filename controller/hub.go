@@ -150,14 +150,30 @@ func (c *Client) read() {
 		case msg.Payload.Command == "onhand" && msg.Payload.Type == "event" :
 			res := model.Msg{}
 			res.Payload.Command = "onhand"
-
+			fmt.Println("onhand_event_starting....")
 			//ปรับยอด Onhand ตามเงินที่เข้ามา
-			amount := msg.Payload.Data
-			fmt.Println("amount : ", amount)
 
+			i := msg.Payload.Data
+
+			// convert interface{} to int
+			// example onhand_event
+
+			var iAreaId int = int(i.(float64))
+
+			//int_amount, _ := amount.(int)
+
+			//			switch  i.(type) {
+			//			case float64:
+			//				fmt.Println("amnount type : float64")
+			//			case float32:
+			//				fmt.Println("amnount type : float32")
+			//			case int64:
+			//				fmt.Println("amnount type : int64")
+			//
+			//			}
 			// todo : must be fix now - calc onHand Update
-			//onHand.OnhandAmount = onHand.OnhandAmount
-
+			onHand.OnhandAmount = onHand.OnhandAmount + iAreaId
+			fmt.Println("Current Totalamount : ", onHand.OnhandAmount)
 
 			res.Payload.Data = onHand.OnhandAmount
 			res.Payload.Result = true
