@@ -5,6 +5,9 @@ $("document").ready(function(){
 	var status = localStorage.action;
 
     call_websocket();
+    setTimeout(function(){
+        doSend('{"Device":"host","Payload":{"type":"request","command":"onhand"}}');
+    },1000);
    // websocket.onopen();
    // doSend('{"Device":"'+window.location.host+'","Payload":{"type":"request","command":"onhand"}}');
 

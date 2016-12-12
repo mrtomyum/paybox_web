@@ -1,5 +1,6 @@
 
         var wsUri = "ws://"+window.location.host+"/ws";
+        //var wsUri = "ws://192.168.0.215:8888/ws";
 
           websocket = new WebSocket(wsUri);
     console.log(window.location.host);
@@ -15,7 +16,7 @@
     function onOpen(evt)
     {
       console.log("CONNECTED");
-      doSend('{"Device":"host","Payload":{"type":"request","command":"onhand"}}');
+
     }
 
     function onClose(evt)
