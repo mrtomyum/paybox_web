@@ -5,6 +5,7 @@ $("document").ready(function(){
 	var status = localStorage.action;
 
     call_websocket();
+    doSend('{"device": "'+window.location.host+'","payload": {"type" : "request","command" : "onhand",}}');
     //websocket.onopen();
    /* onHend = setInterval(function(){ doSend(`{"job":"onHand"}`);},1000);*/
    // onHend = setInterval(function(){  websocket.onmessage(); },1000);
