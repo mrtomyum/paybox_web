@@ -191,16 +191,3 @@ func wsPage(res http.ResponseWriter, req *http.Request) {
 	go client.read()
 }
 
-//func homePage(res http.ResponseWriter, req *http.Request) {
-//	http.ServeFile(res, req, "send.html")
-//}
-//func aa(res http.ResponseWriter, req *http.Request) {
-//	http.ServeFile(res, req, "model.html")
-//}
-//func main() {
-//	go Ghub.start()
-//	http.HandleFunc("/ws", wsPage)
-//	http.HandleFunc("/", homePage)
-//	http.HandleFunc("/a", aa)
-//	http.ListenAndServe(":8080", nil)
-//}
