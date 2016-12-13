@@ -17,6 +17,7 @@ $(document).ready(function(){
 
      document.getElementById("Name_time").innerHTML = "เวลา ";
      document.getElementById("Name_time2").innerHTML = "เวลา ";
+
 });
 
 function onsayeng(id){

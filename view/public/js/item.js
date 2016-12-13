@@ -8,6 +8,7 @@ $("document").ready(function(){
     setTimeout(function(){
         doSend('{"Device":"host","Payload":{"type":"request","command":"onhand"}}');
     },1000);
+
    // websocket.onopen();
    // doSend('{"Device":"'+window.location.host+'","Payload":{"type":"request","command":"onhand"}}');
 
@@ -30,8 +31,8 @@ $("document").ready(function(){
 	            document.getElementById("txtUnit").innerHTML = "บาท";
 	            document.getElementById("txtUnit2").innerHTML = "บาท";
 
-	            document.getElementById("bt_payment").innerHTML = "ชำระเงิน";
-	            document.getElementById("bt_print").innerHTML = "พิมพ์ใบเสร็จ";
+	          //  document.getElementById("bt_payment").innerHTML = "ชำระเงิน";
+	            document.getElementById("bt_print").innerHTML = "ยืนยัน";
 	            document.getElementById("bt_cancel").innerHTML = "ยกเลิก";
 
 	            document.getElementById("default_order").innerHTML = "** กรุณาเลือกรายการ **";
@@ -52,8 +53,8 @@ $("document").ready(function(){
                 document.getElementById("txtUnit").innerHTML = "baht";
                 document.getElementById("txtUnit2").innerHTML = "baht";
 
-                document.getElementById("bt_payment").innerHTML = "Payment";
-                document.getElementById("bt_print").innerHTML = "Print Lipts";
+              //  document.getElementById("bt_payment").innerHTML = "Payment";
+                document.getElementById("bt_print").innerHTML = "Confirm";
                 document.getElementById("bt_cancel").innerHTML = "cancel";
 
                 document.getElementById("default_order").innerHTML = "** Please select an item **";
@@ -73,8 +74,8 @@ $("document").ready(function(){
                	document.getElementById("txtUnit").innerHTML = "銖";
                	document.getElementById("txtUnit2").innerHTML = "銖";
 
-               	document.getElementById("bt_payment").innerHTML = "付款";
-               	document.getElementById("bt_print").innerHTML = "打印收據";
+               //	document.getElementById("bt_payment").innerHTML = "付款";
+               	document.getElementById("bt_print").innerHTML = "确认";
                	document.getElementById("bt_cancel").innerHTML = "取消";
 
                	document.getElementById("default_order").innerHTML = "** 請選擇一個項目 **";
@@ -109,12 +110,13 @@ function disabled_payment(){
         console.log(JSON.stringify(listOrder));
         console.log("listOrder is isset");
          payment1 = function() {
-             alert("ท่านยังไม่ได้เลือกรายการที่ต้องการ");
+             Alert7.alert("ท่านยังไม่ได้เลือกรายการที่ต้องการ");
          }
     }else{
         console.log("listOrder is empty");
         payment1 = function() {
-           payment();
+           //payment();
+           print();
         }
     }
 }
@@ -219,7 +221,7 @@ function active_size(id,price) {
 
 		console.log("ราคา " + totalPrice+", nameSize = "+id);
 		document.getElementById("mo-pri").value = totalPrice+` ฿`;
-		//alert('$("#'+id+'").addClass("acsize")');
+		//Alert7.alert('$("#'+id+'").addClass("acsize")');
 }
 
 function addQty(){
@@ -405,36 +407,48 @@ function order_list(itemCode,itemName,size,qty,unit,price){
 }
 
 function item_cancel(index){
-   listOrder.splice(index, 1);
-   alert("ยกเลิกรายการที่ท่านต้องการเรียบร้อย");
 
-     var list = "";
-      var totalPrice = 0;
-      for(var i = 0; i < listOrder.length; i++){
-          list += `
-                     <label class="orderlist" onclick="return false">
-                          <div class="ordername"> `+listOrder[i].item_name+` `+listOrder[i].item_size+`</div>
-                          <div class="orderqty">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
-                          <div class="orderprice">`+listOrder[i].price+` ฿</div>
-                          <div class="ordercancel">
-                          <button class="btn btn-danger btn-xs" onclick="item_cancel(`+i+`)" style="padding-left: 22.5%; padding-right: 22.5%;">-
-                          </button>
-                        </div>
-                     </label>
-                   `;
-          totalPrice += parseInt(listOrder[i].price);
-      }
-       console.log(formatMoney(totalPrice));
-       var ttPrice = formatMoney(totalPrice);
-      document.getElementById("pri1").value = ttPrice;
-         if(list!=""){
-              list = list;
-         }else{
-              list = `<label class="orderlist"><h4 style='color:red; text-align:center; padding:0; width:95%;'>** กรุณาเลือกรายการ **</h4></label>`;
-         }
-      document.getElementById("order_list").innerHTML = list;
-     // console.log(list);
-     disabled_payment();
+       var _alertA = new Alert7();
+       _alertA.setTitle("ลบรายการสินค้า");
+       _alertA.setMessage("ท่านต้องการลบรายการสินค้านี้ ใช่หรือไม่ ?");
+       _alertA.setType(Alert7.TYPE_CONFIRM);
+       _alertA.addAction("No", function(){
+
+       });
+       _alertA.addAction("Yes", function(){
+            listOrder.splice(index, 1);
+              Alert7.alert("ยกเลิกรายการที่ท่านต้องการเรียบร้อย");
+
+                var list = "";
+                 var totalPrice = 0;
+                 for(var i = 0; i < listOrder.length; i++){
+                     list += `
+                                <label class="orderlist" onclick="return false">
+                                     <div class="ordername"> `+listOrder[i].item_name+` `+listOrder[i].item_size+`</div>
+                                     <div class="orderqty">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
+                                     <div class="orderprice">`+listOrder[i].price+` ฿</div>
+                                     <div class="ordercancel">
+                                     <button class="btn btn-danger btn-xs" onclick="item_cancel(`+i+`)" style="padding-left: 22.5%; padding-right: 22.5%;">-
+                                     </button>
+                                   </div>
+                                </label>
+                              `;
+                     totalPrice += parseInt(listOrder[i].price);
+                 }
+                  console.log(formatMoney(totalPrice));
+                  var ttPrice = formatMoney(totalPrice);
+                 document.getElementById("pri1").value = ttPrice;
+                    if(list!=""){
+                         list = list;
+                    }else{
+                         list = `<label class="orderlist"><h4 style='color:red; text-align:center; padding:0; width:95%;'>** กรุณาเลือกรายการ **</h4></label>`;
+                    }
+                 document.getElementById("order_list").innerHTML = list;
+                // console.log(list);
+                disabled_payment();
+       });
+       _alertA.present();
+
 
 }
 
@@ -529,8 +543,8 @@ function payment(){
         anchor.setAttribute('onclick', '');
     });
 
-    bt_payment[0].style.display = "none";
-    bt_print[0].style.display = "inline-block";
+   // bt_payment[0].style.display = "none";
+    //bt_print[0].style.display = "inline-block";
   /*  call_websocket();
     websocket.onopen();
     onHend = setInterval(function(){ doSend(`{"job":"onHand"}`);},1000);*/
@@ -542,7 +556,7 @@ function payment(){
 function print(){
     var pri1 = document.getElementById("pri1").value;
     var pri2 = document.getElementById("pri2").value;
-
+ //   payment();
     var changeMoney = parseInt(pri2)-parseInt(pri1);
    //console.log(changeMoney);
     if(localStorage.action==2){
@@ -554,9 +568,9 @@ function print(){
     output.push({"device":window.location.host,"payload":{"type":"request","command":"billing","result": true,"data":{"total":pri1,"payment":pri2,"change":changeMoney,"take_home":take_home,"items":listOrder}}});
     console.log(JSON.stringify(output));
     if(changeMoney<0){
-        alert("ยอดเงินไม่พอชำระ");
+        Alert7.alert("ยอดเงินไม่พอชำระ");
     }else{
-        alert(JSON.stringify(output));
+        Alert7.alert(JSON.stringify(output));
         var str = JSON.stringify(output);
         var i = str.length-1;
         var res = str.substring(1,i);
@@ -567,13 +581,25 @@ function print(){
 }
 
 function cancel_menu(){
-    var cancel = '{"device": "'+window.location.host+'",';
-        cancel += '"payload":';
-        cancel += '{';
-        cancel += '"type" : "request",';
-        cancel += '"command" : "cancel"';
-       // cancel += '"result" : true';
-        cancel += '}';
-        cancel += '}';
-    doSend(cancel);
+    var _alertA = new Alert7();
+    _alertA.setTitle("ยกเลิกรายการ");
+    _alertA.setMessage("ท่านต้องการยกเลิกรายการ ใช่หรือไม่ ?");
+    _alertA.setType(Alert7.TYPE_CONFIRM);
+    _alertA.addAction("No", function(){
+
+    });
+    _alertA.addAction("Yes", function(){
+        var cancel = '{"device": "'+window.location.host+'",';
+                cancel += '"payload":';
+                cancel += '{';
+                cancel += '"type" : "request",';
+                cancel += '"command" : "cancel"';
+               // cancel += '"result" : true';
+                cancel += '}';
+                cancel += '}';
+            doSend(cancel);
+    });
+    _alertA.present();
+
+
 }
