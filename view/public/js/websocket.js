@@ -53,6 +53,9 @@
                   $("#datatext").append(evt.data+"<br>");
             }
 
+            if(p['command']=="status"){
+                alert(p['message']);
+            }
 
     }
 
