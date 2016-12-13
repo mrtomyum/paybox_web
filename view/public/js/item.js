@@ -569,13 +569,13 @@ function print(){
     console.log(JSON.stringify(output));
     if(changeMoney<0){
         Alert7.alert("ยอดเงินไม่พอชำระ");
-    }else{
-        Alert7.alert(JSON.stringify(output));
-        var str = JSON.stringify(output);
-        var i = str.length-1;
-        var res = str.substring(1,i);
-        doSend(res);
-        clearInterval(onHend);
+    }else {
+      //  clearInterval(onHend);
+          alert(JSON.stringify(output));
+          var str = JSON.stringify(output);
+          var i = str.length-1;
+          var res = str.substring(1,i);
+          doSend(res);
     }
 
 }
