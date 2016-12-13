@@ -54,7 +54,8 @@
             }
 
             if(p['command']=="status"){
-                alert(p['message']);
+                var m = p['data'];
+                alert(m['message']);
             }
 
     }
