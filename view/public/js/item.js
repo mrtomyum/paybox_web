@@ -31,9 +31,9 @@ $("document").ready(function(){
 	            document.getElementById("txtUnit").innerHTML = "บาท";
 	            document.getElementById("txtUnit2").innerHTML = "บาท";
 
-	          //  document.getElementById("bt_payment").innerHTML = "ชำระเงิน";
+	          /*  document.getElementById("bt_payment").innerHTML = "ชำระเงิน";
 	            document.getElementById("bt_print").innerHTML = "ยืนยัน";
-	            document.getElementById("bt_cancel").innerHTML = "ยกเลิก";
+	            document.getElementById("bt_cancel").innerHTML = "ยกเลิก";*/
 
 	            document.getElementById("default_order").innerHTML = "** กรุณาเลือกรายการ **";
 	            document.getElementById("title_order").innerHTML = "รายการ";
@@ -53,9 +53,9 @@ $("document").ready(function(){
                 document.getElementById("txtUnit").innerHTML = "baht";
                 document.getElementById("txtUnit2").innerHTML = "baht";
 
-              //  document.getElementById("bt_payment").innerHTML = "Payment";
+              /*  document.getElementById("bt_payment").innerHTML = "Payment";
                 document.getElementById("bt_print").innerHTML = "Confirm";
-                document.getElementById("bt_cancel").innerHTML = "cancel";
+                document.getElementById("bt_cancel").innerHTML = "cancel";*/
 
                 document.getElementById("default_order").innerHTML = "** Please select an item **";
                 document.getElementById("title_order").innerHTML = "Order";
@@ -74,9 +74,9 @@ $("document").ready(function(){
                	document.getElementById("txtUnit").innerHTML = "銖";
                	document.getElementById("txtUnit2").innerHTML = "銖";
 
-               //	document.getElementById("bt_payment").innerHTML = "付款";
+               /*	document.getElementById("bt_payment").innerHTML = "付款";
                	document.getElementById("bt_print").innerHTML = "确认";
-               	document.getElementById("bt_cancel").innerHTML = "取消";
+               	document.getElementById("bt_cancel").innerHTML = "取消";*/
 
                	document.getElementById("default_order").innerHTML = "** 請選擇一個項目 **";
                	document.getElementById("title_order").innerHTML = "名單";

@@ -343,28 +343,35 @@ br{display: none;}
 		height:400px; 
 		overflow:auto;
 	}
+#pri_all{
+  /*  border: 1px yellow solid;*/
+    width:70%;
+    float:left;
+}
+
 #price1,#price2{
 	width: 100%;
-	height: 40px;
+	height: 75px;
 	/*border: 1px yellow solid;*/
 	padding: 0 2% 0 0;
 	padding-bottom: 1%;
 	margin-top:2%;
 	text-align: right;
 }
-
+.btn-danger h1{margin:10% 0 10% 0;}
+.btn-success h1{margin:10% 0 10% 0;}
 
 #price1 h4{
 	margin:0;
 	padding: 0% 0 0 0;
-	font-size: 24px;
+	font-size: 20px;
 	text-align:right;
 
 }
 #price2 h4{
 	margin:0 0 0 0%;
 	padding: 0% 0 0 0%;
-	font-size: 24px;
+	font-size: 20px;
 	text-align:right;
 }
 
@@ -373,19 +380,19 @@ br{display: none;}
 	border:#f80101 3px solid; 
 	background-color: #dcdcd1;
 	width: 50%;
-	height: 35px; 
+	height: 50px;
 	margin:1% 3% 0% 3%; 
 	color: #000; 
 	font-weight: bold;
-	font-size: 30px; 
+	font-size: 40px;
 	padding-right: 5%;
 	text-align:right;
 }
 
 #sub{
-	width: 100%;
+	width: 30%;
 	height: 60px;
-	/*border: 1px gray solid;*/
+	/*border: 1px red solid;*/
 	float: left;
 	padding-left: 6%;
 	padding-top: 2%;
@@ -1032,9 +1039,18 @@ br{display: none;}
 		width: 25%;
 	}
 
+    #pri_all{
+      /*  border: 1px yellow solid;*/
+        width:60%;
+        float:left;
+    }
+
+    .btn-danger h1{margin:15% 0 15% 0;}
+    .btn-success h1{margin:15% 0 15% 0;}
+
 	#price1,#price2{
 		width: 100%;
-		height: 40px;
+		height: 70px;
 		/*border: 1px yellow solid;*/
 		padding: 0 10% 0 0%;
 		padding-bottom: 1%;
@@ -1047,34 +1063,36 @@ br{display: none;}
 		margin:0;
 		padding: 0% 0 0 0;
 		font-size: 18px;
-		text-align:right;
+		text-align:center;
 	}
 	#price2 h4{
 		margin:0;
 		padding: 0% 0 0 0;
 		font-size: 18px;
-		text-align:right;
+		text-align:center;
 	}
 
 	#pri1,#pri2{
 		border-radius: 9px; 
 		border:#f80101 3px solid; 
 		background-color: #dcdcd1;
-		width: 30%;
-		height: 30px; 
+		width: 90%;
+		height: 35px;
 		margin:1% 3% 0% 3%; 
 		color: #000; 
 		font-weight: bold;
-		font-size: 26px; 
+		font-size: 22px;
 		padding-right: 5%;
 		text-align:right;
 	}
 
 	#sub{
-		width: 100%;
+		width: 40%;
 		height: 60px;
 		/*border: 1px #fff solid;*/
 		float: left;
+		margin-right:0;
+		padding:0;
 	}
 
 	#chead{
