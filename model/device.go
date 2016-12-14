@@ -7,15 +7,15 @@ type Money struct {
 	Amount int
 }
 
-type OnHand struct {
-	OnhandAmount int
-	//Job          string
+type Machine struct {
+	Id     string
+	Onhand int
 }
 
 type Payload struct {
-	Type    string `json:"type"`
-	Command string `json:"command"`
-	Result  bool   `json:"result,omitempty"`
+	Type    string      `json:"type"`
+	Command string      `json:"command"`
+	Result  bool        `json:"result,omitempty"`
 	Data    interface{} `json:"data,omitempty"`
 }
 
@@ -73,7 +73,7 @@ func (ch *CoinHopper) OnEvent() {
 	case "no_key_set":
 	case "coin_jammed":
 	case "fraud":
-	case "hopper_empty":// Legacy
+	case "hopper_empty": // Legacy
 	case "memory_error":
 	case "sensors_not_initialised":
 	case "lid_remove": // Legacy

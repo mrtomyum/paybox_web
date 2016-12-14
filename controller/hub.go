@@ -3,21 +3,21 @@ package controller
 //import
 import (
 	"github.com/gorilla/websocket"
-//"log"
-	"net/http"
+	//"log"
 	"fmt"
-	"github.com/mrtomyum/paybox_terminal/model"
 	"github.com/gin-gonic/gin"
-//"strconv"
-//	"strconv"
+	"github.com/mrtomyum/paybox_terminal/model"
+	"net/http"
+	//"strconv"
+	//	"strconv"
 )
-
-
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
-	CheckOrigin: func(r *http.Request) bool { return true },
+	CheckOrigin:     func(r *http.Request) bool {
+		return true
+	},
 }
 
 type Hub struct {
@@ -28,14 +28,10 @@ type Hub struct {
 	RemoveClient chan *Client
 }
 
-
-var onHand = model.OnHand{
-	OnhandAmount : 0,
+var machine = model.Machine{
+	Id:     "1",
+	Onhand: 0,
 }
-
-
-
-
 
 var Ghub = Hub{
 	//Broadcast:    make(chan []byte),
@@ -84,7 +80,7 @@ func (c *Client) write() {
 		case msg, ok := <-c.send:
 			if !ok {
 				//  c.ws.WriteMessage(websocket.CloseMessage, []byte{})
-				c.ws.WriteJSON(gin.H{"message" :"Connot to Send data" })
+				c.ws.WriteJSON(gin.H{"message": "Connot to Send data"})
 				return
 			}
 
@@ -110,20 +106,19 @@ func (c *Client) read() {
 			fmt.Println("Read json from message Object Error")
 			fmt.Println("Formate Not working : ", msg)
 			//c.ws.Close()
-			c.ws.WriteJSON(gin.H{"message":"invalid format received"})
+			c.ws.WriteJSON(gin.H{"message": "invalid format received"})
 			break
 		}
 
 		// command check
-		switch
-		{
+		switch {
 		// cancel order  command
 		// reset ยอดเงินในตู้เป็น 0 (hardware ต้องสั่งคืนเงิน)
 		case msg.Payload.Command == "cancel":
 			// Reset Onhand Amount เป็น 0 และคืนเงินลูกค้า
 			fmt.Println("cancel_request_starting....")
 			// todo: must be send return money to Hardware
-			onHand.OnhandAmount = 0
+			machine.Onhand = 0
 			res := model.Msg{}
 			res.Payload.Command = "cancel"
 			res.Payload.Data = "Cancel-Successful"
@@ -150,14 +145,14 @@ func (c *Client) read() {
 			fmt.Println("onhand_request_starting....")
 			res := model.Msg{}
 			res.Payload.Command = "onhand"
-			res.Payload.Data = onHand.OnhandAmount
+			res.Payload.Data = machine.Onhand
 			res.Payload.Result = true
 			res.Device = "Host"
 			res.Payload.Type = "response"
 			Ghub.Broadcast <- res
 
 		// for push  totalAmount Update from hardware event and sum new onhand amount and send to UI
-		case msg.Payload.Command == "onhand" && msg.Payload.Type == "event" :
+		case msg.Payload.Command == "onhand" && msg.Payload.Type == "event":
 			res := model.Msg{}
 			res.Payload.Command = "onhand"
 			fmt.Println("onhand_event_starting....")
@@ -165,10 +160,9 @@ func (c *Client) read() {
 			// bind interface{} to i variable
 			i := msg.Payload.Data
 
-
 			//check type of interface{}
 			//int_amount, _ := amount.(int)
-			switch  i.(type) {
+			switch i.(type) {
 			case float64:
 				fmt.Println("amnount type : float64")
 			case float32:
@@ -177,22 +171,21 @@ func (c *Client) read() {
 				fmt.Println("amnount type : int64")
 			}
 
-
 			// convert interface{} to int
 			// example onhand_event
 			var iAreaId int = int(i.(float64))
 
 			// Update Current OnHand TOTAL
-			onHand.OnhandAmount = onHand.OnhandAmount + iAreaId
-			fmt.Println("Current Totalamount : ", onHand.OnhandAmount)
+			machine.Onhand = machine.Onhand + iAreaId
+			fmt.Println("Current Totalamount : ", machine.Onhand)
 
-			res.Payload.Data = onHand.OnhandAmount
+			res.Payload.Data = machine.Onhand
 			res.Payload.Result = true
 			res.Device = "Host"
 			res.Payload.Type = "response"
 			Ghub.Broadcast <- res
 
-		default :
+		default:
 			Ghub.Broadcast <- msg
 		}
 
@@ -208,7 +201,7 @@ func wsPage(res http.ResponseWriter, req *http.Request) {
 	}
 
 	client := &Client{
-		ws:   conn,
+		ws: conn,
 		//send: make(chan []byte),
 		send: make(chan model.Msg),
 	}
@@ -218,4 +211,3 @@ func wsPage(res http.ResponseWriter, req *http.Request) {
 	go client.write()
 	go client.read()
 }
-
