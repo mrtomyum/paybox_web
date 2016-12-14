@@ -28,11 +28,7 @@ func Router(r *gin.Engine) *gin.Engine {
 		wsPage(c.Writer, c.Request)
 		fmt.Println("wsPage starting!")
 	})
-
-
 	// onhand initial value = 0
-
-
 	return r
 }
 
@@ -43,14 +39,11 @@ func wsPage(res http.ResponseWriter, req *http.Request) {
 		http.NotFound(res, req)
 		return
 	}
-
 	client := &model.Client{
 		Conn: conn,
 		Send: make(chan model.Msg),
 	}
-
-	Ghub.AddClient <- client
-
+	//Ghub.AddClient <- client
 	go client.Write()
 	go client.Read()
 }

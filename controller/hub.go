@@ -3,8 +3,6 @@ package controller
 //import
 import (
 	"github.com/gorilla/websocket"
-	"fmt"
-	"github.com/gin-gonic/gin"
 	"github.com/mrtomyum/paybox_terminal/model"
 	"net/http"
 )
@@ -17,48 +15,12 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-type Hub struct {
-	Clients      map[*model.Client]bool
-	Broadcast    chan model.Msg
-	AddClient    chan *model.Client
-	RemoveClient chan *model.Client
-}
-
 var machine = model.Machine{
 	Id:     "1",
 	OnHand: 0,
 }
 
-var Ghub = Hub{
-	//Broadcast:    make(chan []byte),
-	Broadcast:    make(chan model.Msg),
-	AddClient:    make(chan *model.Client),
-	RemoveClient: make(chan *model.Client),
-	Clients:      make(map[*model.Client]bool),
-}
 
-func (hub *Hub) Start() {
-	for {
-		select {
-		case conn := <-hub.AddClient:
-			hub.Clients[conn] = true
-		case conn := <-hub.RemoveClient:
-			if _, ok := hub.Clients[conn]; ok {
-				delete(hub.Clients, conn)
-				close(conn.send)
-			}
-		case msg := <-hub.Broadcast:
-			for conn := range hub.Clients {
-				select {
-				case conn.send <- msg:
-				//default:
-				//close(conn.send)
-				//delete(hub.Clients, conn)
-				}
-			}
-		}
-	}
-}
 
 //type Client struct {
 //	ws   *websocket.Conn

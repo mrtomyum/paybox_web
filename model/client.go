@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"github.com/mrtomyum/paybox_terminal/controller"
 )
 
 type Client struct {
@@ -100,6 +99,7 @@ func (c *Client) Write() {
 func (c *Client) Read() {
 	msg := Msg{}
 	machine := Machine{}
+
 	for {
 		err := c.Conn.ReadJSON(&msg)
 		fmt.Println("command received : ", msg.Payload.Command)
@@ -128,7 +128,7 @@ func (c *Client) Read() {
 			res.Payload.Result = true
 			res.Device = "Host"
 			res.Payload.Type = "response"
-			controller.Ghub.Broadcast <- res
+			Ghub.Broadcast <- res
 
 		// billing command ใช้สำหรับให้ Client เรียกบันทึกเข้ามาที่ Websocket
 		case msg.Payload.Command == "billing":
@@ -141,7 +141,7 @@ func (c *Client) Read() {
 			res.Device = "Host"
 			res.Payload.Type = "response"
 
-			controller.Ghub.Broadcast <- res
+			Ghub.Broadcast <- res
 
 		// for Client - UI/UX call check current onhand amount
 		case msg.Payload.Command == "onhand" && msg.Payload.Type == "request":
@@ -152,7 +152,7 @@ func (c *Client) Read() {
 			res.Payload.Result = true
 			res.Device = "Host"
 			res.Payload.Type = "response"
-			controller.Ghub.Broadcast <- res
+			Ghub.Broadcast <- res
 
 		// for push  totalAmount Update from hardware event and sum new onhand amount and send to UI
 		case msg.Payload.Command == "onhand" && msg.Payload.Type == "event":
@@ -186,10 +186,10 @@ func (c *Client) Read() {
 			res.Payload.Result = true
 			res.Device = "Host"
 			res.Payload.Type = "response"
-			controller.Ghub.Broadcast <- res
+			Ghub.Broadcast <- res
 
 		default:
-			controller.Ghub.Broadcast <- msg
+			Ghub.Broadcast <- msg
 		}
 
 	}

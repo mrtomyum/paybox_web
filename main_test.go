@@ -1,25 +1,25 @@
 package main
-
-import (
-	"testing"
-	"github.com/mrtomyum/paybox_terminal/model"
-	"github.com/mrtomyum/paybox_terminal/controller"
-)
+//
+//import (
+//	"testing"
+//	"github.com/mrtomyum/paybox_terminal/model"
+//	"github.com/mrtomyum/paybox_terminal/controller"
+//)
 //var db *sqlx.DB
 //
 //func init() {
 //	db = sqlx.MustConnect("sqlite3", "./paybox.db")
 //}
 
-func TestGetItemIndex(t *testing.T) {
-	var i model.Item
-	var items []*model.Item
-	items, err := i.Get(controller.DB)
-	if err != nil {
-		t.Fail()
-	}
-	t.Logf("Get Item success: %v", items)
-}
+//func TestGetItemIndex(t *testing.T) {
+//	var i model.Item
+//	var items []*model.Item
+//	items, err := i.Get(controller.DB)
+//	if err != nil {
+//		t.Fail()
+//	}
+//	t.Logf("Get Item success: %v", items)
+//}
 
 //var i1 = model.Item{
 //	Name:"คาปูชิโน่ร้อน,

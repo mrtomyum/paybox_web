@@ -3,15 +3,14 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	c "github.com/mrtomyum/paybox_terminal/controller"
+	"github.com/mrtomyum/paybox_terminal/model"
 )
 
 func main() {
-	hub := c.Hub{}
+	hub := model.Ghub
 	go hub.Start()
 	r := gin.Default()
 	app := c.Router(r)
-	//go c.WsClient()
-
 	app.Run(":8888")
 
 }
