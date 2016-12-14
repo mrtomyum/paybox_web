@@ -96,14 +96,14 @@ func wsServer(w http.ResponseWriter, r *http.Request) {
 				fmt.Println("job :", data.Job)
 
 				// Update Onhand amount
-				onHand.Onhand = onHand.Onhand + data.Amount
+				onHand.OnHand = onHand.OnHand + data.Amount
 				conn.WriteJSON(msg)
-				fmt.Println("ON Hand Amount : ", onHand.Onhand)
+				fmt.Println("ON Hand Amount : ", onHand.OnHand)
 			}
 
 			if data.Job == "print" {
 				// เติมเงินเข้าตู้
-				onHand.Onhand = 0
+				onHand.OnHand = 0
 
 				// connect to ws printer board
 				//msg, err = json.Marshal(gin.H{"message":"success", "Job":"print"})
@@ -112,7 +112,7 @@ func wsServer(w http.ResponseWriter, r *http.Request) {
 				msg.Payload.Result = true
 				msg.Payload.Command = "print"
 				conn.WriteJSON(msg)
-				fmt.Println("ON Hand Amount : ", onHand.Onhand)
+				fmt.Println("ON Hand Amount : ", onHand.OnHand)
 			}
 
 			log.Println(msg)

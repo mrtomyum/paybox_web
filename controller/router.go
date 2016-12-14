@@ -4,6 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/contrib/static"
 	"fmt"
+	"net/http"
+	"github.com/mrtomyum/paybox_terminal/model"
 )
 
 func Router(r *gin.Engine) *gin.Engine {
@@ -32,4 +34,23 @@ func Router(r *gin.Engine) *gin.Engine {
 
 
 	return r
+}
+
+func wsPage(res http.ResponseWriter, req *http.Request) {
+	conn, err := upgrader.Upgrade(res, req, nil)
+	fmt.Println("ws : wsPage start")
+	if err != nil {
+		http.NotFound(res, req)
+		return
+	}
+
+	client := &model.Client{
+		Conn: conn,
+		Send: make(chan model.Msg),
+	}
+
+	Ghub.AddClient <- client
+
+	go client.Write()
+	go client.Read()
 }

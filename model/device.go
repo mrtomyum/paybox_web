@@ -9,7 +9,7 @@ type Money struct {
 
 type Machine struct {
 	Id     string
-	Onhand int
+	OnHand int
 }
 
 type Payload struct {
