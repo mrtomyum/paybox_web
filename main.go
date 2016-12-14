@@ -6,7 +6,8 @@ import (
 )
 
 func main() {
-	go c.Ghub.Start()
+	hub := c.Hub{}
+	go hub.Start()
 	r := gin.Default()
 	app := c.Router(r)
 	//go c.WsClient()

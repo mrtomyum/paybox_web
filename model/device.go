@@ -27,7 +27,13 @@ type Msg struct {
 type Devicer interface {
 	Serial() string
 	Status() string
-	CashAmount() float64
+	CashAmount() int64
+}
+
+type Acceptor interface {
+	Serial() string
+	Status() string
+	CashReceive() int64
 }
 
 type CoinHopper struct {
@@ -79,7 +85,7 @@ func (ch *CoinHopper) Serial() (serial string) {
 	return serial
 }
 
-func (ch *CoinHopper) CashAmount() (amount float64) {
+func (ch *CoinHopper) CashAmount() (amount int64) {
 
 	return amount
 }
