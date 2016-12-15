@@ -3,7 +3,7 @@ package controller
 //import
 import (
 	"github.com/gorilla/websocket"
-	"github.com/mrtomyum/paybox_terminal/model"
+//"github.com/mrtomyum/paybox_terminal/model"
 	"net/http"
 )
 
@@ -15,11 +15,11 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-var machine = model.Machine{
-	Id:     "1",
-	OnHand: 0,
-}
-
+//var Xmachine = model.Machine{
+//	Id:     "1",
+//	OnHand: 0,
+//}
+//
 
 
 //type Client struct {

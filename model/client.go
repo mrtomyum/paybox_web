@@ -4,12 +4,20 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+
 )
 
 type Client struct {
 	Conn *websocket.Conn
 	Send chan Msg
 }
+
+var machine = Machine{
+	Id:     "1",
+	OnHand: 0,
+}
+
+
 
 func (c *Client) Write() {
 	defer func() {
@@ -98,7 +106,7 @@ func (c *Client) Write() {
 
 func (c *Client) Read() {
 	msg := Msg{}
-	machine := Machine{}
+	//machine := Machine{}
 
 	for {
 		err := c.Conn.ReadJSON(&msg)
