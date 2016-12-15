@@ -565,7 +565,7 @@ function print(){
         var take_home = false;
     }
     var output = [];
-    output.push({"device":window.location.host,"payload":{"type":"request","command":"billing","result": true,"data":{"total":pri1,"payment":pri2,"change":changeMoney,"take_home":take_home,"items":listOrder}}});
+    output.push({"Device":window.location.host,"Payload":{"type":"request","command":"billing","result": true,"data":{"total":pri1,"payment":pri2,"change":changeMoney,"take_home":take_home,"items":listOrder}}});
     console.log(JSON.stringify(output));
     if(changeMoney<0){
         Alert7.alert("ยอดเงินไม่พอชำระ");

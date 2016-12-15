@@ -40,7 +40,7 @@
 
                   }else if(p['command']=="billing"){
                     Alert7.alert("การทำรายการ "+p['data']);
-                    if(p['result']==true){websocket.close(); setTimeout(function(){window.location = "index.html";},2000);}
+                    if(p['result']==true){websocket.close(); /*setTimeout(function(){window.location = "index.html";},2000);*/}
                   }else if(p['command']=="cancel"){
                     Alert7.alert("ยกเลิกรายการ "+JSON.stringify(p['data']));
                     if(p['result']==true){
