@@ -7,9 +7,19 @@ type Money struct {
 	Amount int
 }
 
+// ====================
+// Machine
+// ====================
+// Machine is a Base struct
 type Machine struct {
 	Id     string
 	OnHand int
+	Online bool
+}
+
+type Msg struct {
+	Device  string  `json:"device"`
+	Payload Payload `json:"payload"`
 }
 
 type Payload struct {
@@ -17,11 +27,6 @@ type Payload struct {
 	Command string      `json:"command"`
 	Result  bool        `json:"result,omitempty"`
 	Data    interface{} `json:"data,omitempty"`
-}
-
-type Msg struct {
-	Device  string  `json:"device"`
-	Payload Payload `json:"payload"`
 }
 
 type Devicer interface {

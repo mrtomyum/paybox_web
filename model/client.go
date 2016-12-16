@@ -36,74 +36,6 @@ func (c *Client) Write() {
 	}
 }
 
-//func (c *Client) Read() {
-//	msg := Msg{}
-//	for {
-//		// รับ msg ในรูป JSON เข้ามาจากไหนยังไม่รู้
-//		err := c.Conn.ReadJSON(&msg)
-//		fmt.Println("command received : ", msg.Payload.Command)
-//		if err != nil {
-//			fmt.Println("Ghub.RemoveClient working")
-//			fmt.Println("Format Not working : ", msg)
-//			//c.ws.Close()
-//			c.Conn.WriteJSON(gin.H{"Message":"invalid format received"})
-//			break
-//		}
-//		device := msg.Device
-//		command := msg.Payload.Command
-//		t := msg.Payload.Type
-//		host := Host{}
-//		//todo : command  : onhand -> Get OnHandAmount and Bind data to payload & return to Client
-//		select {
-//		case device == "Host" && t == "request": // นี่คือ msg type Request จาก Client
-//				select {
-//				case command == "cancel":
-//				// model.Device.Refund  คำนวณยอดเงินที่รับและคืนเงินแยกตาม Device และแจ้ง Device ทุกตัวให้คืนเงิน
-//				err := host.OrderCancel(d)
-//				case command == "billing":
-//				// todo: save into databse sqlite
-//					res := Msg{}
-//					res.Payload.Command = "billing"
-//					res.Payload.Data = "Docno : xxxxxx sucessful"
-//					res.Payload.Result = true
-//					res.Device = "Host"
-//					res.Payload.Type = "response"
-//					hub.Broadcast <- res
-//				case command == "onhand" && t == "request":
-//					res := Msg{}
-//					res.Payload.Command = "onhand"
-//					res.Payload.Data = onHand.OnhandAmount
-//					res.Payload.Result = true
-//					res.Device = "Host"
-//					res.Payload.Type = "response"
-//					hub.Broadcast <- res
-//				case command == "onhand" && t == "event":
-//					res := Msg{}
-//					res.Payload.Command = "onhand"
-//
-//				//ปรับยอด Onhand ตามเงินที่เข้ามา
-//					amount := msg.Payload.Data
-//					fmt.Println("amount : ", amount)
-//
-//				// todo : must be fix now - calc onHand Update
-//				//onHand.OnhandAmount = onHand.OnhandAmount
-//					res.Payload.Data = onHand.OnhandAmount
-//					res.Payload.Result = true
-//					res.Device = "Host"
-//					res.Payload.Type = "response"
-//					hub.Broadcast <- res
-//				}
-//		case device == "coin_hopper":
-//				select {
-//				case command = "status_changed":
-//					hub.Broadcast <- msg
-//				}
-//		default :
-//			hub.Broadcast <- msg
-//		}
-//	}
-//}
-
 func (c *Client) Read() {
 	msg := Msg{}
 	//machine := Machine{}
@@ -202,3 +134,72 @@ func (c *Client) Read() {
 
 	}
 }
+
+//func (c *Client) Read() {
+//	msg := Msg{}
+//	for {
+//		// รับ msg ในรูป JSON เข้ามาจากไหนยังไม่รู้
+//		err := c.Conn.ReadJSON(&msg)
+//		fmt.Println("command received : ", msg.Payload.Command)
+//		if err != nil {
+//			fmt.Println("Ghub.RemoveClient working")
+//			fmt.Println("Format Not working : ", msg)
+//			//c.ws.Close()
+//			c.Conn.WriteJSON(gin.H{"Message":"invalid format received"})
+//			break
+//		}
+//		device := msg.Device
+//		command := msg.Payload.Command
+//		t := msg.Payload.Type
+//		host := Host{}
+//		//todo : command  : onhand -> Get OnHandAmount and Bind data to payload & return to Client
+//		select {
+//		case device == "Host" && t == "request": // นี่คือ msg type Request จาก Client
+//				select {
+//				case command == "cancel":
+//				// model.Device.Refund  คำนวณยอดเงินที่รับและคืนเงินแยกตาม Device และแจ้ง Device ทุกตัวให้คืนเงิน
+//				err := host.OrderCancel(d)
+//				case command == "billing":
+//				// todo: save into databse sqlite
+//					res := Msg{}
+//					res.Payload.Command = "billing"
+//					res.Payload.Data = "Docno : xxxxxx sucessful"
+//					res.Payload.Result = true
+//					res.Device = "Host"
+//					res.Payload.Type = "response"
+//					hub.Broadcast <- res
+//				case command == "onhand" && t == "request":
+//					res := Msg{}
+//					res.Payload.Command = "onhand"
+//					res.Payload.Data = onHand.OnhandAmount
+//					res.Payload.Result = true
+//					res.Device = "Host"
+//					res.Payload.Type = "response"
+//					hub.Broadcast <- res
+//				case command == "onhand" && t == "event":
+//					res := Msg{}
+//					res.Payload.Command = "onhand"
+//
+//				//ปรับยอด Onhand ตามเงินที่เข้ามา
+//					amount := msg.Payload.Data
+//					fmt.Println("amount : ", amount)
+//
+//				// todo : must be fix now - calc onHand Update
+//				//onHand.OnhandAmount = onHand.OnhandAmount
+//					res.Payload.Data = onHand.OnhandAmount
+//					res.Payload.Result = true
+//					res.Device = "Host"
+//					res.Payload.Type = "response"
+//					hub.Broadcast <- res
+//				}
+//		case device == "coin_hopper":
+//				select {
+//				case command = "status_changed":
+//					hub.Broadcast <- msg
+//				}
+//		default :
+//			hub.Broadcast <- msg
+//		}
+//	}
+//}
+

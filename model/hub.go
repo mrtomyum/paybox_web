@@ -2,7 +2,6 @@ package model
 import "fmt"
 
 var Ghub = Hub{
-	//Broadcast:    make(chan []byte),
 	Broadcast:    make(chan Msg),
 	AddClient:    make(chan *Client),
 	RemoveClient: make(chan *Client),
