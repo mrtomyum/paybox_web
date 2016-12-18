@@ -16,7 +16,9 @@ type Machine struct {
 	OnHand int
 	Online bool
 }
-
+// ====================
+// Msg
+// ====================
 type Msg struct {
 	Device  string  `json:"device"`
 	Payload Payload `json:"payload"`
@@ -32,7 +34,6 @@ type Payload struct {
 type Devicer interface {
 	Serial() string
 	Status() string
-	CashAmount() int64
 }
 
 type Acceptor interface {
