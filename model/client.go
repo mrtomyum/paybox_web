@@ -11,11 +11,6 @@ type Client struct {
 	Send chan Msg
 }
 
-var host = Host{
-	Id:     "1",
-	OnHand: 0,
-}
-
 func (c *Client) Write() {
 	defer func() {
 		c.Conn.Close()
