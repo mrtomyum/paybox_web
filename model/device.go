@@ -1,21 +1,12 @@
 package model
 
-import "log"
+import (
+	"log"
+	"github.com/gorilla/websocket"
+	"github.com/gin-gonic/gin"
+	"fmt"
+)
 
-type Money struct {
-	Job    string
-	Amount int
-}
-
-// ====================
-// Machine
-// ====================
-// Machine is a Base struct
-type Machine struct {
-	Id     string
-	OnHand int
-	Online bool
-}
 // ====================
 // Msg
 // ====================
@@ -30,80 +21,64 @@ type Payload struct {
 	Result  bool        `json:"result,omitempty"`
 	Data    interface{} `json:"data,omitempty"`
 }
+// ====================
+// Device
+// ====================
+// Device is replica of Client{} object for create connection to device
+type Device struct {
+	Conn *websocket.Conn
+	Send chan Msg
+}
 
-type Devicer interface {
-	Serial() string
-	Status() string
+type Actioner interface {
+	Action(Msg)
+}
+
+func (d Device) Write() {
+	defer func() {
+		d.Conn.Close()
+	}()
+
+	for {
+		select {
+		case msg, ok := <-d.Send:
+			if !ok {
+				d.Conn.WriteJSON(gin.H{"message": "Cannot Send message"})
+				return
+			}
+			d.Conn.WriteJSON(msg)
+		}
+	}
+}
+
+func (d Device) Read() {
+	msg := Msg{}
+	for {
+		err := d.Conn.ReadJSON(&msg)
+		fmt.Println("Device command received: ", msg.Payload.Command)
+
+		if err != nil {
+			log.Println("Device Read JSON Error: ", msg)
+			d.Conn.WriteJSON(gin.H{"message": "Read JSON Error: "})
+			break
+		}
+
+		switch msg.Device {
+		case "coin_hopper":
+			h := CoinHopper{}
+			h.Action(msg)
+		case "coin_acceptor":
+			c := CoinAcceptor{}
+			c.Action(msg)
+		case "bill_acceptor":
+		case "printer":
+		}
+
+	}
 }
 
 type Acceptor interface {
 	Serial() string
 	Status() string
 	CashReceive() int64
-}
-
-type CoinHopper struct {
-	Msg
-}
-
-func (ch *CoinHopper) CheckMsg() {
-	switch ch.Payload.Type {
-	case "request": // Msg from web client.
-		ch.OnRequest()
-	case "response": // Response from Device
-		ch.OnResponse()
-	case "event":
-		ch.OnEvent()
-	}
-}
-
-func (ch *CoinHopper) OnRequest() {
-
-}
-
-func (ch *CoinHopper) OnResponse() {
-
-}
-
-func (ch *CoinHopper) OnEvent() {
-	// Sent data string to web socket client
-	status := ch.Payload.Command
-	data := ch.Payload.Data
-	if status != "status_changed" {
-		log.Println("Coin Hopper send unknown status:", status)
-	}
-	switch data {
-	case "ready":
-	case "disable":
-	case "calibration_fault":
-	case "no_key_set":
-	case "coin_jammed":
-	case "fraud":
-	case "hopper_empty": // Legacy
-	case "memory_error":
-	case "sensors_not_initialised":
-	case "lid_remove": // Legacy
-	}
-}
-
-func (ch *CoinHopper) Serial() (serial string) {
-
-	return serial
-}
-
-func (ch *CoinHopper) CashAmount() (amount int64) {
-
-	return amount
-}
-
-type CoinAcceptor struct {
-	Msg
-}
-type BillAcceptor struct {
-	Msg
-}
-
-func (b BillAcceptor) Status() string {
-	var status string
-	return status
 }

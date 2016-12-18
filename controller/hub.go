@@ -15,7 +15,7 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-var machine = model.Machine{
+var machine = model.Host{
 	Id:     "1",
 	OnHand: 0,
 }
