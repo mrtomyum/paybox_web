@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"log"
+	"fmt"
 )
 
 func GetItemById(ctx *gin.Context) {
@@ -20,7 +21,7 @@ func GetItemById(ctx *gin.Context) {
 }
 
 func GetItemsByMenuId(ctx *gin.Context) {
-	log.Println("call GetItemsByMenuId")
+	fmt.Println("call GetItemsByMenuId")
 	idStr := ctx.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {

@@ -3,6 +3,7 @@ package model
 import (
 	sys "github.com/mrtomyum/sys/model"
 	"log"
+	"fmt"
 )
 
 type Item struct {
@@ -40,7 +41,7 @@ func (i *Item) Get(id int64) (err error) {
 }
 
 func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
-	log.Println("call method: Item.ByMenuId::lang:", langs)
+	fmt.Println("call method: Item.ByMenuId::lang:", langs)
 	var sql string
 	langInit()
 	for _, l := range langs {
@@ -53,18 +54,18 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 		case 3:
 			sql = `SELECT id, name_cn as name, unit_cn as unit, menu_seq, image FROM item WHERE menu_id = ?`
 		}
-		log.Println("case:", l.Id, l.Name)
+		fmt.Println("case:", l.Id, l.Name)
 		err := db.Select(&items, sql, id)
 		if err != nil {
 			log.Println("Error select items")
 			return nil, err
 		}
-		log.Println("items:", items)
+		fmt.Println("items:", items)
 		// query Size{}
 		for _, i := range items {
 			sizes := []*Size{}
 			sql = `SELECT * FROM size WHERE item_id = ?`
-			item_id := int(i.ID)
+			item_id := int(i.Id)
 			err = db.Select(&sizes, sql, item_id)
 			if err != nil {
 				return nil, err

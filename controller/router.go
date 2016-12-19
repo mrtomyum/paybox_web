@@ -11,7 +11,7 @@ import (
 func Router(r *gin.Engine) *gin.Engine {
 	r.LoadHTMLGlob("view/**/*.tpl")
 	r.Static("/html", "./view/html")
-	r.Static("/public", "./view/public")
+	//r.Static("/public", "./view/public")
 	r.Static("/js", "./view/public/js")
 	r.Static("/css", "./view/public/css")
 	r.Static("/img", "./view/public/img")
@@ -32,18 +32,33 @@ func Router(r *gin.Engine) *gin.Engine {
 	return r
 }
 
+// wsPage ทำงานเมื่อ Web Client เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
+// Server ให้ Client เชื่อมต่อเข้ามา รัน goroutine จาก client.Write() & .Read()
 func wsPage(res http.ResponseWriter, req *http.Request) {
-	conn, err := upgrader.Upgrade(res, req, nil)
+	conn1, err := upgrader.Upgrade(res, req, nil)
 	fmt.Println("ws : wsPage start")
 	if err != nil {
 		http.NotFound(res, req)
 		return
 	}
+	defer conn1.Close()
 	client := &model.Client{
-		Conn: conn,
+		Conn: conn1,
 		Send: make(chan model.Msg),
 	}
-	model.Ghub.AddClient <- client
+	model.MyHub.AddClient <- client
 	go client.Write()
-	go client.Read()
+	client.Read()
+
+	// Dial conn2 to Device Websocket
+	//url := "http://localhost:9999/ws"
+	//conn2, _, err := websocket.DefaultDialer.Dial(url, nil)
+	//if err != nil {
+	//	log.Println("dial:", err)
+	//}
+	//defer conn2.Close()
+	//device := model.Device{}
+	//go device.Write()
+	//go device.Read()
 }
+
