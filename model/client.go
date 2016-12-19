@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"log"
 )
 
 type Client struct {
@@ -34,7 +35,7 @@ func (c *Client) Read() {
 	for {
 		err := c.Conn.ReadJSON(&msg)
 		if err != nil {
-			fmt.Println("Client Read JSON Error:", msg)
+			log.Println("Client Read JSON Error:", msg)
 			c.Conn.WriteJSON(gin.H{"message": "Read JSON Error: "})
 			break
 		}
@@ -55,7 +56,7 @@ func (c *Client) Read() {
 			host.Billing(c, msg)
 
 		default:
-			Ghub.Broadcast <- msg
+			MyHub.Broadcast <- msg
 		}
 
 	}

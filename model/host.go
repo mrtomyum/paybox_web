@@ -20,9 +20,11 @@ type Host struct {
 
 func (h *Host) GetOnHand(c *Client, msg Msg) {
 	fmt.Println("onhand_request_starting....")
+	log.Println("hub.Clients:", MyHub.Clients)
 	msg.Payload.Type = "response"
 	msg.Payload.Result = true
-	msg.Payload.Data = 100 // test dummy data
+	//msg.Payload.Data = 100 // test dummy data
+	msg.Payload.Data = h.OnHand
 	c.Send <- msg
 }
 

@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	hub := model.Ghub
+	hub := model.MyHub
 	go hub.Start()
 	r := gin.Default()
 	app := c.Router(r)

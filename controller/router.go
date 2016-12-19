@@ -46,7 +46,7 @@ func wsPage(res http.ResponseWriter, req *http.Request) {
 		Conn: conn1,
 		Send: make(chan model.Msg),
 	}
-	model.Ghub.AddClient <- client
+	model.MyHub.AddClient <- client
 	go client.Write()
 	client.Read()
 
