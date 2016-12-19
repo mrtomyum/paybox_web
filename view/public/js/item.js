@@ -571,7 +571,7 @@ function print(){
         Alert7.alert("ยอดเงินไม่พอชำระ");
     }else {
       //  clearInterval(onHend);
-          alert(JSON.stringify(output));
+          alert(output);
           doSend(output);
     }
 
