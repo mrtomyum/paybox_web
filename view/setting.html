@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>terminal order Setting</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/setting.css">
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+</head>
+<body>
+
+<nav class="navbar navbar-default" style="margin-bottom: 0.2%; height: 60px; background: #262626;">
+    <div class="container-fluid" style="padding-left: 0;">
+        <div class="navbar-header" style=" width: 20%; text-align: left; padding-left: 1%; padding-top: 0.5%;"
+             id="l800">
+            <img src="/img/logo.png" class="logo">
+        </div>
+        <div class="nav-r" id="l802">
+            <span id="version"></span><br><span id="Name_time"></span><span id="timer"></span>
+        </div>
+    </div>
+    <div class="navbar-header" id="l480">
+        <img src="/img/logo.png" class="logo">
+        <br>
+        <span id="version2"></span><span id="Name_time2"></span><span id="timer2"></span>
+    </div>
+
+</nav>
+<h1>Setting Terminal Paybox</h1>
+<hr style="width:85%; margin:1% 1% 1% 8%; border-color:#000;">
+<div id="set_left">
+    <h2><img src="/img/color.png"> Theme Color</h2>
+    <label class="block" style="padding-left:10%;">
+        <div class="form-group">
+            <div class="thumb">
+                <img title="" alt="" src="/img/img_colormap.gif"/>
+            </div>
+            <canvas class='canv' id="canv"></canvas>
+        </div>
+    </label>
+    <label class="block">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="bgview" style="text-align:right; font-size:24px; padding:0;">Color
+                Theme :</label>
+            <div class="col-sm-8">
+                <div id="bgview"></div>
+            </div>
+        </div>
+    </label>
+    <label class="block">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="color_theme"
+                   style="text-align:right; font-size:24px; padding:0;">Color Code :</label>
+            <div class="col-sm-8">
+                <input type="text" id="color_theme" class="form-control" readonly>
+            </div>
+        </div>
+    </label>
+
+</div>
+
+<div id="set_right">
+    <label class="block">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="org_name" style="text-align:right;padding:0;">Company Name
+                :</label>
+            <div class="col-sm-8">
+                <p class="form-control-static" id="org_name" style="text-align:left;"> Nopadol Panich Co., Ltd</p>
+            </div>
+        </div>
+    </label>
+    <label class="block">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="cm_logo" style="text-align:right; padding:0;">Logo Company
+                :</label>
+            <div class="col-sm-8">
+                <p class="form-control-static" id="cm_logo" style="text-align:left;"><img src="/img/logo.png"
+                                                                                          width="50%;"></p>
+            </div>
+        </div>
+    </label>
+    <label class="block">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="org_style" style="text-align:right; padding:0;">Organization
+                :</label>
+            <div class="col-sm-8">
+                <select id="org_style" class="form-control" style="font-size:18px;">
+                    <option value="0">ร้านกาแฟ</option>
+                    <option value="1">ขายตั๋ว</option>
+                </select>
+            </div>
+        </div>
+    </label>
+    <label class="block">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="data_update" style="text-align:right; padding:0;">Data Update
+                :</label>
+            <div class="col-sm-8">
+                <p class="form-control-static" id="data_update" style="text-align:left; color:red;">
+                    Last Update Data : 19/12/2016 Time 06:00:09
+                    <button type="button" class="btn btn-danger btn-lg"
+                            style="font-size:24px; padding:2% 3% 2% 3%; margin:0; width:100%;">
+                        <img src="/img/upgrade_data.png"> Update Data Now!
+                    </button>
+                </p>
+            </div>
+        </div>
+    </label>
+    <label class="block">
+        <button type="button" class="btn btn-success btn-lg" onclick="confirm()" style="width:45%;">Confirm</button>
+        <button type="button" class="btn btn-warning btn-lg" style="width:45%;">Back</button>
+    </label>
+</div>
+<br style="clear:both">
+<script type="text/javascript" src="/js/setting.js"></script>
+
+<script src='/js/voice.js'></script>
+<script src="/js/sweetalert.min.js"></script>
+<script src="/js/sweetalert-dev.js"></script>
+<script src="/js/alert7.min.js"></script>
+</body>
+</html>

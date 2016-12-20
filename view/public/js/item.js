@@ -564,18 +564,15 @@ function print(){
     }else{
         var take_home = false;
     }
-    var output = [];
-    output.push({"Device":window.location.host,"Payload":{"type":"request","command":"billing","result": true,"data":{"total":pri1,"payment":pri2,"change":changeMoney,"take_home":take_home,"items":listOrder}}});
-    console.log(JSON.stringify(output));
+    var output = "";
+    output = `{"Device":`+window.location.host+`,"Payload":{"type":"request","command":"billing","result": true,"data":{"total":`+pri1+`,"payment":`+pri2+`,"change":`+changeMoney+`,"take_home":`+take_home+`,"items":`+JSON.stringify(listOrder)+`}}}`;
+    console.log(output);
     if(changeMoney<0){
         Alert7.alert("ยอดเงินไม่พอชำระ");
     }else {
       //  clearInterval(onHend);
-          alert(JSON.stringify(output));
-          var str = JSON.stringify(output);
-          var i = str.length-1;
-          var res = str.substring(1,i);
-          doSend(res);
+          alert(output);
+          doSend(output);
     }
 
 }
