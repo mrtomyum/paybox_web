@@ -4,40 +4,48 @@ import "log"
 
 type CoinHopper struct {
 	Msg
+	Status string
 }
 
-func (h *CoinHopper) Action(Msg) {
+func (h *CoinHopper) Action(d Device, m Msg) {
 	switch h.Payload.Type {
 	case "request": // Msg from web client.
-		h.OnRequest()
+		h.OnRequest(d, m)
 	case "response": // Response from Device
-		h.OnResponse()
+		h.OnResponse(d, m)
 	case "event":
-		h.OnEvent()
+		h.OnEvent(d, m)
 	}
 }
 
-func (ch *CoinHopper) OnRequest() {
+func (h *CoinHopper) OnRequest(d Device, m Msg) {
+	switch m.Payload.Command {
+	case "status":
+		m.Payload.Data = h.Status
+		d.Send <- m
+	}
+}
+
+func (ch *CoinHopper) OnResponse(d Device, m Msg) {
 
 }
 
-func (ch *CoinHopper) OnResponse() {
-
-}
-
-func (ch *CoinHopper) OnEvent() {
+func (ch *CoinHopper) OnEvent(d Device, m Msg) {
 	// Sent data string to web socket client
 	status := ch.Payload.Command
 	data := ch.Payload.Data
 	if status != "status_changed" {
 		log.Println("Coin Hopper send unknown status:", status)
 	}
+
 	switch data {
-	case "ready":
+	case "ready": // do nothing
 	case "disable":
 	case "calibration_fault":
 	case "no_key_set":
 	case "coin_jammed":
+	// Send msg to web client...How?
+	//c.Send <- m
 	case "fraud":
 	case "hopper_empty": // Legacy
 	case "memory_error":

@@ -52,24 +52,24 @@ func (d Device) Write() {
 }
 
 func (d Device) Read() {
-	msg := Msg{}
+	m := Msg{}
 	for {
-		err := d.Conn.ReadJSON(&msg)
-		fmt.Println("Device command received: ", msg.Payload.Command)
+		err := d.Conn.ReadJSON(&m)
+		fmt.Println("Device command received: ", m.Payload.Command)
 
 		if err != nil {
-			log.Println("Device Read JSON Error: ", msg)
+			log.Println("Device Read JSON Error: ", m)
 			d.Conn.WriteJSON(gin.H{"message": "Read JSON Error: "})
 			break
 		}
 
-		switch msg.Device {
+		switch m.Device {
 		case "coin_hopper":
 			h := CoinHopper{}
-			h.Action(msg)
+			h.Action(d, m)
 		case "coin_acceptor":
-			c := CoinAcceptor{}
-			c.Action(msg)
+			ca := CoinAcceptor{}
+			ca.Action(d, m)
 		case "bill_acceptor":
 		case "printer":
 		}

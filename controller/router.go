@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"github.com/mrtomyum/paybox_terminal/model"
+	"github.com/gorilla/websocket"
+	"log"
 )
 
 func Router(r *gin.Engine) *gin.Engine {
@@ -27,6 +29,8 @@ func Router(r *gin.Engine) *gin.Engine {
 	r.GET("/ws", func(c *gin.Context) {
 		wsPage(c.Writer, c.Request)
 		fmt.Println("wsPage starting!")
+		WsDevice(c.Writer, c.Request)
+		fmt.Println("wsDevice starting")
 	})
 	// onhand initial value = 0
 	return r
@@ -34,31 +38,34 @@ func Router(r *gin.Engine) *gin.Engine {
 
 // wsPage ทำงานเมื่อ Web Client เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
 // Server ให้ Client เชื่อมต่อเข้ามา รัน goroutine จาก client.Write() & .Read()
-func wsPage(res http.ResponseWriter, req *http.Request) {
-	conn1, err := upgrader.Upgrade(res, req, nil)
+func wsPage(w http.ResponseWriter, r *http.Request) {
+	viewConn, err := upgrader.Upgrade(w, r, nil)
 	fmt.Println("ws : wsPage start")
 	if err != nil {
-		http.NotFound(res, req)
+		http.NotFound(w, r)
 		return
 	}
-	defer conn1.Close()
-	client := &model.Client{
-		Conn: conn1,
+	defer viewConn.Close()
+	view := &model.Client{
+		Conn: viewConn,
 		Send: make(chan model.Msg),
 	}
-	model.MyHub.AddClient <- client
-	go client.Write()
-	client.Read()
+	model.MyHub.AddClient <- view
+	go view.Write()
+	view.Read()
 
 	// Dial conn2 to Device Websocket
-	//url := "http://localhost:9999/ws"
-	//conn2, _, err := websocket.DefaultDialer.Dial(url, nil)
-	//if err != nil {
-	//	log.Println("dial:", err)
-	//}
-	//defer conn2.Close()
-	//device := model.Device{}
-	//go device.Write()
-	//go device.Read()
+	url := "http://localhost:9999/ws"
+	devConn, _, err := websocket.DefaultDialer.Dial(url, nil)
+	if err != nil {
+		log.Println("dial:", err)
+	}
+	defer devConn.Close()
+	device := model.Device{
+		Conn: devConn,
+		Send: make(chan model.Msg),
+	}
+	go device.Write()
+	device.Read()
 }
 

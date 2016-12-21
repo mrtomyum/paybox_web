@@ -4,25 +4,25 @@ type CoinAcceptor struct {
 	Msg
 }
 
-func (c *CoinAcceptor) Action(Msg) {
-	switch c.Payload.Type {
+func (ca *CoinAcceptor) Action(d Device, m Msg) {
+	switch ca.Payload.Type {
 	case "request": // Msg from web client.
-		c.OnRequest()
+		ca.OnRequest(d, m)
 	case "response": // Response from Device
-		c.OnResponse()
+		ca.OnResponse(d, m)
 	case "event":
-		c.OnEvent()
+		ca.OnEvent(d, m)
 	}
 }
 
-func (c *CoinAcceptor) OnRequest() {
+func (ca *CoinAcceptor) OnRequest(d Device, m Msg) {
 
 }
 
-func (c *CoinAcceptor) OnResponse() {
+func (ca *CoinAcceptor) OnResponse(d Device, m Msg) {
 
 }
 
-func (c *CoinAcceptor) OnEvent() {
+func (ca *CoinAcceptor) OnEvent(d Device, m Msg) {
 
 }

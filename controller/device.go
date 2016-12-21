@@ -1,56 +1,30 @@
 package controller
-//
-//import (
-//	"net/http"
-//	"github.com/gorilla/websocket"
-//	"github.com/mrtomyum/paybox_terminal/model"
-////"net/url"
-//	"log"
-//	"fmt"
-//)
 
-//var wsUpgrader = websocket.Upgrader{
-//	ReadBufferSize:  1024,
-//	WriteBufferSize: 1024,
-//}
+import (
+	"net/http"
+	"fmt"
+	"github.com/mrtomyum/paybox_terminal/model"
+)
 
-// Web socket client for Web Front end.
-//func WsClient() {
-//	addr := "localhost:9999"
-//	u := url.URL{Scheme:"ws", Host: addr, Path: "/ws"}
-//	log.Printf("กำลังเชื่อมต่อไปที่ %s", u.String())
-//
-//	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-//	if err != nil {
-//		log.Fatal("dial:", err)
-//	}
-//	defer conn.Close()
-//
-//	m := model.Msg{}
-//	// Listening to Event from server
-//	go func() {
-//		defer conn.Close()
-//		for {
-//			err := conn.ReadJSON(&m)
-//			if err != nil {
-//				log.Println("read:", err)
-//				break
-//			}
-//
-//			switch m.Device {
-//			case "coin_hopper":
-//				// implementing
-//				ch := model.CoinHopper{}
-//				ch.CheckMsg()
-//			case "coin_acc":
-//			case "bill_acc":
-//			case "printer":
-//			}
-//			conn.WriteJSON(&m)
-//		}
-//	}()
-//
-//}
+////  Mock Web socket server for host at port 9999===>Not active in production.
+func WsDevice(w http.ResponseWriter, r *http.Request) {
+	conn, err := upgrader.Upgrade(w, r, nil)
+	fmt.Println("ws : wsDevice start")
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
+	defer conn.Close()
+	device := model.Device{
+		Conn: conn,
+		Send: make(chan model.Msg),
+	}
+
+	// Listening to Event from server
+	go device.Write()
+	device.Read()
+
+}
 
 // Web socket server waiting for Web Front end connection.
 //func wsServer(w http.ResponseWriter, r *http.Request) {
