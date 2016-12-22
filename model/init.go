@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	db *sqlx.DB
+	db         *sqlx.DB
 	host Host
 	MyHub Hub
 	coinHopper CoinHopper
@@ -17,16 +17,16 @@ func init() {
 	// Mock Init Data
 	host = Host{
 		Id:     "1",
-		OnHand: 0,
+		OnHand: 200,
 	}
 	MyHub = Hub{
-		Broadcast:    make(chan Msg),
-		AddClient:    make(chan *Client),
-		RemoveClient: make(chan *Client),
 		Clients:      make(map[*Client]bool),
+		//Broadcast:    make(chan Msg),
+		Send:         make(chan *Client),
+		AddClient:    make(chan *Client),
+		DelClient: make(chan *Client),
 	}
 	coinHopper = CoinHopper{
 		Status: "ready",
 	}
 }
-

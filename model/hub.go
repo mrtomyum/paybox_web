@@ -1,34 +1,41 @@
 package model
+
 import "fmt"
 
 type Hub struct {
-	Clients      map[*Client]bool
-	Broadcast    chan Msg
-	AddClient    chan *Client
-	RemoveClient chan *Client
+	Clients   []*Client
+	AddClient chan *Client
+	DelClient chan *Client
+	Send      chan *Client
 }
 
 func (hub *Hub) Start() {
 	for {
 		select {
-		case conn := <-hub.AddClient:
+		case c := <-hub.AddClient:
 			fmt.Println("hub.Start.AddClient Working....")
-			hub.Clients[conn] = true
-		case conn := <-hub.RemoveClient:
+			hub.Clients = append(hub.Clients, c)
+		case c := <-hub.DelClient:
 			fmt.Println("hub.Start.RemoveClient Working....")
-			if _, ok := hub.Clients[conn]; ok {
-				delete(hub.Clients, conn)
-				close(conn.Send)
-			}
-		case msg := <-hub.Broadcast:
-			for conn := range hub.Clients {
-				select {
-				case conn.Send <- msg:
-				//default:
-				//close(conn.send)
-				//delete(hub.Clients, conn)
+		//if _, ok := hub.Clients[c]; ok {
+			for activeClient := range hub.Clients {
+				if c == activeClient {
+					delete(hub.Clients, c)
+					close(c.Msg)
 				}
 			}
+
+		//case m := <-hub.Broadcast:
+		//	for c := range hub.Clients {
+		//		select {
+		//		case c.Send <- m:
+		//			fmt.Println("Broadcast msg to View.Send")
+		//		//default:
+		//		//close(conn.send)
+		//		//delete(hub.Clients, conn)
+		//		}
+		//	}
+
 		}
 	}
 }
