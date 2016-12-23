@@ -2,53 +2,27 @@ package controller
 //
 //import (
 //	"net/http"
-//	"github.com/gorilla/websocket"
-//	"github.com/mrtomyum/paybox_terminal/model"
-////"net/url"
-//	"log"
 //	"fmt"
+//	"github.com/mrtomyum/paybox_terminal/model"
 //)
 
-//var wsUpgrader = websocket.Upgrader{
-//	ReadBufferSize:  1024,
-//	WriteBufferSize: 1024,
-//}
-
-// Web socket client for Web Front end.
-//func WsClient() {
-//	addr := "localhost:9999"
-//	u := url.URL{Scheme:"ws", Host: addr, Path: "/ws"}
-//	log.Printf("กำลังเชื่อมต่อไปที่ %s", u.String())
-//
-//	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+////  Mock Web socket server for host at port 9999===>Not active in production.
+//func WsDevice(w http.ResponseWriter, r *http.Request) {
+//	conn, err := upgrader.Upgrade(w, r, nil)
+//	fmt.Println("ws : wsDevice start")
 //	if err != nil {
-//		log.Fatal("dial:", err)
+//		http.NotFound(w, r)
+//		return
 //	}
 //	defer conn.Close()
+//	device := model.Device{
+//		Conn: conn,
+//		Send: make(chan model.Msg),
+//	}
 //
-//	m := model.Msg{}
 //	// Listening to Event from server
-//	go func() {
-//		defer conn.Close()
-//		for {
-//			err := conn.ReadJSON(&m)
-//			if err != nil {
-//				log.Println("read:", err)
-//				break
-//			}
-//
-//			switch m.Device {
-//			case "coin_hopper":
-//				// implementing
-//				ch := model.CoinHopper{}
-//				ch.CheckMsg()
-//			case "coin_acc":
-//			case "bill_acc":
-//			case "printer":
-//			}
-//			conn.WriteJSON(&m)
-//		}
-//	}()
+//	go device.Write()
+//	device.Read()
 //
 //}
 

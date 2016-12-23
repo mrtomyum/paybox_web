@@ -9,7 +9,8 @@ import (
 
 type Client struct {
 	Conn *websocket.Conn
-	Send chan Msg
+	Msg  chan Msg
+	Name string
 }
 
 func (c *Client) Write() {
@@ -19,44 +20,44 @@ func (c *Client) Write() {
 
 	for {
 		select {
-		case msg, ok := <-c.Send:
+		case msg, ok := <-c.Msg:
 			if !ok {
 				c.Conn.WriteJSON(gin.H{"message" :"Connot to Send data" })
 				return
 			}
-			fmt.Println(msg)
+			fmt.Println("View.Write():", msg)
 			c.Conn.WriteJSON(msg)
 		}
 	}
 }
 
 func (c *Client) Read() {
-	msg := Msg{}
+	m := Msg{}
 	for {
-		err := c.Conn.ReadJSON(&msg)
+		err := c.Conn.ReadJSON(&m)
 		if err != nil {
-			log.Println("Client Read JSON Error:", msg)
+			log.Println("Client Read JSON Error:", m)
 			c.Conn.WriteJSON(gin.H{"message": "Read JSON Error: "})
 			break
 		}
-		fmt.Println("Received command from Client: ", msg)
+		fmt.Println("Received command from Client: ", m)
 
-		switch msg.Payload.Command {
+		switch m.Payload.Command {
 		// for Client - UI/UX call check current onhand amount
 		case "onhand":
-			host.GetOnHand(c, msg)
+			host.GetOnHand(c, m)
 
 		// Cancel order command
 		// อย่าลืม reset ยอดเงินในตู้เป็น 0 (hardware ต้องสั่งคืนเงิน)
 		case "cancel":
-			host.Cancel(c, msg)
+			host.Cancel(c, m)
 
 		// billing command ใช้สำหรับให้ Client เรียกบันทึกเข้ามาที่ Websocket
 		case "billing":
-			host.Billing(c, msg)
+			host.Billing(c, m)
 
-		default:
-			MyHub.Broadcast <- msg
+		//default:
+		//	MyHub.Broadcast <- msg
 		}
 
 	}

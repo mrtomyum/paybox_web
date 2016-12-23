@@ -14,3 +14,7 @@ Customer Payment success
 *** Keywords ***
 Provided precondition
     Setup system under test
+When select Item via Menu
+Host ask customer to make payment
+Money onhand is enough
+Then check expectations

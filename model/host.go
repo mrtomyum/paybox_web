@@ -20,12 +20,12 @@ type Host struct {
 
 func (h *Host) GetOnHand(c *Client, msg Msg) {
 	fmt.Println("onhand_request_starting....")
-	log.Println("hub.Clients:", MyHub.Clients)
+	fmt.Println("hub.Clients:", MyHub.Clients)
 	msg.Payload.Type = "response"
 	msg.Payload.Result = true
-	//msg.Payload.Data = 100 // test dummy data
 	msg.Payload.Data = h.OnHand
-	c.Send <- msg
+	c.Msg <- msg
+	c.Conn.WriteJSON(msg)
 }
 
 func (h *Host) GetDevices() {
@@ -42,7 +42,7 @@ func (h *Host) Cancel(c *Client, msg Msg) error {
 	msg.Payload.Type = "response"
 	msg.Payload.Result = true
 	msg.Payload.Data = "Cancel - Successful"
-	c.Send <- msg
+	c.Msg <- msg
 	return nil
 }
 
@@ -56,7 +56,7 @@ func (h *Host) Billing(c *Client, msg Msg) error {
 	msg.Payload.Result = true
 	msg.Device = "Host"
 	msg.Payload.Type = "response"
-	c.Send <- msg
+	c.Msg <- msg
 	// todo: save into database sqlite
 	// todo: reset Onhand
 	h.OnHand = 0

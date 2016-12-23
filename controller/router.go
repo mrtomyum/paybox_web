@@ -25,40 +25,49 @@ func Router(r *gin.Engine) *gin.Engine {
 	//r.GET("/dev", GetDeviceIndexPage)
 
 	r.GET("/ws", func(c *gin.Context) {
-		wsPage(c.Writer, c.Request)
+		wsServer(c.Writer, c.Request)
 		fmt.Println("wsPage starting!")
+		//WsDevice(c.Writer, c.Request)
+		//fmt.Println("wsDevice starting")
 	})
-	// onhand initial value = 0
 	return r
 }
 
-// wsPage ทำงานเมื่อ Web Client เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
+// wsServer ทำงานเมื่อ Web Client เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
 // Server ให้ Client เชื่อมต่อเข้ามา รัน goroutine จาก client.Write() & .Read()
-func wsPage(res http.ResponseWriter, req *http.Request) {
-	conn1, err := upgrader.Upgrade(res, req, nil)
-	fmt.Println("ws : wsPage start")
+func wsServer(w http.ResponseWriter, r *http.Request) {
+	conn, err := upgrader.Upgrade(w, r, nil)
+	fmt.Println("ws : wsServer start")
 	if err != nil {
-		http.NotFound(res, req)
+		http.NotFound(w, r)
 		return
 	}
-	defer conn1.Close()
-	client := &model.Client{
-		Conn: conn1,
-		Send: make(chan model.Msg),
+	defer conn.Close()
+
+	// client จะต้องระบุตัวตนว่าเป็น "dev" หรือ "web" เข้ามาใน header "name"
+	clientName := r.Header.Get("name")
+	c := &model.Client{
+		Conn: conn,
+		Msg: make(chan model.Msg),
+		Name: clientName,
 	}
-	model.MyHub.AddClient <- client
-	go client.Write()
-	client.Read()
+	11
+	dClient <- c
+	go c.Write()
+	c.Read()
 
 	// Dial conn2 to Device Websocket
 	//url := "http://localhost:9999/ws"
-	//conn2, _, err := websocket.DefaultDialer.Dial(url, nil)
+	//devConn, _, err := websocket.DefaultDialer.Dial(url, nil)
 	//if err != nil {
 	//	log.Println("dial:", err)
 	//}
-	//defer conn2.Close()
-	//device := model.Device{}
+	//defer devConn.Close()
+	//device := model.Device{
+	//	Conn: devConn,
+	//	Send: make(chan model.Msg),
+	//}
 	//go device.Write()
-	//go device.Read()
+	//device.Read()
 }
 
