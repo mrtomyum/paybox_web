@@ -11,7 +11,7 @@ body{
 	background-color: #dbdbd0;
 }
 .logo{
-	width: 100%;
+	width: 50%;
 	margin:2%;
 }
 #l480{
@@ -740,7 +740,7 @@ br{display: none;}
 
 @media (min-width: 800px) and (max-width: 800px) {
 	.logo{
-		width: 100%;
+		width: 80%;
 		margin:2%;
 	}
 
@@ -977,7 +977,7 @@ br{display: none;}
 		.order{
 			width: 100%;
 			background-color: #fff;
-			height: 250px;
+			height: 220px;
 			border-radius: 2%;
 			margin: 0;
 			padding: 0;
@@ -1028,7 +1028,7 @@ br{display: none;}
 
 		.scroll{
 			width: 100%;
-			height: 210px;
+			height: 180px;
 			border-radius: 2%;
 			overflow: auto;
 			margin-bottom: 10%;

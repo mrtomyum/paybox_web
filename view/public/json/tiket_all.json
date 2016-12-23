@@ -1,0 +1,50 @@
+tiket_menu = `[
+{
+"langId": "1",
+"lang_name": "Thai Female",
+"menu": [
+{
+"id": "1",
+"name": "คนไทย",
+"image": "tiket_thai.png"
+},
+{
+"id": "2",
+"name": "ชาวต่างชาติ",
+"image": "tiket_foreigner.png"
+}
+]
+},
+{
+"lang_id": "2",
+"lang_name": "UK English Female",
+"menu": [
+{
+"id": "1",
+"name": "Thai",
+"image": "tiket_thai.png"
+},
+{
+"id": "2",
+"name": "Foreigner",
+"image": "tiket_foreigner.png"
+}
+]
+},
+{
+"langId": "3",
+"lang_name": "Chinese Female",
+"menu": [
+{
+"id": "1",
+"name": "泰國",
+"image": "tiket_thai.png"
+},
+{
+"id": "2",
+"name": "外國人",
+"image": "tiket_foreigner.png"
+}
+]
+}
+]`;

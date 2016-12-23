@@ -21,9 +21,15 @@ $("document").ready(function(){
                  document.getElementById('timer').innerText =event.data ;
                  document.getElementById('timer2').innerText =event.data;
                  };
-
+    console.log(id);
 	switch(parseInt(id)){
-	    case 1: if(status==1){ status = "รับประทานที่ร้าน"}else{ status = "ซื้อกลับบ้าน"}
+	    case 1:
+	            if(localStorage.OrgCode==1){
+	                status = "ตั๋ว"
+	            }else{
+	                if(status==1){ status = "รับประทานที่ร้าน"}else{ status = "ซื้อกลับบ้าน"}
+	            }
+
 	            document.getElementById("status").innerHTML = "สถานะ : "+status;
 
 	            document.getElementById("txtTotalPri").innerHTML = "ราคารวม";
@@ -45,7 +51,11 @@ $("document").ready(function(){
                  document.getElementById("Name_time2").innerHTML = "เวลา ";
 
 	            break;
-	    case 2: if(status==1){ status = "take this"}else{ status = "this out"}
+	    case 2: if(localStorage.OrgCode==1){
+                	 status = "Ticket"
+                }else{
+                    if(status==1){ status = "take this"}else{ status = "this out"}
+                }
                 document.getElementById("status").innerHTML = "status : "+status;
 
                 document.getElementById("txtTotalPri").innerHTML = "Total";
@@ -66,7 +76,11 @@ $("document").ready(function(){
                 document.getElementById("Name_time").innerHTML = "time ";
                 document.getElementById("Name_time2").innerHTML = "time ";
 	            break;
-	    case 3: if(status==1){ status = "拿著它"}else{ status = "取出"}
+	    case 3: if(localStorage.OrgCode==1){
+                  	status = "車票"
+                }else{
+	                if(status==1){ status = "拿著它"}else{ status = "取出"}
+               	}
                	document.getElementById("status").innerHTML = "狀態 : "+status;
 
                	document.getElementById("txtTotalPri").innerHTML = "總價";
@@ -98,10 +112,26 @@ $("document").ready(function(){
           localStorage.lName = null;
           localStorage.nName = null;
         };
-    main_menu(id);
-    console.log("menuid "+menuId);
-    item(id,(parseInt(menuId)-1));
-    disabled_payment();
+
+        if(localStorage.ColorCode){
+           document.getElementById("cleft").style.backgroundColor = localStorage.ColorCode;
+           document.getElementById("cleft").style.borderColor = localStorage.ColorCode;
+           document.getElementById("chead").style.backgroundColor = localStorage.ColorCode;
+        }
+        if(localStorage.OrgCode == 0){
+             main_menu(id);
+             console.log("menuid "+menuId);
+             item(id,(parseInt(menuId)-1));
+             disabled_payment();
+        }else if(localStorage.OrgCode == 1){
+           //  window.location = "menu.html";
+             ticket_menu(id);
+             console.log("menuid "+menuId);
+             ticket_item(id,(parseInt(menuId)-1));
+             disabled_payment();
+        }
+    //
+
 
 });
 
@@ -119,6 +149,66 @@ function disabled_payment(){
            print();
         }
     }
+}
+function ticket_menu(id){
+     var result = JSON.parse(tiket_menu);
+      //  console.log(JSON.stringify(result));
+        var listmenu = result[id-1].menu;
+        console.log(JSON.stringify(listmenu));
+        var menu = "";
+         //console.log(JSON.stringify(result));
+         var sId = localStorage.menuId-1;
+         //console.log(listmenu);
+         for (var i = 0; i < listmenu.length; i++) {
+             if(localStorage.menuId==i){
+                  menu += `<li onclick="active(`+i+`)"><a href="#" id="`+i+`">`+listmenu[i].name+`</a></li>`;
+             }else{
+                  menu += `<li onclick="active(`+i+`)"><a href="#" id="`+i+`">`+listmenu[i].name+`</a></li>`;
+                  }
+         }
+
+         document.getElementById("li_menu").innerHTML = menu;
+         $("a").removeClass("active");
+         $("#"+parseInt(sId)).addClass("active");
+         var x = document.getElementsByTagName("LI");
+              for(var i = 0;i < x.length; i++){
+                 x[i].style.background = localStorage.ColorCode;
+                 if(i!=parseInt(sId)){
+                    //console.log(i);
+                    x[i].style.borderBottom = "1px dashed #fff";
+                 }else{
+                    x[i].style.borderBottom = "0px dashed #fff";
+                 }
+              }
+               //	console.log(sId);
+         $("#"+parseInt(sId)).css("background-color", localStorage.ColorCode);
+         $("#"+parseInt(sId)).css("color", "#fff");
+         document.getElementById("itemlist").style.background = localStorage.ColorCode;
+         document.getElementById("centitem").style.background = localStorage.ColorCode;
+}
+
+function ticket_item(lang,menuId){
+    console.log("itemactive " + menuId);
+    if(menuId==0){var menu = menu_tiket}else{var menu = menu_tiketfer}
+     var result = JSON.parse(menu);
+     var items = result[parseInt(lang)-1].items;;
+     console.log("new "+JSON.stringify(items));
+     var item = "";
+         for(var i = 0; i < items.length; i++){
+            	var size = items[i].sizes;
+               	item += `<a href="#"><div class="block-3"
+               			onclick="showmodal('`+items[i].id+`','`+items[i].name+`','/img/`+items[i].image+`','คน',
+               			'`+size[0].name+'/'+size[0].price+`'
+              			,'`+size[1].name+'/'+size[1].price+`'
+                		,'`+size[2].name+'/'+size[2].price+`')">
+                   		<img src="/img/`+items[i].image+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
+                        <h5 style="margin-top: 0;">
+                        <div style="width: 80%; float: left;">`+items[i].name+`
+                        </div><div style="width: 20%; float: left; padding:0;">`+size[0].price+`</div></h5>
+                        </div></a>`;
+         }
+         //console.log(item);
+         document.getElementById("list_item").innerHTML = item;
 }
 
 function main_menu(id){
@@ -151,7 +241,7 @@ function main_menu(id){
                         $("#"+parseInt(sId)).addClass("active");
                         var x = document.getElementsByTagName("LI");
                         	for(var i = 0;i < x.length; i++){
-                        		x[i].style.background = "#272727";
+                        		x[i].style.background = localStorage.ColorCode;
                         		if(i!=parseInt(sId)){
                         			//console.log(i);
                         			x[i].style.borderBottom = "1px dashed #fff";
@@ -160,10 +250,10 @@ function main_menu(id){
                         		}
                         	}
                         //	console.log(sId);
-                        $("#"+parseInt(sId)).css("background-color", "#272727");
+                        $("#"+parseInt(sId)).css("background-color", localStorage.ColorCode);
                         $("#"+parseInt(sId)).css("color", "#fff");
-                        document.getElementById("itemlist").style.background = "#272727";
-                        document.getElementById("centitem").style.background = "#272727";
+                        document.getElementById("itemlist").style.background = localStorage.ColorCode;
+                        document.getElementById("centitem").style.background = localStorage.ColorCode;
                },
                 error: function(err){
                     console.log(JSON.stringify(err));
@@ -289,7 +379,7 @@ console.log("active id "+id);
 	var x = document.getElementsByTagName("LI");
 
 	for(var i = 0;i < x.length; i++){
-		x[i].style.background = "#272727";
+		x[i].style.background = localStorage.ColorCode;
 		if(i!=id){
 			//console.log(i);
 			x[i].style.borderBottom = "1px dashed #fff";
@@ -297,14 +387,18 @@ console.log("active id "+id);
 			x[i].style.borderBottom = "0px dashed #fff";
 		}
 	}
-	//x[id].style.background = "#272727";
-	/*document.getElementById(id).style.background = "#272727";
+	//x[id].style.background = localStorage.ColorCode;
+	/*document.getElementById(id).style.background = localStorage.ColorCode;
 	document.getElementById(id).style.color = "#fff";*/
-	$("#"+id).css("background-color", "#272727");
+	$("#"+id).css("background-color", localStorage.ColorCode);
     $("#"+id).css("color", "#fff");
-	document.getElementById("itemlist").style.background = "#272727";
-	document.getElementById("centitem").style.background = "#272727";
-	item(localStorage.language,localStorage.getID);
+	document.getElementById("itemlist").style.background = localStorage.ColorCode;
+	document.getElementById("centitem").style.background = localStorage.ColorCode;
+	  if(localStorage.OrgCode == 0){
+	     item(localStorage.language,localStorage.getID);
+      }else if(localStorage.OrgCode == 1){
+         ticket_item(localStorage.language,localStorage.getID);
+      }
 }
 
 function showmodal(id,name,img,unit,s,m,l){
@@ -329,7 +423,7 @@ function showmodal(id,name,img,unit,s,m,l){
 	var lName = l[0];
 	var lPrice = l[1];
 	var size = "";
-
+    if(localStorage.OrgCode == 0){
 		if( sPrice != "0"){
 		size += `<a href="#"><h1 id="`+sName+`" onclick="active_size('`+sName+`','`+sPrice+`')" class="acsize">
 					<img src="/img/s.png" class="img-size"><b>Small </b></h1>
@@ -347,6 +441,9 @@ function showmodal(id,name,img,unit,s,m,l){
           			<img src="/img/l.png" class="img-size"><b>large </b></h1>
           		</a>`;
         }
+    }else{
+
+    }
     var totalPrice = 1*sPrice;
 
     document.getElementById("MitemNo").value = id;
@@ -354,7 +451,7 @@ function showmodal(id,name,img,unit,s,m,l){
     document.getElementById("Munit").value = unit;
     document.getElementById("Msize").value = sName;
     document.getElementById("mo_qty").value = 1;
-	document.getElementById("Mitem_title").innerHTML = Mitem;
+	document.getElementById("Mitem_title").innerHTML = Mitem.substring(0, 25)+"...";
 	document.getElementById("Mimg").innerHTML = Mimg;
 	document.getElementById("menusize").innerHTML = size;
 	document.getElementById("mo-pri").value = totalPrice+` ฿`;
@@ -398,8 +495,8 @@ function order_list(itemCode,itemName,size,qty,unit,price){
                 `;
        totalPrice += parseInt(listOrder[i].price);
    }
-    console.log(formatMoney(totalPrice));
-    var ttPrice = formatMoney(totalPrice);
+    console.log(numeral(totalPrice).format('0,0'));
+    var ttPrice = numeral(totalPrice).format('0,0');
    document.getElementById("pri1").value = ttPrice;
    document.getElementById("order_list").innerHTML = list;
    console.log(list);
@@ -417,10 +514,12 @@ function item_cancel(index){
        });
        _alertA.addAction("Yes", function(){
             listOrder.splice(index, 1);
-              Alert7.alert("ยกเลิกรายการที่ท่านต้องการเรียบร้อย");
+            console.log(listOrder);
+            Alert7.alert("ยกเลิกรายการที่ท่านต้องการเรียบร้อย");
 
                 var list = "";
                  var totalPrice = 0;
+                 console.log(listOrder.length);
                  for(var i = 0; i < listOrder.length; i++){
                      list += `
                                 <label class="orderlist" onclick="return false">
@@ -435,8 +534,8 @@ function item_cancel(index){
                               `;
                      totalPrice += parseInt(listOrder[i].price);
                  }
-                  console.log(formatMoney(totalPrice));
-                  var ttPrice = formatMoney(totalPrice);
+                 console.log(numeral(totalPrice).format('0,0'));
+                 var ttPrice = numeral(totalPrice).format('0,0');
                  document.getElementById("pri1").value = ttPrice;
                     if(list!=""){
                          list = list;
@@ -452,31 +551,6 @@ function item_cancel(index){
 
 }
 
-function formatMoney(inum){  // ฟังก์ชันสำหรับแปลงค่าตัวเลขให้อยู่ในรูปแบบ เงิน
-    var s_inum=new String(inum);
-    var num2=s_inum.split(".");
-    var n_inum="";
-    if(num2[0]!=undefined){
-        var l_inum=num2[0].length;
-        for(i=0;i<l_inum;i++){
-            if(parseInt(l_inum-i)%3==0){
-                if(i==0){
-                    n_inum+=s_inum.charAt(i);
-                }else{
-                    n_inum+=","+s_inum.charAt(i);
-                }
-            }else{
-                n_inum+=s_inum.charAt(i);
-            }
-        }
-    }else{
-        n_inum=inum;
-    }
-    if(num2[1]!=undefined){
-        n_inum+="."+num2[1];
-    }
-    return n_inum;
-}
 
 function onsayeng(id){
     responsiveVoice.setDefaultVoice("UK English Female");
@@ -557,6 +631,8 @@ function print(){
     var pri1 = document.getElementById("pri1").value;
     var pri2 = document.getElementById("pri2").value;
  //   payment();
+     pri1 = numeral(pri1).format('0.0');
+     pri2 = numeral(pri2).format('0.0');
     var changeMoney = parseInt(pri2)-parseInt(pri1);
    //console.log(changeMoney);
     if(localStorage.action==2){
@@ -567,6 +643,7 @@ function print(){
     var output = "";
     output = `{"Device":`+window.location.host+`,"Payload":{"type":"request","command":"billing","result": true,"data":{"total":`+pri1+`,"payment":`+pri2+`,"change":`+changeMoney+`,"take_home":`+take_home+`,"items":`+JSON.stringify(listOrder)+`}}}`;
     console.log(output);
+    console.log(parseInt(pri2)+","+parseInt(pri1));
     if(changeMoney<0){
         Alert7.alert("ยอดเงินไม่พอชำระ");
     }else {

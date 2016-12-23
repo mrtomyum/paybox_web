@@ -41,13 +41,27 @@ body{
 }
 
 .logo{
-	width: 45%;
+	width: 20%;
+	margin: 0 auto;
+	border: 3px solid #fff;
+	border-radius: 100%;
 }
 
 #l480{
 	display: none;
 }
 
+#img_setting{
+    position: absolute;
+    left: 90%;
+    top: 85%;
+}
+.bt_key{
+    width: 30%;
+    margin-bottom:2%;
+    margin-left:2%;
+    padding:0;
+}
 	#menu_main{
 		width: 100%;
 		text-align: center;
@@ -111,6 +125,7 @@ body{
 
 .navbar{
 	margin-bottom: 0;
+	height:auto;
 }
 
 .navbar-header{
@@ -133,7 +148,8 @@ body{
 }
 
 .logo{
-	width: 85%;
+	width: 40%;
+	margin-bottom:5%;
 }
 .l800{
 	display: block;
@@ -146,7 +162,7 @@ body{
 		width: 100%;
 		text-align: center;
 		padding-left: 4%;
-		margin-top: 5%;
+		margin-top: 2%;
 		margin-bottom: 0;
 	}
 	.img_menu{
@@ -191,7 +207,7 @@ body{
 @media (min-width: 400px) and (max-width: 799px) {
 
 .container{
-	padding-top: 20%;
+	padding-top: 0%;
 	padding-left: 0;
 	margin: 0;
 }
@@ -231,8 +247,8 @@ body{
 	#menu_main{
 		width: 100%;
 		text-align: center;
-		padding-left: 0;
-		margin-top: 5%;
+		padding: 0;
+		margin-top: 15%;
 		margin-bottom: 0;
 	}
 	.img_menu{
@@ -241,6 +257,8 @@ body{
 		border-radius: 100%;
 		border: 5px solid #fff;
 		text-align: center;
+		margin-top:0;
+		padding-top:0;
 	}
 	#menu_main hr {
 		  border: 0; 

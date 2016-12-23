@@ -40,8 +40,23 @@ body{
 	color: #fff;
 }
 
+#img_setting{
+    position: absolute;
+    left: 90%;
+    top: 85%;
+}
+.bt_key{
+    width: 30%;
+    margin-bottom:2%;
+    margin-left:2%;
+    padding:0;
+}
+
 .logo{
-	width: 45%;
+	width: 20%;
+	margin-bottom:2%;
+	border-radius:100%;
+	border:5px solid #fff;
 }
 
 #l480{
@@ -51,7 +66,7 @@ body{
 .block-2 {
 	width: 17%;
 	height: 165px;
-	margin: 1% 0% 0 2.26%;
+	margin: 1% auto auto 2.26%;
 	/*background: red;*/
 	/*border: 1px solid black;*/
 	padding: 0%;
@@ -82,6 +97,7 @@ body{
 	/*border: 1px solid red;*/
 	height: 370px;
 	overflow: auto;
+	margin:0 auto;
 }
 
 	#menu_main{
@@ -170,7 +186,10 @@ body{
 }
 
 .logo{
-	width: 85%;
+	width: 30%;
+	margin-bottom:2%;
+    border-radius:100%;
+    border:5px solid #fff;
 }
 .l800{
 	display: block;
@@ -189,6 +208,7 @@ body{
 	text-align: center;
 	vertical-align: middle;
 	float: left;
+	display:table;
 }
 .block-img{
 	margin-bottom: 0%; 
@@ -308,6 +328,7 @@ body{
 		margin: 1% 0% 5% 2.26%;
 		/*background: red;*/
 		/*border: 1px solid black;*/
+		display:table;
 		padding: 0%;
 		border-radius: 9px;
 		text-align: center;
@@ -336,6 +357,7 @@ body{
 		/*border: 1px solid red;*/
 		max-height: 500px;
 		overflow: auto;
+		margin:0 auto;
 	}
 	#menu_main{
 		width: 100%;

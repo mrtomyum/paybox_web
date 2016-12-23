@@ -34,6 +34,8 @@ function confirm(){
     console.log("org code: "+org_code+" , colorcode : "+color_code);
     localStorage.ColorCode = color_code;
     localStorage.OrgCode = org_code;
+    alert("บันทึกเรียบร้อย");
+    window.location = "index.html";
 }
 
 // Pure JS...no plugin > based on but altered/recoded from http://www.cssscript.com/demo/pick-a-color-from-an-image-using-canvas-and-javascript/

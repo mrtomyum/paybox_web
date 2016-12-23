@@ -1,0 +1,191 @@
+menu_tiketfer = `[
+{
+"langId": "1",
+"langName": "th",
+"menuId": "5",
+"items":[
+{
+"id": "1",
+"name": "อัตราเข้าชมสำหรับผู้ใหญ่",
+"image": "water_fer.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "100"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "2",
+"name": "อัตราเข้าชมสำหรับเด็ก",
+"image": "water_fer_child.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "100"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "3",
+"name": "อัตราเข้าชม+เครื่องเล่นสำหรับผู้ใหญ่",
+"image": "water_fer_plus.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "250"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "4",
+"name": "อัตราเข้าชม+เครื่องเล่นสำหรับเด็ก",
+"image": "water_fer_child_plus.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "200"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+}
+]
+},
+{
+"langId": "2",
+"langName": "en",
+"menuId": "5",
+"items":[
+{
+"id": "1",
+"name": "Foreign visitors Adults",
+"image": "water_fer.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "200"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "2",
+"name": "Visit rate for children",
+"image": "water_fer_child.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "100"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "3",
+"name": "Visit combination for adult",
+"image": "water_fer_plus.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "250"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "4",
+"name": "Visit combination for children",
+"image": "water_fer_child_plus.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "200"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+}
+]
+},
+{
+"langId": "3",
+"langName": "ch",
+"menuId": "5",
+"items":[
+{
+"id": "1",
+"name": "外國遊客成人",
+"image": "water_fer.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "100"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "2",
+"name": "訪問兒童率",
+"image": "water_fer_child.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "100"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "3",
+"name": "旅客總速率為成年玩家",
+"image": "water_fer_plus.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "250"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+},
+{
+"id": "4",
+"name": "訪問兒童組合水上公園",
+"image": "water_fer_child_plus.jpg",
+"sizes":[
+{"sizeId": "1", "name": "s", "price": "200"
+},
+{
+"sizeId": "2", "name": "m", "price": "0"
+},
+{
+"sizeId": "3", "name": "l", "price": "0"}
+]
+}
+]
+}
+]`;

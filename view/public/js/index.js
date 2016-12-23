@@ -17,6 +17,18 @@ $(document).ready(function(){
 
      document.getElementById("Name_time").innerHTML = "เวลา ";
      document.getElementById("Name_time2").innerHTML = "เวลา ";
+     console.log(localStorage.OrgCode);
+     if(localStorage.ColorCode){
+             var nav = document.getElementsByClassName("navbar");
+                for(var i = 0; i < nav.length; i++){
+                     nav[i].style.backgroundColor = localStorage.ColorCode;
+                }
+     }
+     if(localStorage.OrgCode == 0){
+       // window.location = "index.html";
+     }else if(localStorage.OrgCode == 1){
+        window.location = "menu.html";
+     }
 
 });
 
@@ -119,3 +131,21 @@ function takeoutchina(){
         localStorage.action = 2;
 }
 /*////////////////// take out  //////////////////////////////*/
+
+function input_num(number){
+    var text = document.getElementById("pwd_setting");
+   // console.log(number);
+    text.value += number;
+}
+
+function delete_text(){
+    var text = document.getElementById("pwd_setting").value;
+
+    var newStr = text.substring(0, text.length-1);
+    //console.log(newStr);
+    document.getElementById("pwd_setting").value = newStr;
+}
+
+function check_setting(){
+    window.location = "setting.html"
+}

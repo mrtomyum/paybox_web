@@ -55,9 +55,50 @@ $(document).ready(function(){
 	}
 
     console.log(id);
-    detailmenu(id);
-    
+     if(localStorage.ColorCode){
+                 var nav = document.getElementsByClassName("navbar");
+                    for(var i = 0; i < nav.length; i++){
+                         nav[i].style.backgroundColor = localStorage.ColorCode;
+                    }
+         }
+     if(localStorage.OrgCode == 0){
+         detailmenu(id);
+     }else if(localStorage.OrgCode == 1){
+       //  window.location = "menu.html";
+        var p = document.getElementsByTagName("p");
+         p[0].style.display = "none";
+         tiket(id);
+     }
+
 });
+
+function tiket(id){
+
+    var result = JSON.parse(tiket_menu);
+  //  console.log(JSON.stringify(result));
+    var listmenu = result[id-1].menu;
+    console.log(JSON.stringify(listmenu));
+            var menu = "";
+            for (var i = 0; i < listmenu.length; i++) {
+              menu += `<a href="javascript:active_menu(`+listmenu[i].id+`,'`+listmenu[i].name+`','`+result[id-1].lang_name+`');">
+                  <div class="block-2">
+                  <img src="/img/`+listmenu[i].image+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
+                  <h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>`+listmenu[i].name+`</b></div></h5>
+              </div>
+            </a>`;
+
+         }
+
+     document.getElementById("menu_data").innerHTML = menu;
+     var block2 = document.getElementsByClassName("block-2");
+     var blockimg = document.getElementsByClassName("block-img");
+     for(var i = 0; i<block2.length; i++){
+         block2[i].style.width = "27%";
+         block2[0].style.marginLeft = "23%";
+         blockimg[i].style.marginBottom = "0";
+     }
+    // console.log(menu);
+}
 
 function detailmenu(id){
 
@@ -98,12 +139,14 @@ function detailmenu(id){
    /* */
 }
 
+
 function active_menu(menuId,mName,lName){
     console.log("menu_id"+ menuId);
     localStorage.menuId = menuId;
     localStorage.nName = mName;
     localStorage.lName = lName;
-        window.location = "item.html";
+    console.log(localStorage.language);
+      window.location = "item.html";
 
 
 }
@@ -123,8 +166,15 @@ function onsayeng(id){
     document.getElementById("Name_time").innerHTML = "time ";
     document.getElementById("Name_time2").innerHTML = "time ";
 
-    localStorage.language = 1;
-    detailmenu(id);
+    localStorage.language = 2;
+        if(localStorage.OrgCode == 0){
+             detailmenu(id);
+         }else if(localStorage.OrgCode == 1){
+           //  window.location = "menu.html";
+            var p = document.getElementsByTagName("p")
+             p[0].style.display = "none";
+             tiket(id);
+         }
 }
 
 function onsaythai(id){
@@ -143,8 +193,15 @@ function onsaythai(id){
     document.getElementById("Name_time2").innerHTML = "เวลา ";
 
     setTimeout(function(){
-        localStorage.language = 2;
-        detailmenu(id);
+        localStorage.language = 1;
+            if(localStorage.OrgCode == 0){
+                 detailmenu(id);
+             }else if(localStorage.OrgCode == 1){
+               //  window.location = "menu.html";
+                var p = document.getElementsByTagName("p")
+                 p[0].style.display = "none";
+                 tiket(id);
+             }
     }, 1000);
 
 }
@@ -165,5 +222,30 @@ function onsaychina(id){
     document.getElementById("Name_time2").innerHTML = "時間 ";
 
     localStorage.language = 3;
-    detailmenu(id);
+        if(localStorage.OrgCode == 0){
+             detailmenu(id);
+         }else if(localStorage.OrgCode == 1){
+           //  window.location = "menu.html";
+            var p = document.getElementsByTagName("p")
+             p[0].style.display = "none";
+             tiket(id);
+         }
+}
+
+function input_num(number){
+    var text = document.getElementById("pwd_setting");
+   // console.log(number);
+    text.value += number;
+}
+
+function delete_text(){
+    var text = document.getElementById("pwd_setting").value;
+
+    var newStr = text.substring(0, text.length-1);
+    //console.log(newStr);
+    document.getElementById("pwd_setting").value = newStr;
+}
+
+function check_setting(){
+    window.location = "setting.html"
 }

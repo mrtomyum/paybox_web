@@ -12,18 +12,18 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default" style="margin-bottom: 0.2%; height: 60px; background: #262626;">
+<nav class="navbar navbar-default" style="margin-bottom: 0.2%; background: #262626;">
     <div class="container-fluid" style="padding-left: 0;">
         <div class="navbar-header" style=" width: 20%; text-align: left; padding-left: 1%; padding-top: 0.5%;"
              id="l800">
-            <img src="/img/logo.png" class="logo">
+            <img src="/img/logo_paybox.png" class="logo">
         </div>
         <div class="nav-r" id="l802">
             <span id="version"></span><br><span id="Name_time"></span><span id="timer"></span>
     </div>
     </div>
     <div class="navbar-header" id="l480">
-        <img src="/img/logo.png" class="logo">
+        <img src="/img/logo_paybox.png" class="logo">
         <br>
         <span id="version2"></span> <span id="Name_time2"></span><span id="timer2"></span>
     </div>
@@ -85,6 +85,68 @@
         <a href="javascript:onsaychina(3)"><img src="/img/China.png" id="3" class="lang"></a>
         <h1>language </h1>
     </div>
+
+    <a href="#"><img src="/img/Settings.png" id="img_setting" data-toggle="modal" data-target="#myModal"></a>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">กรอกรหัสผ่านเพื่อตั้งค่าระบบ</h2>
+                </div>
+                <div class="modal-body">
+                    <input type="password" id="pwd_setting" class="form-control input-lg" readonly
+                           style="font-size:30px; text-align:center;">
+
+                    <table width="100%" style="margin-top:2%;">
+                        <tr>
+                            <td width="50%" style="padding-left:5%;">
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num(1)"><h3>
+                                    1</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num(2)"><h3>
+                                    2</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num(3)"><h3>
+                                    3</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num(4)"><h3>
+                                    4</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num(5)"><h3>
+                                    5</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num(6)"><h3>
+                                    6</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num(7)"><h3>
+                                    7</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num(8)"><h3>
+                                    8</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num(9)"><h3>
+                                    9</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num('*')">
+                                    <h3>*</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num(0)"><h3>
+                                    0</h3></button>
+                                <button type="button" class="btn btn-md btn-success bt_key" onclick="input_num('#')">
+                                    <h3>#</h3></button>
+                            </td>
+                            <td width="40%" style="padding:1% 5%; vertical-align:bottom;">
+                                <button type="button" class="btn btn-md btn-danger" onclick="check_setting()"
+                                        style="width:100%; margin-bottom:2%;"><h1>GO!</h1></button>
+                                <button type="button" class="btn btn-md btn-warning" onclick="delete_text()"
+                                        style="width:100%; margin-bottom:2%;"><h1>Delete</h1></button>
+                                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal"
+                                        style="width:100%"><h1>Cancel</h1></button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 </div>
 
 <script type="text/javascript" src="/js/menu.js"></script>
@@ -93,5 +155,6 @@
 <script src="/js/sweetalert-dev.js"></script>
 <script src="/js/alert7.min.js"></script>
 <!--<script type="text/javascript" src="json/menu_all.json"></script>-->
+<script type="text/javascript" src="/json/tiket_all.json"></script>
 </body>
 </html>
