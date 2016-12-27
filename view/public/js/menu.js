@@ -110,7 +110,7 @@ function detailmenu(id){
             type: "GET",
             cache: false,
                 success: function(result){
-                  //  console.log(JSON.stringify(result));
+                    console.log(JSON.stringify(result));
                     var listmenu = result[id-1].menus;
                   //  console.log(JSON.stringify(listmenu));
                     var menu = "";
