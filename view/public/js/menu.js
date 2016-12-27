@@ -68,6 +68,8 @@ $(document).ready(function(){
         var p = document.getElementsByTagName("p");
          p[0].style.display = "none";
          tiket(id);
+     }else{
+        detailmenu(id);
      }
 
 });
