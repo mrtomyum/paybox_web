@@ -20,8 +20,7 @@ func init() {
 		OnHand: 200,
 	}
 	MyHub = Hub{
-		Clients:      make(map[*Client]bool),
-		//Broadcast:    make(chan Msg),
+		Clients:      make([]*Client, 2),
 		Send:         make(chan *Client),
 		AddClient:    make(chan *Client),
 		DelClient: make(chan *Client),

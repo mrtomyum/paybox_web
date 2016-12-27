@@ -18,9 +18,9 @@ func (hub *Hub) Start() {
 		case c := <-hub.DelClient:
 			fmt.Println("hub.Start.RemoveClient Working....")
 		//if _, ok := hub.Clients[c]; ok {
-			for activeClient := range hub.Clients {
+			for key, activeClient := range hub.Clients {
 				if c == activeClient {
-					delete(hub.Clients, c)
+					hub.Clients = append(hub.Clients[:key], hub.Clients[key + 1:]...) // delete slice of client
 					close(c.Msg)
 				}
 			}

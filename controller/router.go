@@ -6,7 +6,16 @@ import (
 	"fmt"
 	"net/http"
 	"github.com/mrtomyum/paybox_terminal/model"
+	"github.com/gorilla/websocket"
 )
+
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+	//CheckOrigin:     func(r *http.Request) bool {
+	//	return true
+	//},
+}
 
 func Router(r *gin.Engine) *gin.Engine {
 	r.LoadHTMLGlob("view/**/*.tpl")
@@ -25,8 +34,8 @@ func Router(r *gin.Engine) *gin.Engine {
 	//r.GET("/dev", GetDeviceIndexPage)
 
 	r.GET("/ws", func(c *gin.Context) {
+		fmt.Println("Starting Websocket!")
 		wsServer(c.Writer, c.Request)
-		fmt.Println("wsPage starting!")
 		//WsDevice(c.Writer, c.Request)
 		//fmt.Println("wsDevice starting")
 	})
@@ -45,14 +54,13 @@ func wsServer(w http.ResponseWriter, r *http.Request) {
 	defer conn.Close()
 
 	// client จะต้องระบุตัวตนว่าเป็น "dev" หรือ "web" เข้ามาใน header "name"
-	clientName := r.Header.Get("name")
+	clientName := r.Header.Get("Name")
 	c := &model.Client{
 		Conn: conn,
 		Msg: make(chan model.Msg),
 		Name: clientName,
 	}
-	11
-	dClient <- c
+	model.MyHub.AddClient <- c
 	go c.Write()
 	c.Read()
 

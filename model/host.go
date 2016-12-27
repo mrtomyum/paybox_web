@@ -24,7 +24,7 @@ func (h *Host) GetOnHand(c *Client, msg Msg) {
 	msg.Payload.Type = "response"
 	msg.Payload.Result = true
 	msg.Payload.Data = h.OnHand
-	c.Msg <- msg
+	// c.Msg <- msg
 	c.Conn.WriteJSON(msg)
 }
 
