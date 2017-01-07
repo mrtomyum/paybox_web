@@ -150,7 +150,7 @@ img{
   margin-bottom:2%;
 }
 
-@media (min-width: 800px) and (max-width: 900px) {
+@media (min-width: 1024px) and (max-width: 1600px) {
 
 .navbar{
 	margin-bottom: 0;
