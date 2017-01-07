@@ -24,10 +24,14 @@ $(document).ready(function(){
                      nav[i].style.backgroundColor = localStorage.ColorCode;
                 }
      }
-     if(localStorage.OrgCode == 0){
-       // window.location = "index.html";
-     }else if(localStorage.OrgCode == 1){
-        window.location = "menu.html";
+     if(localStorage.OrgCode){
+         if(localStorage.OrgCode == 0){
+           // window.location = "index.html";
+         }else if(localStorage.OrgCode == 1){
+            window.location = "menu.html";
+         }
+     }else{
+        window.location = "setting.html";
      }
 
 });
