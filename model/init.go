@@ -6,10 +6,10 @@ import (
 )
 
 var (
-	db         *sqlx.DB
-	host Host
+	db    *sqlx.DB
+	host  Host
 	MyHub Hub
-	coinHopper CoinHopper
+	CH    CoinHopper
 )
 
 func init() {
@@ -23,9 +23,9 @@ func init() {
 		Clients:      make([]*Client, 2),
 		Send:         make(chan *Client),
 		AddClient:    make(chan *Client),
-		DelClient: make(chan *Client),
+		DelClient:    make(chan *Client),
 	}
-	coinHopper = CoinHopper{
+	CH = CoinHopper{
 		Status: "ready",
 	}
 }

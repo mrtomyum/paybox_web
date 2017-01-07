@@ -21,7 +21,7 @@ func (hub *Hub) Start() {
 			for key, activeClient := range hub.Clients {
 				if c == activeClient {
 					hub.Clients = append(hub.Clients[:key], hub.Clients[key + 1:]...) // delete slice of client
-					close(c.Msg)
+					close(c.Send)
 				}
 			}
 

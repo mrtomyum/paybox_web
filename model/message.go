@@ -1,7 +1,7 @@
 package model
 
 // ====================
-// Msg
+// Send
 // ====================
 type Msg struct {
 	Device  string  `json:"device"`

@@ -24,7 +24,7 @@ func (h *Host) GetOnHand(c *Client, msg Msg) {
 	msg.Payload.Type = "response"
 	msg.Payload.Result = true
 	msg.Payload.Data = h.OnHand
-	// c.Msg <- msg
+	// c.Send <- msg
 	c.Conn.WriteJSON(msg)
 }
 
@@ -42,7 +42,7 @@ func (h *Host) Cancel(c *Client, msg Msg) error {
 	msg.Payload.Type = "response"
 	msg.Payload.Result = true
 	msg.Payload.Data = "Cancel - Successful"
-	c.Msg <- msg
+	c.Send <- msg
 	return nil
 }
 
@@ -56,7 +56,7 @@ func (h *Host) Billing(c *Client, msg Msg) error {
 	msg.Payload.Result = true
 	msg.Device = "Host"
 	msg.Payload.Type = "response"
-	c.Msg <- msg
+	c.Send <- msg
 	// todo: save into database sqlite
 	// todo: reset Onhand
 	h.OnHand = 0

@@ -9,7 +9,7 @@ type CoinHopper struct {
 
 func (h *CoinHopper) Action(d Device, m Msg) {
 	switch h.Payload.Type {
-	case "request": // Msg from web client.
+	case "request": // Send from web client.
 		h.OnRequest(d, m)
 	case "response": // Response from Device
 		h.OnResponse(d, m)
