@@ -116,7 +116,7 @@ body{
 	background-color: #FFF8DC;
 }
 
-@media (min-width: 800px) and (max-width: 900px) {
+@media (min-width: 1024px) and (max-width: 1600px) {
 
 .container{
 	padding: 0 0 0 2%;
@@ -264,7 +264,7 @@ body{
 		  border: 0; 
 		  text-align: center;
 		  height: 5px; 
-		  margin-left: 5%;
+		/*  margin-left: 5%;*/
 		  width: 90%;
 		  background-image: -webkit-linear-gradient(left, #dcdcd1, #8c8b8b, #dcdcd1);
 		  background-image: -moz-linear-gradient(left, #dcdcd1, #8c8b8b, #dcdcd1);

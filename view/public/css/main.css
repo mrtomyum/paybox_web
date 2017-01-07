@@ -738,7 +738,7 @@ br{display: none;}
 	background-color: #FFF8DC;
 }
 
-@media (min-width: 800px) and (max-width: 800px) {
+@media (min-width: 1024px) and (max-width: 1600px) {
 	.logo{
 		width: 80%;
 		margin:2%;
@@ -943,7 +943,7 @@ br{display: none;}
 	#cleft{
 		border: 1px solid black;
 		width: 30%;
-		height: 470px;
+		height: 590px;
 		margin: 0.5% 0 0 0.5%;
 		border-radius: 1%;
 		background-color: #2a2a2a;
@@ -953,7 +953,7 @@ br{display: none;}
 		#contentleft{
 			width: 100%;
 			border: 1px dashed #fff;
-			height: 460px;
+			height: 580px;
 			border-radius: 1%;
 		}
 
@@ -973,11 +973,12 @@ br{display: none;}
 			padding: 0%; 
 			margin: 0%; 
 			width: 100%;
+			text-align:right;
 		}
 		.order{
 			width: 100%;
 			background-color: #fff;
-			height: 220px;
+			height: 300px;
 			border-radius: 2%;
 			margin: 0;
 			padding: 0;
@@ -1028,7 +1029,7 @@ br{display: none;}
 
 		.scroll{
 			width: 100%;
-			height: 180px;
+			height: 260px;
 			border-radius: 2%;
 			overflow: auto;
 			margin-bottom: 10%;
@@ -1043,6 +1044,7 @@ br{display: none;}
       /*  border: 1px yellow solid;*/
         width:60%;
         float:left;
+        margin-top:5%;
     }
 
     .btn-danger h1{margin:15% 0 15% 0;}
@@ -1093,6 +1095,7 @@ br{display: none;}
 		float: left;
 		margin-right:0;
 		padding:0;
+		margin-top:2%;
 	}
 
 	#chead{
@@ -1158,20 +1161,20 @@ br{display: none;}
 	}
 		#centitem{
 			width: 100%;
-			height: 382px;
+			height: 500px;
 			background-color: #f6f6f5;
 			position: relative;
 			/*border: 1px solid yellow;*/
-			margin-top:7%;
+			margin-top:5.2%;
 			border-radius: 9px;
 		}
 		#itemlist{
-			margin:2% 1% 0% 0.5%;
+			margin:0 1% 0% 0.5%;
 			width: 99%;
-			height: 375px;
+			height: 494px;
 			position: relative;
 			border-radius: 10px;
-			top:1%;
+			top:0.5%;
 			border: 1px dashed #fff;
 			overflow: auto;
 		}
@@ -1180,7 +1183,7 @@ br{display: none;}
 		height: 35px;
 		border-radius: 10px 10px 0 0;
 		position: absolute;
-		top:-9%;
+		top:-7%;
 		left: 9%;
 		/*background-color: #dddcd1;*/
 		padding: 0;

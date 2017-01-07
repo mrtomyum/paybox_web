@@ -155,7 +155,7 @@ body{
 	background-color: #FFF8DC;
 }
 
-@media (min-width: 800px) and (max-width: 900px) {
+@media (min-width: 1024px) and (max-width: 1600px) {
 
 .container{
 	padding: 0 0 0 2%;
@@ -231,7 +231,7 @@ body{
 .scroll{
 	width: 100%;
 	/*border: 1px solid red;*/
-	height: 200px;
+	height: 320px;
 	overflow: auto;
 }
 
