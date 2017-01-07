@@ -6,7 +6,7 @@ type CoinAcceptor struct {
 
 func (ca *CoinAcceptor) Action(d Device, m Msg) {
 	switch ca.Payload.Type {
-	case "request": // Msg from web client.
+	case "request": // Send from web client.
 		ca.OnRequest(d, m)
 	case "response": // Response from Device
 		ca.OnResponse(d, m)

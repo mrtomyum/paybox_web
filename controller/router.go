@@ -57,7 +57,7 @@ func wsServer(w http.ResponseWriter, r *http.Request) {
 	clientName := r.Header.Get("Name")
 	c := &model.Client{
 		Conn: conn,
-		Msg: make(chan model.Msg),
+		Send: make(chan model.Msg),
 		Name: clientName,
 	}
 	model.MyHub.AddClient <- c
@@ -73,7 +73,7 @@ func wsServer(w http.ResponseWriter, r *http.Request) {
 	//defer devConn.Close()
 	//device := model.Device{
 	//	Conn: devConn,
-	//	Send: make(chan model.Msg),
+	//	Send: make(chan model.Send),
 	//}
 	//go device.Write()
 	//device.Read()

@@ -9,7 +9,7 @@ import (
 
 type Client struct {
 	Conn *websocket.Conn
-	Msg  chan Msg
+	Send chan Msg
 	Name string
 }
 
@@ -20,13 +20,13 @@ func (c *Client) Write() {
 
 	for {
 		select {
-		case msg, ok := <-c.Msg:
+		case msg, ok := <-c.Send:
 			if !ok {
 				c.Conn.WriteJSON(gin.H{"message" :"Connot to Send data" })
 				return
 			}
 			fmt.Println("View.Write():", msg)
-			c.Conn.WriteJSON(msg)
+		//c.Conn.WriteJSON(msg)
 		}
 	}
 }
