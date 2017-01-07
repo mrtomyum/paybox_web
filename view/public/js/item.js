@@ -8,7 +8,11 @@ $("document").ready(function(){
     setTimeout(function(){
         doSend('{"Device":"host","Payload":{"type":"request","command":"onhand"}}');
     },1000);
-
+    if(localStorage.ColorCode){
+       localStorage.ColorCode = localStorage.ColorCode;
+    }else{
+       localStorage.ColorCode = "#0f0f0a";
+    }
    // websocket.onopen();
    // doSend('{"Device":"'+window.location.host+'","Payload":{"type":"request","command":"onhand"}}');
 
