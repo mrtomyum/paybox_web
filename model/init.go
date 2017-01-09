@@ -1,17 +1,21 @@
 package model
 
-import "github.com/jmoiron/sqlx"
+import (
+	"github.com/jmoiron/sqlx"
+)
 
 var (
 	db *sqlx.DB
-	H  Host
-	B  BillAcceptor
-	C  CoinAcceptor
-	CH CoinHopper
+	H  *Host
+	B  *BillAcceptor
+	C  *CoinAcceptor
+	CH *CoinHopper
+	P  *Printer
+	M  *MainBoard
 )
 
 func init() {
-	H = Host{
+	H = &Host{
 		Id:            "001",
 		Online:        true,
 		TotalEscrow:   0,
@@ -23,13 +27,19 @@ func init() {
 		SetWebClient:  make(chan *Client),
 		SetDevClient:  make(chan *Client),
 	}
-	B = BillAcceptor{
-		status: "ok",
+	B = &BillAcceptor{
+		Status: "ok",
 	}
-	C = CoinAcceptor{
-		status: "ok",
+	C = &CoinAcceptor{
+		Status: "ok",
 	}
-	CH = CoinHopper{
-		status: "ok",
+	CH = &CoinHopper{
+		Status: "ok",
+	}
+	P = &Printer{
+		Status: "ok",
+	}
+	M = &MainBoard{
+		Status: "ok",
 	}
 }

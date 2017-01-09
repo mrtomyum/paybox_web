@@ -16,8 +16,8 @@ Paybox Ticket Terminal software Service and Application written in Qt5 and inter
   + Local pictures and media file.
   
 + Initialization on boot or manual or push command for "System Health Check-up" such as...
-  + 3G Network status.
-  + Peripheral status as bill and coin acceptor, hopper, printer
+  + 3G Network Status.
+  + Peripheral Status as bill and coin acceptor, hopper, printer
   + Door magnatic sensor
   + Touch screen LCD Mornitor
   + Update time from Paybox NTP Server.
@@ -45,7 +45,7 @@ Paybox Ticket Terminal software Service and Application written in Qt5 and inter
 
 + Menu/Item Status online update.
   + Mobile App. add and update Menus/Items. Name, Price, Picture.
-  + Client can control Item sale status as "OPEN_SALE", "CLOSE_SALE" prevent payment and no available products.
+  + Client can control Item sale Status as "OPEN_SALE", "CLOSE_SALE" prevent payment and no available products.
   
 ## What's Next.
 + Add first time activation and "token" authentication practice.

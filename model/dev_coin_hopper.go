@@ -1,6 +1,31 @@
 package model
 
-//import "log"
+import "fmt"
+
+type CoinHopperStatus int
+
+const (
+	DISABLE                 CoinHopperStatus = iota
+	CALIBRATION_FAULT
+	NO_KEY_SET
+	COIN_JAMMED
+	FRAUD
+	HOPPER_EMPTY
+	MEMORY_ERROR
+	SENSORS_NOT_INITIALISED
+	LID_REMOVED
+)
+
+type CoinHopper struct {
+	Id     string
+	Status string
+}
+
+func (ch *CoinHopper) Payout(v int) error {
+	// command to send to devClient for "payout" value = v
+	fmt.Println("CoinHopper Command=>Payout, Value:", v)
+	return nil
+}
 
 //func (h *CoinHopper) Action(d Device, m Msg) {
 //	switch h.Payload.Type {
@@ -15,7 +40,7 @@ package model
 //
 //func (h *CoinHopper) OnRequest(d Device, m Msg) {
 //	switch m.Payload.Command {
-//	case "status":
+//	case "Status":
 //		m.Payload.Data = h.Status
 //		d.Send <- m
 //	}
@@ -27,10 +52,10 @@ package model
 //
 //func (ch *CoinHopper) OnEvent(d Device, m Msg) {
 //	// Sent data string to web socket client
-//	status := ch.Payload.Command
+//	Status := ch.Payload.Command
 //	data := ch.Payload.Data
-//	if status != "status_changed" {
-//		log.Println("Coin Hopper send unknown status:", status)
+//	if Status != "status_changed" {
+//		log.Println("Coin Hopper send unknown Status:", Status)
 //	}
 //
 //	switch data {

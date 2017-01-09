@@ -14,7 +14,7 @@
 <div id="cleft">
     <div id="contentleft">
         <div class="logo"><img src="img/logo.png"></div>
-        <div class="status"><h4>Status : take this</h4></div>
+        <div class="Status"><h4>Status : take this</h4></div>
         <div class="order">
             <h2>รายการ</h2>
             <div class="scroll">

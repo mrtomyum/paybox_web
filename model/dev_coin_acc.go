@@ -1,9 +1,10 @@
 package model
 
-//type CoinAcceptor struct {
-//	Msg
-//}
-//
+type CoinAcceptor struct {
+	Id     string
+	Status string
+}
+
 //func (ca *CoinAcceptor) Action(d Device, m Msg) {
 //	switch ca.Payload.Type {
 //	case "request": // Send from web client.
