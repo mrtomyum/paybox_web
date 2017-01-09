@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	go model.H.Run()
+	//go model.H.Run()
 	r := gin.Default()
 	app := ctrl.Router(r)
 	app.Run(":8088")

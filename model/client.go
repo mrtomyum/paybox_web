@@ -34,6 +34,8 @@ func (c *Client) Read() {
 				H.Onhand(c)
 			case "cancel":
 				H.Cancel(c)
+			case "billing":
+				H.Billing(c)
 			}
 		case "dev":
 			fmt.Println("dev")

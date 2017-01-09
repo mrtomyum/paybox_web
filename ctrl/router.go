@@ -59,7 +59,7 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 		Name: "web",
 	}
 	fmt.Println("Web:", c.Name, "...start send <-c to model.H.Webclient")
-	model.H.SetWebClient <- c
+	model.H.Web = c
 	fmt.Println("start go c.Write()")
 	go c.Write()
 	c.Read()
@@ -80,7 +80,7 @@ func ServDev(w http.ResponseWriter, r *http.Request) {
 		Name: "dev",
 	}
 	fmt.Println("Dev:", c.Name)
-	model.H.SetDevClient <- c
+	model.H.Dev = c
 	go c.Write()
 	c.Read()
 }

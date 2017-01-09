@@ -17,23 +17,23 @@ type Host struct {
 	TotalCash     int // รวมมูลค่าเงินในตู้นี้
 	Web           *Client
 	Dev           *Client
-	SetWebClient  chan *Client
-	SetDevClient  chan *Client
+	//SetWebClient  chan *Client
+	//SetDevClient  chan *Client
 }
 
-func (h *Host) Run() {
-	for {
-		fmt.Println("Host.Run()...wait for next Channel")
-		select {
-		case c := <-h.SetWebClient:
-			log.Println("<-Web:", c)
-			h.Web = c
-		case c := <-h.SetDevClient:
-			log.Println("<-devClient:", c)
-			h.Dev = c
-		}
-	}
-}
+//func (h *Host) Run() {
+//	for {
+//		fmt.Println("Host.Run()...wait for next Channel")
+//		select {
+//		case c := <-h.SetWebClient:
+//			log.Println("<-Web:", c)
+//			h.Web = c
+//		case c := <-h.SetDevClient:
+//			log.Println("<-devClient:", c)
+//			h.Dev = c
+//		}
+//	}
+//}
 
 // Onhand ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
 func (h *Host) Onhand(c *Client) {
@@ -57,7 +57,7 @@ func (h *Host) Cancel(c *Client) error {
 		c.Send <- c.Msg
 		return errors.New("ไม่มีเงินพัก")
 	}
-	//  สั่งให้ BillAcceptor คืนเงินที่พักไว้
+	// สั่งให้ BillAcceptor คืนเงินที่พักไว้
 	m1 := &Message{
 		Device:  "bill_acc",
 		Command: "escrow",
@@ -78,8 +78,7 @@ func (h *Host) Cancel(c *Client) error {
 	coinHopperEscrow := h.TotalEscrow - h.BillEscrow
 	h.BillEscrow = 0
 
-	// CoinHopper
-	// ให้จ่ายเหรียญที่คงค้างตามยอด coinHopperEscrow ออกด้านหน้า
+	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอด coinHopperEscrow ออกด้านหน้า
 	m2 := &Message{
 		Device:  "coin_hopper",
 		Command: "payout_by_cash",
@@ -88,7 +87,7 @@ func (h *Host) Cancel(c *Client) error {
 	}
 	h.Dev.Send <- m2
 
-	// Todo: Check if error from CoinHopper
+	// Check if error from CoinHopper
 	err = h.Dev.Ws.ReadJSON(&m2)
 	if err != nil {
 		log.Println("Cancel() Coin Hopper error:", err)
@@ -105,5 +104,13 @@ func (h *Host) Cancel(c *Client) error {
 	c.Msg.Result = true
 	c.Msg.Data = "sucess"
 	c.Send <- c.Msg
+	return nil
+}
+
+// Billing ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง Sqlite
+// และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
+// จะมี Routine Check Network status  คอยตรวจสอบสถานะและ Retry
+func (h *Host) Billing(c *Client) error {
+
 	return nil
 }
