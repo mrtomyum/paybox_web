@@ -67,6 +67,8 @@ func (c *Client) WebEvent() {
 		H.Onhand(c)
 	case "cancel":
 		H.Cancel(c)
+	case "billing":
+		H.Billing(c)
 	}
 }
 

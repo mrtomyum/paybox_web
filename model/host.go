@@ -17,23 +17,7 @@ type Host struct {
 	TotalCash     int // รวมมูลค่าเงินในตู้นี้
 	Web           *Client
 	Dev           *Client
-	//SetWebClient  chan *Client
-	//SetDevClient  chan *Client
 }
-
-//func (h *Host) Run() {
-//	for {
-//		fmt.Println("Host.Run()...wait for next Channel")
-//		select {
-//		case c := <-h.SetWebClient:
-//			log.Println("<-Web:", c)
-//			h.Web = c
-//		case c := <-h.SetDevClient:
-//			log.Println("<-devClient:", c)
-//			h.Dev = c
-//		}
-//	}
-//}
 
 // Onhand ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
 func (h *Host) Onhand(c *Client) {
@@ -107,10 +91,14 @@ func (h *Host) Cancel(c *Client) error {
 	return nil
 }
 
-// Billing ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง Sqlite
+// Billing ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง SqLite
 // และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
 // จะมี Routine Check Network status  คอยตรวจสอบสถานะและ Retry
 func (h *Host) Billing(c *Client) error {
-
+	// สั่ง device ทอนเงิน
+	// บันทึกข้อมูลลง SQL โดย order.completed = false
+	// Post Order ขึ้น Cloud
+	// Check Network Status
+	// ถ้า Net down หรือ Post สำเร็จ ให้บันทึก SQL order.completed = true
 	return nil
 }
