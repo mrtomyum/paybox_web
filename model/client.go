@@ -23,14 +23,22 @@ func (c *Client) Read() {
 		err := c.Ws.ReadJSON(&m)
 		if err != nil {
 			log.Println("Error ReadJSON():", err)
-			return
+			continue
 		}
 		c.Msg = m
+		if c.Msg.Result == false { // คำร้องขอถูกปฏิเสธ
+			log.Println("Client.Read() คำร้องขอถูกปฏิเสธ, Message.Result = false")
+			continue
+		}
+		// Todo: ที่จริง ณ จุดนี้ไม่ควรมี c.Msg.Type == "response" ดังนั้นให้ลองดักดู
+		if c.Msg.Type != "event" {
+			log.Println("Error??? ตามความเข้าใจ ณ ตรงนี้ต้องมีเฉพาะ Event ส่งมา")
+			continue
+		}
 		switch c.Name {
 		case "web":
 			fmt.Println("Message from web")
 			c.WebEvent()
-
 		case "dev":
 			fmt.Println("Message from dev")
 			c.DevEvent()
@@ -76,20 +84,10 @@ func (c *Client) WebEvent() {
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
 // โดยไปเรียก Method ที่เกี่ยวข้อง จาก DeviceObject ที่ประกาศไว้ใน Init()
 func (c *Client) DevEvent() {
+	// Todo: ณ จุดนี้ควรมีแต่ Command กลุ่ม Event เท่านั้น ใช่ไหม???
 	switch c.Msg.Device {
 	case "coin_hopper":
-		switch c.Msg.Command {
-		case "machine_id":     //ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins Hopper
-		case "status":         // ร้องขอสถานะต่างๆของอุปกรณ์
-		case "cash_amount":    // ร้องขอจานวนเงินคงเหลือใน Coins Hopper
-		case "coin_count":     // ร้องขอจานวนเงินเหรียญคงเหลือใน Coins Hopper
-		case "set_coin_count": // ตั้งค่าจำนวนเงินคงเหลือใน Coins Hopper
-		case "payout_by_cash": // ร้องขอการจ่ายเหรียญออกทางด้านหน้าเครื่องโดยระบุจานวนเป็นยอดเงิน
-		case "payout_by_coin": // ร้องขอการจ่ายเหรียญออกทางด้านหน้าเครื่องโดยระบุจานวนเป็นจานวนเหรียญ
-		case "empty":          // ร้องขอการปล่อยเหรียญทั้งหมดออกทางด้านล่าง
-		case "reset":          // ร้องขอการ Reset ตัวเครื่อง เพ่ือเคลียร์ค่า Error ต่างๆ
-		case "status_change":  // Event น้ีจะเกิดข้ึนเม่ือสถานะใดๆของ Coins Hopper มีการเปลี่ยนแปลง
-		}
+		CH.Event(c)
 	case "coin_acc":
 		switch c.Msg.Command {
 		case "machine_id":        // ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins Acceptor
