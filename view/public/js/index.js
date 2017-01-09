@@ -24,6 +24,12 @@ $(document).ready(function(){
                      nav[i].style.backgroundColor = localStorage.ColorCode;
                 }
      }
+
+     if(localStorage.ColorCode){
+        localStorage.ColorCode = localStorage.ColorCode;
+     }else{
+        localStorage.ColorCode = "#0f0f0a";
+     }
      if(localStorage.OrgCode){
          if(localStorage.OrgCode == 0){
            // window.location = "index.html";

@@ -72,6 +72,11 @@ $(document).ready(function(){
         detailmenu(id);
      }
 
+     if(localStorage.ColorCode){
+       localStorage.ColorCode = localStorage.ColorCode;
+     }else{
+       localStorage.ColorCode = "#0f0f0a";
+     }
 });
 
 function tiket(id){
