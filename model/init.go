@@ -1,31 +1,35 @@
 package model
 
-import (
-	"github.com/jmoiron/sqlx"
-	_ "github.com/mattn/go-sqlite3"
-)
+import "github.com/jmoiron/sqlx"
 
 var (
-	db    *sqlx.DB
-	host  Host
-	MyHub Hub
-	CH    CoinHopper
+	db *sqlx.DB
+	H  Host
+	B  BillAcceptor
+	C  CoinAcceptor
+	CH CoinHopper
 )
 
 func init() {
-	db = sqlx.MustConnect("sqlite3", "./paybox.db")
-	// Mock Init Data
-	host = Host{
-		Id:     "1",
-		OnHand: 200,
+	H = Host{
+		Id:            "001",
+		Online:        true,
+		TotalEscrow:   0,
+		BillEscrow:    0,
+		BillBox:       0,
+		CoinHopperBox: 0,
+		CoinBox:       0,
+		TotalCash:     0,
+		SetWebClient:  make(chan *Client),
+		SetDevClient:  make(chan *Client),
 	}
-	MyHub = Hub{
-		Clients:      make([]*Client, 2),
-		Send:         make(chan *Client),
-		AddClient:    make(chan *Client),
-		DelClient:    make(chan *Client),
+	B = BillAcceptor{
+		status: "ok",
+	}
+	C = CoinAcceptor{
+		status: "ok",
 	}
 	CH = CoinHopper{
-		Status: "ready",
+		status: "ok",
 	}
 }

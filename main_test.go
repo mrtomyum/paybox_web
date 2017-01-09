@@ -3,7 +3,7 @@ package main
 //import (
 //	"testing"
 //	"github.com/mrtomyum/paybox_terminal/model"
-//	"github.com/mrtomyum/paybox_terminal/controller"
+//	"github.com/mrtomyum/paybox_terminal/ctrl"
 //)
 //var db *sqlx.DB
 //
@@ -14,7 +14,7 @@ package main
 //func TestGetItemIndex(t *testing.T) {
 //	var i model.Item
 //	var items []*model.Item
-//	items, err := i.Get(controller.DB)
+//	items, err := i.Get(ctrl.DB)
 //	if err != nil {
 //		t.Fail()
 //	}

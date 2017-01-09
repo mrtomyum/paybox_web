@@ -2,15 +2,20 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	c "github.com/mrtomyum/paybox_terminal/controller"
 	"github.com/mrtomyum/paybox_terminal/model"
+	"github.com/mrtomyum/paybox_terminal/ctrl"
 )
 
 func main() {
-	hub := model.MyHub
-	go hub.Start()
+	go model.H.Run()
 	r := gin.Default()
-	app := c.Router(r)
-	app.Run(":8888")
-
+	app := ctrl.Router(r)
+	app.Run(":8088")
+	//app.RunTLS(
+	//	":8088",
+	//	"api.nava.work.crt",
+	//	"nava.work.key",
+	//)
 }
+
+

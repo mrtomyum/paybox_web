@@ -8,57 +8,64 @@ import (
 )
 
 type Client struct {
-	Conn *websocket.Conn
-	Send chan Msg
+	Ws   *websocket.Conn
+	Send chan *Message
 	Name string
+	Msg  *Message
 }
 
-func (c *Client) Write() {
+func (c *Client) Read() {
 	defer func() {
-		c.Conn.Close()
+		c.Ws.Close()
 	}()
-
+	m := &Message{}
 	for {
-		select {
-		case msg, ok := <-c.Send:
-			if !ok {
-				c.Conn.WriteJSON(gin.H{"message" :"Connot to Send data" })
-				return
+		err := c.Ws.ReadJSON(&m)
+		if err != nil {
+			log.Println("Error ReadJSON():", err)
+			return
+		}
+		c.Msg = m
+		switch c.Name {
+		case "web":
+			fmt.Println("Message from web")
+			switch m.Command {
+			case "onhand":
+				H.Onhand(c)
+			case "cancel":
+				H.Cancel(c)
 			}
-			fmt.Println("View.Write():", msg)
-		//c.Conn.WriteJSON(msg)
+		case "dev":
+			fmt.Println("dev")
+			switch m.Device {
+			case "coin_hopper":
+			case "coin_acc":
+			case "bill_acc":
+			case "printer":
+			}
+		//return
+		default:
+			fmt.Println("Case default: Message==>", m)
+			m.Type = "response"
+			m.Data = "Hello"
+			c.Send <- m
 		}
 	}
 }
 
-func (c *Client) Read() {
-	m := Msg{}
+func (c *Client) Write() {
+	defer func() {
+		c.Ws.Close()
+	}()
 	for {
-		err := c.Conn.ReadJSON(&m)
-		if err != nil {
-			log.Println("Client Read JSON Error:", m)
-			c.Conn.WriteJSON(gin.H{"message": "Read JSON Error: "})
-			break
+		select {
+		case m, ok := <-c.Send:
+			if !ok {
+				c.Ws.WriteJSON(gin.H{"message": "Cannot send data"})
+				return
+			}
+			fmt.Println("Client.Write():", m)
+			c.Ws.WriteJSON(m)
 		}
-		fmt.Println("Received command from Client: ", m)
-
-		switch m.Payload.Command {
-		// for Client - UI/UX call check current onhand amount
-		case "onhand":
-			host.GetOnHand(c, m)
-
-		// Cancel order command
-		// อย่าลืม reset ยอดเงินในตู้เป็น 0 (hardware ต้องสั่งคืนเงิน)
-		case "cancel":
-			host.Cancel(c, m)
-
-		// billing command ใช้สำหรับให้ Client เรียกบันทึกเข้ามาที่ Websocket
-		case "billing":
-			host.Billing(c, m)
-
-		//default:
-		//	MyHub.Broadcast <- msg
-		}
-
 	}
 }

@@ -1,65 +1,109 @@
 package model
 
 import (
-	"log"
+	"errors"
 	"fmt"
+	"log"
 )
 
-// ====================
-// Host Machine
-// ====================
-// Host is a Machine Property
 type Host struct {
 	Id            string
-	OnHand        int  // Money onhand
-	Online        bool // Network GSM status
-	Devices       map[string]bool
-	DeviceOnline  chan *Actioner
-	DeviceOffline chan *Actioner
+	Online        bool
+	TotalEscrow   int // มูลค่าเงินพักทั้งหมด
+	BillEscrow    int // มูลค่าธนบัตรที่พักอยู่ในเครื่องรับธนบัตร
+	BillBox       int // มูลค่าธนบัตรในกล่องเก็บธนบัตร
+	CoinHopperBox int // มูลค่าเหรียญใน Coin Hopper
+	CoinBox       int // มูลค่าเหรียญใน CoinBox
+	TotalCash     int // รวมมูลค่าเงินในตู้นี้
+	Web           *Client
+	Dev           *Client
+	SetWebClient  chan *Client
+	SetDevClient  chan *Client
 }
 
-func (h *Host) GetOnHand(c *Client, msg Msg) {
-	fmt.Println("onhand_request_starting....")
-	fmt.Println("hub.Clients:", MyHub.Clients)
-	msg.Payload.Type = "response"
-	msg.Payload.Result = true
-	msg.Payload.Data = h.OnHand
-	// c.Send <- msg
-	c.Conn.WriteJSON(msg)
+func (h *Host) Run() {
+	for {
+		fmt.Println("Host.Run()...wait for next Channel")
+		select {
+		case c := <-h.SetWebClient:
+			log.Println("<-Web:", c)
+			h.Web = c
+		case c := <-h.SetDevClient:
+			log.Println("<-devClient:", c)
+			h.Dev = c
+		}
+	}
 }
 
-func (h *Host) GetDevices() {
-	log.Println(h.Devices)
+// Onhand ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
+func (h *Host) Onhand(c *Client) {
+	fmt.Println("Host.Onhand <-Message...")
+	c.Msg.Result = true
+	c.Msg.Type = "response"
+	c.Msg.Data = h.TotalEscrow
+	c.Send <- c.Msg
 }
 
-func (h *Host) Cancel(c *Client, msg Msg) error {
-	// TODO: Check Money.Onhand
-	// TODO: Calculate refund
-	// if error set Payload.Result = fault
-	// Reset Onhand Amount เป็น 0 และคืนเงินลูกค้า
-	fmt.Println("cancel_request_starting....")
-	h.OnHand = 0
-	msg.Payload.Type = "response"
-	msg.Payload.Result = true
-	msg.Payload.Data = "Cancel - Successful"
-	c.Send <- msg
-	return nil
-}
+// Cancel คืนเงินจากทุก Device โดยตรวจสอบเงิน Escrow ใน Bill Acceptor ด้วยถ้ามีให้คืนเงิน
+func (h *Host) Cancel(c *Client) error {
+	fmt.Println("Host.Cancel()...")
 
-func (h *Host) Billing(c *Client, msg Msg) error {
-	// Get Escrow status from  Bill acceptor if error send message to client
-	// Check Cash onhand is enough?
-	// Print Order/Queue/Invoice and return if error
-	fmt.Println("billing_request_starting....")
-	msg.Payload.Command = "billing"
-	msg.Payload.Data = "Docno : xxxxxx sucessful"
-	msg.Payload.Result = true
-	msg.Device = "Host"
-	msg.Payload.Type = "response"
-	c.Send <- msg
-	// todo: save into database sqlite
-	// todo: reset Onhand
-	h.OnHand = 0
-	h.GetOnHand(c, msg)
+	// Check Bill Acceptor
+	if h.TotalEscrow == 0 { // ไม่มีเงินพัก
+		log.Println("ไม่มีเงินพัก:")
+		c.Msg.Type = "response"
+		c.Msg.Result = false
+		c.Msg.Data = "ไม่มีเงินพัก"
+		c.Send <- c.Msg
+		return errors.New("ไม่มีเงินพัก")
+	}
+	//  สั่งให้ BillAcceptor คืนเงินที่พักไว้
+	m1 := &Message{
+		Device:  "bill_acc",
+		Command: "escrow",
+		Type:    "request",
+		Result:  true,
+		Data:    false,
+	}
+	h.Dev.Send <- m1
+
+	// Check BillAcc response
+	err := h.Dev.Ws.ReadJSON(&m1)
+	if err != nil {
+		log.Println("Host.Cancel() error ->", m1.Data)
+		return err
+	}
+
+	// Success
+	coinHopperEscrow := h.TotalEscrow - h.BillEscrow
+	h.BillEscrow = 0
+
+	// CoinHopper
+	// ให้จ่ายเหรียญที่คงค้างตามยอด coinHopperEscrow ออกด้านหน้า
+	m2 := &Message{
+		Device:  "coin_hopper",
+		Command: "payout_by_cash",
+		Type:    "request",
+		Data:    coinHopperEscrow,
+	}
+	h.Dev.Send <- m2
+
+	// Todo: Check if error from CoinHopper
+	err = h.Dev.Ws.ReadJSON(&m2)
+	if err != nil {
+		log.Println("Cancel() Coin Hopper error:", err)
+		c.Msg.Result = false
+		c.Msg.Type = "response"
+		c.Msg.Data = m2.Data
+		c.Send <- c.Msg
+		return err
+	}
+	h.TotalEscrow = 0 // เคลียร์ยอดเงินค้างให้หมด
+
+	// Send message response back to Web Client
+	c.Msg.Type = "response"
+	c.Msg.Result = true
+	c.Msg.Data = "sucess"
+	c.Send <- c.Msg
 	return nil
 }
