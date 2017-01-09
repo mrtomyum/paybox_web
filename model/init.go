@@ -24,8 +24,7 @@ func init() {
 		CoinHopperBox: 0,
 		CoinBox:       0,
 		TotalCash:     0,
-		SetWebClient:  make(chan *Client),
-		SetDevClient:  make(chan *Client),
+
 	}
 	B = &BillAcceptor{
 		Status: "ok",
