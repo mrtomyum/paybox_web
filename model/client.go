@@ -66,20 +66,27 @@ func (c *Client) Write() {
 
 // WebEvent แยกเส้นทาง Message Request จาก Web Frontend โดยแยกตาม Command ต่างๆ
 func (c *Client) WebEvent() {
-	switch c.Msg.Command {
-	case "onhand":
-		H.Onhand(c)
-	case "cancel":
-		H.Cancel(c)
-	case "billing":
-		H.Billing(c)
-	case "machine_id":
-		switch c.Msg.Device {
-		case "coin_hopper":
+	// ปกติแล้ว  Web จะไม่สั่งการ Device ตรงๆ
+	// จะสั่งผ่าน Host ให้ Host ทำงานระดับล่างแทน
+	// แต่ตรงนี้มีไว้สำหรับการ Debug ผ่าน Web GUI
+	switch c.Msg.Device {
+	case "coin_hopper":
+		switch c.Msg.Command {
+		case "machine_id":
 			CH.GetId()
 		}
-	default:
-		log.Println("Client.WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
+	// Todo: add another device
+	default: // Command for Host action.
+		switch c.Msg.Command {
+		case "onhand":
+			H.Onhand(c)
+		case "cancel":
+			H.Cancel(c)
+		case "billing":
+			H.Billing(c)
+		default:
+			log.Println("Client.WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
+		}
 	}
 }
 
