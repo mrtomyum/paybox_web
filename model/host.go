@@ -99,7 +99,7 @@ func (h *Host) Billing(c *Client) error {
 	order := c.Msg.Data.(Order) // แปลงข้อมูล interface{} ให้เป็น Order ก่อน
 
 	// กินธนบัตรที่พักไว้
-	err := B.Take()
+	err := B.Take(c)
 	if err != nil {
 		return err
 	}
@@ -116,17 +116,21 @@ func (h *Host) Billing(c *Client) error {
 	H.BillEscrow = 0
 
 	// พิมพ์ตั๋ว และใบเสร็จ
-	H.Print(order)
+	P.Print(&order)
 	// บันทึกข้อมูลลง SQL โดย order.completed = false
-	H.Write(order)
+	H.OrderSave(&order)
 	// ส่งผลลัพธ์แจ้งกลับ Web Client ด้วยเพื่อให้ล้างยอดเงิน เริ่มหน้าจอใหม่
 	c.Msg.Type = "response"
 	c.Msg.Result = true
 	c.Msg.Data = "success"
 	H.Web.Send <- c.Msg
 	// Post Order ขึ้น Cloud
-	Cloud.Order.POST()
+	// Cloud.Order.POST()
 	// Check Network Status
 	// ถ้า Net Online และ Post สำเร็จ ให้บันทึก SQL order.completed = true
 	return nil
+}
+
+func (h *Host) OrderSave(o *Order) {
+
 }

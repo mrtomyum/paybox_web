@@ -83,7 +83,7 @@ func (ch *CoinHopper) Event(c *Client) {
 	}
 }
 
-func (ch *CoinHopper) PayoutByCash(v int) error {
+func (ch *CoinHopper) PayoutByCash(v float64) error {
 	// command to send to devClient for "payout" value = v
 	fmt.Println("CoinHopper Command=>Payout, Value:", v)
 	return nil
