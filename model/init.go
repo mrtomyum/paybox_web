@@ -20,9 +20,9 @@ func init() {
 		Online:        true,
 		TotalEscrow:   0,
 		BillEscrow:    0,
-		BillBox:       0,
-		CoinHopperBox: 0,
-		CoinBox:       0,
+		TotalBill:       0,
+		TotalCoinHopper: 0,
+		TotalCainBox:       0,
 		TotalCash:     0,
 
 	}

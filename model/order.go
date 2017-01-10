@@ -15,6 +15,6 @@ type OrderSub struct {
 	ItemId   uint64  `json:"item_id"`
 	ItemName string  `json:"item_name"`
 	SizeId   int     `json:"size_id"`
-	Price    float32 `json:"price"`
+	Price    float64 `json:"price"`
 	Qty      int     `json:"qty"`
 }

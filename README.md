@@ -17,7 +17,7 @@ Paybox Ticket Terminal software Service and Application written in Qt5 and inter
   
 + Initialization on boot or manual or push command for "System Health Check-up" such as...
   + 3G Network Status.
-  + Peripheral Status as bill and coin acceptor, hopper, printer
+  + Peripheral Status as order and coin acceptor, hopper, printer
   + Door magnatic sensor
   + Touch screen LCD Mornitor
   + Update time from Paybox NTP Server.

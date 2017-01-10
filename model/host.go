@@ -7,21 +7,21 @@ import (
 )
 
 type Host struct {
-	Id            string
-	Online        bool
-	TotalEscrow   int // มูลค่าเงินพักทั้งหมด
-	BillEscrow    int // มูลค่าธนบัตรที่พักอยู่ในเครื่องรับธนบัตร
-	BillBox       int // มูลค่าธนบัตรในกล่องเก็บธนบัตร
-	CoinHopperBox int // มูลค่าเหรียญใน Coin Hopper
-	CoinBox       int // มูลค่าเหรียญใน CoinBox
-	TotalCash     int // รวมมูลค่าเงินในตู้นี้
-	Web           *Client
-	Dev           *Client
+	Id              string
+	Online          bool
+	TotalEscrow     float64 // มูลค่าเงินพักทั้งหมด
+	BillEscrow      float64 // มูลค่าธนบัตรที่พักอยู่ในเครื่องรับธนบัตร
+	TotalBill       float64 // มูลค่าธนบัตรในกล่องเก็บธนบัตร
+	TotalCoinHopper float64 // มูลค่าเหรียญใน Coin Hopper
+	TotalCainBox    float64 // มูลค่าเหรียญใน TotalCainBox
+	TotalCash       float64 // รวมมูลค่าเงินในตู้นี้
+	Web             *Client
+	Dev             *Client
 }
 
-// Onhand ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
-func (h *Host) Onhand(c *Client) {
-	fmt.Println("Host.Onhand <-Message...")
+// TotalEscrow ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
+func (h *Host) GetEscrow(c *Client) {
+	fmt.Println("Host.TotalEscrow <-Message...")
 	c.Msg.Result = true
 	c.Msg.Type = "response"
 	c.Msg.Data = h.TotalEscrow
@@ -95,10 +95,38 @@ func (h *Host) Cancel(c *Client) error {
 // และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
 // จะมี Routine Check Network status  คอยตรวจสอบสถานะและ Retry
 func (h *Host) Billing(c *Client) error {
-	// สั่ง device ทอนเงิน
+	// สั่ง device รับชำระ
+	order := c.Msg.Data.(Order) // แปลงข้อมูล interface{} ให้เป็น Order ก่อน
+
+	// กินธนบัตรที่พักไว้
+	err := B.Take()
+	if err != nil {
+		return err
+	}
+
+	// ทอนเงินถ้ามี
+	if h.TotalEscrow > order.Total {
+		change := h.TotalEscrow - order.Total
+		CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
+	}
+
+	// อัพเดตยอดเงินสดในตู้ด้วย
+	H.TotalBill = H.TotalBill + H.BillEscrow
+	H.TotalEscrow = H.TotalEscrow - H.BillEscrow
+	H.BillEscrow = 0
+
+	// พิมพ์ตั๋ว และใบเสร็จ
+	H.Print(order)
 	// บันทึกข้อมูลลง SQL โดย order.completed = false
+	H.Write(order)
+	// ส่งผลลัพธ์แจ้งกลับ Web Client ด้วยเพื่อให้ล้างยอดเงิน เริ่มหน้าจอใหม่
+	c.Msg.Type = "response"
+	c.Msg.Result = true
+	c.Msg.Data = "success"
+	H.Web.Send <- c.Msg
 	// Post Order ขึ้น Cloud
+	Cloud.Order.POST()
 	// Check Network Status
-	// ถ้า Net down หรือ Post สำเร็จ ให้บันทึก SQL order.completed = true
+	// ถ้า Net Online และ Post สำเร็จ ให้บันทึก SQL order.completed = true
 	return nil
 }

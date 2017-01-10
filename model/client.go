@@ -79,7 +79,7 @@ func (c *Client) WebEvent() {
 	default: // Command for Host action.
 		switch c.Msg.Command {
 		case "onhand":
-			H.Onhand(c)
+			H.GetEscrow(c)
 		case "cancel":
 			H.Cancel(c)
 		case "billing":
