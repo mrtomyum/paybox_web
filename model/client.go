@@ -22,25 +22,21 @@ func (c *Client) Read() {
 	for {
 		err := c.Ws.ReadJSON(&m)
 		if err != nil {
-			log.Println("Error ReadJSON():", err)
-			continue
+			log.Println("Connection closed:", err)
+			break
 		}
 		c.Msg = m
-		if c.Msg.Result == false { // คำร้องขอถูกปฏิเสธ
-			log.Println("Client.Read() คำร้องขอถูกปฏิเสธ, Message.Result = false")
-			continue
-		}
-		// Todo: ที่จริง ณ จุดนี้ไม่ควรมี c.Msg.Type == "response" ดังนั้นให้ลองดักดู
-		if c.Msg.Type != "event" {
-			log.Println("Error??? ตามความเข้าใจ ณ ตรงนี้ต้องมีเฉพาะ Event ส่งมา")
-			continue
-		}
-		switch c.Name {
-		case "web":
-			fmt.Println("Message from web")
+
+		switch {
+		case c.Name == "web":
+			fmt.Println("Request message from Web")
 			c.WebEvent()
-		case "dev":
-			fmt.Println("Message from dev")
+		case c.Name == "dev" && c.Msg.Type == "response":
+			// ตอนนี้ยังไม่มี "request" จาก dev มีแต่ "response"
+			log.Println("Response message...from Dev")
+			c.DevResponse()
+		case c.Name == "dev" && c.Msg.Type == "event":
+			fmt.Println("Event message from Dev")
 			c.DevEvent()
 		default:
 			fmt.Println("Case default: Message==>", m)
@@ -62,13 +58,13 @@ func (c *Client) Write() {
 				c.Ws.WriteJSON(gin.H{"message": "Cannot send data"})
 				return
 			}
-			fmt.Println("Client.Write():", m)
+			fmt.Println("Client.Write():", c.Name, m)
 			c.Ws.WriteJSON(m)
 		}
 	}
 }
 
-// WebEvent เป็นการแยกเส้นทาง Message Request จาก Web Frontend โดยแยกตาม Command ต่างๆ
+// WebEvent แยกเส้นทาง Message Request จาก Web Frontend โดยแยกตาม Command ต่างๆ
 func (c *Client) WebEvent() {
 	switch c.Msg.Command {
 	case "onhand":
@@ -77,14 +73,34 @@ func (c *Client) WebEvent() {
 		H.Cancel(c)
 	case "billing":
 		H.Billing(c)
+	case "machine_id":
+		switch c.Msg.Device {
+		case "coin_hopper":
+			CH.GetId()
+		}
+	default:
+		log.Println("Client.WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
 	}
 }
 
-// DevEvent เป็นการแยกเส้นทาง Message จาก Device Event หรือเป็น Response จากคำสั่งที่ส่งไปให้ Device ทำงาน
+// DevResponse รับ Client.Msg ที่ Response จากคำสั่งที่ส่งไปให้ Device ทำงาน
+// โดยจะส่ง c.Msg ผ่าน Channel กลับไปยัง Device Object ที่เข้า goroutine รออยู่
+func (c *Client) DevResponse() {
+	switch c.Msg.Device {
+	case "coin_hopper":
+		fmt.Println("Client.DevResponse() case 'coin_hopper'")
+		CH.Send <- c.Msg
+	case "coin_acc":
+	case "bill_acc":
+	case "printer":
+	case "main_board":
+	}
+}
+
+// DevEvent เป็นการแยกเส้นทาง Message จาก Device Event
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
 // โดยไปเรียก Method ที่เกี่ยวข้อง จาก DeviceObject ที่ประกาศไว้ใน Init()
 func (c *Client) DevEvent() {
-	// Todo: ณ จุดนี้ควรมีแต่ Command กลุ่ม Event เท่านั้น ใช่ไหม???
 	switch c.Msg.Device {
 	case "coin_hopper":
 		CH.Event(c)

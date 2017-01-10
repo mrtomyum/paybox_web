@@ -8,12 +8,10 @@ import (
 func main() {
 	r := gin.Default()
 	app := ctrl.Router(r)
-	app.Run(":8088")
+	app.Run(":8888")
 	//app.RunTLS(
 	//	":8088",
 	//	"api.nava.work.crt",
 	//	"nava.work.key",
 	//)
 }
-
-

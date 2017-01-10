@@ -19,8 +19,8 @@ var (
 	}
 )
 func Router(r *gin.Engine) *gin.Engine {
-	r.LoadHTMLGlob("view/**/*.tpl")
-	r.Static("/html", "./view/html")
+	//r.LoadHTMLGlob("view/**/*.tpl")
+	//r.Static("/html", "./view/html")
 	r.Static("/js", "./view/public/js")
 	r.Static("/css", "./view/public/css")
 	r.Static("/img", "./view/public/img")
@@ -62,7 +62,7 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 	model.H.Web = c
 	fmt.Println("start go c.Write()")
 	go c.Write()
-	c.Read()
+	c.Read() // ดัก Event message ที่จะส่งมาตอนไหนก็ไม่รู้
 }
 
 func ServDev(w http.ResponseWriter, r *http.Request) {

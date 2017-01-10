@@ -35,23 +35,37 @@ const (
 type CoinHopper struct {
 	Id     string
 	Status string
+	Send   chan *Message
+}
+
+// Todo: Try to Construct CoinHopper Object after DevClient opened connection????
+func (ch *CoinHopper) Setup() {
+	CH.GetId()
 }
 
 //ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins Hopper
-func (ch *CoinHopper) GetId() error {
+func (ch *CoinHopper) GetId() {
+	fmt.Println("CoinHopper.GetId() start")
 	m := &Message{
 		Device:  "coin_hopper",
 		Type:    "request",
 		Command: "machine_id",
 	}
 	H.Dev.Send <- m
-	err := H.Dev.Ws.ReadJSON(&m)
-	if err != nil {
-		log.Println("CoinHopper.GetId(): Error ReadJSON()=>", err)
-		return err
-	}
-	ch.Id = m.Data.(string)
-	return nil
+
+	// Todo: Ws.ReadJSON() ไม่สามารถดัก Socket "response" ได้
+
+	go func() {
+		for {
+			select {
+			case m := <-ch.Send:
+				fmt.Println("Get Response from CoinHopper:", m)
+				ch.Id = m.Data.(string)
+				break
+			}
+		}
+	}()
+	fmt.Println("CoinHopper ID:", ch.Id, "Status:", ch.Status)
 }
 
 func (ch *CoinHopper) Event(c *Client) {
@@ -79,6 +93,7 @@ func (ch *CoinHopper) PayoutByCash(v int) error {
 // Message เฉพาะบางรายการที่จำเป็นจะส่งแจ้งเตือนให้ Web นำไปแสดงผลบอก User
 // แต่โดยทั่วไปจะต้องส่งขึ้น Cloud ทันทีท้งนี้หากติดต่อไม่ได้ ต้องลง Errorlog เก็บไว้
 func (ch *CoinHopper) StatusChange(c *Client) {
+	fmt.Println("CoinHopper.StatusChange() start")
 	switch c.Msg.Data.(string) {
 	case "ready":
 	case "disable":

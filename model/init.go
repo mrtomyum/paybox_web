@@ -32,8 +32,10 @@ func init() {
 	C = &CoinAcceptor{
 		Status: "ok",
 	}
+
 	CH = &CoinHopper{
 		Status: "ok",
+		Send:   make(chan *Message),
 	}
 	P = &Printer{
 		Status: "ok",
