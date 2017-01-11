@@ -4,9 +4,9 @@ import (
 	"github.com/mrtomyum/paybox_terminal/model"
 )
 
-var (
-	o model.Order
-)
+//var (
+//	o model.Order
+//)
 
 //func PostNewOrderSub(ctx *gin.Context) {
 //	strItemId := ctx.PostForm("itemId")
@@ -18,7 +18,7 @@ var (
 //
 //	newItem := new(model.OrderSub)
 //	newItem.ItemId = itemId
-//	newItem.Size = size
+//	newItem.Price = size
 //	newItem.Price = price
 //	newItem.Qty = qty
 //

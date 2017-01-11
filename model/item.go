@@ -21,10 +21,10 @@ type Item struct {
 	MenuId  uint64  `json:"menu_id,omitempty" db:"menu_id"`
 	MenuSeq int     `json:"menu_seq,omitempty" db:"menu_seq"`
 	Image   string  `json:"image" db:"image"`
-	Sizes   []*Size `json:"sizes"`
+	Prices  []*Price `json:"prices"`
 }
 
-type Size struct {
+type Price struct {
 	ItemId int64   `json:"-" db:"item_id"`
 	Id     int     `json:"id"`
 	Name   string  `json:"name"`
@@ -61,16 +61,16 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 			return nil, err
 		}
 		fmt.Println("items:", items)
-		// query Size{}
+		// query Price{}
 		for _, i := range items {
-			sizes := []*Size{}
+			prices := []*Price{}
 			sql = `SELECT * FROM size WHERE item_id = ?`
 			item_id := int(i.Id)
-			err = db.Select(&sizes, sql, item_id)
+			err = db.Select(&prices, sql, item_id)
 			if err != nil {
 				return nil, err
 			}
-			i.Sizes = sizes
+			i.Prices = prices
 		}
 		l.MenuId = int(id)
 		l.Items = items

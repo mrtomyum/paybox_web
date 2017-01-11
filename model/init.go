@@ -40,6 +40,7 @@ func init() {
 		Send:   make(chan *Message),
 	}
 	P = &Printer{
+
 		Status: "ok",
 		Send:   make(chan *Message),
 
