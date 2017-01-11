@@ -64,7 +64,7 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 		// query Price{}
 		for _, i := range items {
 			prices := []*Price{}
-			sql = `SELECT * FROM size WHERE item_id = ?`
+			sql = `SELECT * FROM price WHERE item_id = ?`
 			item_id := int(i.Id)
 			err = db.Select(&prices, sql, item_id)
 			if err != nil {

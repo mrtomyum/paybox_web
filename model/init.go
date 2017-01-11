@@ -2,6 +2,7 @@ package model
 
 import (
 	"github.com/jmoiron/sqlx"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var (
@@ -15,6 +16,7 @@ var (
 )
 
 func init() {
+	db = sqlx.MustConnect("sqlite3", "./paybox.db")
 	H = &Host{
 		Id:                 "001",
 		Online:             true,

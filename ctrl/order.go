@@ -1,8 +1,8 @@
 package ctrl
 
-import (
-	"github.com/mrtomyum/paybox_terminal/model"
-)
+//import (
+//	"github.com/mrtomyum/paybox_terminal/model"
+//)
 
 //var (
 //	o model.Order
