@@ -19,6 +19,7 @@ var (
 	}
 )
 func Router(r *gin.Engine) *gin.Engine {
+	// for Static HTML
 	r.LoadHTMLGlob("view/**/*.tpl")
 	//r.Static("/html", "./view/html")
 	r.Static("/js", "./view/public/js")
@@ -26,12 +27,13 @@ func Router(r *gin.Engine) *gin.Engine {
 	r.Static("/img", "./view/public/img")
 	r.Static("/json", "./view/public/json")
 
-	//r.GET("/", GetIndex)
+	// for Web endpoint call data in JSON
 	r.Use(static.Serve("/", static.LocalFile("view", true)))
 	r.GET("/menu", GetMenu)
 	r.GET("/menu/:id/", GetItemsByMenuId)
 	r.GET("/item/:id", GetItemById)
 
+	// for Websocket Connection
 	r.GET("/web", func(c *gin.Context) {
 		ServWeb(c.Writer, c.Request)
 	})
