@@ -19,7 +19,7 @@ var (
 	}
 )
 func Router(r *gin.Engine) *gin.Engine {
-	//r.LoadHTMLGlob("view/**/*.tpl")
+	r.LoadHTMLGlob("view/**/*.tpl")
 	//r.Static("/html", "./view/html")
 	r.Static("/js", "./view/public/js")
 	r.Static("/css", "./view/public/css")

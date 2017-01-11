@@ -45,7 +45,6 @@ func init() {
 
 		Status: "ok",
 		Send:   make(chan *Message),
-
 	}
 	M = &MainBoard{
 		Status: "ok",

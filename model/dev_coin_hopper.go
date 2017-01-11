@@ -53,8 +53,7 @@ func (ch *CoinHopper) GetId() {
 	}
 	H.Dev.Send <- m
 
-	// Todo: Ws.ReadJSON() ไม่สามารถดัก Socket "response" ได้
-
+	// เปิด Goroutine เพื่อรอรับ Message กลับมาจาก Channel Send.
 	go func() {
 		for {
 			select {

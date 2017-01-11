@@ -40,11 +40,11 @@ Paybox Ticket Terminal software Service and Application written in Qt5 and inter
 
 + Subscribe MQTT for Push command such as 
   + Push for update Item Menu.
-  + Price update.
+  + Size update.
   + Send heartbeat/online Status every minute etc.
 
 + Menu/Item Status online update.
-  + Mobile App. add and update Menus/Items. Name, Price, Picture.
+  + Mobile App. add and update Menus/Items. Name, Size, Picture.
   + Client can control Item sale Status as "OPEN_SALE", "CLOSE_SALE" prevent payment and no available products.
   
 ## What's Next.

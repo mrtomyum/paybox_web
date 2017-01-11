@@ -19,7 +19,7 @@
     </div>
 
     <div class="size">
-        <div style="float: left; font-size: 11px;"><b>Price:</b></div>
+        <div style="float: left; font-size: 11px;"><b>Size:</b></div>
         <div class="s" style="width: 100%; float: left; height: 20px; padding: 0; font-size: 12px; margin-bottom: 3%">
             S
         </div>

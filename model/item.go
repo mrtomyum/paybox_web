@@ -8,35 +8,45 @@ import (
 
 type Item struct {
 	sys.Base
-	Name    string  `json:"name" db:"name"`
-	NameEn  string  `json:"name_en,omitempty" db:"name_en"`
-	NameCn  string  `json:"name_cn,omitempty" db:"name_cn"`
-	Unit    string  `json:"unit"`
-	UnitEn  string  `json:"unit_en,omitempty"`
-	UnitCn  string  `json:"unit_cn,omitempty"`
-	//Price   float32 `json:"price"`
+	Name   string  `json:"name" db:"name"`
+	NameEn string  `json:"name_en,omitempty" db:"name_en"`
+	NameCn string  `json:"name_cn,omitempty" db:"name_cn"`
+	Unit   string  `json:"unit"`
+	UnitEn string  `json:"unit_en,omitempty" db:"unit_en"`
+	UnitCn string  `json:"unit_cn,omitempty" db:"unit_cn"`
+	//Price   float32 `json:"price" db:"price"`
 	//PriceS  float32 `json:"price_s" db:"price_s"`
 	//PriceM  float32 `json:"price_m" db:"price_m"`
 	//PriceL  float32 `json:"price_l" db:"price_l"`
 	MenuId  uint64  `json:"menu_id,omitempty" db:"menu_id"`
 	MenuSeq int     `json:"menu_seq,omitempty" db:"menu_seq"`
 	Image   string  `json:"image" db:"image"`
-	Prices  []*Price `json:"prices"`
+	//Prices  []*Size `json:"prices"`
+	Sizes []*Size `json:"sizes"`
 }
 
-type Price struct {
-	ItemId int64   `json:"-" db:"item_id"`
+type Size struct {
 	Id     int     `json:"id"`
+	ItemId int64   `json:"-" db:"item_id"`
 	Name   string  `json:"name"`
 	Price  float32 `json:"price"`
 }
 
 func (i *Item) Get(id int64) (err error) {
 	sql := `SELECT * FROM item WHERE id = ?`
-	err = db.Get(&i, sql, id)
+	//err = db.Get(&i, sql, id)
+	err = db.QueryRowx(sql, id).StructScan(i)
 	if err != nil {
 		return err
 	}
+	// ดึงข้อมูลราคาทั้งหมดของสินค้ารายการนี้
+	sizes := []*Size{}
+	sql = `SELECT * FROM size WHERE item_id = ?`
+	err = db.Select(&sizes, sql, id)
+	if err != nil {
+		return err
+	}
+	i.Sizes = sizes
 	return nil
 }
 
@@ -61,16 +71,16 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 			return nil, err
 		}
 		fmt.Println("items:", items)
-		// query Price{}
+		// query Size{}
 		for _, i := range items {
-			prices := []*Price{}
-			sql = `SELECT * FROM price WHERE item_id = ?`
+			sizes := []*Size{}
+			sql = `SELECT * FROM size WHERE item_id = ?`
 			item_id := int(i.Id)
-			err = db.Select(&prices, sql, item_id)
+			err = db.Select(&sizes, sql, item_id)
 			if err != nil {
 				return nil, err
 			}
-			i.Prices = prices
+			i.Sizes = sizes
 		}
 		l.MenuId = int(id)
 		l.Items = items

@@ -18,14 +18,14 @@ package ctrl
 //
 //	newItem := new(model.OrderSub)
 //	newItem.ItemId = itemId
-//	newItem.Price = size
-//	newItem.Price = price
+//	newItem.Size = size
+//	newItem.Size = price
 //	newItem.Qty = qty
 //
 //	o.Items = append(o.Items, newItem)
 //	var total float64 = 0
 //	for _, i := range o.Items {
-//		sumItem := i.Price * i.Qty
+//		sumItem := i.Size * i.Qty
 //		total += sumItem
 //	}
 //	o.Total = total

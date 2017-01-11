@@ -15,8 +15,11 @@ func GetItemById(ctx *gin.Context) {
 	id, _ := strconv.ParseInt(strId, 10, 64)
 	err := item.Get(id)
 	if err != nil {
-		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
+		log.Println("GetItemById error:", err)
+		ctx.HTML(http.StatusNotFound, "error.tpl", err)
+		//ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
 	}
+	fmt.Println("Return JSON:", item)
 	ctx.JSON(http.StatusOK, item)
 }
 
