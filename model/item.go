@@ -34,8 +34,8 @@ type Size struct {
 
 func (i *Item) Get(id int64) (err error) {
 	sql := `SELECT * FROM item WHERE id = ?`
-	//err = db.Get(&i, sql, id)
-	err = db.QueryRowx(sql, id).StructScan(i)
+	err = db.Get(i, sql, id)
+	//err = db.QueryRowx(sql, id).StructScan(i)
 	if err != nil {
 		return err
 	}
