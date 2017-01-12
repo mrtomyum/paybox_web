@@ -4,10 +4,10 @@ $("document").ready(function(){
 	var id = localStorage.language;
 	var status = localStorage.action;
 
-    call_websocket();
+    /*call_websocket();
     setTimeout(function(){
         doSend('{"Device":"host","Payload":{"type":"request","command":"onhand"}}');
-    },1000);
+    },1000);*/
     if(localStorage.ColorCode){
        localStorage.ColorCode = localStorage.ColorCode;
     }else{
@@ -34,7 +34,7 @@ $("document").ready(function(){
 	                if(status==1){ status = "รับประทานที่ร้าน"}else{ status = "ซื้อกลับบ้าน"}
 	            }
 
-	            document.getElementById("status").innerHTML = "สถานะ : "+status;
+	            document.getElementById("Status").innerHTML = "สถานะ : "+status;
 
 	            document.getElementById("txtTotalPri").innerHTML = "ราคารวม";
 	            document.getElementById("txtmacPri").innerHTML = "จำนวนเงิน";
@@ -60,7 +60,7 @@ $("document").ready(function(){
                 }else{
                     if(status==1){ status = "take this"}else{ status = "this out"}
                 }
-                document.getElementById("status").innerHTML = "status : "+status;
+                document.getElementById("Status").innerHTML = "status : "+status;
 
                 document.getElementById("txtTotalPri").innerHTML = "Total";
                 document.getElementById("txtmacPri").innerHTML = "Payment";
@@ -85,7 +85,7 @@ $("document").ready(function(){
                 }else{
 	                if(status==1){ status = "拿著它"}else{ status = "取出"}
                	}
-               	document.getElementById("status").innerHTML = "狀態 : "+status;
+               	document.getElementById("Status").innerHTML = "狀態 : "+status;
 
                	document.getElementById("txtTotalPri").innerHTML = "總價";
                	document.getElementById("txtmacPri").innerHTML = "付款";
