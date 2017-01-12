@@ -22,10 +22,10 @@ type Item struct {
 	MenuSeq int     `json:"menu_seq,omitempty" db:"menu_seq"`
 	Image   string  `json:"image" db:"image"`
 	//Prices  []*Size `json:"prices"`
-	Sizes []*Size `json:"sizes"`
+	Prices []*Price `json:"prices"`
 }
 
-type Size struct {
+type Price struct {
 	Id     int     `json:"id"`
 	ItemId int64   `json:"-" db:"item_id"`
 	Name   string  `json:"name"`
@@ -40,13 +40,13 @@ func (i *Item) Get(id int64) (err error) {
 		return err
 	}
 	// ดึงข้อมูลราคาทั้งหมดของสินค้ารายการนี้
-	sizes := []*Size{}
-	sql = `SELECT * FROM size WHERE item_id = ?`
+	sizes := []*Price{}
+	sql = `SELECT * FROM price WHERE item_id = ?`
 	err = db.Select(&sizes, sql, id)
 	if err != nil {
 		return err
 	}
-	i.Sizes = sizes
+	i.Prices = sizes
 	return nil
 }
 
@@ -73,14 +73,14 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 		fmt.Println("items:", items)
 		// query Size{}
 		for _, i := range items {
-			sizes := []*Size{}
-			sql = `SELECT * FROM size WHERE item_id = ?`
+			prices := []*Price{}
+			sql = `SELECT * FROM price WHERE item_id = ?`
 			item_id := int(i.Id)
-			err = db.Select(&sizes, sql, item_id)
+			err = db.Select(&prices, sql, item_id)
 			if err != nil {
 				return nil, err
 			}
-			i.Sizes = sizes
+			i.Prices = prices
 		}
 		l.MenuId = int(id)
 		l.Items = items
