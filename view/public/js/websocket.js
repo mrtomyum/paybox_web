@@ -1,8 +1,8 @@
 
-        var wsUri = "ws://"+window.location.host+"/ws";
+        var wsUri = "ws://"+window.location.host+"/web";
         //var wsUri = "ws://192.168.0.215:8888/ws";
 
-          websocket = new WebSocket(wsUri);
+        websocket = new WebSocket(wsUri);
     console.log(window.location.host);
     function call_websocket(){
           websocket.onopen = function(evt) { onOpen(evt) };

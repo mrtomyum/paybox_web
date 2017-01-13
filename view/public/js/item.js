@@ -4,8 +4,8 @@ $("document").ready(function(){
 	var id = localStorage.language;
 	var status = localStorage.action;
 
-    /*call_websocket();
-    setTimeout(function(){
+    call_websocket();
+   /* setTimeout(function(){
         doSend('{"Device":"host","Payload":{"type":"request","command":"onhand"}}');
     },1000);*/
     if(localStorage.ColorCode){
@@ -14,7 +14,7 @@ $("document").ready(function(){
        localStorage.ColorCode = "#0f0f0a";
     }
    // websocket.onopen();
-   // doSend('{"Device":"'+window.location.host+'","Payload":{"type":"request","command":"onhand"}}');
+//   doSend('{"Device":"'+window.location.host+'","type":"request","command":"onhand"}');
 
 
    /* onHend = setInterval(function(){ doSend(`{"job":"onHand"}`);},1000);*/
@@ -281,16 +281,16 @@ function item(lang,menuId){
                     console.log("new "+JSON.stringify(items));
                     var item = "";
                     for(var i = 0; i < items.length; i++){
-                    	var size = items[i].sizes;
+                    	var price = items[i].prices;
                     	item += `<a href="#"><div class="block-3"
                     			onclick="showmodal('`+items[i].id+`','`+items[i].name+`','/img/`+items[i].image+`','`+items[i].unit+`',
-                    			'`+size[0].name+'/'+size[0].price+`'
-                    			,'`+size[1].name+'/'+size[1].price+`'
-                    			,'`+size[2].name+'/'+size[2].price+`')">
+                    			'`+price[0].name+'/'+price[0].price+`'
+                    			,'`+price[1].name+'/'+price[1].price+`'
+                    			,'`+price[2].name+'/'+price[2].price+`')">
                     			<img src="/img/`+items[i].image+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
                     			<h5 style="margin-top: 0;">
                     			<div style="width: 80%; float: left;">`+items[i].name+`
-                    			</div><div style="width: 20%; float: left; padding:0;">`+size[0].price+` ฿</div></h5>
+                    			</div><div style="width: 20%; float: left; padding:0;">`+price[0].price+` ฿</div></h5>
                     			</div></a>`;
                     }
                     					//console.log(item);
