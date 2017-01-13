@@ -82,8 +82,8 @@ func (c *Client) WebEvent() {
 			H.GetEscrow(c)
 		case "cancel":
 			H.Cancel(c)
-		case "billing":
-			H.Billing(c)
+		case "order":
+			H.Order(c)
 		default:
 			log.Println("Client.WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
 		}
