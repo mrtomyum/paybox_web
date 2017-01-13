@@ -31,19 +31,19 @@
         var pathname = location.pathname.split("/");
               console.log(pathname[1]);
               var t = JSON.parse(evt.data);
-              var p = t['payload'];;
-              console.log(p);
+           //   var p = t['payload'];;
+              console.log(t);
             if(pathname[1]=="item.html"){
-                  if(p['command']=="onhand"){
-                        document.getElementById("pri2").value = p['data'];
+                  if(t['command']=="onhand"){
+                        document.getElementById("pri2").value = t['data'];
 
 
-                  }else if(p['command']=="billing"){
-                    Alert7.alert("การทำรายการ "+p['data']);
-                    if(p['result']==true){websocket.close(); /*setTimeout(function(){window.location = "index.html";},2000);*/}
-                  }else if(p['command']=="cancel"){
+                  }else if(t['command']=="billing"){
+                    Alert7.alert("การทำรายการ "+t['data']);
+                    if(t['result']==true){websocket.close(); /*setTimeout(function(){window.location = "index.html";},2000);*/}
+                  }else if(t['command']=="cancel"){
                     Alert7.alert("ยกเลิกรายการ "+JSON.stringify(p['data']));
-                    if(p['result']==true){
+                    if(t['result']==true){
                         window.location = "index.html";
                     }
                   }
@@ -53,8 +53,8 @@
                   $("#datatext").append(evt.data+"<br>");
             }
 
-            if(p['command']=="status"){
-                var m = p['data'];
+            if(t['command']=="status"){
+                var m = t['data'];
                 Alert7.alert(m['message']);
             }
 

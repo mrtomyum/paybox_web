@@ -5,16 +5,16 @@ $("document").ready(function(){
 	var status = localStorage.action;
 
     call_websocket();
-   /* setTimeout(function(){
-        doSend('{"Device":"host","Payload":{"type":"request","command":"onhand"}}');
-    },1000);*/
+    setTimeout(function(){
+        doSend('{"Device":"'+window.location.host+'","type":"request","command":"onhand"}');
+    },1000);
     if(localStorage.ColorCode){
        localStorage.ColorCode = localStorage.ColorCode;
     }else{
        localStorage.ColorCode = "#0f0f0a";
     }
-   // websocket.onopen();
-//   doSend('{"Device":"'+window.location.host+'","type":"request","command":"onhand"}');
+   //websocket.onopen();
+   //doSend('{"Device":"'+window.location.host+'","type":"request","command":"onhand"}');
 
 
    /* onHend = setInterval(function(){ doSend(`{"job":"onHand"}`);},1000);*/

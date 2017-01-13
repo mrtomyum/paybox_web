@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="เปลี่ยน size เป็น prices">
+    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/item.go" afterPath="$PROJECT_DIR$/model/item.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/item.html" afterPath="$PROJECT_DIR$/view/item.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/js/item.js" afterPath="$PROJECT_DIR$/view/public/js/item.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/js/websocket.js" afterPath="$PROJECT_DIR$/view/public/js/websocket.js" />
     </list>
@@ -29,7 +27,38 @@
     <favorites_list name="paybox_terminal" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="websocket.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/view/public/js/websocket.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="49" column="48" selection-start-line="48" selection-start-column="19" selection-end-line="49" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="item.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/view/public/js/item.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="91" selection-start-line="8" selection-start-column="91" selection-end-line="8" selection-end-column="91" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/client.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-417">
+              <caret line="80" column="28" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -197,6 +226,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_terminal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_terminal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -540,13 +591,6 @@
       <option name="presentableId" value="Default" />
       <updated>1478826841253</updated>
     </task>
-    <task id="LOCAL-00001" summary="update contianer">
-      <created>1478829148474</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1478829148474</updated>
-    </task>
     <task id="LOCAL-00002" summary="update contianer">
       <created>1478831545085</created>
       <option name="number" value="00002" />
@@ -883,7 +927,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481794410578</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="เปลี่ยน size เป็น prices&#10;- แต่ websocket ยังรับค่าไม่ได้ เนื่องจากค่าที่ตอบกลับมา ไม่มี">
+      <created>1484278214793</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1484278214793</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView">
@@ -897,16 +948,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3258786" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32733223" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32733223" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3305648" sideWeight="0.5104261" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24222586" sideWeight="0.4852018" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24222586" sideWeight="0.4852018" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31414473" sideWeight="0.49624062" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.4895739" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -986,7 +1037,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add new route endpoint but may be change." />
     <MESSAGE value="Add model.Devicer interface" />
     <MESSAGE value="try to add func ws... not complete yet" />
     <MESSAGE value="Update controller and router to support frontend JS call JSON API" />
@@ -1011,7 +1061,8 @@
     <MESSAGE value="adjust code client.go - working now" />
     <MESSAGE value="เปลี่ยน รูปแบบการส่ง ค่า billing ให้เป็นตัวใหญ่" />
     <MESSAGE value="เปลี่ยน size เป็น prices" />
-    <option name="LAST_COMMIT_MESSAGE" value="เปลี่ยน size เป็น prices" />
+    <MESSAGE value="เปลี่ยน size เป็น prices&#10;- แต่ websocket ยังรับค่าไม่ได้ เนื่องจากค่าที่ตอบกลับมา ไม่มี" />
+    <option name="LAST_COMMIT_MESSAGE" value="เปลี่ยน size เป็น prices&#10;- แต่ websocket ยังรับค่าไม่ได้ เนื่องจากค่าที่ตอบกลับมา ไม่มี" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1253,14 +1304,6 @@
     <entry file="file://$PROJECT_DIR$/model/device.go" />
     <entry file="file://$PROJECT_DIR$/controller/hub.go" />
     <entry file="file://$PROJECT_DIR$/controller/router.go" />
-    <entry file="file://$PROJECT_DIR$/model/client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/item.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
@@ -1277,18 +1320,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model/client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-417">
+          <caret line="80" column="28" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/view/public/js/websocket.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+        <state relative-caret-position="44">
+          <caret line="49" column="48" selection-start-line="48" selection-start-column="19" selection-end-line="49" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/public/js/item.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+        <state relative-caret-position="136">
+          <caret line="8" column="91" selection-start-line="8" selection-start-column="91" selection-end-line="8" selection-end-column="91" />
           <folding />
         </state>
       </provider>
