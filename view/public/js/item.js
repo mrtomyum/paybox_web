@@ -639,13 +639,15 @@ function print(){
      pri2 = numeral(pri2).format('0.0');
     var changeMoney = parseInt(pri2)-parseInt(pri1);
    //console.log(changeMoney);
-    if(localStorage.action==2){
-        var take_home = true;
-    }else{
-        var take_home = false;
-    }
+   var status = localStorage.action;
+   if(localStorage.OrgCode==1){
+   	   status = "Ticket"
+   }else{
+   	   if(status==1){ status = "Take This"}else{ status = "Take Home"}
+   }
+    var orderType = status;
     var output = "";
-    output = `{"Device":`+window.location.host+`,"Payload":{"type":"request","command":"billing","result": true,"data":{"total":`+pri1+`,"payment":`+pri2+`,"change":`+changeMoney+`,"take_home":`+take_home+`,"items":`+JSON.stringify(listOrder)+`}}}`;
+    output = `{"Device":`+window.location.host+`,"type":"request","command":"billing","result": true,"data":{"total":`+pri1+`,"payment":`+pri2+`,"change":`+changeMoney+`,"order_type":`+orderType+`,"order_sub":`+JSON.stringify(listOrder)+`}}`;
     console.log(output);
     console.log(parseInt(pri2)+","+parseInt(pri1));
     if(changeMoney<0){
