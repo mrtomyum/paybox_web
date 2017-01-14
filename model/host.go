@@ -91,11 +91,11 @@ func (h *Host) Cancel(c *Client) error {
 	return nil
 }
 
-// Billing ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง SqLite
+// Order ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง SqLite
 // และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
 // จะมี Routine Check Network status  คอยตรวจสอบสถานะและ Retry
-func (h *Host) Billing(c *Client) error {
-	// สั่ง device รับชำระ
+func (h *Host) Order(c *Client) error {
+	// รับคำสั่งจาก Web
 	order := c.Msg.Data.(Order) // แปลงข้อมูล interface{} ให้เป็น Order ก่อน
 
 	// กินธนบัตรที่พักไว้
@@ -132,5 +132,5 @@ func (h *Host) Billing(c *Client) error {
 }
 
 func (h *Host) OrderSave(o *Order) {
-
+	fmt.Println("h.OrderSave() run")
 }
