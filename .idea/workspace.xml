@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="เปลี่ยน billing เป็น order">
+    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/js/item.js" afterPath="$PROJECT_DIR$/view/public/js/item.js" />
     </list>
@@ -40,8 +40,8 @@
       <file leaf-file-name="item.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/view/public/js/item.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="29">
-              <caret line="641" column="36" selection-start-line="641" selection-start-column="36" selection-end-line="641" selection-end-column="36" />
+            <state relative-caret-position="488">
+              <caret line="494" column="76" selection-start-line="494" selection-start-column="76" selection-end-line="494" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -592,13 +592,6 @@
       <option name="presentableId" value="Default" />
       <updated>1478826841253</updated>
     </task>
-    <task id="LOCAL-00004" summary="Add new route endpoint but may be change.">
-      <created>1479112595185</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1479112595185</updated>
-    </task>
     <task id="LOCAL-00005" summary="Add model.Devicer interface">
       <created>1479136624516</created>
       <option name="number" value="00005" />
@@ -935,7 +928,14 @@
       <option name="project" value="LOCAL" />
       <updated>1484279565758</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="ปรับข้อมูล payload เรื่องของการ พิมพ์ใบเสร็จ">
+      <created>1484357509359</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1484357509359</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1038,7 +1038,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update controller and router to support frontend JS call JSON API" />
     <MESSAGE value="Add wsView, wsDevice for websocket listening  and serve." />
     <MESSAGE value="Change Port to 8888&#10;delete not need test function and file." />
     <MESSAGE value="Change Dockerfile -&gt; golang -onbuild" />
@@ -1063,7 +1062,8 @@
     <MESSAGE value="เปลี่ยน size เป็น prices&#10;- แต่ websocket ยังรับค่าไม่ได้ เนื่องจากค่าที่ตอบกลับมา ไม่มี" />
     <MESSAGE value="ปรับการรับค่า websocket .." />
     <MESSAGE value="เปลี่ยน billing เป็น order" />
-    <option name="LAST_COMMIT_MESSAGE" value="เปลี่ยน billing เป็น order" />
+    <MESSAGE value="ปรับข้อมูล payload เรื่องของการ พิมพ์ใบเสร็จ" />
+    <option name="LAST_COMMIT_MESSAGE" value="ปรับข้อมูล payload เรื่องของการ พิมพ์ใบเสร็จ" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1338,8 +1338,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/view/public/js/item.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="641" column="36" selection-start-line="641" selection-start-column="36" selection-end-line="641" selection-end-column="36" />
+        <state relative-caret-position="488">
+          <caret line="494" column="76" selection-start-line="494" selection-start-column="76" selection-end-line="494" selection-end-column="76" />
           <folding />
         </state>
       </provider>
