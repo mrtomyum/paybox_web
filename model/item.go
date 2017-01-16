@@ -1,28 +1,22 @@
 package model
 
 import (
-	sys "github.com/mrtomyum/sys/model"
 	"log"
 	"fmt"
 )
 
 type Item struct {
-	sys.Base
-	Name   string  `json:"name" db:"name"`
-	NameEn string  `json:"name_en,omitempty" db:"name_en"`
-	NameCn string  `json:"name_cn,omitempty" db:"name_cn"`
-	Unit   string  `json:"unit"`
-	UnitEn string  `json:"unit_en,omitempty" db:"unit_en"`
-	UnitCn string  `json:"unit_cn,omitempty" db:"unit_cn"`
-	//Price   float32 `json:"price" db:"price"`
-	//PriceS  float32 `json:"price_s" db:"price_s"`
-	//PriceM  float32 `json:"price_m" db:"price_m"`
-	//PriceL  float32 `json:"price_l" db:"price_l"`
+	Id      int
+	Name    string  `json:"name" db:"name"`
+	NameEn  string  `json:"name_en,omitempty" db:"name_en"`
+	NameCn  string  `json:"name_cn,omitempty" db:"name_cn"`
+	Unit    string  `json:"unit"`
+	UnitEn  string  `json:"unit_en,omitempty" db:"unit_en"`
+	UnitCn  string  `json:"unit_cn,omitempty" db:"unit_cn"`
 	MenuId  uint64  `json:"menu_id,omitempty" db:"menu_id"`
 	MenuSeq int     `json:"menu_seq,omitempty" db:"menu_seq"`
 	Image   string  `json:"image" db:"image"`
-	//Prices  []*Size `json:"prices"`
-	Prices []*Price `json:"prices"`
+	Prices  []*Price `json:"prices"`
 }
 
 type Price struct {
@@ -75,7 +69,7 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 		for _, i := range items {
 			prices := []*Price{}
 			sql = `SELECT * FROM price WHERE item_id = ?`
-			item_id := int(i.ID)
+			item_id := int(i.Id)
 			err = db.Select(&prices, sql, item_id)
 			if err != nil {
 				return nil, err

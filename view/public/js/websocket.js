@@ -11,8 +11,6 @@
           websocket.onerror = function(evt) { onError(evt) };
     }
 
-
-
     function onOpen(evt)
     {
       console.log("CONNECTED");

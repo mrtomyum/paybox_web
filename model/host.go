@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	//"encoding/json"
 )
 
 type Host struct {
@@ -96,13 +97,22 @@ func (h *Host) Cancel(c *Client) error {
 // จะมี Routine Check Network status  คอยตรวจสอบสถานะและ Retry
 func (h *Host) Order(c *Client) error {
 	// รับคำสั่งจาก Web
-	order := c.Msg.Data.(Order) // แปลงข้อมูล interface{} ให้เป็น Order ก่อน
+	fmt.Println("[Host.Order()] start c.Msg.Data:", c.Msg.Data)
+	//fmt.Println("c.Msg.Data.(map[string]interface{}):", c.Msg.Data.(map[string]interface{}) )
+	//order := c.Msg.Data.(*Order) // แปลงข้อมูล interface{} ให้เป็น Order ก่อน
+
+	order := &Order{}
+	//err := order.UnmarshalJSON([]byte(c.Msg.Data))
+	//json.Unmarshal([]byte(data), &order)
+	//json.Unmarshal([]byte(c.Msg.Data.(string)), &order)
+	//json.Unmarshal([]byte(c.Msg.Data.(map[string]interface{})), &order)
+	order.FillStruct(c.Msg.Data.(map[string]interface{}))
+
+	fmt.Printf("[Host.Order()] รับค่า Order จาก c.Msg.Data ->  order= %v\n", order)
 
 	// กินธนบัตรที่พักไว้
-	err := B.Take(c)
-	if err != nil {
-		return err
-	}
+	B.Take(c)
+
 
 	// ทอนเงินถ้ามี
 	if h.TotalEscrow > order.Total {
@@ -116,14 +126,17 @@ func (h *Host) Order(c *Client) error {
 	H.BillEscrow = 0
 
 	// พิมพ์ตั๋ว และใบเสร็จ
-	P.Print(&order)
+	P.Print(order)
 	// บันทึกข้อมูลลง SQL โดย order.completed = false
-	H.OrderSave(&order)
+	H.OrderSave(order)
 	// ส่งผลลัพธ์แจ้งกลับ Web Client ด้วยเพื่อให้ล้างยอดเงิน เริ่มหน้าจอใหม่
 	c.Msg.Type = "response"
 	c.Msg.Result = true
 	c.Msg.Data = "success"
 	H.Web.Send <- c.Msg
+	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
+	H.GetEscrow(c)
+
 	// Post Order ขึ้น Cloud
 	// Cloud.Order.POST()
 	// Check Network Status
@@ -134,3 +147,4 @@ func (h *Host) Order(c *Client) error {
 func (h *Host) OrderSave(o *Order) {
 	fmt.Println("h.OrderSave() run")
 }
+

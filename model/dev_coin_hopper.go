@@ -60,11 +60,11 @@ func (ch *CoinHopper) GetId() {
 			case m := <-ch.Send:
 				fmt.Println("Get Response from CoinHopper:", m)
 				ch.Id = m.Data.(string)
+				fmt.Println("CoinHopper ID:", ch.Id, "Status:", ch.Status)
 				break
 			}
 		}
 	}()
-	fmt.Println("CoinHopper ID:", ch.Id, "Status:", ch.Status)
 }
 
 func (ch *CoinHopper) Event(c *Client) {
