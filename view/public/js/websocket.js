@@ -36,7 +36,7 @@
                         document.getElementById("pri2").value = t['data'];
 
 
-                  }else if(t['command']=="billing"){
+                  }else if(t['command']=="order"){
                     Alert7.alert("การทำรายการ "+t['data']);
                     if(t['result']==true){websocket.close(); /*setTimeout(function(){window.location = "index.html";},2000);*/}
                   }else if(t['command']=="cancel"){

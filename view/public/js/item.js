@@ -480,7 +480,7 @@ function send_order(){
 
 function order_list(itemCode,itemName,size,qty,unit,price){
    // console.log(itemCode+","+itemName+","+size+","+qty+","+unit+","+price);
-   listOrder.push({"item_code":itemCode,"item_name":itemName,"item_size":size,"qty":qty,"unit":unit,"price":price});
+   listOrder.push({"item_id":itemCode,"name":itemName,"qty":qty,"price_name":size,"price":price,"unit":unit});
 
    console.log(JSON.stringify(listOrder));
    var list = "";
@@ -488,7 +488,7 @@ function order_list(itemCode,itemName,size,qty,unit,price){
    for(var i = 0; i < listOrder.length; i++){
        list += `
                   <label class="orderlist">
-                       <div class="ordername" onclick="return false;"> `+listOrder[i].item_name+` `+listOrder[i].item_size+`</div>
+                       <div class="ordername" onclick="return false;"> `+listOrder[i].item_name+` `+listOrder[i].price_name+`</div>
                        <div class="orderqty" onclick="return false;">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
                        <div class="orderprice" onclick="return false;">`+listOrder[i].price+` ฿</div>
                        <div class="ordercancel">
@@ -527,7 +527,7 @@ function item_cancel(index){
                  for(var i = 0; i < listOrder.length; i++){
                      list += `
                                 <label class="orderlist" onclick="return false">
-                                     <div class="ordername"> `+listOrder[i].item_name+` `+listOrder[i].item_size+`</div>
+                                     <div class="ordername"> `+listOrder[i].item_name+` `+listOrder[i].price_name+`</div>
                                      <div class="orderqty">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
                                      <div class="orderprice">`+listOrder[i].price+` ฿</div>
                                      <div class="ordercancel">
@@ -639,13 +639,15 @@ function print(){
      pri2 = numeral(pri2).format('0.0');
     var changeMoney = parseInt(pri2)-parseInt(pri1);
    //console.log(changeMoney);
-    if(localStorage.action==2){
-        var take_home = true;
-    }else{
-        var take_home = false;
-    }
+   var status = localStorage.action;
+   if(localStorage.OrgCode==1){
+   	   status = "Ticket"
+   }else{
+   	   if(status==1){ status = "Take This"}else{ status = "Take Home"}
+   }
+    var orderType = status;
     var output = "";
-    output = `{"Device":`+window.location.host+`,"Payload":{"type":"request","command":"billing","result": true,"data":{"total":`+pri1+`,"payment":`+pri2+`,"change":`+changeMoney+`,"take_home":`+take_home+`,"items":`+JSON.stringify(listOrder)+`}}}`;
+    output = `{"Device":`+window.location.host+`,"type":"request","command":"billing","result": true,"data":{"total":`+pri1+`,"payment":`+pri2+`,"change":`+changeMoney+`,"order_type":`+orderType+`,"order_sub":`+JSON.stringify(listOrder)+`}}`;
     console.log(output);
     console.log(parseInt(pri2)+","+parseInt(pri1));
     if(changeMoney<0){
