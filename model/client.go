@@ -98,7 +98,11 @@ func (c *Client) DevResponse() {
 		fmt.Println("Client.DevResponse() case 'coin_hopper'")
 		CH.Send <- c.Msg
 	case "coin_acc":
+		fmt.Println("Client.DevResponse() case 'coin_acc'")
+		C.Send <- c.Msg
 	case "bill_acc":
+		fmt.Println("Client.DevResponse() case 'bill_acc'")
+		B.Send <- c.Msg
 	case "printer":
 	case "main_board":
 	}

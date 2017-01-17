@@ -95,25 +95,15 @@ func (h *Host) Cancel(c *Client) error {
 // Order ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง SqLite
 // และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
 // จะมี Routine Check Network status  คอยตรวจสอบสถานะและ Retry
-func (h *Host) Order(c *Client) error {
+func (h *Host) Order(web *Client) error {
 	// รับคำสั่งจาก Web
-	fmt.Println("[Host.Order()] start c.Msg.Data:", c.Msg.Data)
-	//fmt.Println("c.Msg.Data.(map[string]interface{}):", c.Msg.Data.(map[string]interface{}) )
-	//order := c.Msg.Data.(*Order) // แปลงข้อมูล interface{} ให้เป็น Order ก่อน
-
+	fmt.Println("[Host.Order()] start web.Msg.Data:", web.Msg.Data)
 	order := &Order{}
-	//err := order.UnmarshalJSON([]byte(c.Msg.Data))
-	//json.Unmarshal([]byte(data), &order)
-	//json.Unmarshal([]byte(c.Msg.Data.(string)), &order)
-	//json.Unmarshal([]byte(c.Msg.Data.(map[string]interface{})), &order)
-	order.FillStruct(c.Msg.Data.(map[string]interface{}))
-
-	fmt.Printf("[Host.Order()] รับค่า Order จาก c.Msg.Data ->  order= %v\n", order)
+	order.FillStruct(web.Msg.Data.(map[string]interface{}))
+	fmt.Printf("[Host.Order()] รับค่า Order จาก web.Msg.Data ->  order= %v\n", order)
 
 	// กินธนบัตรที่พักไว้
-	B.Take(c)
-
-
+	B.Take(H.Dev)
 	// ทอนเงินถ้ามี
 	if h.TotalEscrow > order.Total {
 		change := h.TotalEscrow - order.Total
@@ -130,17 +120,18 @@ func (h *Host) Order(c *Client) error {
 	// บันทึกข้อมูลลง SQL โดย order.completed = false
 	H.OrderSave(order)
 	// ส่งผลลัพธ์แจ้งกลับ Web Client ด้วยเพื่อให้ล้างยอดเงิน เริ่มหน้าจอใหม่
-	c.Msg.Type = "response"
-	c.Msg.Result = true
-	c.Msg.Data = "success"
-	H.Web.Send <- c.Msg
+	web.Msg.Type = "response"
+	web.Msg.Result = true
+	web.Msg.Data = "success"
+	H.Web.Send <- web.Msg
 	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
-	H.GetEscrow(c)
+	H.GetEscrow(web)
 
 	// Post Order ขึ้น Cloud
 	// Cloud.Order.POST()
 	// Check Network Status
 	// ถ้า Net Online และ Post สำเร็จ ให้บันทึก SQL order.completed = true
+	fmt.Println("*Host.Order() COMPLETED")
 	return nil
 }
 
