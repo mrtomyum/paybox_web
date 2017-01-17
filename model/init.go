@@ -19,7 +19,7 @@ func init() {
 	db = sqlx.MustConnect("sqlite3", "./paybox.db")
 	H = &Host{
 		Id:                 "001",
-		Online:             true,
+		IsNetOnline:             true,
 		TotalEscrow:        0,
 		BillEscrow:         0,
 		TotalBill:          0,

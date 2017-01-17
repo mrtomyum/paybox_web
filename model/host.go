@@ -4,20 +4,20 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	//"encoding/json"
 )
 
 type Host struct {
-	Id              string
-	Online          bool
+	Id              string  // รหัสเมนบอร์ดตู้
+	IsNetOnline     bool    // สถานะ GSM ปัจจุบัน (Real time)
+	IsServerOnline  bool    // สถานะเซิร์ฟเวอร์ครั้งสุดท้ายที่สื่อสาร
 	TotalEscrow     float64 // มูลค่าเงินพักทั้งหมด
 	BillEscrow      float64 // มูลค่าธนบัตรที่พักอยู่ในเครื่องรับธนบัตร
 	TotalBill       float64 // มูลค่าธนบัตรในกล่องเก็บธนบัตร
 	TotalCoinHopper float64 // มูลค่าเหรียญใน Coin Hopper
 	TotalCainBox    float64 // มูลค่าเหรียญใน TotalCainBox
 	TotalCash       float64 // รวมมูลค่าเงินในตู้นี้
-	Web             *Client
-	Dev             *Client
+	Web             *Client // Web Client object ที่เปิดคอนเนคชั่นอยู่
+	Dev             *Client // Device Client object ที่เปิดคอนเนคชั่นอยู่
 }
 
 // TotalEscrow ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
@@ -126,9 +126,6 @@ func (h *Host) Order(web *Client) {
 	// พิมพ์ตั๋ว และใบเสร็จ
 	P.Print(order)
 
-	// บันทึกข้อมูลลง SQL โดย order.completed = false
-	H.OrderSave(order)
-
 	// ส่งผลลัพธ์แจ้งกลับ Web Client ด้วยเพื่อให้ล้างยอดเงิน เริ่มหน้าจอใหม่
 	web.Msg.Type = "response"
 	web.Msg.Result = true
@@ -138,22 +135,17 @@ func (h *Host) Order(web *Client) {
 	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
 	H.GetEscrow(web)
 
-	// เช็คสถานะ Network และ Server ว่า Online อยู่หรือไม่?
-	if !H.Online {
+	// เช็คสถานะ Network และ Server ว่า IsNetOnline อยู่หรือไม่?
+	if !H.IsNetOnline {
 		// Offline => Save order to disk
 	}
-	// Online => Post Order ขึ้น Cloud
-	// model.Order.POST()
-	// ถ้า Net Online และ Post สำเร็จ ให้บันทึก SQL order.completed = true
-	H.OrderSave(order, H.Online)
-	fmt.Println("*Host.Order() COMPLETED")
-}
 
-func (h *Host) OrderSave(o *Order, netStatus bool) {
-	if !netStatus {
-		// order.completed = false
+	order.Post()
+	// ถ้า Net IsNetOnline และ Post สำเร็จ ให้บันทึก SQL order.completed = true
+	err := order.Save()
+	if err != nil {
+		log.Println(err.Error())
 	}
-	// call model.Order.Save()
-	fmt.Println("h.OrderSave() run")
+	fmt.Println("*Host.Order() COMPLETED")
 }
 
