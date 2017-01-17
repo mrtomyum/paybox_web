@@ -95,7 +95,7 @@ func (h *Host) Cancel(c *Client) error {
 // Order ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง SqLite
 // และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
 // จะมี Routine Check Network status  คอยตรวจสอบสถานะและ Retry
-func (h *Host) Order(web *Client) error {
+func (h *Host) Order(web *Client) {
 	// รับคำสั่งจาก Web
 	fmt.Println("[Host.Order()] start web.Msg.Data:", web.Msg.Data)
 	order := &Order{}
@@ -103,7 +103,15 @@ func (h *Host) Order(web *Client) error {
 	fmt.Printf("[Host.Order()] รับค่า Order จาก web.Msg.Data ->  order= %v\n", order)
 
 	// กินธนบัตรที่พักไว้
-	B.Take(H.Dev)
+	err := B.Take(H.Dev)
+	if err != nil {
+		log.Println(err)
+		web.Msg.Type = "response"
+		web.Msg.Result = false
+		web.Msg.Data = err.Error()
+		H.Web.Send <- web.Msg
+	}
+
 	// ทอนเงินถ้ามี
 	if h.TotalEscrow > order.Total {
 		change := h.TotalEscrow - order.Total
@@ -117,6 +125,7 @@ func (h *Host) Order(web *Client) error {
 
 	// พิมพ์ตั๋ว และใบเสร็จ
 	P.Print(order)
+
 	// บันทึกข้อมูลลง SQL โดย order.completed = false
 	H.OrderSave(order)
 	// ส่งผลลัพธ์แจ้งกลับ Web Client ด้วยเพื่อให้ล้างยอดเงิน เริ่มหน้าจอใหม่

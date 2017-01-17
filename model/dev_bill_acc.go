@@ -3,6 +3,7 @@ package model
 import (
 	"log"
 	"fmt"
+	"errors"
 )
 
 type BillAcceptor struct {
@@ -12,7 +13,7 @@ type BillAcceptor struct {
 }
 
 // สั่งให้ Bill Acceptor เก็บเงิน
-func (b *BillAcceptor) Take(c *Client) {
+func (b *BillAcceptor) Take(c *Client) error {
 	ch := make(chan *Message)
 	m1 := &Message{
 		Device:  "bill_acc",
@@ -36,9 +37,11 @@ func (b *BillAcceptor) Take(c *Client) {
 	m3 := <-ch //  ที่นี่โปรแกรมจะ Block รอจนกว่าจะมี Message m3 จาก Channel ch
 	if !m3.Result {
 		b.Status = "Error cannot take bill"
+		return errors.New("Error Bill Acceptor cannot take bill")
 		log.Println("Error response from Bill Acceptor!")
 	}
 	H.TotalBill = + H.BillEscrow
 	H.BillEscrow = 0
-	fmt.Println("Bill Acc [take] success...Received response from Bill Acceptor:", m3)
+	fmt.Println("Bill Acceptor [take] success.. m3=:", m3)
+	return nil
 }
