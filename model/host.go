@@ -128,23 +128,32 @@ func (h *Host) Order(web *Client) {
 
 	// บันทึกข้อมูลลง SQL โดย order.completed = false
 	H.OrderSave(order)
+
 	// ส่งผลลัพธ์แจ้งกลับ Web Client ด้วยเพื่อให้ล้างยอดเงิน เริ่มหน้าจอใหม่
 	web.Msg.Type = "response"
 	web.Msg.Result = true
 	web.Msg.Data = "success"
 	H.Web.Send <- web.Msg
+
 	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
 	H.GetEscrow(web)
 
-	// Post Order ขึ้น Cloud
-	// Cloud.Order.POST()
-	// Check Network Status
+	// เช็คสถานะ Network และ Server ว่า Online อยู่หรือไม่?
+	if !H.Online {
+		// Offline => Save order to disk
+	}
+	// Online => Post Order ขึ้น Cloud
+	// model.Order.POST()
 	// ถ้า Net Online และ Post สำเร็จ ให้บันทึก SQL order.completed = true
+	H.OrderSave(order, H.Online)
 	fmt.Println("*Host.Order() COMPLETED")
-	return nil
 }
 
-func (h *Host) OrderSave(o *Order) {
+func (h *Host) OrderSave(o *Order, netStatus bool) {
+	if !netStatus {
+		// order.completed = false
+	}
+	// call model.Order.Save()
 	fmt.Println("h.OrderSave() run")
 }
 
