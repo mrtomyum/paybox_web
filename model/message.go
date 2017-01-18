@@ -1,9 +1,9 @@
 package model
 
 type Message struct {
-	Device  string
-	Type    string
-	Command string
-	Result  bool
-	Data    interface{}
+	Device  string `json:"device"`
+	Type    string `json:"type"`
+	Command string `json:"command"`
+	Result  bool `json:"result"`
+	Data    interface{} `json:"data"`
 }

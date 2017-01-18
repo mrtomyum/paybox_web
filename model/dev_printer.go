@@ -8,7 +8,7 @@ type Printer struct {
 	Send   chan *Message
 }
 
-func (p *Printer) Print(o *Order) error {
+func (p *Printer) Print(s *Sale) error {
 	fmt.Println("p.Print() run")
 	return nil
 }

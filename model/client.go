@@ -31,11 +31,7 @@ func (c *Client) Read() {
 		case c.Name == "web":
 			fmt.Println("Request message from Web")
 			c.WebEvent()
-		case c.Name == "dev" && c.Msg.Type == "response":
-			// ตอนนี้ยังไม่มี "request" จาก dev มีแต่ "response"
-			log.Println("Response message...from Dev")
-			c.DevResponse()
-		case c.Name == "dev" && c.Msg.Type == "event":
+		case c.Name == "dev":
 			fmt.Println("Event message from Dev")
 			c.DevEvent()
 		default:
@@ -82,8 +78,6 @@ func (c *Client) WebEvent() {
 			H.GetEscrow(c)
 		case "cancel":
 			H.Cancel(c)
-		case "order":
-			H.Order(c)
 		default:
 			log.Println("Client.WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
 		}
@@ -130,7 +124,15 @@ func (c *Client) DevEvent() {
 		case "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 		case "recently_inserted": // ร้องขอจานวนเงินของธนบัตรล่าสุดที่ได้รับ
 		case "take_reject":       // สั่งให้ รับ-คืน ธนบัตรท่ีกาลังตรวจสอบอยู่ **น่าจะใช้คำว่า Escrow
+			B.Send <- c.Msg
 		case "received":          // Event นจี้ ะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
+			H.BillEscrow = c.Msg.Data.(float64)
+			m := &Message{
+				Command:"onhand",
+				Data:   100,
+			}
+			H.Web.Send <- m
+			fmt.Println("Bill Update")
 		}
 	case "printer":
 		switch c.Msg.Command {

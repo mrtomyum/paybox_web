@@ -1,34 +1,33 @@
 package model
 
 import (
-	//"time"
 	"reflect"
 	"fmt"
 	"errors"
 	"time"
 )
 
-type Order struct {
-	Id        int64
-	Created   *time.Time
-	HostId    string
-	Total     float64
-	Payment   float64
-	Change    float64
-	OrderType string `json:"order_type" db:"order_type"`
-	IsPosted  bool `json:"is_posted" db:"is_posted"`
-	Items     []*OrderSub
+type Sale struct {
+	Id       int64
+	Created  *time.Time
+	HostId   string `json:"host_id" db:"host_id"`
+	Total    float64 `json:"total"`
+	Payment  float64 `json:"payment"`
+	Change   float64 `json:"change"`
+	Type     string `json:"type" db:"type"`
+	IsPosted bool `json:"is_posted" db:"is_posted"`
+	SaleSubs []*SaleSub `json:"sale_subs" `
 }
 
-type OrderSub struct {
+type SaleSub struct {
 	Line     uint64 `json:"line"`
-	OrderId  uint64
-	ItemId   uint64  `json:"item_id"`
-	ItemName string  `json:"item_name"`
-	PriceId  int     `json:"price_id"`
+	SaleId   uint64 `json:"sale_id" db:"sale_id"`
+	ItemId   uint64  `json:"item_id" db:"item_id"`
+	ItemName string  `json:"item_name" db:"item_name"`
+	PriceId  int     `json:"price_id" db:"price_id"`
 	Price    float64 `json:"price"`
 	Qty      int     `json:"qty"`
-	Unit     string
+	Unit     string `json:"unit"`
 }
 
 func SetField(obj interface{}, name string, value interface{}) error {
@@ -54,9 +53,9 @@ func SetField(obj interface{}, name string, value interface{}) error {
 	return nil
 }
 
-func (o *Order) FillStruct(m map[string]interface{}) error {
+func (s *Sale) FillStruct(m map[string]interface{}) error {
 	for k, v := range m {
-		err := SetField(o, k, v)
+		err := SetField(s, k, v)
 		if err != nil {
 			return err
 		}
@@ -64,50 +63,53 @@ func (o *Order) FillStruct(m map[string]interface{}) error {
 	return nil
 }
 
-func (o *Order) Post() error {
+func (s *Sale) Post() error {
 	// Ping Server api.paybox.work:8080/ping
-	// if post Error o.IsPosted = false
+	// if post Error s.IsPosted = false
 	// IsNetOnline => Post Order ขึ้น Cloud
-	o.IsPosted = true
+	s.IsPosted = true
 	return nil
 }
 
-func (o *Order) Save() error {
-	sql1 := `INSERT INTO order(
+func (s *Sale) Save() error {
+	fmt.Println("h.OrderSave() start")
+	sql1 := `INSERT INTO sale(
 		host_id,
 		total,
 		payment,
 		change,
-		order_type
+		type,
 		is_posted
+		)
 	VALUES (?,?,?,?,?,?)`
 
 	// Todo: Add time to "created" field
 	//created := time.Now()
 	rs, err := db.Exec(sql1,
-		o.HostId,
-		o.Total,
-		o.Payment,
-		o.Change,
-		o.OrderType,
-		o.IsPosted,
+		s.HostId,
+		s.Total,
+		s.Payment,
+		s.Change,
+		s.Type,
+		s.IsPosted,
 	)
 	if err != nil {
 		return err
 	}
-	o.Id, _ = rs.LastInsertId()
+	s.Id, _ = rs.LastInsertId()
 
-	os := OrderSub{}
-	sql2 := `INSERT INTO order_sub(
-		order_id,
+	os := SaleSub{}
+	sql2 := `INSERT INTO sale_sub(
+		sale_id,
 		item_id,
 		qty,
 		price_id,
 		price
+		)
 	VALUES(?,?,?,?,?)`
-	// Todo: Loop til end OrderSub
+	// Todo: Loop til end SaleSub
 	rs, err = db.Exec(sql2,
-		o.Id,
+		s.Id,
 		os.Line,
 		os.ItemId,
 		os.ItemName,
@@ -120,12 +122,11 @@ func (o *Order) Save() error {
 		return err
 	}
 	// Check result
-	inserted := Order{}
-	err = db.Get(inserted, "SELECT * FROM order WHERE id = ?", o.Id)
+	inserted := Sale{}
+	err = db.Get(&inserted, "SELECT * FROM sale WHERE id = ?", s.Id)
 	if err != nil {
 		return err
 	}
-	fmt.Println(inserted)
-	fmt.Println("h.OrderSave() run")
+	fmt.Println("Order.Save() completed, data->", inserted)
 	return nil
 }
