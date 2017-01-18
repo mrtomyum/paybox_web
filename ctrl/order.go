@@ -12,7 +12,7 @@ import (
 // และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
 // จะมี Routine Check Network status  คอยตรวจสอบสถานะและ Retry
 func NewSale(c *gin.Context) {
-	// รับคำสั่งจาก Web
+	// รับคำสั่งจาก Web ผ่าน JSON RESTful
 	fmt.Println("[Host.NewSale()] start", c.Request)
 
 	sale := &model.Sale{}
@@ -20,10 +20,6 @@ func NewSale(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, sale)
 		log.Println("Error JSON from Web client.")
 	}
-	//err := sale.FillStruct(web.Msg.Data.(map[string]interface{}))
-	//if err != nil {
-	//	fmt.Println("Error when *Order.FillStruct(), err=>", err.Error())
-	//}
 	fmt.Printf("[NewSale()] รับค่า Order จาก web-> sale= %v\n", sale)
 
 	// กินธนบัตรที่พักไว้

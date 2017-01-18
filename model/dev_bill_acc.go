@@ -12,6 +12,25 @@ type BillAcceptor struct {
 	Send   chan *Message
 }
 
+func (b *BillAcceptor) Event(c *Client) {
+	switch c.Msg.Command {
+	case "machine_id":        // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
+	case "inhibit":           // ใช้สาหรับร้องขอ สถานะ Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
+	case "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
+	case "recently_inserted": // ร้องขอจานวนเงินของธนบัตรล่าสุดที่ได้รับ
+	case "take_reject": // สั่งให้ รับ-คืน ธนบัตรท่ีกาลังตรวจสอบอยู่ **น่าจะใช้คำว่า Escrow
+		B.Send <- c.Msg
+	case "received": // Event นจี้ ะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
+		H.BillEscrow = c.Msg.Data.(float64)
+		m := &Message{
+			Command:"onhand",
+			Data:   100,
+		}
+		H.Web.Send <- m
+		fmt.Println("Bill Update")
+	}
+}
+
 // สั่งให้ Bill Acceptor เก็บเงิน
 func (b *BillAcceptor) Take(c *Client) error {
 	ch := make(chan *Message)

@@ -9,7 +9,7 @@ var (
 	db *sqlx.DB
 	H  *Host
 	B  *BillAcceptor
-	C  *CoinAcceptor
+	CA *CoinAcceptor
 	CH *CoinHopper
 	P  *Printer
 	M  *MainBoard
@@ -32,7 +32,7 @@ func init() {
 		Status: "ok",
 		Send:   make(chan *Message),
 	}
-	C = &CoinAcceptor{
+	CA = &CoinAcceptor{
 		Status: "ok",
 		Send:   make(chan *Message),
 	}
@@ -48,5 +48,6 @@ func init() {
 	}
 	M = &MainBoard{
 		Status: "ok",
+		Send:   make(chan *Message),
 	}
 }
