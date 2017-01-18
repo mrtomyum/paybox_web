@@ -477,11 +477,12 @@ function send_order(){
     $('#myModal').modal('toggle');
    // console.log("itemCode = "+itemCode+", itemName = "+itemName+", qty = "+qty+", size ="+size+", unit = "+unit+", price = "+price);
 }
-
+var line = 1;
 function order_list(itemCode,itemName,size,qty,unit,price){
    // console.log(itemCode+","+itemName+","+size+","+qty+","+unit+","+price);
-   listOrder.push({"item_id":itemCode,"name":itemName,"qty":qty,"price_name":size,"price":price,"unit":unit});
 
+   listOrder.push({"line":line,"item_id":itemCode,"item_name":itemName,"qty":qty,"price_name":size,"price":price,"unit":unit});
+   line += 1;
    console.log(JSON.stringify(listOrder));
    var list = "";
    var totalPrice = 0;
@@ -499,11 +500,11 @@ function order_list(itemCode,itemName,size,qty,unit,price){
                 `;
        totalPrice += parseInt(listOrder[i].price);
    }
-    console.log(numeral(totalPrice).format('0,0'));
+    //console.log(numeral(totalPrice).format('0,0'));
     var ttPrice = numeral(totalPrice).format('0,0');
    document.getElementById("pri1").value = ttPrice;
    document.getElementById("order_list").innerHTML = list;
-   console.log(list);
+   //console.log(list);
    disabled_payment();
 }
 
@@ -647,7 +648,7 @@ function print(){
    }
     var orderType = status;
     var output = "";
-    output = `{"Device":`+window.location.host+`,"type":"request","command":"billing","result": true,"data":{"total":`+pri1+`,"payment":`+pri2+`,"change":`+changeMoney+`,"order_type":`+orderType+`,"order_sub":`+JSON.stringify(listOrder)+`}}`;
+    output = `{"Device":"host","type":"request","command":"order","data":{"total":`+pri1+`,"payment":`+pri2+`,"change":`+changeMoney+`,"type":`+orderType+`,"sale_sub":`+JSON.stringify(listOrder)+`}}`;
     console.log(output);
     console.log(parseInt(pri2)+","+parseInt(pri1));
     if(changeMoney<0){
