@@ -283,7 +283,7 @@ function item(lang,menuId){
                     for(var i = 0; i < items.length; i++){
                     	var price = items[i].prices;
                     	item += `<a href="#"><div class="block-3"
-                    			onclick="showmodal('`+items[i].id+`','`+items[i].name+`','/img/`+items[i].image+`','`+items[i].unit+`',
+                    			onclick="showmodal('`+items[i].Id+`','`+items[i].name+`','`+items[i].menu_seq+`','/img/`+items[i].image+`','`+items[i].unit+`',
                     			'`+price[0].name+'/'+price[0].price+`'
                     			,'`+price[1].name+'/'+price[1].price+`'
                     			,'`+price[2].name+'/'+price[2].price+`')">
@@ -405,11 +405,11 @@ console.log("active id "+id);
       }
 }
 
-function showmodal(id,name,img,unit,s,m,l){
+function showmodal(id,name,line,img,unit,s,m,l){
 	$("h1").removeClass("acsize");
 	$("#s").addClass("acsize");
 
-	//console.log(id+", "+name+", "+img+", "+unit+", "+s+", "+m+", "+l);
+	console.log(id+", "+name+", "+line+","+img+", "+unit+", "+s+", "+m+", "+l);
 	
 
 	var Mitem = id+` : `+name;
@@ -452,6 +452,7 @@ function showmodal(id,name,img,unit,s,m,l){
 
     document.getElementById("MitemNo").value = id;
     document.getElementById("MitemName").value = name;
+    document.getElementById("line").value = line;
     document.getElementById("Munit").value = unit;
     document.getElementById("Msize").value = sName;
     document.getElementById("mo_qty").value = 1;
@@ -466,6 +467,7 @@ function showmodal(id,name,img,unit,s,m,l){
 function send_order(){
     var itemCode = document.getElementById("MitemNo").value;
     var itemName = document.getElementById("MitemName").value;
+    var line = document.getElementById("line").value;
     var qty = document.getElementById("mo_qty").value;
     var price = document.getElementById("mo-pri").value;
     var unit = document.getElementById("Munit").value;
@@ -473,12 +475,12 @@ function send_order(){
 
     price = price.split(" ");
 
-    order_list(itemCode,itemName,size,qty,unit,price[0]);
+    order_list(itemCode,itemName,line,size,qty,unit,price[0]);
     $('#myModal').modal('toggle');
    // console.log("itemCode = "+itemCode+", itemName = "+itemName+", qty = "+qty+", size ="+size+", unit = "+unit+", price = "+price);
 }
-var line = 1;
-function order_list(itemCode,itemName,size,qty,unit,price){
+//var line = 1;
+function order_list(itemCode,itemName,line,size,qty,unit,price){
    // console.log(itemCode+","+itemName+","+size+","+qty+","+unit+","+price);
 
    listOrder.push({"line":line,"item_id":itemCode,"item_name":itemName,"qty":qty,"price_name":size,"price":price,"unit":unit});
