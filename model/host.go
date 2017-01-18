@@ -22,7 +22,7 @@ type Host struct {
 
 // TotalEscrow ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
 func (h *Host) GetEscrow(c *Client) {
-	fmt.Println("Host.TotalEscrow <-Message...")
+	fmt.Println("Host.GetEscrow...")
 	c.Msg.Result = true
 	c.Msg.Type = "response"
 	c.Msg.Data = h.TotalEscrow
@@ -137,14 +137,15 @@ func (h *Host) Order(web *Client) {
 
 	// เช็คสถานะ Network และ Server ว่า IsNetOnline อยู่หรือไม่?
 	if !H.IsNetOnline {
-		// Offline => Save order to disk
+		fmt.Println("Offline => Save order to disk")
 	}
-
+	fmt.Println("order.Post()")
 	order.Post()
 	// ถ้า Net IsNetOnline และ Post สำเร็จ ให้บันทึก SQL order.completed = true
-	err := order.Save()
+	fmt.Println("order.Save()")
+	err = order.Save()
 	if err != nil {
-		log.Println(err.Error())
+		log.Println("Error in order.Save() =>", err.Error())
 	}
 	fmt.Println("*Host.Order() COMPLETED")
 }

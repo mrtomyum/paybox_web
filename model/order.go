@@ -74,7 +74,6 @@ func (o *Order) Post() error {
 
 func (o *Order) Save() error {
 	sql1 := `INSERT INTO order(
-		created,
 		host_id,
 		total,
 		payment,
@@ -83,9 +82,9 @@ func (o *Order) Save() error {
 		is_posted
 	VALUES (?,?,?,?,?,?)`
 
-	created := time.Now()
+	// Todo: Add time to "created" field
+	//created := time.Now()
 	rs, err := db.Exec(sql1,
-		created,
 		o.HostId,
 		o.Total,
 		o.Payment,
@@ -120,7 +119,13 @@ func (o *Order) Save() error {
 	if err != nil {
 		return err
 	}
-
+	// Check result
+	inserted := Order{}
+	err = db.Get(inserted, "SELECT * FROM order WHERE id = ?", o.Id)
+	if err != nil {
+		return err
+	}
+	fmt.Println(inserted)
 	fmt.Println("h.OrderSave() run")
 	return nil
 }
