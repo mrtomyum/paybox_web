@@ -20,7 +20,7 @@ func init() {
 	H = &Host{
 		Id:                 "001",
 		IsNetOnline:             true,
-		TotalEscrow:        0,
+		TotalEscrow:        100,
 		BillEscrow:         100,
 		TotalBill:          0,
 		TotalCoinHopper:    0,
