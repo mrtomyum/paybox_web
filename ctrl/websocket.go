@@ -17,14 +17,17 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 	fmt.Println("start New Web connection success...")
+
 	c := &model.Client{
 		Ws:   conn,
 		Send: make(chan *model.Message),
 		Name: "web",
+		Msg:  &model.Message{},
 	}
 	fmt.Println("Web:", c.Name, "...start send <-c to model.H.Webclient")
 	model.H.Web = c
-	fmt.Println("start go c.Write()")
+	model.H.GetEscrow(c) // ส่งเงินพักที่มีตอนนี้ไปแสดงผล
+	fmt.Println("Start Web connection")
 	go c.Write()
 	c.Read() // ดัก Event message ที่จะส่งมาตอนไหนก็ไม่รู้
 }
@@ -43,7 +46,7 @@ func ServDev(w http.ResponseWriter, r *http.Request) {
 		Send: make(chan *model.Message),
 		Name: "dev",
 	}
-	fmt.Println("Dev:", c.Name)
+	fmt.Println("Start Dev Connection:")
 	model.H.Dev = c
 	go c.Write()
 	c.Read()

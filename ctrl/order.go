@@ -69,9 +69,8 @@ func NewSale(c *gin.Context) {
 	if err != nil {
 		log.Println("Error in sale.Save() =>", err.Error())
 	}
-
 	c.JSON(http.StatusOK, gin.H{"result":"success"})
-	fmt.Println("*Host.Order() COMPLETED")
+	fmt.Println("NewSale() COMPLETED, sale = ", sale)
 }
 
 

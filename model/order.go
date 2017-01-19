@@ -1,9 +1,7 @@
 package model
 
 import (
-	"reflect"
 	"fmt"
-	"errors"
 	"time"
 )
 
@@ -28,39 +26,6 @@ type SaleSub struct {
 	Price    float64 `json:"price"`
 	Qty      int     `json:"qty"`
 	Unit     string `json:"unit"`
-}
-
-func SetField(obj interface{}, name string, value interface{}) error {
-	structValue := reflect.ValueOf(obj).Elem()
-	fmt.Printf("[func SetField] reflect.ValueOf(obj).Elem() name= %v ,value= %v \n", name, value)
-	structFieldValue := structValue.FieldByName(name)
-
-	if !structFieldValue.IsValid() {
-		return fmt.Errorf("No such field: %o in obj", name)
-	}
-
-	if !structFieldValue.CanSet() {
-		return fmt.Errorf("Cannot set %o field value", name)
-	}
-
-	structFieldType := structFieldValue.Type()
-	val := reflect.ValueOf(value)
-	if structFieldType != val.Type() {
-		return errors.New("Provided value type didn't match obj field type")
-	}
-
-	structFieldValue.Set(val)
-	return nil
-}
-
-func (s *Sale) FillStruct(m map[string]interface{}) error {
-	for k, v := range m {
-		err := SetField(s, k, v)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
 }
 
 func (s *Sale) Post() error {
@@ -98,7 +63,7 @@ func (s *Sale) Save() error {
 	}
 	s.Id, _ = rs.LastInsertId()
 
-	os := SaleSub{}
+	ss := SaleSub{}
 	sql2 := `INSERT INTO sale_sub(
 		sale_id,
 		item_id,
@@ -110,23 +75,55 @@ func (s *Sale) Save() error {
 	// Todo: Loop til end SaleSub
 	rs, err = db.Exec(sql2,
 		s.Id,
-		os.Line,
-		os.ItemId,
-		os.ItemName,
-		os.PriceId,
-		os.Price,
-		os.Qty,
-		os.Unit,
+		ss.Line,
+		ss.ItemId,
+		ss.ItemName,
+		ss.PriceId,
+		ss.Price,
+		ss.Qty,
+		ss.Unit,
 	)
 	if err != nil {
 		return err
 	}
 	// Check result
-	inserted := Sale{}
-	err = db.Get(&inserted, "SELECT * FROM sale WHERE id = ?", s.Id)
+	err = db.Get(&s, "SELECT * FROM sale WHERE id = ?", s.Id)
 	if err != nil {
 		return err
 	}
-	fmt.Println("Order.Save() completed, data->", inserted)
+	fmt.Println("Sale.Save() completed, data->", s)
 	return nil
 }
+
+//func SetField(obj interface{}, name string, value interface{}) error {
+//	structValue := reflect.ValueOf(obj).Elem()
+//	fmt.Printf("[func SetField] reflect.ValueOf(obj).Elem() name= %v ,value= %v \n", name, value)
+//	structFieldValue := structValue.FieldByName(name)
+//
+//	if !structFieldValue.IsValid() {
+//		return fmt.Errorf("No such field: %o in obj", name)
+//	}
+//
+//	if !structFieldValue.CanSet() {
+//		return fmt.Errorf("Cannot set %o field value", name)
+//	}
+//
+//	structFieldType := structFieldValue.Type()
+//	val := reflect.ValueOf(value)
+//	if structFieldType != val.Type() {
+//		return errors.New("Provided value type didn't match obj field type")
+//	}
+//
+//	structFieldValue.Set(val)
+//	return nil
+//}
+//
+//func (s *Sale) FillStruct(m map[string]interface{}) error {
+//	for k, v := range m {
+//		err := SetField(s, k, v)
+//		if err != nil {
+//			return err
+//		}
+//	}
+//	return nil
+//}

@@ -18,8 +18,11 @@ func (b *BillAcceptor) Event(c *Client) {
 	case "inhibit":           // ใช้สาหรับร้องขอ สถานะ Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 	case "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 	case "recently_inserted": // ร้องขอจานวนเงินของธนบัตรล่าสุดที่ได้รับ
-	case "take_reject": // สั่งให้ รับ-คืน ธนบัตรท่ีกาลังตรวจสอบอยู่ **น่าจะใช้คำว่า Escrow
-		B.Send <- c.Msg
+	case "take_reject": // สั่งให้ รับ-คืน ธนบัตรท่ีกาลังพักอยู่ **น่าจะใช้คำว่า Escrow
+		switch c.Msg.Type {
+		case "response":
+			B.Send <- c.Msg
+		}
 	case "received": // Event นจี้ ะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
 		H.BillEscrow = c.Msg.Data.(float64)
 		m := &Message{

@@ -84,7 +84,6 @@ func (c *Client) WebEvent() {
 
 // DevEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
-// โดยไปเรียก Method ที่เกี่ยวข้อง จาก DeviceObject ที่ประกาศไว้ใน Init()
 func (c *Client) DevEvent() {
 	fmt.Println("Event message from Dev")
 	switch c.Msg.Device {

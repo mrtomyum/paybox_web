@@ -21,7 +21,7 @@ func init() {
 		Id:                 "001",
 		IsNetOnline:             true,
 		TotalEscrow:        0,
-		BillEscrow:         0,
+		BillEscrow:         100,
 		TotalBill:          0,
 		TotalCoinHopper:    0,
 		TotalCainBox:       0,
