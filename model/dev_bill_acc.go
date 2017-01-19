@@ -13,18 +13,22 @@ type BillAcceptor struct {
 }
 
 func (b *BillAcceptor) Event(c *Client) {
+	fmt.Println("BillAcceptor Event...with Client=", c.Name)
 	switch c.Msg.Command {
 	case "machine_id":        // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
+		switch c.Msg.Type {
+		case "request":
+			b.MachineId(H.Dev)
+		case "response":
+		}
 	case "inhibit":           // ใช้สาหรับร้องขอ สถานะ Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 	case "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 	case "recently_inserted": // ร้องขอจานวนเงินของธนบัตรล่าสุดที่ได้รับ
-	case "take_reject": // สั่งให้ รับ-คืน ธนบัตรท่ีกาลังพักอยู่ **น่าจะใช้คำว่า Escrow
-		switch c.Msg.Type {
-		case "response":
+	case "take_reject": // สั่งให้ รับ-คืน ธนบัตรท่ีกาลังพักอยู่
 			B.Send <- c.Msg
-		}
-	case "received": // Event นจี้ ะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
+	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
 		H.BillEscrow = c.Msg.Data.(float64)
+		H.TotalEscrow = + H.BillEscrow
 		m := &Message{
 			Command:"onhand",
 			Data:   100,
@@ -32,6 +36,27 @@ func (b *BillAcceptor) Event(c *Client) {
 		H.Web.Send <- m
 		fmt.Println("Bill Update")
 	}
+}
+
+func (b *BillAcceptor) MachineId(c *Client) error {
+	//ch := make(chan *Message)
+	m := &Message{Device:"bill_acc", Command:"machine_id", Type: "request"}
+	c.Send <- m
+	go func() {
+		for {
+			m = <-b.Send
+			//ch <- m
+		}
+	}()
+	if !m.Result {
+		b.Status = "Error when get machine_id"
+		return errors.New("Error when get machine_id")
+		log.Println("Error when get machine_id")
+	}
+	fmt.Println("Bill Acceptor machine id =", m.Data.(string))
+	m.Type = "response"
+	H.Web.Send <- m
+	return nil
 }
 
 // สั่งให้ Bill Acceptor เก็บเงิน

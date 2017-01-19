@@ -37,7 +37,7 @@ func (s *Sale) Post() error {
 }
 
 func (s *Sale) Save() error {
-	fmt.Println("h.OrderSave() start")
+	fmt.Println("*Sale.Save() start")
 	sql1 := `INSERT INTO sale(
 		host_id,
 		total,
@@ -59,10 +59,11 @@ func (s *Sale) Save() error {
 		s.IsPosted,
 	)
 	if err != nil {
+		fmt.Printf("Error when db.Exec(sql1) %v", err.Error())
 		return err
 	}
 	s.Id, _ = rs.LastInsertId()
-
+	fmt.Println("s.Id =", s.Id)
 	ss := SaleSub{}
 	sql2 := `INSERT INTO sale_sub(
 		sale_id,
@@ -84,14 +85,20 @@ func (s *Sale) Save() error {
 		ss.Unit,
 	)
 	if err != nil {
+		fmt.Printf("Error when db.Exec(sql2) %v", err.Error())
 		return err
 	}
 	// Check result
-	err = db.Get(&s, "SELECT * FROM sale WHERE id = ?", s.Id)
+	sales := []*Sale{}
+	err = db.Select(&sales, "SELECT * FROM sale WHERE id = ?", s.Id)
 	if err != nil {
+		fmt.Printf("Error when db.Get(&s) %v", err.Error())
 		return err
 	}
-	fmt.Println("Sale.Save() completed, data->", s)
+	for _, v := range sales {
+		fmt.Println("Read database row->", v)
+	}
+	fmt.Println("*Sale.Save() completed, data->", sales)
 	return nil
 }
 

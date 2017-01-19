@@ -13,7 +13,7 @@ import (
 // จะมี Routine Check Network status  คอยตรวจสอบสถานะและ Retry
 func NewSale(c *gin.Context) {
 	// รับคำสั่งจาก Web ผ่าน JSON RESTful
-	fmt.Println("[Host.NewSale()] start", c.Request)
+	fmt.Println("NewSale()] start", c.Request)
 
 	sale := &model.Sale{}
 	if c.Bind(sale) != nil {
@@ -22,7 +22,7 @@ func NewSale(c *gin.Context) {
 	}
 	fmt.Printf("[NewSale()] รับค่า Order จาก web-> sale= %v\n", sale)
 
-	// กินธนบัตรที่พักไว้
+	// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
 	err := model.B.Take(model.H.Dev)
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"result":"error", "message":err.Error()})
