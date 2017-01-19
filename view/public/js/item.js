@@ -667,8 +667,15 @@ function print(){
                       dataType: "json",
                       type: "POST",
                       cache: false,
-                          success: function(result){
-                            alert("success");
+                          success: function(res){
+                            //console.log(JSON.stringify(res.result));
+                            if(res.result==='success'){
+                                Alert7.alert(res.result);
+                                setTimeout(function(){
+                                    window.location = 'index.html';
+                                },2000)
+                            }
+
                          },
                           error: function(err){
                               console.log(JSON.stringify(err));
@@ -687,13 +694,10 @@ function cancel_menu(){
 
     });
     _alertA.addAction("Yes", function(){
-        var cancel = '{"device": "'+window.location.host+'",';
-                cancel += '"payload":';
-                cancel += '{';
+        var cancel = '{"device": "host",';
                 cancel += '"type" : "request",';
                 cancel += '"command" : "cancel"';
                // cancel += '"result" : true';
-                cancel += '}';
                 cancel += '}';
             doSend(cancel);
     });
