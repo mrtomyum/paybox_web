@@ -10,22 +10,16 @@ type Host struct {
 	Id              string  // รหัสเมนบอร์ดตู้
 	IsNetOnline     bool    // สถานะ GSM ปัจจุบัน (Real time)
 	IsServerOnline  bool    // สถานะเซิร์ฟเวอร์ครั้งสุดท้ายที่สื่อสาร
-	TotalEscrow     float64 // มูลค่าเงินพักทั้งหมด
-	BillEscrow      float64 // มูลค่าธนบัตรที่พักอยู่ในเครื่องรับธนบัตร
-	TotalBill       float64 // มูลค่าธนบัตรในกล่องเก็บธนบัตร
-	TotalCoinHopper float64 // มูลค่าเหรียญใน Coin Hopper
-	TotalCainBox    float64 // มูลค่าเหรียญใน TotalCainBox
-	TotalCash       float64 // รวมมูลค่าเงินในตู้นี้
 	Web             *Client // Web Client object ที่เปิดคอนเนคชั่นอยู่
 	Dev             *Client // Device Client object ที่เปิดคอนเนคชั่นอยู่
 }
 
 // TotalEscrow ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
 func (h *Host) OnHand(web *Client) {
-	fmt.Println("Host.OH()...")
+	fmt.Println("Host.OnHand()...")
 	web.Msg.Result = true
 	web.Msg.Type = "response"
-	web.Msg.Data = h.TotalEscrow
+	web.Msg.Data = OH.Total
 	web.Send <- web.Msg
 }
 
@@ -34,7 +28,7 @@ func (h *Host) Cancel(c *Client) error {
 	fmt.Println("Host.Cancel()...")
 
 	// Check Bill Acceptor
-	if h.TotalEscrow == 0 { // ไม่มีเงินพัก
+	if OH.Total == 0 { // ไม่มีเงินพัก
 		log.Println("ไม่มีเงินพัก:")
 		c.Msg.Type = "response"
 		c.Msg.Result = false
@@ -60,15 +54,15 @@ func (h *Host) Cancel(c *Client) error {
 	}
 
 	// Success
-	coinHopperEscrow := h.TotalEscrow - h.BillEscrow
-	h.BillEscrow = 0
+	OH.Coin = OH.Total - OH.Bill
+	OH.Bill = 0
 
 	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอด coinHopperEscrow ออกด้านหน้า
 	m2 := &Message{
 		Device:  "coin_hopper",
 		Command: "payout_by_cash",
 		Type:    "request",
-		Data:    coinHopperEscrow,
+		Data:    OH.Coin,
 	}
 	h.Dev.Send <- m2
 
@@ -82,7 +76,7 @@ func (h *Host) Cancel(c *Client) error {
 		c.Send <- c.Msg
 		return err
 	}
-	h.TotalEscrow = 0 // เคลียร์ยอดเงินค้างให้หมด
+	OH.Total = 0 // เคลียร์ยอดเงินค้างให้หมด
 
 	// Send message response back to Web Client
 	c.Msg.Type = "response"

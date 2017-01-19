@@ -23,12 +23,6 @@ func init() {
 	H = &Host{
 		Id:                      "001",
 		IsNetOnline:             true,
-		TotalEscrow:             100,
-		BillEscrow:              100,
-		TotalBill:               0,
-		TotalCoinHopper:         0,
-		TotalCainBox:            0,
-		TotalCash:               0,
 	}
 	BA = &BillAcceptor{
 		Status: "ok",
@@ -38,7 +32,6 @@ func init() {
 		Status: "ok",
 		Send:   make(chan *Message),
 	}
-
 	CH = &CoinHopper{
 		Status: "ok",
 		Send:   make(chan *Message),
@@ -54,8 +47,8 @@ func init() {
 	}
 	OH = &Onhand{
 		Coin: 0,
-		Bill: 0,
-		Total:0,
+		Bill: 100,
+		Total:100,
 	}
 	CB = &CashBox{
 		Hopper:0,

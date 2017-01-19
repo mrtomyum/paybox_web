@@ -15,7 +15,7 @@ type BillAcceptor struct {
 func (b *BillAcceptor) Event(c *Client) {
 	fmt.Println("BillAcceptor Event...with Client=", c.Name)
 	switch c.Msg.Command {
-	case "machine_id":        // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
+	case "machine_id": // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
 		switch c.Msg.Type {
 		case "request":
 			b.MachineId(H.Dev)
@@ -27,8 +27,8 @@ func (b *BillAcceptor) Event(c *Client) {
 	case "take_reject": // สั่งให้ รับ-คืน ธนบัตรท่ีกาลังพักอยู่
 		BA.Send <- c.Msg
 	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
-		H.BillEscrow = c.Msg.Data.(float64)
-		H.TotalEscrow = + H.BillEscrow
+		OH.Bill = c.Msg.Data.(float64)
+		OH.Total = + OH.Bill
 		m := &Message{
 			Command:"onhand",
 			Data:   100,
@@ -87,6 +87,6 @@ func (b *BillAcceptor) Take(action bool) error {
 		return errors.New("Error Bill Acceptor cannot take bill")
 		log.Println("Error response from Bill Acceptor!")
 	}
-	fmt.Println("[*BillAcceptor.Take()] success.. m=:", m)
+	fmt.Println("*BillAcceptor.Take() success.. m=:", m)
 	return nil
 }

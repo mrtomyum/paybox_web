@@ -101,36 +101,3 @@ func (s *Sale) Save() error {
 	fmt.Println("*Sale.Save() completed, data->", sales)
 	return nil
 }
-
-//func SetField(obj interface{}, name string, value interface{}) error {
-//	structValue := reflect.ValueOf(obj).Elem()
-//	fmt.Printf("[func SetField] reflect.ValueOf(obj).Elem() name= %v ,value= %v \n", name, value)
-//	structFieldValue := structValue.FieldByName(name)
-//
-//	if !structFieldValue.IsValid() {
-//		return fmt.Errorf("No such field: %o in obj", name)
-//	}
-//
-//	if !structFieldValue.CanSet() {
-//		return fmt.Errorf("Cannot set %o field value", name)
-//	}
-//
-//	structFieldType := structFieldValue.Type()
-//	val := reflect.ValueOf(value)
-//	if structFieldType != val.Type() {
-//		return errors.New("Provided value type didn't match obj field type")
-//	}
-//
-//	structFieldValue.Set(val)
-//	return nil
-//}
-//
-//func (s *Sale) FillStruct(m map[string]interface{}) error {
-//	for k, v := range m {
-//		err := SetField(s, k, v)
-//		if err != nil {
-//			return err
-//		}
-//	}
-//	return nil
-//}

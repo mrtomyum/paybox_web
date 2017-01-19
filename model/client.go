@@ -63,21 +63,13 @@ func (c *Client) WebEvent() {
 	// จะสั่งผ่าน Host ให้ Host ทำงานระดับล่างแทน
 	// แต่ตรงนี้มีไว้สำหรับการ Debug ผ่าน Web GUI
 	fmt.Println("Request message from Web")
-	switch c.Msg.Device { // เฉพาะให้ Frontend Debug
-	case "coin_hopper":
-		switch c.Msg.Command {
-		case "machine_id":
-			CH.GetId()
-		}
-	default: // Command for Host action.
-		switch c.Msg.Command {
-		case "onhand":
-			H.OnHand(c)
-		case "cancel":
-			H.Cancel(c)
-		default:
-			log.Println("Client.WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
-		}
+	switch c.Msg.Command {
+	case "onhand":
+		H.OnHand(c)
+	case "cancel":
+		H.Cancel(c)
+	default:
+		log.Println("Client.WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
 	}
 }
 

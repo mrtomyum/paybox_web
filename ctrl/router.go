@@ -25,7 +25,7 @@ func Router(r *gin.Engine) *gin.Engine {
 	r.Static("/img", "./view/public/img")
 	r.Static("/json", "./view/public/json")
 
-	// for Web endpoint call data in JSON
+	// for WebService endpoint call data in JSON
 	r.Use(static.Serve("/", static.LocalFile("view", true)))
 	r.GET("/menu", GetMenu)
 	r.GET("/menu/:id/", GetItemsByMenuId)
