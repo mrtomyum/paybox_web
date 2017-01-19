@@ -650,15 +650,30 @@ function print(){
    }
     var orderType = status;
     var output = "";
-    output = `{"Device":"host","type":"request","command":"order","data":{"total":`+pri1+`,"payment":`+pri2+`,"change":`+changeMoney+`,"type":`+orderType+`,"sale_sub":`+JSON.stringify(listOrder)+`}}`;
-    console.log(output);
+    output = `{"total":`+parseInt(pri1)+`,"payment":`+parseInt(pri2)+`,"change":`+changeMoney+`,"type":"`+orderType+`","sale_sub":`+JSON.stringify(listOrder)+`}`;
+    //console.log(output);
     console.log(parseInt(pri2)+","+parseInt(pri1));
     if(changeMoney<0){
         Alert7.alert("ยอดเงินไม่พอชำระ");
     }else {
       //  clearInterval(onHend);
-          alert(output);
-          doSend(output);
+       //   alert(output);
+        //  doSend(output);
+        console.log(output);
+               $.ajax({
+                      url: "http://"+window.location.host+"/sale",
+                      data: output,
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "json",
+                      type: "POST",
+                      cache: false,
+                          success: function(result){
+                            alert("success");
+                         },
+                          error: function(err){
+                              console.log(JSON.stringify(err));
+                          }
+                      });
     }
 
 }
