@@ -12,8 +12,8 @@ import (
 // และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
 // จะมี Routine Check Network status  คอยตรวจสอบสถานะและ Retry
 func NewSale(c *gin.Context) {
-	// รับคำสั่งจาก Web ผ่าน JSON RESTful
-	fmt.Println("NewSale()] start", c.Request)
+	// รับคำสั่งจาก Web ผ่าน JSON REST
+	fmt.Println("NewSale() start")
 	sale := &model.Sale{}
 	if c.Bind(sale) != nil {
 		c.JSON(http.StatusBadRequest, sale)
@@ -24,7 +24,7 @@ func NewSale(c *gin.Context) {
 	// ถ้าเหรียญมากกว่ายอดขาย และมีธนบัตรพักอยู่ ให้ "คาย" ธนบัตรและปรับยอดเงิน
 	coinEscrow := model.H.TotalEscrow - model.H.BillEscrow
 	if coinEscrow > sale.Total {
-		err := model.B.Take(false)
+		err := model.BA.Take(false)
 		if err != nil {
 			c.JSON(http.StatusConflict, gin.H{"result":"error", "message":err.Error()})
 		}
@@ -33,7 +33,7 @@ func NewSale(c *gin.Context) {
 	}
 
 	// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
-	err := model.B.Take(true)
+	err := model.BA.Take(true)
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"result":"error", "message":err.Error()})
 		log.Println("Error on Bill_Acceptor Take():", err.Error())
@@ -65,7 +65,7 @@ func NewSale(c *gin.Context) {
 	//model.H.Web.Send <- model.H.Web.Msg
 
 	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
-	model.H.GetEscrow(model.H.Web)
+	model.H.OnHand(model.H.Web)
 
 	// เช็คสถานะ Network และ Server ว่า IsNetOnline อยู่หรือไม่?
 	if !model.H.IsNetOnline {

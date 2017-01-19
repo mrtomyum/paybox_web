@@ -21,8 +21,8 @@ type Host struct {
 }
 
 // TotalEscrow ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
-func (h *Host) GetEscrow(web *Client) {
-	fmt.Println("Host.GetEscrow...")
+func (h *Host) OnHand(web *Client) {
+	fmt.Println("Host.OH()...")
 	web.Msg.Result = true
 	web.Msg.Type = "response"
 	web.Msg.Data = h.TotalEscrow

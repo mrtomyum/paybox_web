@@ -72,7 +72,7 @@ func (c *Client) WebEvent() {
 	default: // Command for Host action.
 		switch c.Msg.Command {
 		case "onhand":
-			H.GetEscrow(c)
+			H.OnHand(c)
 		case "cancel":
 			H.Cancel(c)
 		default:
@@ -91,7 +91,7 @@ func (c *Client) DevEvent() {
 	case "coin_acc":
 		CA.Event(c)
 	case "bill_acc":
-		B.Event(c)
+		BA.Event(c)
 	case "printer":
 		P.Event(c)
 	case "main_board":

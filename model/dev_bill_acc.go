@@ -25,7 +25,7 @@ func (b *BillAcceptor) Event(c *Client) {
 	case "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 	case "recently_inserted": // ร้องขอจานวนเงินของธนบัตรล่าสุดที่ได้รับ
 	case "take_reject": // สั่งให้ รับ-คืน ธนบัตรท่ีกาลังพักอยู่
-			B.Send <- c.Msg
+		BA.Send <- c.Msg
 	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
 		H.BillEscrow = c.Msg.Data.(float64)
 		H.TotalEscrow = + H.BillEscrow

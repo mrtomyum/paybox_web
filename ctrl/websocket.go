@@ -26,7 +26,7 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("Web:", c.Name, "...start send <-c to model.H.Webclient")
 	model.H.Web = c
-	//model.H.GetEscrow(c) // ส่งเงินพักที่มีตอนนี้ไปแสดงผล
+	//model.H.OH(c) // ส่งเงินพักที่มีตอนนี้ไปแสดงผล
 	fmt.Println("Start Web connection")
 	go c.Write()
 	c.Read() // ดัก Event message ที่จะส่งมาตอนไหนก็ไม่รู้
