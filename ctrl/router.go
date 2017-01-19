@@ -30,7 +30,7 @@ func Router(r *gin.Engine) *gin.Engine {
 	r.GET("/menu", GetMenu)
 	r.GET("/menu/:id/", GetItemsByMenuId)
 	r.GET("/item/:id", GetItemById)
-	r.POST("/sale", NewSale)
+	r.POST("/pay", Payment)
 
 	// for WebSocket Connection
 	r.GET("/web", func(c *gin.Context) {

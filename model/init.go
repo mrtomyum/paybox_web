@@ -57,10 +57,10 @@ func init() {
 		Total: 0,
 	}
 	AB = &AcceptedBill{
-		THB20:  true,
-		THB50:  true,
-		THB100: true,
-		THB500: false,
-		THB1000:false,
+		THB20:  0,
+		THB50:  0,
+		THB100: 0,
+		THB500: 300,
+		THB1000:700,
 	}
 }

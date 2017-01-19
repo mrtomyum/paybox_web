@@ -16,10 +16,12 @@ type CashBox struct {
 	Total  float64 // รวมมูลค่าเงินในตู้นี้
 }
 
+// AcceptedBill ระบุค่ายอดขายขั้นต่ำที่ยอมรับธนบัตรแต่ละขนาด 0 = ไม่จำกัด
 type AcceptedBill struct {
-	THB20   bool
-	THB50   bool
-	THB100  bool
-	THB500  bool
-	THB1000 bool
+	THB20   int `json:"thb_20"`
+	THB50   int `json:"thb_50"`
+	THB100  int `json:"thb_100"`
+	THB500  int `json:"thb_500"`
+	THB1000 int `json:"thb_1000"`
 }
+

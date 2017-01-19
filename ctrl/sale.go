@@ -10,16 +10,18 @@ import (
 
 // Order ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง SqLite
 // และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
-func NewSale(c *gin.Context) {
+func Payment(c *gin.Context) {
 	// รับคำสั่งจาก Web ผ่าน JSON REST
-	fmt.Println("NewSale() start")
+	fmt.Println("Payment() start")
 	sale := &model.Sale{}
 	if c.Bind(sale) != nil {
 		c.JSON(http.StatusBadRequest, sale)
 		log.Println("Error JSON from Web client.")
 	}
-	fmt.Printf("[NewSale()] รับค่า Order จาก web-> sale= %v\n", sale)
+	fmt.Printf("[Payment()] รับค่า Order จาก web-> sale= %v\n", sale)
 
+	// DisplayAcceptedBill() จากยอดขาย ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
+	DisplayAcceptedBill()
 	// ถ้าเหรียญมากกว่ายอดขาย และมีธนบัตรพักอยู่ ให้ "คาย" ธนบัตรและปรับยอดเงิน
 	if model.OH.Coin > sale.Total {
 		err := model.BA.Take(false)
@@ -76,5 +78,15 @@ func NewSale(c *gin.Context) {
 		"result":       "success",
 		"total_escrow": model.OH.Total,
 	})
-	fmt.Println("NewSale() COMPLETED, sale = ", sale)
+	fmt.Println("Payment() COMPLETED, sale = ", sale)
+}
+
+func DisplayAcceptedBill() {
+	// Check MinAcceptedBill500 & 1000
+	m := &model.Message{
+		Command:"accepted_bill",
+		Type:   "event",
+		Data:   model.AB,
+	}
+	model.H.Web.Send <- m
 }
