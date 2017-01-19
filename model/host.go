@@ -21,12 +21,12 @@ type Host struct {
 }
 
 // TotalEscrow ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
-func (h *Host) GetEscrow(c *Client) {
+func (h *Host) GetEscrow(web *Client) {
 	fmt.Println("Host.GetEscrow...")
-	c.Msg.Result = true
-	c.Msg.Type = "response"
-	c.Msg.Data = h.TotalEscrow
-	c.Send <- c.Msg
+	web.Msg.Result = true
+	web.Msg.Type = "response"
+	web.Msg.Data = h.TotalEscrow
+	web.Send <- web.Msg
 }
 
 // Cancel คืนเงินจากทุก Device โดยตรวจสอบเงิน Escrow ใน Bill Acceptor ด้วยถ้ามีให้คืนเงิน

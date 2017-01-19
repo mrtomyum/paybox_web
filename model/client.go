@@ -26,7 +26,6 @@ func (c *Client) Read() {
 			break
 		}
 		c.Msg = m
-
 		switch {
 		case c.Name == "web":
 			c.WebEvent()
