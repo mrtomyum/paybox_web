@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Sale เป็นหัวเอกสารขายแต่ละครั้ง
 type Sale struct {
 	Id       int64
 	Created  *time.Time
@@ -17,6 +18,7 @@ type Sale struct {
 	SaleSubs []*SaleSub `json:"sale_subs" `
 }
 
+// SaleSub เป็นรายการสินค้าที่ขายใน Sale
 type SaleSub struct {
 	Line     uint64 `json:"line"`
 	SaleId   uint64 `json:"sale_id" db:"sale_id"`
@@ -26,6 +28,20 @@ type SaleSub struct {
 	Price    float64 `json:"price"`
 	Qty      int     `json:"qty"`
 	Unit     string `json:"unit"`
+}
+
+// Payment เก็บรายละเอียดการชำระเงิน เหรียญ ธนบัตร หรือในอนาคตจะเพิ่มบัตรเครดิต และ Cashless Payment ได้ด้วย
+type Payment struct {
+	SaleId  int64
+	THB20   int // จำนวนธนบัตรใบละ 20 บาท
+	THB50   int // จำนวนธนบัตรใบละ 50 บาท
+	THB100  int // จำนวนธนบัตรใบละ 100 บาท
+	THB500  int // จำนวนธนบัตรใบละ 500 บาท
+	THB1000 int // จำนวนธนบัตรใบละ 1000 บาท
+	THB1C   int // จำนวนเหรียญ 1 บาท
+	THB2C   int // จำนวนเหรียญ 2 บาท
+	THB5C   int // จำนวนเหรียญ 5 บาท
+	THB10C  int // จำนวนเหรียญ 10 บาท
 }
 
 func (s *Sale) Post() error {

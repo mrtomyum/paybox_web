@@ -38,7 +38,7 @@ type CoinHopper struct {
 	Send   chan *Message
 }
 
-// Todo: Try to Construct CoinHopper Object after DevClient opened connection????
+// Todo: Try to Construct CoinHopper Object after Dev Client opened connection????
 func (ch *CoinHopper) Setup() {
 	CH.GetId()
 }

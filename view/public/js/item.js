@@ -67,7 +67,7 @@ $("document").ready(function(){
                 document.getElementById("txtUnit").innerHTML = "baht";
                 document.getElementById("txtUnit2").innerHTML = "baht";
 
-              /*  document.getElementById("bt_payment").innerHTML = "Payment";
+            /*  document.getElementById("bt_payment").innerHTML = "NewSale";
                 document.getElementById("bt_print").innerHTML = "Confirm";
                 document.getElementById("bt_cancel").innerHTML = "cancel";*/
 

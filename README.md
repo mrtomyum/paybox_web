@@ -2,6 +2,9 @@
 "The Ticket vending machine terminal client."
 Paybox Ticket Terminal software Service and Application written in Qt5 and interface with QML.
 
+## API Document
+https://docs.google.com/document/d/1OfTsGxqN9QS4xgPgSkZJoN2dK2tgUIa_Cke57Ye86uo/edit?usp=sharing
+
 ## MVP Feature
 + Customer Interface for Ticket/Item selection and Payment
   + Browse Item from Categories, pictures.
