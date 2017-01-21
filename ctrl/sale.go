@@ -11,6 +11,7 @@ import (
 // Order ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง SqLite
 // และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
 func NewSale(c *gin.Context) {
+
 	// รับคำสั่งจาก Web ผ่าน JSON REST
 	fmt.Println("NewSale() start")
 	sale := &model.Sale{}
@@ -23,7 +24,7 @@ func NewSale(c *gin.Context) {
 	// DisplayAcceptedBill() จากยอดขาย ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 	DisplayAcceptedBill()
 
-	// เริ่มการรับชำระที่อุปกรณ์ทุกตัว (Set Inhibit)
+	// เปิดการรับชำระที่อุปกรณ์ทุกตัว (Set Inhibit)
 	// BillAcceptor:BA
 	model.BA.Start()
 	// CoinAcceptor:CA
@@ -67,6 +68,10 @@ func NewSale(c *gin.Context) {
 	model.CB.Total = + model.OH.Bill
 	model.OH.Total = - model.OH.Bill
 	model.OH.Bill = 0
+
+	// ปิดการรับชำระที่อุปกรณ์
+	model.BA.Stop()
+	model.CA.Stop()
 
 	// พิมพ์ตั๋ว และใบเสร็จ
 	model.P.Print(sale)
