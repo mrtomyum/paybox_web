@@ -26,7 +26,7 @@ func NewSale(c *gin.Context) {
 	// เริ่มการรับชำระที่อุปกรณ์ทุกตัว (Set Inhibit)
 	// BillAcceptor:BA
 	model.BA.Start()
-	// CoinAccptor:CA
+	// CoinAcceptor:CA
 	model.CA.Start()
 
 	// Total Pay >= Total Sale? หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)

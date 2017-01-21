@@ -12,13 +12,13 @@ type BillAcceptor struct {
 	Send   chan *Message
 }
 
-func (b *BillAcceptor) Event(c *Client) {
+func (ba *BillAcceptor) Event(c *Client) {
 	fmt.Println("BillAcceptor Event...with Client=", c.Name)
 	switch c.Msg.Command {
 	case "machine_id": // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
 		switch c.Msg.Type {
 		case "request":
-			b.MachineId(H.Dev)
+			ba.MachineId(H.Dev)
 		case "response":
 		}
 	case "inhibit":           // ใช้สาหรับร้องขอ สถานะ Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
@@ -38,19 +38,19 @@ func (b *BillAcceptor) Event(c *Client) {
 	}
 }
 
-func (b *BillAcceptor) MachineId(c *Client) error {
+func (ba *BillAcceptor) MachineId(c *Client) error {
 	ch := make(chan *Message)
 	m := &Message{Device:"bill_acc", Command:"machine_id", Type: "request"}
 	c.Send <- m
 	go func() {
 		for {
-			m = <-b.Send
+			m = <-ba.Send
 			ch <- m
 		}
 	}()
 	m = <-ch
 	if !m.Result {
-		b.Status = "Error when get machine_id"
+		ba.Status = "Error when get machine_id"
 		return errors.New("Error when get machine_id")
 		log.Println("Error when get machine_id")
 	}
@@ -108,7 +108,7 @@ func (ba *BillAcceptor) Stop() {
 
 
 // สั่งให้ Bill Acceptor เก็บเงิน
-func (b *BillAcceptor) Take(action bool) error {
+func (ba *BillAcceptor) Take(action bool) error {
 	ch := make(chan *Message)
 	m := &Message{
 		Device:  "bill_acc",
@@ -119,7 +119,7 @@ func (b *BillAcceptor) Take(action bool) error {
 	H.Dev.Send <- m
 
 	go func() {
-		m = <-b.Send
+		m = <-ba.Send
 		fmt.Println("1. Response from Bill Acceptor:")
 		ch <- m
 		fmt.Println("2...")
@@ -130,7 +130,7 @@ func (b *BillAcceptor) Take(action bool) error {
 	close(ch)
 	fmt.Println("4.... ")
 	if !m.Result {
-		b.Status = "Error cannot take bill"
+		ba.Status = "Error cannot take bill"
 		return errors.New("Error Bill Acceptor cannot take bill")
 		log.Println("Error response from Bill Acceptor!")
 	}
