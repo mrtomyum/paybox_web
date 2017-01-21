@@ -60,6 +60,53 @@ func (b *BillAcceptor) MachineId(c *Client) error {
 	return nil
 }
 
+func (ba *BillAcceptor) Start() {
+	ch := make(chan *Message)
+	m := &Message{
+		Device:  "bill_acc",
+		Command: "set_inhibit",
+		Data:    true,
+	}
+	ba.Send <- m
+	go func() {
+		m2 := <-ba.Send
+		if !m2.Result {
+			m2.Command = "warning"
+			m2.Data = "Error: Bill Acceptor cannot start."
+			H.Web.Send <- m2
+		}
+		log.Println("Error: Bill Acceptor cannot start.")
+		ch <- m2
+		return
+	}()
+	m = <-ch
+	close(ch)
+}
+
+func (ba *BillAcceptor) Stop() {
+	ch := make(chan *Message)
+	m := &Message{
+		Device:  "bill_acc",
+		Command: "set_inhibit",
+		Data:    false,
+	}
+	ba.Send <- m
+	go func() {
+		m2 := <-ba.Send
+		if !m2.Result {
+			m2.Command = "warning"
+			m2.Data = "Error: Bill Acceptor cannot stop."
+			H.Web.Send <- m2
+		}
+		log.Println("Error: Bill Acceptor cannot stop.")
+		ch <- m2
+		return
+	}()
+	m = <-ch
+	close(ch)
+}
+
+
 // สั่งให้ Bill Acceptor เก็บเงิน
 func (b *BillAcceptor) Take(action bool) error {
 	ch := make(chan *Message)

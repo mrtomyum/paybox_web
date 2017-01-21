@@ -1,5 +1,7 @@
 package model
 
+import "log"
+
 type CoinAcceptor struct {
 	Id     string
 	Status string
@@ -14,4 +16,50 @@ func (ca *CoinAcceptor) Event(c *Client) {
 	case "recently_inserted": // ร้องขอจานวนเงินของเหรียญล่าสุดที่ได้รับ
 	case "received":          // Event น้ีจะเกิดขึ้นเมื่อเคร่ืองรับเหรียญได้รับเหรียญ
 	}
+}
+
+func (ca *CoinAcceptor) Start() {
+	ch := make(chan *Message)
+	m := &Message{
+		Device:  "coin_acc",
+		Command: "set_inhibit",
+		Data:    true,
+	}
+	ca.Send <- m
+	go func() {
+		m2 := <-ca.Send
+		if !m2.Result {
+			m2.Command = "warning"
+			m2.Data = "Error: Coin Acceptor cannot start."
+			H.Web.Send <- m2
+		}
+		log.Println("Error: Coin Acceptor cannot start.")
+		ch <- m2
+		return
+	}()
+	m = <-ch
+	close(ch)
+}
+
+func (ca *CoinAcceptor) Stop() {
+	ch := make(chan *Message)
+	m := &Message{
+		Device:  "coin_acc",
+		Command: "set_inhibit",
+		Data:    false,
+	}
+	ca.Send <- m
+	go func() {
+		m2 := <-ca.Send
+		if !m2.Result {
+			m2.Command = "warning"
+			m2.Data = "Error: Coin Acceptor cannot stop."
+			H.Web.Send <- m2
+		}
+		log.Println("Error: Coin Acceptor cannot stop.")
+		ch <- m2
+		return
+	}()
+	m = <-ch
+	close(ch)
 }
