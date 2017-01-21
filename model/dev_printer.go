@@ -20,5 +20,7 @@ func (p *Printer) Event(c *Client) {
 
 func (p *Printer) Print(s *Sale) error {
 	fmt.Println("p.Print() run")
+	data :=
 	return nil
 }
+
