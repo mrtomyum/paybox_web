@@ -63,9 +63,6 @@ func (s *Sale) Save() error {
 		is_posted
 		)
 	VALUES (?,?,?,?,?,?)`
-
-	// Todo: Add time to "created" field
-	//created := time.Now()
 	rs, err := db.Exec(sql1,
 		s.HostId,
 		s.Total,

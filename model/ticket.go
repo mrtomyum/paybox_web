@@ -7,7 +7,7 @@ type Ticket struct {
 	Data map[string]interface{}
 }
 
-// TicketForm  เป็น Junction Table ผูกฟอร์มและ Tiketไว้ด้วยกัน
+// TicketAction  เป็น Junction Table ผูกฟอร์มและ Tiketไว้ด้วยกัน
 type TicketAction struct {
 	TicketId int
 	Seq      int

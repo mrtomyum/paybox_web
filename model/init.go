@@ -28,13 +28,11 @@ func init() {
 		Status: "ok",
 		Send:   make(chan *Message),
 	}
-	BA.Stop()
 
 	CA = &CoinAcceptor{
 		Status: "ok",
 		Send:   make(chan *Message),
 	}
-	CA.Stop()
 
 	CH = &CoinHopper{
 		Status: "ok",

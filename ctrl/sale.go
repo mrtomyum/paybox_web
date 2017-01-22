@@ -19,22 +19,25 @@ func NewSale(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, sale)
 		log.Println("Error JSON from Web client.")
 	}
-	fmt.Printf("[NewSale()] รับค่า Order จาก web-> sale= %v\n", sale)
+	fmt.Printf("[NewSale()] รับค่า Sale จาก web->sale= %v\n", sale)
 
 	// DisplayAcceptedBill() จากยอดขาย ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 	DisplayAcceptedBill()
 
-	// เปิดการรับชำระที่อุปกรณ์ทุกตัว (Set Inhibit)
-	// BillAcceptor:BA
+	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
 	model.BA.Start()
-	// CoinAcceptor:CA
 	model.CA.Start()
 
-	// Total Pay >= Total Sale? หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
-	// กรณีธนบัตรระบบจะ Take เงิน และจะ สะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลาจนกว่าจะได้ยอด Payment >= Sale
+	// Payment: Total Pay >= Total Sale? หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
+	// ระบบจะ Take เงิน และจะ สะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลาจนกว่าจะได้ยอด Payment >= Sale
+	for model.OH.Total < sale.Total {
+		if model.OH.Bill != 0 {
+			model.BA.Take(true)
+			//model.BA.Type
+		}
+	}
 
-	// หากรายการสุดท้ายชำระเป็นธนบัตร ระบบจะยังไม่ Take เงิน โดยตรวจสอบว่ามีเงินทอนเพียงพอหรือไม่?
-	// หากมากพอ ระบบจะทอนเงิน หากไม่พอ ระบบจะ Reject ธนบัตรใบล่าสุดนี้คืน และส่ง Message แจ้งเตือนให้เปลี่ยนธนบัตร หรือเหรียญ (ข้อความจะเปลี่ยนตามภาษาที่เลือก)
+	// ตรวจว่ามีเหรียญพอทอนหรือไม่?
 	// หากรายการสุดท้ายชำระเป็นธนบัตร ระบบจะยังไม่ Take เงิน โดยตรวจสอบว่ามีเงินทอนเพียงพอหรือไม่? หากมากพอ ระบบจะทอนเงิน
 	// หากไม่พอ ระบบจะ Reject ธนบัตรใบล่าสุดนี้คืน และส่ง Message แจ้งเตือนให้เปลี่ยนธนบัตร หรือเหรียญ (ข้อความจะเปลี่ยนตามภาษาที่เลือก)
 	if model.OH.Coin > sale.Total {
