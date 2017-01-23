@@ -6,9 +6,10 @@ import (
 )
 
 type CoinAcceptor struct {
-	Id     string
-	Status string
-	Send   chan *Message
+	Id      string
+	Inhabit bool
+	Status  string
+	Send    chan *Message
 }
 
 // Event & Response from coin acceptor.
@@ -47,6 +48,7 @@ func (ca *CoinAcceptor) Start() {
 	}()
 	m = <-ch
 	close(ch)
+	ca.Inhabit = true
 }
 
 func (ca *CoinAcceptor) Stop() {
@@ -70,6 +72,7 @@ func (ca *CoinAcceptor) Stop() {
 	}()
 	m = <-ch
 	close(ch)
+	ca.Inhabit = false
 }
 
 func (ca *CoinAcceptor) Received(c *Client) {

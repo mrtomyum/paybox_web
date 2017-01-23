@@ -7,12 +7,15 @@ import (
 )
 
 type BillAcceptor struct {
-	Id     string
-	Status string
-	Send   chan *Message
+	Id      string
+	Inhibit bool
+	Status  string
+	Send    chan *Message
 }
 
 // Event & Response from bill acceptor.
+// อุปกรณ์จะทำงานครั้งละ 1 command อยู่แล้ว
+// ดังนั้นไม่ต้องกลัวจะมี Event หรือ Response ข้ามลำดับกัน
 func (ba *BillAcceptor) Event(c *Client) {
 	fmt.Println("BillAcceptor Event...with Client=", c.Name)
 	switch c.Msg.Command {
@@ -28,6 +31,7 @@ func (ba *BillAcceptor) Event(c *Client) {
 	}
 }
 
+// ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
 func (ba *BillAcceptor) MachineId(c *Client) error {
 	ch := make(chan *Message)
 	m := &Message{Device:"bill_acc", Command:"machine_id", Type: "request"}
@@ -72,6 +76,7 @@ func (ba *BillAcceptor) Start() {
 	}()
 	m = <-ch
 	close(ch)
+	ba.Inhibit = true
 }
 
 func (ba *BillAcceptor) Stop() {
@@ -95,6 +100,7 @@ func (ba *BillAcceptor) Stop() {
 	}()
 	m = <-ch
 	close(ch)
+	ba.Inhibit = false
 }
 
 // สั่งให้ Bill Acceptor เก็บเงิน
