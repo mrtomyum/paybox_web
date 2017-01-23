@@ -27,7 +27,7 @@ func NewSale(c *gin.Context) {
 	// Payment
 	err := model.PM.Pay(sale)
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{"result":"error", "message":err.Error()})
+		c.JSON(http.StatusConflict, gin.H{"command": "payment", "result":"error", "message":err.Error()})
 	}
 
 	// พิมพ์ตั๋ว และใบเสร็จ
