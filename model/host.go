@@ -15,9 +15,10 @@ type Host struct {
 	LastTicketNumber int     // เลขคิวตั๋วล่าสุด ของแต่ละวัน ปิดเครื่องต้องยังอยู่ ขึ้นวันใหม่ต้อง Reset
 }
 
+// Todo: ย้าย 2 method นี้ไป type Payment
 // TotalEscrow ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
 func (h *Host) OnHand(web *Client) {
-	fmt.Println("Host.OnHand()...")
+	fmt.Println("method *Host.OnHand()...")
 	web.Msg.Command = "onhand"
 	web.Msg.Result = true
 	web.Msg.Type = "event"

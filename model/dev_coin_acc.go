@@ -13,9 +13,12 @@ type CoinAcceptor struct {
 
 func (ca *CoinAcceptor) Event(c *Client) {
 	switch c.Msg.Command {
-	case "machine_id":        // ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins Acceptor
+	case "machine_id": // ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins Acceptor
+		ca.Send <- c.Msg
 	case "inhibit":           // ร้องขอ สถานะ Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
+		ca.Send <- c.Msg
 	case "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
+		ca.Send <- c.Msg
 	case "recently_inserted": // ร้องขอจานวนเงินของเหรียญล่าสุดที่ได้รับ
 	case "received":          // Event น้ีจะเกิดขึ้นเมื่อเคร่ืองรับเหรียญได้รับเหรียญ
 		ca.Received(c)
@@ -27,6 +30,7 @@ func (ca *CoinAcceptor) Start() {
 	m := &Message{
 		Device:  "coin_acc",
 		Command: "set_inhibit",
+		Type:    "response",
 		Data:    true,
 	}
 	ca.Send <- m
@@ -69,8 +73,18 @@ func (ca *CoinAcceptor) Stop() {
 }
 
 func (ca *CoinAcceptor) Received(c *Client) {
-	PM.Coin = + c.Msg.Data.(float64)
-	PM.Total = + c.Msg.Data.(float64)
+	fmt.Println("Start method: ca.Received()")
+	received := c.Msg.Data.(float64)
+	PM.Coin = + received
+	PM.Total = + received
+	CB.Hopper = + received
+	CB.Total = + received
+	m := &Message{
+		Device:  "coin_acc",
+		Command: "received",
+		Data:    received,
+	}
+	fmt.Printf("Coin Received = %v, PM Total= %v\n", PM.Coin, PM.Total)
+	PM.Send <- m
 	H.OnHand(H.Web)
-	fmt.Println("Bill Received Bill= %v, PM Total= %v", PM.Coin, PM.Total)
 }

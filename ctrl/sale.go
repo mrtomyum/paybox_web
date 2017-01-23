@@ -16,13 +16,12 @@ func NewSale(c *gin.Context) {
 	fmt.Println("NewSale() start")
 	sale := &model.Sale{}
 	if c.Bind(sale) != nil {
-		c.JSON(http.StatusBadRequest, sale)
+		c.JSON(http.StatusOK, gin.H{"command":"bind_sale_data", "result": "error", "data": sale, })
 		log.Println("Error JSON from Web client.")
 	}
 	fmt.Printf("[NewSale()] รับค่า Sale จาก web->sale= %v\n", sale)
 
-	// DisplayAcceptedBill() จากยอดขาย ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
-	DisplayAcceptedBill()
+	DisplayAcceptedBill() // DisplayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 
 	// Payment
 	err := model.PM.Pay(sale)
@@ -31,7 +30,10 @@ func NewSale(c *gin.Context) {
 	}
 
 	// พิมพ์ตั๋ว และใบเสร็จ
-	model.P.Print(sale)
+	err = model.P.Print(sale)
+	if err != nil {
+		c.JSON(http.StatusConflict, gin.H{"command": "print", "result":"error", "message":err.Error()})
+	}
 
 	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
 	model.H.OnHand(model.H.Web)
@@ -47,12 +49,9 @@ func NewSale(c *gin.Context) {
 	fmt.Println("sale.Save()")
 	err = sale.Save()
 	if err != nil {
-		log.Println("Error in sale.Save() =>", err.Error())
+		c.JSON(http.StatusConflict, gin.H{"command": "save", "result":"error", "message":err.Error()})
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"result":       "success",
-		"onhand":       model.PM.Total,
-	})
+	c.JSON(http.StatusOK, gin.H{"command":"sale", "result": "success", "data": sale, })
 	fmt.Println("NewSale() COMPLETED, sale = ", sale)
 }
 

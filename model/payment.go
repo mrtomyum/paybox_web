@@ -34,18 +34,19 @@ type AcceptedBill struct {
 
 func (oh *Payment) Pay(sale *Sale) error {
 	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
-	fmt.Println("Start inhibit device BA, CA ")
+	fmt.Printf("func Pay() -- \n1. Start inhibit device BA, CA \n")
 	BA.Start()
 	CA.Start()
 
 	// ให้รอจนกว่าจะได้รับเงิน จาก BA หรือ CA
+	fmt.Println("2. Waiting payment form BA or CA")
 	m := <-PM.Send
 	fmt.Println("Received Money:", m.Data)
 
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน และจะสะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลาจนกว่าจะได้ยอด Payment >= Sale
 	for PM.Total < sale.Total {
-		if PM.Bill != 0 {
+		if m.Device == "bill_acc" { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
 			// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
 			err := BA.Take(true)
 			if err != nil {
@@ -54,10 +55,11 @@ func (oh *Payment) Pay(sale *Sale) error {
 		}
 	}
 
-	// ตรวจว่ามีเหรียญพอทอนหรือไม่?
+	// เมื่อชำระเงินครบหรือเกิน ตรวจว่ามีเหรียญพอทอนหรือไม่?
+	change := PM.Total - sale.Total
 	// หากรายการสุดท้ายชำระเป็นธนบัตร ระบบจะยังไม่ Take เงิน โดยตรวจสอบว่ามีเงินทอนเพียงพอหรือไม่? หากมากพอ ระบบจะทอนเงิน
 	// หากไม่พอ ระบบจะ Reject ธนบัตรใบล่าสุดนี้คืน และส่ง Message แจ้งเตือนให้เปลี่ยนธนบัตร หรือเหรียญ (ข้อความจะเปลี่ยนตามภาษาที่เลือก)
-	if PM.Coin > sale.Total {
+	if CB.Hopper > change {
 		err := BA.Take(false)
 		if err != nil {
 			return err
@@ -68,7 +70,7 @@ func (oh *Payment) Pay(sale *Sale) error {
 
 	// ทอนเงินจาก CoinHopper ถ้ามี
 	if PM.Total > sale.Total {
-		change := PM.Total - sale.Total
+
 		err := CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
 		if err != nil {
 			return err

@@ -77,7 +77,7 @@ func (s *Sale) Save() error {
 	}
 	s.Id, _ = rs.LastInsertId()
 	fmt.Println("s.Id =", s.Id)
-	ss := SaleSub{}
+
 	sql2 := `INSERT INTO sale_sub(
 		sale_id,
 		item_id,
@@ -87,30 +87,33 @@ func (s *Sale) Save() error {
 		)
 	VALUES(?,?,?,?,?)`
 	// Todo: Loop til end SaleSub
-	rs, err = db.Exec(sql2,
-		s.Id,
-		ss.Line,
-		ss.ItemId,
-		ss.ItemName,
-		ss.PriceId,
-		ss.Price,
-		ss.Qty,
-		ss.Unit,
-	)
-	if err != nil {
-		fmt.Printf("Error when db.Exec(sql2) %v", err.Error())
-		return err
+	for _, ss := range s.SaleSubs {
+		rs, err = db.Exec(sql2,
+			s.Id,
+			ss.Line,
+			ss.ItemId,
+			ss.ItemName,
+			ss.PriceId,
+			ss.Price,
+			ss.Qty,
+			ss.Unit,
+		)
+		if err != nil {
+			fmt.Printf("Error when db.Exec(sql2) %v", err.Error())
+			return err
+		}
 	}
+
 	// Check result
-	sales := []*Sale{}
-	err = db.Select(&sales, "SELECT * FROM sale WHERE id = ?", s.Id)
-	if err != nil {
-		fmt.Printf("Error when db.Get(&s) %v", err.Error())
-		return err
-	}
-	for _, v := range sales {
-		fmt.Println("Read database row->", v)
-	}
-	fmt.Println("*Sale.Save() completed, data->", sales)
+	//sales := []*Sale{}
+	//err = db.Select(&sales, "SELECT * FROM sale WHERE id = ?", s.Id)
+	//if err != nil {
+	//	fmt.Printf("Error when db.Get(&s) %v", err.Error())
+	//	return err
+	//}
+	//for _, v := range sales {
+	//	fmt.Println("Read database row->", v)
+	//}
+	//fmt.Println("*Sale.Save() completed, data->", sales)
 	return nil
 }
