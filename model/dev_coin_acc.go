@@ -11,17 +11,17 @@ type CoinAcceptor struct {
 	Send   chan *Message
 }
 
+// Event & Response from coin acceptor.
 func (ca *CoinAcceptor) Event(c *Client) {
 	switch c.Msg.Command {
-	case "machine_id": // ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins Acceptor
-		ca.Send <- c.Msg
-	case "inhibit":           // ร้องขอ สถานะ Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
-		ca.Send <- c.Msg
-	case "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
-		ca.Send <- c.Msg
-	case "recently_inserted": // ร้องขอจานวนเงินของเหรียญล่าสุดที่ได้รับ
 	case "received":          // Event น้ีจะเกิดขึ้นเมื่อเคร่ืองรับเหรียญได้รับเหรียญ
 		ca.Received(c)
+	default:
+		// "machine_id": 		// ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins Acceptor
+		// "inhibit":           // ร้องขอ สถานะ Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
+		// "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
+		// "recently_inserted": // ร้องขอจานวนเงินของเหรียญล่าสุดที่ได้รับ
+		ca.Send <- c.Msg
 	}
 }
 

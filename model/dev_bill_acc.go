@@ -12,23 +12,19 @@ type BillAcceptor struct {
 	Send   chan *Message
 }
 
+// Event & Response from bill acceptor.
 func (ba *BillAcceptor) Event(c *Client) {
 	fmt.Println("BillAcceptor Event...with Client=", c.Name)
 	switch c.Msg.Command {
-	case "machine_id": // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
-		switch c.Msg.Type {
-		case "request":
-			ba.MachineId(H.Dev)
-		case "response":
-		}
-	case "inhibit":           // ใช้สาหรับร้องขอ สถานะ Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
-	case "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
-		ba.Send <- c.Msg
-	case "recently_inserted": // ร้องขอจานวนเงินของธนบัตรล่าสุดที่ได้รับ
-	case "take_reject": // สั่งให้ รับ-คืน ธนบัตรท่ีกาลังพักอยู่
-		ba.Send <- c.Msg
 	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
 		ba.Received(c)
+	default:
+		// "machine_id": 		// ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
+		// "inhibit":           // ใช้สาหรับร้องขอ สถานะ Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
+		// "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
+		// "recently_inserted": // ร้องขอจานวนเงินของธนบัตรล่าสุดที่ได้รับ
+		// "take_reject": 		// สั่งให้ รับ-คืน ธนบัตรท่ีกาลังพักอยู่
+		ba.Send <- c.Msg
 	}
 }
 
