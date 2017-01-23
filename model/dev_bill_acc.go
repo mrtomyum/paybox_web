@@ -25,16 +25,9 @@ func (ba *BillAcceptor) Event(c *Client) {
 	case "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 	case "recently_inserted": // ร้องขอจานวนเงินของธนบัตรล่าสุดที่ได้รับ
 	case "take_reject": // สั่งให้ รับ-คืน ธนบัตรท่ีกาลังพักอยู่
-		BA.Send <- c.Msg
+		ba.Send <- c.Msg
 	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
-		OH.Bill = c.Msg.Data.(float64)
-		OH.Total = + OH.Bill
-		m := &Message{
-			Command:"onhand",
-			Data:   100,
-		}
-		H.Web.Send <- m
-		fmt.Println("Bill Update")
+		ba.Received(c)
 	}
 }
 
@@ -106,7 +99,6 @@ func (ba *BillAcceptor) Stop() {
 	close(ch)
 }
 
-
 // สั่งให้ Bill Acceptor เก็บเงิน
 func (ba *BillAcceptor) Take(action bool) error {
 	ch := make(chan *Message)
@@ -134,6 +126,23 @@ func (ba *BillAcceptor) Take(action bool) error {
 		return errors.New("Error Bill Acceptor cannot take bill")
 		log.Println("Error response from Bill Acceptor!")
 	}
+	// อัพเดตยอดเงินสดในตู้ด้วย
+	CB.Bill = + PM.Bill
+	CB.Total = + PM.Bill
+	PM.Total = - PM.Bill
+	PM.Bill = 0
 	fmt.Println("*BillAcceptor.Take() success.. m=:", m)
 	return nil
+}
+
+func (ba *BillAcceptor) Received(c *Client) {
+	PM.Bill = + c.Msg.Data.(float64)
+	PM.Total = + c.Msg.Data.(float64)
+	H.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
+	m := &Message{
+		Command: "payment",
+		Data:    c.Msg.Data.(float64),
+	}
+	PM.Send <- m
+	fmt.Println("Bill Received Bill= %v, PM Total= %v", PM.Bill, PM.Total)
 }

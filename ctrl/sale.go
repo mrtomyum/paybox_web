@@ -24,57 +24,11 @@ func NewSale(c *gin.Context) {
 	// DisplayAcceptedBill() จากยอดขาย ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 	DisplayAcceptedBill()
 
-	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
-	model.BA.Start()
-	model.CA.Start()
-
-	// Payment: Total Pay >= Total Sale? หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
-	// ระบบจะ Take เงิน และจะ สะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลาจนกว่าจะได้ยอด Payment >= Sale
-	for model.OH.Total < sale.Total {
-		if model.OH.Bill != 0 {
-			model.BA.Take(true)
-			//model.BA.Type
-		}
-	}
-
-	// ตรวจว่ามีเหรียญพอทอนหรือไม่?
-	// หากรายการสุดท้ายชำระเป็นธนบัตร ระบบจะยังไม่ Take เงิน โดยตรวจสอบว่ามีเงินทอนเพียงพอหรือไม่? หากมากพอ ระบบจะทอนเงิน
-	// หากไม่พอ ระบบจะ Reject ธนบัตรใบล่าสุดนี้คืน และส่ง Message แจ้งเตือนให้เปลี่ยนธนบัตร หรือเหรียญ (ข้อความจะเปลี่ยนตามภาษาที่เลือก)
-	if model.OH.Coin > sale.Total {
-		err := model.BA.Take(false)
-		if err != nil {
-			c.JSON(http.StatusConflict, gin.H{"result":"error", "message":err.Error()})
-		}
-		model.OH.Total = - model.OH.Bill
-		model.OH.Bill = 0
-	}
-
-	// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
-	err := model.BA.Take(true)
+	// Payment
+	err := model.PM.Pay(sale)
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"result":"error", "message":err.Error()})
-		log.Println("Error on Bill_Acceptor Take():", err.Error())
 	}
-
-	// ทอนเงินจาก CoinHopper ถ้ามี
-	if model.OH.Total > sale.Total {
-		change := model.OH.Total - sale.Total
-		err = model.CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
-		if err != nil {
-			c.JSON(http.StatusConflict, gin.H{"result":"error", "message":err.Error()})
-			log.Println("Error on CH Payout():", err.Error())
-		}
-	}
-
-	// อัพเดตยอดเงินสดในตู้ด้วย
-	model.CB.Bill = + model.OH.Bill
-	model.CB.Total = + model.OH.Bill
-	model.OH.Total = - model.OH.Bill
-	model.OH.Bill = 0
-
-	// ปิดการรับชำระที่อุปกรณ์
-	model.BA.Stop()
-	model.CA.Stop()
 
 	// พิมพ์ตั๋ว และใบเสร็จ
 	model.P.Print(sale)
@@ -97,7 +51,7 @@ func NewSale(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"result":       "success",
-		"total_escrow": model.OH.Total,
+		"onhand":       model.PM.Total,
 	})
 	fmt.Println("NewSale() COMPLETED, sale = ", sale)
 }
@@ -109,5 +63,6 @@ func DisplayAcceptedBill() {
 		Type:   "event",
 		Data:   model.AB,
 	}
+	fmt.Println("Send message to Web = ", m)
 	model.H.Web.Send <- m
 }

@@ -18,9 +18,10 @@ type Host struct {
 // TotalEscrow ส่งค่าเงินพัก Escrow ที่ Host เก็บไว้กลับไปให้ web
 func (h *Host) OnHand(web *Client) {
 	fmt.Println("Host.OnHand()...")
+	web.Msg.Command = "onhand"
 	web.Msg.Result = true
-	web.Msg.Type = "response"
-	web.Msg.Data = OH.Total
+	web.Msg.Type = "event"
+	web.Msg.Data = PM.Total
 	web.Send <- web.Msg
 }
 
@@ -29,7 +30,7 @@ func (h *Host) Cancel(c *Client) error {
 	fmt.Println("Host.Cancel()...")
 
 	// Check Bill Acceptor
-	if OH.Total == 0 { // ไม่มีเงินพัก
+	if PM.Total == 0 { // ไม่มีเงินพัก
 		log.Println("ไม่มีเงินพัก:")
 		c.Msg.Type = "response"
 		c.Msg.Result = false
@@ -55,15 +56,15 @@ func (h *Host) Cancel(c *Client) error {
 	}
 
 	// Success
-	OH.Coin = OH.Total - OH.Bill
-	OH.Bill = 0
+	PM.Coin = PM.Total - PM.Bill
+	PM.Bill = 0
 
 	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอด coinHopperEscrow ออกด้านหน้า
 	m2 := &Message{
 		Device:  "coin_hopper",
 		Command: "payout_by_cash",
 		Type:    "request",
-		Data:    OH.Coin,
+		Data:    PM.Coin,
 	}
 	h.Dev.Send <- m2
 
@@ -77,7 +78,7 @@ func (h *Host) Cancel(c *Client) error {
 		c.Send <- c.Msg
 		return err
 	}
-	OH.Total = 0 // เคลียร์ยอดเงินค้างให้หมด
+	PM.Total = 0 // เคลียร์ยอดเงินค้างให้หมด
 
 	// Send message response back to Web Client
 	c.Msg.Type = "response"

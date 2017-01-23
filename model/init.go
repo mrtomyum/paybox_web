@@ -13,7 +13,7 @@ var (
 	CH *CoinHopper
 	P  *Printer
 	M  *MainBoard
-	OH *Onhand
+	PM *Payment
 	CB *CashBox
 	AB *AcceptedBill
 )
@@ -39,7 +39,6 @@ func init() {
 		Send:   make(chan *Message),
 	}
 	P = &Printer{
-
 		Status: "ok",
 		Send:   make(chan *Message),
 	}
@@ -47,10 +46,11 @@ func init() {
 		Status: "ok",
 		Send:   make(chan *Message),
 	}
-	OH = &Onhand{
+	PM = &Payment{
 		Coin: 0,
 		Bill: 100,
 		Total:100,
+		Send: make(chan *Message),
 	}
 	CB = &CashBox{
 		Hopper:0,

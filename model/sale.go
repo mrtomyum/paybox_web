@@ -15,13 +15,13 @@ type Sale struct {
 	Change   float64 `json:"change"`
 	Type     string `json:"type" db:"type"`
 	IsPosted bool `json:"is_posted" db:"is_posted"`
-	SaleSubs []*SaleSub `json:"sale_subs" `
+	SaleSubs []*SaleSub `json:"sale_subs"`
 }
 
 // SaleSub เป็นรายการสินค้าที่ขายใน Sale
 type SaleSub struct {
-	Line     uint64 `json:"line"`
 	SaleId   uint64 `json:"sale_id" db:"sale_id"`
+	Line     uint64 `json:"line"`
 	ItemId   uint64  `json:"item_id" db:"item_id"`
 	ItemName string  `json:"item_name" db:"item_name"`
 	PriceId  int     `json:"price_id" db:"price_id"`
@@ -31,7 +31,7 @@ type SaleSub struct {
 }
 
 // Payment เก็บรายละเอียดการชำระเงิน เหรียญ ธนบัตร หรือในอนาคตจะเพิ่มบัตรเครดิต และ Cashless Payment ได้ด้วย
-type Payment struct {
+type SalePay struct {
 	SaleId  int64
 	THB20   int // จำนวนธนบัตรใบละ 20 บาท
 	THB50   int // จำนวนธนบัตรใบละ 50 บาท

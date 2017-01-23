@@ -1,6 +1,9 @@
 package model
 
-import "log"
+import (
+	"log"
+	"fmt"
+)
 
 type CoinAcceptor struct {
 	Id     string
@@ -15,6 +18,7 @@ func (ca *CoinAcceptor) Event(c *Client) {
 	case "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
 	case "recently_inserted": // ร้องขอจานวนเงินของเหรียญล่าสุดที่ได้รับ
 	case "received":          // Event น้ีจะเกิดขึ้นเมื่อเคร่ืองรับเหรียญได้รับเหรียญ
+		ca.Received(c)
 	}
 }
 
@@ -62,4 +66,11 @@ func (ca *CoinAcceptor) Stop() {
 	}()
 	m = <-ch
 	close(ch)
+}
+
+func (ca *CoinAcceptor) Received(c *Client) {
+	PM.Coin = + c.Msg.Data.(float64)
+	PM.Total = + c.Msg.Data.(float64)
+	H.OnHand(H.Web)
+	fmt.Println("Bill Received Bill= %v, PM Total= %v", PM.Coin, PM.Total)
 }
