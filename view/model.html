@@ -19,7 +19,45 @@
 
     <div class="btn-group btn-group-justified" style="width:100%;">
         <div class="btn-group">
-            <button type="button" onclick="coin_hopper()" class="btn btn-lg btn-primary">เติมเงิน</button>
+            <button type="button" class="btn btn-lg  btn-primary">C 1</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-lg  btn-primary">C 2</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-lg  btn-primary">C 5</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-lg  btn-primary">C 10</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" onclick="coin_hopper(20)" class="btn btn-lg btn-primary">B 20</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" onclick="coin_hopper(50)" class="btn btn-lg btn-primary">B 50</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" onclick="coin_hopper(100)" class="btn btn-lg btn-primary">B 100</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" onclick="coin_hopper(500)" class="btn btn-lg btn-primary">B 500</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" onclick="coin_hopper(1000)" class="btn btn-lg btn-primary">B 1000</button>
+        </div>
+    </div>
+    <div class="btn-group btn-group-justified" style="width:100%; margin-top:2%;">
+        <div class="btn-group">
+            <button type="button" onclick="start_ca()" class="btn btn-lg  btn-primary">start CA</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" onclick="start_ba()" class="btn btn-lg  btn-primary">start BA</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" onclick="stop_ca()" class="btn btn-lg  btn-primary">stop CA</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" onclick="stop_ba()" class="btn btn-lg  btn-primary">stop BA</button>
         </div>
         <div class="btn-group">
             <button type="button" onclick="reject()" class="btn btn-lg  btn-primary">คืนเงิน</button>
@@ -83,10 +121,29 @@
       websocket.send(message);
 
     }
+function start_ca(){
+    console.log('start ca');
+    doSend('{"device":"coin_acc","type": "response","command": "set_inhibit","result": true}');
+}
 
-function coin_hopper(){
+function start_ba(){
+    console.log('start ca');
+    doSend('{"device":"bill_acc","type": "response","command": "set_inhibit","result": true}');
+}
+
+function stop_ca(){
+    console.log('start ca');
+    doSend('{"device":"coin_acc","type": "response","command": "set_inhibit","result": false}');
+}
+
+function stop_ba(){
+    console.log('start ca');
+    doSend('{"device":"bill_acc","type": "response","command": "set_inhibit","result": false}');
+}
+
+function coin_hopper(bank){
     console.log('เติมตังค์');
-    doSend('{"device":"bill_acc","type": "event","command": "received","result": true,"data": 200}');
+    doSend('{"device":"bill_acc","type": "event","command": "received","result": true,"data": '+bank+'}');
 }
 
 function reject(){
