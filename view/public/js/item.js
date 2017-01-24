@@ -591,9 +591,46 @@ function onsaychina(id){
 var onHend = "";
 function payment(){
     doSend('{"Device":"host","type":"request","command":"onhand"}');
-    $("#payment_onhand").modal({backdrop: true});
+    $("#payment_onhand").modal({backdrop: false});
+    var list = "";
+    var totalPrice = 0;
+    list += '<table class="table" style="font-size:12px; margin-bottom:0;">';
+    list += '<tr>';
+    list += '<th style="width:70%; text-align:center;">รายการ</th>';
+    list += '<th style="width:10%; text-align:center;">จำนวน</th>';
+    list += '<th style="width:20%; text-align:center;">ราคา</th>';
+    list += '</tr>';
+       if(listOrder.length<5){
+        var len = 5-listOrder.length;
+       }else{
+        var len = 0;
+       }
+       for(var i = 0; i < listOrder.length; i++){
+           list += '<tr>';
+           list += '<td style="line-height:12px; text-align:left;">'+listOrder[i].item_name +'/'+listOrder[i].price_name+'</td>';
+           list += '<td style="line-height:12px; text-align:right;">'+listOrder[i].qty+'</td>';
+           list += '<td style="line-height:12px; text-align:right;">'+listOrder[i].price+'</td>';
+           list += '</tr>';
 
+           totalPrice += parseInt(listOrder[i].price);
+       }
+       console.log(len);
+       for(var i = 0; i < len; i++){
+           list += '<tr>';
+           list += '<td style="line-height:10px; text-align:left; border:0;"></td>';
+           list += '<td style="line-height:10px; text-align:right; border:0;"></td>';
+           list += '<td style="line-height:10px; text-align:right; border:0;"></td>';
+           list += '</tr>';
+       }
+        //console.log(numeral(totalPrice).format('0,0'));
+        var ttPrice = numeral(totalPrice).format('0,0');
+        list += '<tr>';
+        list += '<th colspan="2">รวม</th>';
+        list += '<th>'+ttPrice+'</th>';
+        list += '</tr>';
+        list += '</table>';
 
+    document.getElementById("bill_peyment").innerHTML = list;
   /*  var bt_payment = document.getElementsByClassName("Payment");
     var bt_print = document.getElementsByClassName("print");
 
