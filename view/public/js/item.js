@@ -5,9 +5,9 @@ $("document").ready(function(){
 	var status = localStorage.action;
 
     call_websocket();
-    setTimeout(function(){
+    /*setTimeout(function(){
         doSend('{"Device":"'+window.location.host+'","type":"request","command":"onhand"}');
-    },1000);
+    },1000);*/
     if(localStorage.ColorCode){
        localStorage.ColorCode = localStorage.ColorCode;
     }else{
@@ -38,8 +38,8 @@ $("document").ready(function(){
 
 	            document.getElementById("txtTotalPri").innerHTML = "ราคารวม";
 	            document.getElementById("txtmacPri").innerHTML = "จำนวนเงิน";
-	            document.getElementById("txtUnit").innerHTML = "บาท";
-	            document.getElementById("txtUnit2").innerHTML = "บาท";
+	            //document.getElementById("txtUnit").innerHTML = "บาท";
+	           // document.getElementById("txtUnit2").innerHTML = "บาท";
 
 	          /*  document.getElementById("bt_payment").innerHTML = "ชำระเงิน";
 	            document.getElementById("bt_print").innerHTML = "ยืนยัน";
@@ -64,8 +64,8 @@ $("document").ready(function(){
 
                 document.getElementById("txtTotalPri").innerHTML = "Total";
                 document.getElementById("txtmacPri").innerHTML = "Payment";
-                document.getElementById("txtUnit").innerHTML = "baht";
-                document.getElementById("txtUnit2").innerHTML = "baht";
+              //  document.getElementById("txtUnit").innerHTML = "baht";
+               // document.getElementById("txtUnit2").innerHTML = "baht";
 
             /*  document.getElementById("bt_payment").innerHTML = "NewSale";
                 document.getElementById("bt_print").innerHTML = "Confirm";
@@ -89,8 +89,8 @@ $("document").ready(function(){
 
                	document.getElementById("txtTotalPri").innerHTML = "總價";
                	document.getElementById("txtmacPri").innerHTML = "付款";
-               	document.getElementById("txtUnit").innerHTML = "銖";
-               	document.getElementById("txtUnit2").innerHTML = "銖";
+              // 	document.getElementById("txtUnit").innerHTML = "銖";
+              // 	document.getElementById("txtUnit2").innerHTML = "銖";
 
                /*	document.getElementById("bt_payment").innerHTML = "付款";
                	document.getElementById("bt_print").innerHTML = "确认";
@@ -150,7 +150,7 @@ function disabled_payment(){
         console.log("listOrder is empty");
         payment1 = function() {
            //payment();
-           print();
+           payment();
         }
     }
 }
@@ -509,17 +509,8 @@ function order_list(itemCode,itemName,line,size,qty,unit,price){
 
 function item_cancel(index){
 
-       var _alertA = new Alert7();
-       _alertA.setTitle("ลบรายการสินค้า");
-       _alertA.setMessage("ท่านต้องการลบรายการสินค้านี้ ใช่หรือไม่ ?");
-       _alertA.setType(Alert7.TYPE_CONFIRM);
-       _alertA.addAction("No", function(){
-
-       });
-       _alertA.addAction("Yes", function(){
             listOrder.splice(index, 1);
             console.log(listOrder);
-            Alert7.alert("ยกเลิกรายการที่ท่านต้องการเรียบร้อย");
 
                 var list = "";
                  var totalPrice = 0;
@@ -547,8 +538,7 @@ function item_cancel(index){
                  document.getElementById("order_list").innerHTML = list;
                 // console.log(list);
                 disabled_payment();
-       });
-       _alertA.present();
+
 
 
 }
@@ -600,7 +590,11 @@ function onsaychina(id){
 }
 var onHend = "";
 function payment(){
-    var bt_payment = document.getElementsByClassName("Payment");
+    doSend('{"Device":"host","type":"request","command":"onhand"}');
+    $("#payment_onhand").modal({backdrop: true});
+
+
+  /*  var bt_payment = document.getElementsByClassName("Payment");
     var bt_print = document.getElementsByClassName("print");
 
     var block = document.getElementsByClassName("block-3");
@@ -617,7 +611,7 @@ function payment(){
     [].forEach.call(anchors, function(anchor) {
         elems[anchor.id] = anchor.getAttribute('onclick');
         anchor.setAttribute('onclick', '');
-    });
+    });*/
 
    // bt_payment[0].style.display = "none";
     //bt_print[0].style.display = "inline-block";

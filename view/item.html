@@ -108,24 +108,20 @@
 
         </div> <!-- order -->
         <div id="pri_all">
-            <div id="price2"><h4><span id="txtmacPri"></span>
-                <input type="text" name="pri2" id="pri2" readonly value="0"> <span id="txtUnit2"></span></h4>
+            <div id="price1"><h4><span id="txtTotalPri"></span>
+                <input type="text" name="pri1" id="pri1" readonly value="0"> <span id="txtUnit"></span></h4>
             </div>
-        <div id="price1"><h4><span id="txtTotalPri"></span>
-            <input type="text" name="pri1" id="pri1" readonly value="0"> <span id="txtUnit"></span></h4>
-        </div>
-
         </div>
         <div id="sub">
             <a href="javascript:cancel_menu()">
-                <button class="btn-danger btn-md" style="width:90%; padding:0; margin-top:5%;">
-                    <h1>&#x2718;</h1>
+                <button class="btn-danger btn-md" style="width:45%; padding:0; margin-left:3%; margin-top:10%;">
+                    <h1 style="padding:5%; margin:5%;">&#x2718;</h1>
                 </button>
             </a>
 
             <a href="javascript:payment1()">
-                <button class="btn-success btn-md" style="width:90%; padding:0; margin-top:15%;">
-                    <h1>&#10004;</h1>
+                <button class="btn-success btn-md" style="width:45%; padding:0; margin-left:3%; margin-top:10%;">
+                    <h1 style="padding:5%; margin:5%;">&#10004;</h1>
                 </button>
             </a>
 
@@ -240,11 +236,30 @@
                 <input type="hidden" id="line"><input type="hidden" id="Munit">
             </div>
             <div class="modal-body">
-                <div style="float:left; width:45%; margin:0;">
+                <div id="modal-left">
+                    <div id="modal-img">
+                        <div id="Mimg">
 
+                        </div>
+                    </div>
+                    <div id="modal-price">
+                        <input type="text" id="mo-pri" name="mo-pri" readonly>
+                    </div>
                 </div>
-                <div style="float:left; width:55%; margin:0;">
-
+                <div id="modal-right">
+                    <div id="modal-qty">
+                        <a href="#"><img src="/img/delete.png" onclick="removeQty()"></a>
+                        <input type="text" id="mo_qty" value="1" readonly>
+                        <a href="#"><img src="/img/add.png" onclick="addQty()"></a>
+                    </div>
+                    <div id="modal-size">
+                        <div id="menusize"></div>
+                        <input type="hidden" id="Msize">
+                    </div>
+                    <div id="modal-submit">
+                        <a href="javascript:send_order()"><img src="/img/ok.png" id="send" style="margin-left: 0;"></a>
+                        <a href="#"><img src="/img/no.png" data-dismiss="modal"></a>
+                    </div>
                 </div>
                 <br style="clear: both;">
             </div>
@@ -261,11 +276,13 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-body">
-                <div id="modal-left">
-                    <img src="img/logo_paybox.png" width="20%">
+                <div style="float:left; width:45%; margin:0; text-align:center; padding:0%;">
+                    <img src="img/logo_paybox.png" width="25%;">
                 </div>
-                <div id="modal-right">
-
+                <div style="float:left; width:55%; margin:0; text-align:center; padding:0%;">
+                    <div id="price2"><h4><span id="txtmacPri"></span>
+                        <input type="text" name="pri2" id="pri2" readonly value="0"> <span id="txtUnit2"></span></h4>
+                    </div>
                 </div>
                 <br style="clear: both;">
             </div>
