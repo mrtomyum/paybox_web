@@ -78,16 +78,16 @@ func (ca *CoinAcceptor) Stop() {
 func (ca *CoinAcceptor) Received(c *Client) {
 	fmt.Println("Start method: ca.Received()")
 	received := c.Msg.Data.(float64)
-	PM.Coin = + received
-	PM.Total = + received
-	CB.Hopper = + received
-	CB.Total = + received
-	m := &Message{
-		Device:  "coin_acc",
-		Command: "received",
-		Data:    received,
-	}
+	PM.Coin += received
+	PM.Total += received
+	CB.Hopper += received
+	CB.Total += received
+	//m := &Message{
+	//	Device:  "coin_acc",
+	//	Command: "received",
+	//	Data:    received,
+	//}
 	fmt.Printf("Coin Received = %v, PM Total= %v\n", PM.Coin, PM.Total)
-	PM.Send <- m
-	H.OnHand(H.Web)
+	//PM.Send <- m
+	PM.OnHand(H.Web)
 }

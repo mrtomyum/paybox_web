@@ -65,9 +65,9 @@ func (c *Client) WebEvent() {
 	fmt.Println("Request message from Web")
 	switch c.Msg.Command {
 	case "onhand":
-		H.OnHand(c)
+		PM.OnHand(c)
 	case "cancel":
-		H.Cancel(c)
+		PM.Cancel(c)
 	default:
 		log.Println("Client.WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
 	}

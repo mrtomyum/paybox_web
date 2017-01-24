@@ -15,6 +15,7 @@ var (
 	M  *MainBoard
 	PM *Payment
 	CB *CashBox
+	AV *AcceptedValue
 	AB *AcceptedBill
 )
 
@@ -48,8 +49,8 @@ func init() {
 	}
 	PM = &Payment{
 		Coin: 0,
-		Bill: 100,
-		Total:100,
+		Bill: 0,
+		Total:0,
 		Send: make(chan *Message),
 	}
 	CB = &CashBox{
@@ -58,11 +59,18 @@ func init() {
 		Bill:  0,
 		Total: 0,
 	}
+	AV = &AcceptedValue{
+		B20:  0,
+		B50:  0,
+		B100: 0,
+		B500: 300,
+		B1000:700,
+	}
 	AB = &AcceptedBill{
-		THB20:  0,
-		THB50:  0,
-		THB100: 0,
-		THB500: 300,
-		THB1000:700,
+		B20:  true,
+		B50:  true,
+		B100: true,
+		B500: true,
+		B1000:true,
 	}
 }

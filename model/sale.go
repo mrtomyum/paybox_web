@@ -86,7 +86,6 @@ func (s *Sale) Save() error {
 		price
 		)
 	VALUES(?,?,?,?,?)`
-	// Todo: Loop til end SaleSub
 	for _, ss := range s.SaleSubs {
 		rs, err = db.Exec(sql2,
 			s.Id,
