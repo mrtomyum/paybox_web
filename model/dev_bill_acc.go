@@ -21,14 +21,13 @@ func (ba *BillAcceptor) Event(c *Client) {
 	switch c.Msg.Command {
 	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
 		ba.Received(c)
-	case "set_inhibit": // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
+	case "set_inhibit", "machine_id", "inhibit", "recently_inserted", "take_reject": // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 		ba.Send <- c.Msg
 	default:
 		// "machine_id": 		// ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
 		// "inhibit":           // ใช้สาหรับร้องขอ สถานะ Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 		// "recently_inserted": // ร้องขอจานวนเงินของธนบัตรล่าสุดที่ได้รับ
 		// "take_reject": 		// สั่งให้ รับ-คืน ธนบัตรท่ีกาลังพักอยู่
-		ba.Send <- c.Msg
 		fmt.Println("BA Event() default:")
 	}
 }
@@ -130,7 +129,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 		fmt.Println("2...")
 	}()
 
-	fmt.Println("3. รอคำตอบจาก Bill Acceptor, Message=", m)
+	fmt.Println("3. รอคำตอบจาก Bill Acceptor, Message=", m1)
 	m3 := <-ch //  ที่นี่โปรแกรมจะ Block รอจนกว่าจะมี Message m3 จาก Channel ch
 	close(ch)
 	fmt.Println("4. m3=", m3)
@@ -150,7 +149,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 		PM.Escrow = 0         // ล้างยอดเงินพัก
 	}
 
-	fmt.Println("*BillAcceptor.Take() success.. m=:", m)
+	fmt.Println("*BillAcceptor.Take() success.. m=:", m1)
 	return nil
 }
 

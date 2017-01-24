@@ -27,11 +27,11 @@ type CashBox struct {
 
 // AcceptedValue ระบุค่ายอดขายขั้นต่ำที่ยอมรับธนบัตรแต่ละขนาด 0 = ไม่จำกัด
 type AcceptedValue struct {
-	B20   int `json:"b20"`
-	B50   int `json:"b50"`
-	B100  int `json:"b100"`
-	B500  int `json:"b500"`
-	B1000 int `json:"b1000"`
+	B20   float64 `json:"b20"`
+	B50   float64 `json:"b50"`
+	B100  float64 `json:"b100"`
+	B500  float64 `json:"b500"`
+	B1000 float64 `json:"b1000"`
 }
 
 type AcceptedBill struct {
@@ -52,43 +52,37 @@ func (pm *Payment) Pay(sale *Sale) error {
 	// ระบบจะ Take เงิน และจะสะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลาจนกว่าจะได้ยอด Payment >= Sale
 	for {
 		fmt.Println("2. Waiting payment form BA or CA")
-		m := <-PM.Send
+		<-PM.Send
 		fmt.Printf("3. Received Escrow = %v, Payment = %v Sale= %v\n", PM.Escrow, PM.Total, S.Total)
+		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกินระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
+			change := PM.Total - sale.Total
+			if CB.Hopper >= change { // หากเหรียญใน Hopper พอทอน
+				err := CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
+				if err != nil {
+					return err
+					log.Println("Error on CH Payout():", err.Error())
+				}
+				break
+			}
+			if PM.Escrow != 0 { // ถ้ามียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
+				err := BA.Take(false) // คายธนบัตร (Reject)
+				if err != nil {
+					return err
+				}
+				fmt.Println("คายธนบัตรเมื่อเหรียญใน Hopper ไม่พอทอน PM.Total=", PM.Total)
+			}
 
-		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกิน
-			break
 		}
-		if m.Device == "bill_acc" { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
+		if PM.Escrow != 0 { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
 			// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
-			err := BA.Take(true)
+			err := BA.Take(true) // เก็บธนบัตรลงถัง
 			if err != nil {
 				return err
 			}
 		}
 	}
 
-	change := PM.Total - sale.Total
-	// ระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
-	if CB.Hopper < change { // หากเหรียญใน Hopper ไม่พอทอน
-		if PM.Escrow != 0 { // มียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
-			err := BA.Take(false) // คายธนบัตร (Reject)
-			if err != nil {
-				return err
-			}
-			fmt.Println("คายธนบัตรเมื่อเหรียญใน Hopper ไม่พอทอน PM.Total=", PM.Total)
-		}
-	} else {
-		// เงินไม่พอทอน ต้อง Reject และ เข้า Loop Payment ใหม่
-	}
 
-	// ทอนเงินจาก CoinHopper ถ้ามี
-	if change > 0 {
-		err := CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
-		if err != nil {
-			return err
-			log.Println("Error on CH Payout():", err.Error())
-		}
-	}
 
 	// ปิดการรับชำระที่อุปกรณ์
 	CA.Stop()
@@ -185,6 +179,5 @@ func CheckAcceptedBill(s *Sale) {
 		fallthrough
 	case s.Total >= AV.B1000:
 		AB.B1000 = false
-		fallthrough
 	}
 }
