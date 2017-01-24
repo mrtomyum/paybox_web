@@ -36,7 +36,7 @@ func NewSale(c *gin.Context) {
 	}
 
 	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
-	model.H.OnHand(model.H.Web)
+	model.PM.OnHand(model.H.Web)
 
 	// เช็คสถานะ Network และ Server ว่า IsNetOnline อยู่หรือไม่?
 	if !model.H.IsNetOnline {

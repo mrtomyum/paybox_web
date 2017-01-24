@@ -142,14 +142,14 @@ func (ba *BillAcceptor) Take(action bool) error {
 func (ba *BillAcceptor) Received(c *Client) {
 	fmt.Println("Start method: ba.Received()")
 	received := c.Msg.Data.(float64)
-	PM.Bill = + received
-	PM.Total = + received
-	m := &Message{
-		Device:  "bill_acc",
-		Command: "received",
-		Data:    received,
-	}
+	PM.Bill += received
+	PM.Total += received
+	//m := &Message{
+	//	Device:  "bill_acc",
+	//	Command: "received",
+	//	Data:    received,
+	//}
 	fmt.Printf("Bill Received = %v, PM Total= %v\n", PM.Bill, PM.Total)
-	PM.Send <- m
-	H.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
+	//PM.Send <- m
+	PM.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
 }
