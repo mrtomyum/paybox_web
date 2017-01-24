@@ -240,30 +240,32 @@
                 <input type="hidden" id="line"><input type="hidden" id="Munit">
             </div>
             <div class="modal-body">
-                <div id="modal-left">
-                    <div id="modal-img">
-                        <div id="Mimg">
+                <div style="float:left; width:45%; margin:0;">
 
-                        </div>
-                    </div>
-                    <div id="modal-price">
-                        <input type="text" id="mo-pri" name="mo-pri" readonly>
-                    </div>
+                </div>
+                <div style="float:left; width:55%; margin:0;">
+
+                </div>
+                <br style="clear: both;">
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal payment-->
+<div class="modal fade" id="payment_onhand" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="modal-left">
+                    <img src="img/logo_paybox.png" width="20%">
                 </div>
                 <div id="modal-right">
-                    <div id="modal-qty">
-                        <a href="#"><img src="/img/delete.png" onclick="removeQty()"></a>
-                        <input type="text" id="mo_qty" value="1" readonly>
-                        <a href="#"><img src="/img/add.png" onclick="addQty()"></a>
-                    </div>
-                    <div id="modal-size">
-                        <div id="menusize"></div>
-                        <input type="hidden" id="Msize">
-                    </div>
-                    <div id="modal-submit">
-                        <a href="javascript:send_order()"><img src="/img/ok.png" id="send" style="margin-left: 0;"></a>
-                        <a href="#"><img src="/img/no.png" data-dismiss="modal"></a>
-                    </div>
+
                 </div>
                 <br style="clear: both;">
             </div>

@@ -200,14 +200,14 @@ function ticket_item(lang,menuId){
      var item = "";
          for(var i = 0; i < items.length; i++){
             	var size = items[i].sizes;
-               	item += '<a href="#"><div class="block-3"
+               	item += '<a href="#"><div class="block-3"';
                	item += 'onclick="showmodal(\''+items[i].id+'\',\''+items[i].name+'\',\'/img/'+items[i].image+'\',\'คน\',';
                	item += '\''+size[0].name+'/'+size[0].price+'\'';
               	item += ',\''+size[1].name+'/'+size[1].price+'\'';
                 item += ',\''+size[2].name+'/'+size[2].price+'\')">';
                 item += '<img src="/img/'+items[i].image+'" onError="this.src = \'/img/noimg.jpg\'" class="block-img">';
                 item += '<h5 style="margin-top: 0;">';
-                item += '<div style="width: 80%; float: left;">'+items[i].name+';
+                item += '<div style="width: 80%; float: left;">'+items[i].name;
                 item += '</div><div style="width: 20%; float: left; padding:0;">'+size[0].price+'</div></h5>';
                 item += '</div></a>';
          }
@@ -284,12 +284,12 @@ function item(lang,menuId){
                     	var price = items[i].prices;
                     	item += '<a href="#"><div class="block-3"';
                     	item += 'onclick="showmodal(\''+items[i].Id+'\',\''+items[i].name+'\',\''+items[i].menu_seq+'\',\'/img/'+items[i].image+'\',\''+items[i].unit+'\',';
-                    	item += '\''+price[0].name+'/'+price[0].price+';
+                    	item += '\''+price[0].name+'/'+price[0].price+'\'';
                     	item += ',\''+price[1].name+'/'+price[1].price+'\'';
                     	item += ',\''+price[2].name+'/'+price[2].price+'\')">';
-                    	item += '<img src="/img/'+items[i].image+'" onError="this.src = '/img/noimg.jpg'" class="block-img">';
+                    	item += '<img src="/img/'+items[i].image+'" onError="this.src = \'/img/noimg.jpg\'" class="block-img">';
                     	item += '<h5 style="margin-top: 0;">';
-                    	item += '<div style="width: 80%; float: left;">'+items[i].name+';
+                    	item += '<div style="width: 80%; float: left;">'+items[i].name;
                     	item += '</div><div style="width: 20%; float: left; padding:0;">'+price[0].price+' ฿</div></h5>';
                     	item += '</div></a>';
                     }
@@ -435,8 +435,8 @@ function showmodal(id,name,line,img,unit,s,m,l){
 		}
 
 		if( mPrice != "0"){
-   		size += '<a href="#"><h1 id="'+mName+'" onclick="active_size(\''+mName+'\',\''+mPrice+'\')">;
-        size += '<img src="/img/m.png" class="img-size"><b>Medium </b></h1>
+   		size += '<a href="#"><h1 id="'+mName+'" onclick="active_size(\''+mName+'\',\''+mPrice+'\')">';
+        size += '<img src="/img/m.png" class="img-size"><b>Medium </b></h1>';
         size += '</a>';
         }
 
@@ -492,8 +492,8 @@ function order_list(itemCode,itemName,line,size,qty,unit,price){
        list += '<label class="orderlist">';
        list += '<div class="ordername" onclick="return false;"> '+listOrder[i].item_name+' '+listOrder[i].price_name+'</div>';
        list += '<div class="orderqty" onclick="return false;">'+listOrder[i].qty+' '+listOrder[i].unit+'</div>';
-       list += '<div class="orderprice" onclick="return false;">'+listOrder[i].price+' ฿</div>
-       list += '<div class="ordercancel">
+       list += '<div class="orderprice" onclick="return false;">'+listOrder[i].price+' ฿</div>';
+       list += '<div class="ordercancel">';
        list += '<button class="btn btn-danger btn-xs"  onclick="item_cancel('+i+')" style="padding-left: 22.5%; padding-right: 22.5%;">-';
        list += '</button></div></label>';
 
@@ -529,7 +529,7 @@ function item_cancel(index){
                      list += '<div class="ordername"> '+listOrder[i].item_name+' '+listOrder[i].price_name+'</div>';
                      list += '<div class="orderqty">'+listOrder[i].qty+' '+listOrder[i].unit+'</div>';
                      list += '<div class="orderprice">'+listOrder[i].price+' ฿</div>';
-                     list += '<div class="ordercancel">
+                     list += '<div class="ordercancel">';
                      list += '<button class="btn btn-danger btn-xs" onclick="item_cancel('+i+')" style="padding-left: 22.5%; padding-right: 22.5%;">-';
                      list += '</button>';
                      list += '</div>';
@@ -542,7 +542,7 @@ function item_cancel(index){
                     if(list!=""){
                          list = list;
                     }else{
-                         list = '<label class="orderlist"><h4 style='color:red; text-align:center; padding:0; width:95%;'>** กรุณาเลือกรายการ **</h4></label>';
+                         list = '<label class="orderlist"><h4 style=\'color:red; text-align:center; padding:0; width:95%;\'>** กรุณาเลือกรายการ **</h4></label>';
                     }
                  document.getElementById("order_list").innerHTML = list;
                 // console.log(list);
