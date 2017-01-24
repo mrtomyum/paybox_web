@@ -607,9 +607,9 @@ function payment(){
        }
        for(var i = 0; i < listOrder.length; i++){
            list += '<tr>';
-           list += '<td style="line-height:12px; text-align:left;">'+listOrder[i].item_name +'/'+listOrder[i].price_name+'</td>';
-           list += '<td style="line-height:12px; text-align:right;">'+listOrder[i].qty+'</td>';
-           list += '<td style="line-height:12px; text-align:right;">'+listOrder[i].price+'</td>';
+           list += '<td style="line-height:12px; text-align:left; font-size:10px;">'+listOrder[i].item_name +'/'+listOrder[i].price_name+'</td>';
+           list += '<td style="line-height:12px; text-align:right; font-size:10px;">'+listOrder[i].qty+'</td>';
+           list += '<td style="line-height:12px; text-align:right; font-size:10px;">'+listOrder[i].price+'</td>';
            list += '</tr>';
 
            totalPrice += parseInt(listOrder[i].price);
@@ -680,7 +680,7 @@ function print(){
     //console.log(output);
     console.log(parseInt(pri2)+","+parseInt(pri1));
     if(changeMoney<0){
-        Alert7.alert("ยอดเงินไม่พอชำระ");
+        alert("ยอดเงินไม่พอชำระ");
     }else {
       //  clearInterval(onHend);
        //   alert(output);
