@@ -676,7 +676,7 @@ function print(){
    }
     var orderType = status;
     var output = "";
-    output = '{"total":'+parseInt(pri1)+',"payment":'+parseInt(pri2)+',"change":'+changeMoney+',"type":"'+orderType+'","sale_sub":'+JSON.stringify(listOrder)+'}';
+    output = '{"total":'+parseInt(pri1)+',"payment":'+parseInt(pri2)+',"change":'+changeMoney+',"type":"'+orderType+'","sale_subs":'+JSON.stringify(listOrder)+'}';
     //console.log(output);
     console.log(parseInt(pri2)+","+parseInt(pri1));
     if(changeMoney<0){
