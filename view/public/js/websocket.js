@@ -33,8 +33,35 @@
               console.log(t);
             if(pathname[1]=="item.html"){
                   if(t['command']=="onhand"){
+                    var total = 0;
+                    var pri1 = document.getElementById("pri1").value;
+                    var balance = document.getElementById("pri3").value;
+                    var payment =  document.getElementById("pri2").value;
+                    total = parseInt(JSON.stringify(t['data'])-parseInt(balance));
+                    console.log(parseInt(JSON.stringify(t['data'])));
+                    console.log(parseInt(balance));
+                    console.log("ยอดเงิน "+parseInt(payment)+" ชำระ "+total);
+                    if(parseInt(payment)<= total){
+                        console.log("true");
+                        total = total.toString();
+                        if(total.includes("-")){
+                            var pay = total.split("-");
+                            total = pay[1];
+                        }
+                        document.getElementById("texttotal").innerHTML = "เงินถอน";
                         document.getElementById("pri2").value = t['data'];
-
+                        document.getElementById("pri3").value = total;
+                    }else{
+                        console.log("false");
+                        total = total.toString();
+                        if(total.includes("-")){
+                        var pay = total.split("-");
+                             total = pay[1];
+                        }
+                        document.getElementById("texttotal").innerHTML = "ค้างชำระ";
+                        document.getElementById("pri2").value = t['data'];
+                        document.getElementById("pri3").value = total;
+                    }
 
                   }else if(t['command']=="order"){
                     Alert7.alert("การทำรายการ "+t['data']);

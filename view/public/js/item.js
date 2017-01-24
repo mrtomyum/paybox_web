@@ -37,8 +37,8 @@ $("document").ready(function(){
 	            document.getElementById("Status").innerHTML = "สถานะ : "+status;
 
 	            document.getElementById("txtTotalPri").innerHTML = "ราคารวม";
-	            document.getElementById("txtmacPri").innerHTML = "จำนวนเงิน";
-	            //document.getElementById("txtUnit").innerHTML = "บาท";
+	            document.getElementById("txtmacPri").innerHTML = "ชำระแล้ว";
+	            document.getElementById("texttotal").innerHTML = "ค้างชำระ";
 	           // document.getElementById("txtUnit2").innerHTML = "บาท";
 
 	          /*  document.getElementById("bt_payment").innerHTML = "ชำระเงิน";
@@ -64,7 +64,7 @@ $("document").ready(function(){
 
                 document.getElementById("txtTotalPri").innerHTML = "Total";
                 document.getElementById("txtmacPri").innerHTML = "Payment";
-              //  document.getElementById("txtUnit").innerHTML = "baht";
+                document.getElementById("texttotal").innerHTML = "Balance";
                // document.getElementById("txtUnit2").innerHTML = "baht";
 
             /*  document.getElementById("bt_payment").innerHTML = "NewSale";
@@ -89,7 +89,7 @@ $("document").ready(function(){
 
                	document.getElementById("txtTotalPri").innerHTML = "總價";
                	document.getElementById("txtmacPri").innerHTML = "付款";
-              // 	document.getElementById("txtUnit").innerHTML = "銖";
+               	document.getElementById("texttotal").innerHTML = "平衡";
               // 	document.getElementById("txtUnit2").innerHTML = "銖";
 
                /*	document.getElementById("bt_payment").innerHTML = "付款";
@@ -631,6 +631,48 @@ function payment(){
         list += '</table>';
 
     document.getElementById("bill_peyment").innerHTML = list;
+    document.getElementById("pri3").value = ttPrice;
+    var pri1 = document.getElementById("pri1").value;
+        var pri2 = document.getElementById("pri2").value;
+     //   payment();
+         pri1 = numeral(pri1).format('0.0');
+         pri2 = numeral(pri2).format('0.0');
+        var changeMoney = parseInt(pri2)-parseInt(pri1);
+       //console.log(changeMoney);
+       var status = localStorage.action;
+       if(localStorage.OrgCode==1){
+       	   status = "Ticket"
+       }else{
+       	   if(status==1){ status = "Take This"}else{ status = "Take Home"}
+       }
+        var orderType = status;
+        var output = "";
+        output = '{"total":'+parseInt(pri1)+',"payment":'+parseInt(pri2)+',"change":'+changeMoney+',"type":"'+orderType+'","sale_subs":'+JSON.stringify(listOrder)+'}';
+        //console.log(output);
+        console.log(parseInt(pri2)+","+parseInt(pri1));
+        console.log(output);
+        $.ajax({
+                url: "http://"+window.location.host+"/sale",
+                data: output,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                type: "POST",
+                cache: false,
+                success: function(res){
+                                    //console.log(JSON.stringify(res.result));
+                     if(res.result==='success'){
+                        $('#payment_onhand').modal('hide');
+                       Alert7.alert(res.result);
+                       setTimeout(function(){
+                            window.location = 'index.html';
+                       },2000)
+                      }
+
+                      },
+                      error: function(err){
+                            console.log(JSON.stringify(err));
+                      }
+                });
   /*  var bt_payment = document.getElementsByClassName("Payment");
     var bt_print = document.getElementsByClassName("print");
 
@@ -661,52 +703,13 @@ function payment(){
 }
 
 function print(){
-    var pri1 = document.getElementById("pri1").value;
-    var pri2 = document.getElementById("pri2").value;
- //   payment();
-     pri1 = numeral(pri1).format('0.0');
-     pri2 = numeral(pri2).format('0.0');
-    var changeMoney = parseInt(pri2)-parseInt(pri1);
-   //console.log(changeMoney);
-   var status = localStorage.action;
-   if(localStorage.OrgCode==1){
-   	   status = "Ticket"
-   }else{
-   	   if(status==1){ status = "Take This"}else{ status = "Take Home"}
-   }
-    var orderType = status;
-    var output = "";
-    output = '{"total":'+parseInt(pri1)+',"payment":'+parseInt(pri2)+',"change":'+changeMoney+',"type":"'+orderType+'","sale_subs":'+JSON.stringify(listOrder)+'}';
-    //console.log(output);
-    console.log(parseInt(pri2)+","+parseInt(pri1));
+
     if(changeMoney<0){
         alert("ยอดเงินไม่พอชำระ");
     }else {
       //  clearInterval(onHend);
        //   alert(output);
         //  doSend(output);
-        console.log(output);
-               $.ajax({
-                      url: "http://"+window.location.host+"/sale",
-                      data: output,
-                      contentType: "application/json; charset=utf-8",
-                      dataType: "json",
-                      type: "POST",
-                      cache: false,
-                          success: function(res){
-                            //console.log(JSON.stringify(res.result));
-                            if(res.result==='success'){
-                                Alert7.alert(res.result);
-                                setTimeout(function(){
-                                    window.location = 'index.html';
-                                },2000)
-                            }
-
-                         },
-                          error: function(err){
-                              console.log(JSON.stringify(err));
-                          }
-                      });
     }
 
 }

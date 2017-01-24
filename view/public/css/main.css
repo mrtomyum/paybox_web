@@ -1050,7 +1050,7 @@ br{display: none;}
     .btn-danger h1{margin:15% 0 15% 0;}
     .btn-success h1{margin:15% 0 15% 0;}
 
-	#price1,#price2{
+	#price1,#price2,#price3{
 		width: 100%;
 		height: 70px;
 		/*border: 1px yellow solid;*/
@@ -1068,11 +1068,17 @@ br{display: none;}
 		text-align:center;
 	}
 	#price2 h4{
-		margin:0;
+		margin:0%;
 		padding: 0% 0 0 0;
 		font-size: 35px;
 		text-align:center;
 	}
+	#price3 h4{
+    		margin:25% 0 0 0;
+    		padding: 0% 0 0 0;
+    		font-size: 35px;
+    		text-align:center;
+    	}
 
 	#pri1{
 		border-radius: 9px; 
@@ -1087,6 +1093,20 @@ br{display: none;}
 		padding-right: 5%;
 		text-align:right;
 	}
+
+	#pri3{
+    		border-radius: 9px;
+    		border:#f80101 3px solid;
+    		background-color: #dcdcd1;
+    		width: 100%;
+    		height: 60px;
+    		margin:0% 3% 0% 5%;
+    		color: #000;
+    		font-weight: bold;
+    		font-size: 70px;
+    		padding-right: 5%;
+    		text-align:right;
+    	}
 
 	#sub{
 		width: 100%;
