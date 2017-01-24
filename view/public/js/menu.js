@@ -87,13 +87,11 @@ function tiket(id){
     console.log(JSON.stringify(listmenu));
             var menu = "";
             for (var i = 0; i < listmenu.length; i++) {
-              menu += `<a href="javascript:active_menu(`+listmenu[i].id+`,'`+listmenu[i].name+`','`+result[id-1].lang_name+`');">
-                  <div class="block-2">
-                  <img src="/img/`+listmenu[i].image+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-                  <h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>`+listmenu[i].name+`</b></div></h5>
-              </div>
-            </a>`;
-
+              menu += '<a href="javascript:active_menu('+listmenu[i].id+',\''+listmenu[i].name+'\',\''+result[id-1].lang_name+'\');">';
+              menu += '<div class="block-2">
+              menu += '<img src="/img/'+listmenu[i].image+'" onError="this.src = \'/img/noimg.jpg\'" class="block-img">';
+              menu += '<h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>'+listmenu[i].name+'</b></div></h5>';
+              menu += '</div></a>';
          }
 
      document.getElementById("menu_data").innerHTML = menu;
@@ -122,12 +120,11 @@ function detailmenu(id){
                   //  console.log(JSON.stringify(listmenu));
                     var menu = "";
                     for (var i = 0; i < listmenu.length; i++) {
-                          menu += `<a href="javascript:active_menu(`+listmenu[i].Id+`,'`+listmenu[i].name+`','`+result[id-1].lang_name+`');">
-                                        <div class="block-2">
-                                          <img src="/img/`+listmenu[i].image+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-                                            <h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>`+listmenu[i].name+`</b></div></h5>
-                                        </div>
-                                    </a>`;
+                          menu += '<a href="javascript:active_menu('+listmenu[i].Id+',\''+listmenu[i].name+'\',\''+result[id-1].lang_name+'\');">';
+                          menu += '<div class="block-2">'
+                          menu += '<img src="/img/'+listmenu[i].image+'" onError="this.src = \'/img/noimg.jpg\'" class="block-img">
+                          menu += '<h5 style="margin-top: 0;"><div style="width: 100%; float: left; text-align: center;"><b>'+listmenu[i].name+'</b></div></h5>';
+                          menu += '</div></a>';
 
                         }
 

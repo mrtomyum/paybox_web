@@ -165,9 +165,9 @@ function ticket_menu(id){
          //console.log(listmenu);
          for (var i = 0; i < listmenu.length; i++) {
              if(localStorage.menuId==i){
-                  menu += `<li onclick="active(`+i+`)"><a href="#" id="`+i+`">`+listmenu[i].name+`</a></li>`;
+                  menu += '<li onclick="active('+i+')"><a href="#" id="'+i+'">'+listmenu[i].name+'</a></li>';
              }else{
-                  menu += `<li onclick="active(`+i+`)"><a href="#" id="`+i+`">`+listmenu[i].name+`</a></li>`;
+                  menu += '<li onclick="active('+i+')"><a href="#" id="'+i+'">'+listmenu[i].name+'</a></li>';
                   }
          }
 
@@ -200,16 +200,16 @@ function ticket_item(lang,menuId){
      var item = "";
          for(var i = 0; i < items.length; i++){
             	var size = items[i].sizes;
-               	item += `<a href="#"><div class="block-3"
-               			onclick="showmodal('`+items[i].id+`','`+items[i].name+`','/img/`+items[i].image+`','คน',
-               			'`+size[0].name+'/'+size[0].price+`'
-              			,'`+size[1].name+'/'+size[1].price+`'
-                		,'`+size[2].name+'/'+size[2].price+`')">
-                   		<img src="/img/`+items[i].image+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-                        <h5 style="margin-top: 0;">
-                        <div style="width: 80%; float: left;">`+items[i].name+`
-                        </div><div style="width: 20%; float: left; padding:0;">`+size[0].price+`</div></h5>
-                        </div></a>`;
+               	item += '<a href="#"><div class="block-3"
+               	item += 'onclick="showmodal(\''+items[i].id+'\',\''+items[i].name+'\',\'/img/'+items[i].image+'\',\'คน\',';
+               	item += '\''+size[0].name+'/'+size[0].price+'\'';
+              	item += ',\''+size[1].name+'/'+size[1].price+'\'';
+                item += ',\''+size[2].name+'/'+size[2].price+'\')">';
+                item += '<img src="/img/'+items[i].image+'" onError="this.src = \'/img/noimg.jpg\'" class="block-img">';
+                item += '<h5 style="margin-top: 0;">';
+                item += '<div style="width: 80%; float: left;">'+items[i].name+';
+                item += '</div><div style="width: 20%; float: left; padding:0;">'+size[0].price+'</div></h5>';
+                item += '</div></a>';
          }
          //console.log(item);
          document.getElementById("list_item").innerHTML = item;
@@ -234,9 +234,9 @@ function main_menu(id){
                         //console.log(listmenu);
                         for (var i = 0; i < listmenu.length; i++) {
                           if(localStorage.menuId==i){
-                            menu += `<li onclick="active(`+i+`)"><a href="#" id="`+i+`">`+listmenu[i].name+`</a></li>`;
+                            menu += '<li onclick="active('+i+')"><a href="#" id="'+i+'">'+listmenu[i].name+'</a></li>';
                           }else{
-                            menu += `<li onclick="active(`+i+`)"><a href="#" id="`+i+`">`+listmenu[i].name+`</a></li>`;
+                            menu += '<li onclick="active('+i+')"><a href="#" id="'+i+'">'+listmenu[i].name+'</a></li>';
                           }
                         }
 
@@ -282,16 +282,16 @@ function item(lang,menuId){
                     var item = "";
                     for(var i = 0; i < items.length; i++){
                     	var price = items[i].prices;
-                    	item += `<a href="#"><div class="block-3"
-                    			onclick="showmodal('`+items[i].Id+`','`+items[i].name+`','`+items[i].menu_seq+`','/img/`+items[i].image+`','`+items[i].unit+`',
-                    			'`+price[0].name+'/'+price[0].price+`'
-                    			,'`+price[1].name+'/'+price[1].price+`'
-                    			,'`+price[2].name+'/'+price[2].price+`')">
-                    			<img src="/img/`+items[i].image+`" onError="this.src = '/img/noimg.jpg'" class="block-img">
-                    			<h5 style="margin-top: 0;">
-                    			<div style="width: 80%; float: left;">`+items[i].name+`
-                    			</div><div style="width: 20%; float: left; padding:0;">`+price[0].price+` ฿</div></h5>
-                    			</div></a>`;
+                    	item += '<a href="#"><div class="block-3"';
+                    	item += 'onclick="showmodal(\''+items[i].Id+'\',\''+items[i].name+'\',\''+items[i].menu_seq+'\',\'/img/'+items[i].image+'\',\''+items[i].unit+'\',';
+                    	item += '\''+price[0].name+'/'+price[0].price+';
+                    	item += ',\''+price[1].name+'/'+price[1].price+'\'';
+                    	item += ',\''+price[2].name+'/'+price[2].price+'\')">';
+                    	item += '<img src="/img/'+items[i].image+'" onError="this.src = '/img/noimg.jpg'" class="block-img">';
+                    	item += '<h5 style="margin-top: 0;">';
+                    	item += '<div style="width: 80%; float: left;">'+items[i].name+';
+                    	item += '</div><div style="width: 20%; float: left; padding:0;">'+price[0].price+' ฿</div></h5>';
+                    	item += '</div></a>';
                     }
                     					//console.log(item);
                     document.getElementById("list_item").innerHTML = item;
@@ -314,7 +314,7 @@ function active_size(id,price) {
 
 
 		console.log("ราคา " + totalPrice+", nameSize = "+id);
-		document.getElementById("mo-pri").value = totalPrice+` ฿`;
+		document.getElementById("mo-pri").value = totalPrice+' ฿';
 		//Alert7.alert('$("#'+id+'").addClass("acsize")');
 }
 
@@ -333,7 +333,7 @@ function addQty(){
 		addQty = parseInt(qty)+1;
 	}
 	document.getElementById("mo_qty").value = addQty;
-	document.getElementById("mo-pri").value = size_pri*addQty+` ฿`;
+	document.getElementById("mo-pri").value = size_pri*addQty+' ฿';
 }
 
 function removeQty(){
@@ -353,10 +353,10 @@ function removeQty(){
 
 	if(addQty<1){
 		document.getElementById("mo_qty").value = 1;
-		document.getElementById("mo-pri").value = size_pri*1+` ฿`;
+		document.getElementById("mo-pri").value = size_pri*1+' ฿';
 	}else{		
 		document.getElementById("mo_qty").value = addQty;
-		document.getElementById("mo-pri").value = size_pri*addQty+` ฿`;
+		document.getElementById("mo-pri").value = size_pri*addQty+' ฿';
 	}
 }
 
@@ -412,8 +412,8 @@ function showmodal(id,name,line,img,unit,s,m,l){
 	console.log(id+", "+name+", "+line+","+img+", "+unit+", "+s+", "+m+", "+l);
 	
 
-	var Mitem = id+` : `+name;
-	var Mimg = `<img class="crop" src="`+img+`" onError="this.src = '/img/noimg.jpg'" width="100%"/>`;
+	var Mitem = id+' : '+name;
+	var Mimg = '<img class="crop" src="'+img+'" onError="this.src = \'/img/noimg.jpg\'" width="100%"/>';
 
 	var s = s.split("/");
 	var sName = s[0];
@@ -429,21 +429,21 @@ function showmodal(id,name,line,img,unit,s,m,l){
 	var size = "";
     if(localStorage.OrgCode == 0){
 		if( sPrice != "0"){
-		size += `<a href="#"><h1 id="`+sName+`" onclick="active_size('`+sName+`','`+sPrice+`')" class="acsize">
-					<img src="/img/s.png" class="img-size"><b>Small </b></h1>
-				</a>`;
+		size += '<a href="#"><h1 id="'+sName+'" onclick="active_size(\''+sName+'\',\''+sPrice+'\')" class="acsize">';
+		size += '<img src="/img/s.png" class="img-size"><b>Small </b></h1>';
+		size += '</a>';
 		}
 
 		if( mPrice != "0"){
-   		size += `<a href="#"><h1 id="`+mName+`" onclick="active_size('`+mName+`','`+mPrice+`')">
-          			<img src="/img/m.png" class="img-size"><b>Medium </b></h1>
-          		</a>`;
+   		size += '<a href="#"><h1 id="'+mName+'" onclick="active_size(\''+mName+'\',\''+mPrice+'\')">;
+        size += '<img src="/img/m.png" class="img-size"><b>Medium </b></h1>
+        size += '</a>';
         }
 
         if( lPrice != "0"){
-        size += `<a href="#"><h1 id="`+lName+`" onclick="active_size('`+lName+`','`+lPrice+`')">
-          			<img src="/img/l.png" class="img-size"><b>large </b></h1>
-          		</a>`;
+        size += '<a href="#"><h1 id="'+lName+'" onclick="active_size(\''+lName+'\',\''+lPrice+'\')">';
+        size += '<img src="/img/l.png" class="img-size"><b>large </b></h1>';
+        size += '</a>';
         }
     }else{
 
@@ -459,7 +459,7 @@ function showmodal(id,name,line,img,unit,s,m,l){
 	document.getElementById("Mitem_title").innerHTML = Mitem.substring(0, 25)+"...";
 	document.getElementById("Mimg").innerHTML = Mimg;
 	document.getElementById("menusize").innerHTML = size;
-	document.getElementById("mo-pri").value = totalPrice+` ฿`;
+	document.getElementById("mo-pri").value = totalPrice+' ฿';
 
 	 $('#myModal').modal('show');
 }
@@ -489,17 +489,14 @@ function order_list(itemCode,itemName,line,size,qty,unit,price){
    var list = "";
    var totalPrice = 0;
    for(var i = 0; i < listOrder.length; i++){
-       list += `
-                  <label class="orderlist">
-                       <div class="ordername" onclick="return false;"> `+listOrder[i].item_name+` `+listOrder[i].price_name+`</div>
-                       <div class="orderqty" onclick="return false;">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
-                       <div class="orderprice" onclick="return false;">`+listOrder[i].price+` ฿</div>
-                       <div class="ordercancel">
-                       <button class="btn btn-danger btn-xs"  onclick="item_cancel(`+i+`)" style="padding-left: 22.5%; padding-right: 22.5%;">-
-                       </button>
-                     </div>
-                  </label>
-                `;
+       list += '<label class="orderlist">';
+       list += '<div class="ordername" onclick="return false;"> '+listOrder[i].item_name+' '+listOrder[i].price_name+'</div>';
+       list += '<div class="orderqty" onclick="return false;">'+listOrder[i].qty+' '+listOrder[i].unit+'</div>';
+       list += '<div class="orderprice" onclick="return false;">'+listOrder[i].price+' ฿</div>
+       list += '<div class="ordercancel">
+       list += '<button class="btn btn-danger btn-xs"  onclick="item_cancel('+i+')" style="padding-left: 22.5%; padding-right: 22.5%;">-';
+       list += '</button></div></label>';
+
        totalPrice += parseInt(listOrder[i].price);
    }
     //console.log(numeral(totalPrice).format('0,0'));
@@ -528,17 +525,15 @@ function item_cancel(index){
                  var totalPrice = 0;
                  console.log(listOrder.length);
                  for(var i = 0; i < listOrder.length; i++){
-                     list += `
-                                <label class="orderlist" onclick="return false">
-                                     <div class="ordername"> `+listOrder[i].item_name+` `+listOrder[i].price_name+`</div>
-                                     <div class="orderqty">`+listOrder[i].qty+` `+listOrder[i].unit+`</div>
-                                     <div class="orderprice">`+listOrder[i].price+` ฿</div>
-                                     <div class="ordercancel">
-                                     <button class="btn btn-danger btn-xs" onclick="item_cancel(`+i+`)" style="padding-left: 22.5%; padding-right: 22.5%;">-
-                                     </button>
-                                   </div>
-                                </label>
-                              `;
+                     list += '<label class="orderlist" onclick="return false">';
+                     list += '<div class="ordername"> '+listOrder[i].item_name+' '+listOrder[i].price_name+'</div>';
+                     list += '<div class="orderqty">'+listOrder[i].qty+' '+listOrder[i].unit+'</div>';
+                     list += '<div class="orderprice">'+listOrder[i].price+' ฿</div>';
+                     list += '<div class="ordercancel">
+                     list += '<button class="btn btn-danger btn-xs" onclick="item_cancel('+i+')" style="padding-left: 22.5%; padding-right: 22.5%;">-';
+                     list += '</button>';
+                     list += '</div>';
+                     list += '</label>';
                      totalPrice += parseInt(listOrder[i].price);
                  }
                  console.log(numeral(totalPrice).format('0,0'));
@@ -547,7 +542,7 @@ function item_cancel(index){
                     if(list!=""){
                          list = list;
                     }else{
-                         list = `<label class="orderlist"><h4 style='color:red; text-align:center; padding:0; width:95%;'>** กรุณาเลือกรายการ **</h4></label>`;
+                         list = '<label class="orderlist"><h4 style='color:red; text-align:center; padding:0; width:95%;'>** กรุณาเลือกรายการ **</h4></label>';
                     }
                  document.getElementById("order_list").innerHTML = list;
                 // console.log(list);
@@ -650,7 +645,7 @@ function print(){
    }
     var orderType = status;
     var output = "";
-    output = `{"total":`+parseInt(pri1)+`,"payment":`+parseInt(pri2)+`,"change":`+changeMoney+`,"type":"`+orderType+`","sale_sub":`+JSON.stringify(listOrder)+`}`;
+    output = '{"total":'+parseInt(pri1)+',"payment":'+parseInt(pri2)+',"change":'+changeMoney+',"type":"'+orderType+'","sale_sub":'+JSON.stringify(listOrder)+'}';
     //console.log(output);
     console.log(parseInt(pri2)+","+parseInt(pri1));
     if(changeMoney<0){
