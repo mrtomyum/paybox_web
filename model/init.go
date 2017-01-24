@@ -17,6 +17,7 @@ var (
 	CB *CashBox
 	AV *AcceptedValue
 	AB *AcceptedBill
+	S  *Sale
 )
 
 func init() {
@@ -72,5 +73,10 @@ func init() {
 		B100: true,
 		B500: true,
 		B1000:true,
+	}
+	S = &Sale{
+		Total:   0,
+		Payment: 0,
+		Change:  0,
 	}
 }

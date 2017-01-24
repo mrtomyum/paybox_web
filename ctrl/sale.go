@@ -14,13 +14,13 @@ func NewSale(c *gin.Context) {
 
 	// รับคำสั่งจาก Web ผ่าน JSON REST
 	fmt.Println("NewSale() start")
-	sale := &model.Sale{}
+	sale := model.S
 	if c.Bind(sale) != nil {
 		c.JSON(http.StatusOK, gin.H{"command":"bind_sale_data", "result": "error", "data": sale, })
 		log.Println("Error JSON from Web client.")
 	}
 	fmt.Printf("[NewSale()] รับค่า Sale จาก web->sale= %v\n", sale)
-
+	model.CheckAcceptedBill(sale)
 	DisplayAcceptedBill() // DisplayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 
 	// Payment

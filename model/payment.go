@@ -8,8 +8,9 @@ import (
 
 // Payment คือยอดเงินพัก ยังไม่ได้รับชำระ
 type Payment struct {
-	Coin  float64 // มูลค่าเหรียญพัก ที่ยังไม่ได้รับชำระ
-	Bill  float64 // มูลค่าธนบัตรที่พักอยู่ในเครื่องรับธนบัตร
+	Coin   float64 // มูลค่าเหรียญที่รับมา ที่ยังไม่ได้รับชำระ
+	Bill   float64 // มูลค่าธนบัตรที่รับมา ที่ยังไม่ได้รับชำระ
+	Escrow float64 // มูลค่าธนบัตรที่พักอยู่ในตัวรับธนบัตร BA
 	//Card  float64 // มูลค่าบัตรเครดิตที่รับชำระแล้ว
 	Total float64 // มูลค่าเงินพักทั้งหมด
 	Send  chan *Message
@@ -44,17 +45,19 @@ type AcceptedBill struct {
 func (pm *Payment) Pay(sale *Sale) error {
 	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
 	fmt.Printf("func Pay() -- \n1. Start inhibit device BA, CA \n")
-	BA.Start()
 	CA.Start()
-
-	// ให้รอจนกว่าจะได้รับเงิน จาก BA หรือ CA
-	fmt.Println("2. Waiting payment form BA or CA")
-	m := <-PM.Send
-	fmt.Println("Received Money:", m.Data)
+	BA.Start()
 
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน และจะสะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลาจนกว่าจะได้ยอด Payment >= Sale
-	for PM.Total < sale.Total {
+	for {
+		fmt.Println("2. Waiting payment form BA or CA")
+		m := <-PM.Send
+		fmt.Printf("3. Received Escrow = %v, Payment = %v Sale= %v\n", PM.Escrow, PM.Total, S.Total)
+
+		if PM.Total >= sale.Total {
+			break
+		}
 		if m.Device == "bill_acc" { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
 			// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
 			err := BA.Take(true)
@@ -68,18 +71,20 @@ func (pm *Payment) Pay(sale *Sale) error {
 	change := PM.Total - sale.Total
 	// หากรายการสุดท้ายชำระเป็นธนบัตร ระบบจะยังไม่ Take เงิน โดยตรวจสอบว่ามีเงินทอนเพียงพอหรือไม่? หากมากพอ ระบบจะทอนเงิน
 	// หากไม่พอ ระบบจะ Reject ธนบัตรใบล่าสุดนี้คืน และส่ง Message แจ้งเตือนให้เปลี่ยนธนบัตร หรือเหรียญ (ข้อความจะเปลี่ยนตามภาษาที่เลือก)
-	if CB.Hopper > change {
-		err := BA.Take(false)
-		if err != nil {
-			return err
+	if CB.Hopper > change { // เมื่อเหรียญใน Hopper มีพอทอน
+		if PM.Escrow != 0 { // ถ้ามีธนบัตรถูกพักไว้
+			err := BA.Take(false) // เกิ็บลงถัง
+			if err != nil {
+				return err
+			}
+			PM.Total -= PM.Bill
+			PM.Bill = 0
+			fmt.Println("เก็บธนบัตรเมื่อเหรียญใน Hopper มีพอทอน PM.Total=", PM.Total)
 		}
-		PM.Total = - PM.Bill
-		PM.Bill = 0
 	}
 
 	// ทอนเงินจาก CoinHopper ถ้ามี
-	if PM.Total > sale.Total {
-
+	if change > 0 {
 		err := CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
 		if err != nil {
 			return err
@@ -88,8 +93,8 @@ func (pm *Payment) Pay(sale *Sale) error {
 	}
 
 	// ปิดการรับชำระที่อุปกรณ์
-	BA.Stop()
 	CA.Stop()
+	BA.Stop()
 	return nil
 }
 
@@ -164,4 +169,24 @@ func (pm *Payment) Cancel(c *Client) error {
 	c.Msg.Data = "sucess"
 	c.Send <- c.Msg
 	return nil
+}
+
+func CheckAcceptedBill(s *Sale) {
+	switch {
+	case s.Total <= AV.B20:
+		AB.B20 = false
+		fallthrough
+	case s.Total <= AV.B50:
+		AB.B50 = false
+		fallthrough
+	case s.Total >= AV.B100:
+		AB.B100 = false
+		fallthrough
+	case s.Total >= AV.B500:
+		AB.B500 = false
+		fallthrough
+	case s.Total >= AV.B1000:
+		AB.B1000 = false
+		fallthrough
+	}
 }

@@ -7,7 +7,7 @@ import (
 
 type CoinAcceptor struct {
 	Id      string
-	Inhabit bool
+	Inhibit bool
 	Status  string
 	Send    chan *Message
 }
@@ -17,10 +17,11 @@ func (ca *CoinAcceptor) Event(c *Client) {
 	switch c.Msg.Command {
 	case "received":          // Event น้ีจะเกิดขึ้นเมื่อเคร่ืองรับเหรียญได้รับเหรียญ
 		ca.Received(c)
+	case "set_inhibit": // ตั้งค่า Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
+		ca.Send <- c.Msg
 	default:
 		// "machine_id": 		// ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins Acceptor
 		// "inhibit":           // ร้องขอ สถานะ Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
-		// "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
 		// "recently_inserted": // ร้องขอจานวนเงินของเหรียญล่าสุดที่ได้รับ
 		ca.Send <- c.Msg
 	}
@@ -31,24 +32,26 @@ func (ca *CoinAcceptor) Start() {
 	m := &Message{
 		Device:  "coin_acc",
 		Command: "set_inhibit",
-		Type:    "response",
-		Data:    true,
+		Type:    "request",
+		Data:    false,
 	}
-	ca.Send <- m
+	H.Dev.Send <- m
+	fmt.Println("1. สั่งเปิดรับเหรียญรอ response จาก BA...")
 	go func() {
 		m2 := <-ca.Send
 		if !m2.Result {
 			m2.Command = "warning"
 			m2.Data = "Error: Coin Acceptor cannot start."
 			H.Web.Send <- m2
+			log.Println("Error: Coin Acceptor cannot start.")
 		}
-		log.Println("Error: Coin Acceptor cannot start.")
 		ch <- m2
 		return
 	}()
 	m = <-ch
 	close(ch)
-	ca.Inhabit = true
+	ca.Status = "inhibit==false"
+	fmt.Println("2. เปิดรับเหรียญสำเร็จ, BA status:", ca.Status)
 }
 
 func (ca *CoinAcceptor) Stop() {
@@ -56,23 +59,26 @@ func (ca *CoinAcceptor) Stop() {
 	m := &Message{
 		Device:  "coin_acc",
 		Command: "set_inhibit",
-		Data:    false,
+		Type:    "request",
+		Data:    true,
 	}
-	ca.Send <- m
+	H.Dev.Send <- m
+	fmt.Println("1. สั่งปิดรับเหรียญรอ response จาก BA...")
 	go func() {
 		m2 := <-ca.Send
 		if !m2.Result {
 			m2.Command = "warning"
 			m2.Data = "Error: Coin Acceptor cannot stop."
 			H.Web.Send <- m2
+			log.Println("Error: Coin Acceptor cannot stop.")
 		}
-		log.Println("Error: Coin Acceptor cannot stop.")
 		ch <- m2
 		return
 	}()
 	m = <-ch
 	close(ch)
-	ca.Inhabit = false
+	ca.Status = "inhibit==true"
+	fmt.Println("2. ปิดรับเหรียญสำเร็จ, BA status:", ca.Status)
 }
 
 func (ca *CoinAcceptor) Received(c *Client) {
@@ -82,12 +88,12 @@ func (ca *CoinAcceptor) Received(c *Client) {
 	PM.Total += received
 	CB.Hopper += received
 	CB.Total += received
-	//m := &Message{
-	//	Device:  "coin_acc",
-	//	Command: "received",
-	//	Data:    received,
-	//}
-	fmt.Printf("Coin Received = %v, PM Total= %v\n", PM.Coin, PM.Total)
-	//PM.Send <- m
+	m := &Message{
+		Device:  "coin_acc",
+		Command: "received",
+		Data:    received,
+	}
+	fmt.Printf("Sale = %v, Coin Received = %v, PM Total= %v\n", S.Total, PM.Coin, PM.Total)
+	PM.Send <- m
 	PM.OnHand(H.Web)
 }

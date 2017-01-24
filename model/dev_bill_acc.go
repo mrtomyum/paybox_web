@@ -21,13 +21,15 @@ func (ba *BillAcceptor) Event(c *Client) {
 	switch c.Msg.Command {
 	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
 		ba.Received(c)
+	case "set_inhibit": // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
+		ba.Send <- c.Msg
 	default:
 		// "machine_id": 		// ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
 		// "inhibit":           // ใช้สาหรับร้องขอ สถานะ Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
-		// "set_inhibit":       // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 		// "recently_inserted": // ร้องขอจานวนเงินของธนบัตรล่าสุดที่ได้รับ
 		// "take_reject": 		// สั่งให้ รับ-คืน ธนบัตรท่ีกาลังพักอยู่
 		ba.Send <- c.Msg
+		fmt.Println("BA Event() default:")
 	}
 }
 
@@ -60,23 +62,27 @@ func (ba *BillAcceptor) Start() {
 		Device:  "bill_acc",
 		Command: "set_inhibit",
 		Type:    "response",
-		Data:    true,
+		Data:    false,
 	}
-	ba.Send <- m
+	fmt.Println("1...สั่งเปิดรับธนบัตรรอ response จาก BA")
+	H.Dev.Send <- m
 	go func() {
 		m2 := <-ba.Send
 		if !m2.Result {
 			m2.Command = "warning"
 			m2.Data = "Error: Bill Acceptor cannot start."
 			H.Web.Send <- m2
+			log.Println("Error: Bill Acceptor cannot start.")
 		}
-		log.Println("Error: Bill Acceptor cannot start.")
 		ch <- m2
 		return
 	}()
+
 	m = <-ch
 	close(ch)
 	ba.Inhibit = true
+	ba.Status = "inhibit==false"
+	fmt.Println("2. เปิดรับธนบัตรสำเร็จ, BA status:", ba.Status)
 }
 
 func (ba *BillAcceptor) Stop() {
@@ -84,23 +90,26 @@ func (ba *BillAcceptor) Stop() {
 	m := &Message{
 		Device:  "bill_acc",
 		Command: "set_inhibit",
-		Data:    false,
+		Data:    true,
 	}
-	ba.Send <- m
+	H.Dev.Send <- m
+	fmt.Println("1. สั่งปิดรับธนบัตรรอ response จาก BA...")
 	go func() {
 		m2 := <-ba.Send
 		if !m2.Result {
 			m2.Command = "warning"
 			m2.Data = "Error: Bill Acceptor cannot stop."
 			H.Web.Send <- m2
+			log.Println("Error: Bill Acceptor cannot stop.")
 		}
-		log.Println("Error: Bill Acceptor cannot stop.")
 		ch <- m2
 		return
 	}()
 	m = <-ch
 	close(ch)
 	ba.Inhibit = false
+	ba.Status = "inhibit==true"
+	fmt.Println("2. ปิดรับธนบัตรสำเร็จ, BA status:", ba.Status)
 }
 
 // สั่งให้ Bill Acceptor เก็บเงิน
@@ -133,8 +142,8 @@ func (ba *BillAcceptor) Take(action bool) error {
 	// อัพเดตยอดเงินสดในตู้ด้วย
 	CB.Bill = + PM.Bill
 	CB.Total = + PM.Bill
-	PM.Total = - PM.Bill
-	PM.Bill = 0
+	//PM.Total = - PM.Bill
+	PM.Escrow = 0
 	fmt.Println("*BillAcceptor.Take() success.. m=:", m)
 	return nil
 }
@@ -142,14 +151,18 @@ func (ba *BillAcceptor) Take(action bool) error {
 func (ba *BillAcceptor) Received(c *Client) {
 	fmt.Println("Start method: ba.Received()")
 	received := c.Msg.Data.(float64)
+
+	// todo: ตรวจ AcceptedBill ถ้า false ให้ BA.Reject()
+
 	PM.Bill += received
+	PM.Escrow += received
 	PM.Total += received
-	//m := &Message{
-	//	Device:  "bill_acc",
-	//	Command: "received",
-	//	Data:    received,
-	//}
-	fmt.Printf("Bill Received = %v, PM Total= %v\n", PM.Bill, PM.Total)
-	//PM.Send <- m
+	m := &Message{
+		Device:  "bill_acc",
+		Command: "received",
+		Data:    received,
+	}
+	fmt.Printf("Sale = %v, Bill Received = %v, Bill Escrow=%v PM Total= %v\n", S.Total, PM.Bill, PM.Escrow, PM.Total)
+	PM.Send <- m
 	PM.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
 }

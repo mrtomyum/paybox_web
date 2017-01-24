@@ -76,7 +76,7 @@ func (c *Client) WebEvent() {
 // DevEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
 func (c *Client) DevEvent() {
-	fmt.Println("Event message from Dev")
+	fmt.Println("method DevEvent() Event message from Dev:", c.Msg)
 	switch c.Msg.Device {
 	case "coin_hopper":
 		CH.Event(c)
@@ -88,5 +88,7 @@ func (c *Client) DevEvent() {
 		P.Event(c)
 	case "main_board":
 		M.Event(c)
+	default:
+		log.Println("event cannot find function/message=", c.Msg)
 	}
 }
