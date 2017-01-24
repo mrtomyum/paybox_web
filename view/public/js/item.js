@@ -647,7 +647,7 @@ function payment(){
        }
         var orderType = status;
         var output = "";
-        output = '{"total":'+parseInt(pri1)+',"payment":'+parseInt(pri2)+',"change":'+changeMoney+',"type":"'+orderType+'","sale_subs":'+JSON.stringify(listOrder)+'}';
+        output = '{"total":'+parseInt(pri1)+',"type":"'+orderType+'","sale_subs":'+JSON.stringify(listOrder)+'}';
         //console.log(output);
         console.log(parseInt(pri2)+","+parseInt(pri1));
         console.log(output);
