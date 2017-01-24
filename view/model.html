@@ -63,10 +63,10 @@
             <button type="button" onclick="reject()" class="btn btn-lg  btn-primary">คืนเงิน</button>
         </div>
         <div class="btn-group">
-            <button type="button" onclick="websocket.onopen()" class="btn btn-lg  btn-primary">connect</button>
+            <button type="button" onclick="call_web_socket()" class="btn btn-lg  btn-primary">connect</button>
         </div>
         <div class="btn-group">
-            <button type="button" onclick="websocket.onclose()" class="btn btn-lg  btn-primary">disconnect</button>
+            <button type="button" onclick="websocket.close()" class="btn btn-lg  btn-primary">disconnect</button>
         </div>
     </div>
 
@@ -81,15 +81,16 @@
     var wsUri = "ws://"+window.location.host+"/dev";
         //var wsUri = "ws://192.168.0.215:8888/ws";
 
-    websocket = new WebSocket(wsUri);
+
     //console.log(window.location.host);
 
-    //function call_web_socket(){
+    function call_web_socket(){
+          websocket = new WebSocket(wsUri);
           websocket.onopen = function(evt) { onOpen(evt) };
           websocket.onclose = function(evt) { onClose(evt) };
           websocket.onmessage = function(evt) { onMessage(evt) };
           websocket.onerror = function(evt) { onError(evt) };
-    //}
+    }
 
     function onOpen(evt)
     {
@@ -99,6 +100,7 @@
 
     function onClose(evt)
     {
+     // websocket.close();
       console.log("DISCONNECTED");
     }
 
@@ -127,17 +129,17 @@ function start_ca(){
 }
 
 function start_ba(){
-    console.log('start ca');
+    console.log('start ba');
     doSend('{"device":"bill_acc","type": "response","command": "set_inhibit","result": true}');
 }
 
 function stop_ca(){
-    console.log('start ca');
+    console.log('stop ca');
     doSend('{"device":"coin_acc","type": "response","command": "set_inhibit","result": false}');
 }
 
 function stop_ba(){
-    console.log('start ca');
+    console.log('stop ba');
     doSend('{"device":"bill_acc","type": "response","command": "set_inhibit","result": false}');
 }
 
