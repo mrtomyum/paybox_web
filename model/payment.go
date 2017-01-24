@@ -55,7 +55,7 @@ func (pm *Payment) Pay(sale *Sale) error {
 		m := <-PM.Send
 		fmt.Printf("3. Received Escrow = %v, Payment = %v Sale= %v\n", PM.Escrow, PM.Total, S.Total)
 
-		if PM.Total >= sale.Total {
+		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกิน
 			break
 		}
 		if m.Device == "bill_acc" { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
@@ -67,20 +67,18 @@ func (pm *Payment) Pay(sale *Sale) error {
 		}
 	}
 
-	// เมื่อชำระเงินครบหรือเกิน ตรวจว่ามีเหรียญพอทอนหรือไม่?
 	change := PM.Total - sale.Total
-	// หากรายการสุดท้ายชำระเป็นธนบัตร ระบบจะยังไม่ Take เงิน โดยตรวจสอบว่ามีเงินทอนเพียงพอหรือไม่? หากมากพอ ระบบจะทอนเงิน
-	// หากไม่พอ ระบบจะ Reject ธนบัตรใบล่าสุดนี้คืน และส่ง Message แจ้งเตือนให้เปลี่ยนธนบัตร หรือเหรียญ (ข้อความจะเปลี่ยนตามภาษาที่เลือก)
-	if CB.Hopper > change { // เมื่อเหรียญใน Hopper มีพอทอน
-		if PM.Escrow != 0 { // ถ้ามีธนบัตรถูกพักไว้
-			err := BA.Take(false) // เกิ็บลงถัง
+	// ระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
+	if CB.Hopper < change { // หากเหรียญใน Hopper ไม่พอทอน
+		if PM.Escrow != 0 { // มียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
+			err := BA.Take(false) // คายธนบัตร (Reject)
 			if err != nil {
 				return err
 			}
-			PM.Total -= PM.Bill
-			PM.Bill = 0
-			fmt.Println("เก็บธนบัตรเมื่อเหรียญใน Hopper มีพอทอน PM.Total=", PM.Total)
+			fmt.Println("คายธนบัตรเมื่อเหรียญใน Hopper ไม่พอทอน PM.Total=", PM.Total)
 		}
+	} else {
+		// เงินไม่พอทอน ต้อง Reject และ เข้า Loop Payment ใหม่
 	}
 
 	// ทอนเงินจาก CoinHopper ถ้ามี

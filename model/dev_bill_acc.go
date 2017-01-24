@@ -115,35 +115,41 @@ func (ba *BillAcceptor) Stop() {
 // สั่งให้ Bill Acceptor เก็บเงิน
 func (ba *BillAcceptor) Take(action bool) error {
 	ch := make(chan *Message)
-	m := &Message{
+	m1 := &Message{
 		Device:  "bill_acc",
 		Command: "take_reject",
 		Type:    "request",
 		Data:    action,
 	}
-	H.Dev.Send <- m
+	H.Dev.Send <- m1
 
 	go func() {
-		m = <-ba.Send
+		m2 := <-ba.Send
 		fmt.Println("1. Response from Bill Acceptor:")
-		ch <- m
+		ch <- m2
 		fmt.Println("2...")
 	}()
 
-	fmt.Println("3. [*BillAcceptor.Take()] ส่ง m1-> c.Send รอคำตอบจาก Bill Acceptor, Message=", m)
-	m = <-ch //  ที่นี่โปรแกรมจะ Block รอจนกว่าจะมี Message m3 จาก Channel ch
+	fmt.Println("3. รอคำตอบจาก Bill Acceptor, Message=", m)
+	m3 := <-ch //  ที่นี่โปรแกรมจะ Block รอจนกว่าจะมี Message m3 จาก Channel ch
 	close(ch)
-	fmt.Println("4.... ")
-	if !m.Result {
+	fmt.Println("4. m3=", m3)
+	if !m3.Result {
 		ba.Status = "Error cannot take bill"
 		return errors.New("Error Bill Acceptor cannot take bill")
 		log.Println("Error response from Bill Acceptor!")
 	}
 	// อัพเดตยอดเงินสดในตู้ด้วย
-	CB.Bill = + PM.Bill
-	CB.Total = + PM.Bill
-	//PM.Total = - PM.Bill
-	PM.Escrow = 0
+	if m1.Data.(bool) == true { // ถ้าสั่ง Take
+		CB.Bill += PM.Escrow  // เพิ่มยอดธนบัตรในถังธนบัตร
+		CB.Total += PM.Escrow // เพิ่มยอดรวมของ CashBox
+		PM.Escrow = 0         // ล้างยอดเงินพัก
+	} else {
+		PM.Total -= PM.Escrow // ลดยอดรับเงินรวม
+		PM.Bill -= PM.Escrow  // ลดยอดรับธนบัตร
+		PM.Escrow = 0         // ล้างยอดเงินพัก
+	}
+
 	fmt.Println("*BillAcceptor.Take() success.. m=:", m)
 	return nil
 }

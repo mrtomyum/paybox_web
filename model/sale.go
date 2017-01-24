@@ -45,6 +45,7 @@ type SalePay struct {
 }
 
 func (s *Sale) Post() error {
+	fmt.Println("method *Sale.Post()")
 	// Ping Server api.paybox.work:8080/ping
 	// if post Error s.IsPosted = false
 	// IsNetOnline => Post Order ขึ้น Cloud
