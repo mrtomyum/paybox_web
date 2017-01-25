@@ -50,10 +50,24 @@ func (pm *Payment) Pay(sale *Sale) error {
 
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน และจะสะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลาจนกว่าจะได้ยอด Payment >= Sale
+PAY:
 	for {
 		fmt.Println("2. Waiting payment form BA or CA")
 		<-PM.Send
 		fmt.Printf("3. Received Escrow = %v, Payment = %v Sale= %v\n", PM.Escrow, PM.Total, S.Total)
+		if PM.Escrow != 0 {
+			switch PM.Escrow {
+			case 20:
+				if !AB.B20 {
+					BA.Take(false);
+					break PAY
+				}
+			case 50:
+			case 100:
+			case 500:
+			case 1000:
+			}
+		}
 		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกินระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
 			change := PM.Total - sale.Total
 			if CB.Hopper >= change { // หากเหรียญใน Hopper พอทอน

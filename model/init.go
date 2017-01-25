@@ -55,7 +55,7 @@ func init() {
 		Send: make(chan *Message),
 	}
 	CB = &CashBox{
-		Hopper:0,
+		Hopper:1000, // todo: เพิ่ม API สั่งเพิ่มเหรียญ
 		Coin:  0,
 		Bill:  0,
 		Total: 0,
