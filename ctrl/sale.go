@@ -41,12 +41,14 @@ func NewSale(c *gin.Context) {
 		fmt.Println("Offline => Save sale to disk")
 	}
 
+	fmt.Println("Post ยอดขายขึ้น Cloud -> sale.Post()")
 	err = sale.Post()
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"command": "post", "result":"error", "message":err.Error()})
 	}
 
 	// ถ้า Net IsNetOnline และ Post สำเร็จ ให้บันทึก SQL sale.completed = true
+	fmt.Println("Save ยอดขายลง Local Storage")
 	err = sale.Save()
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"command": "save", "result":"error", "message":err.Error()})

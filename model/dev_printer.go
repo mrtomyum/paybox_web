@@ -13,9 +13,11 @@ type Printer struct {
 
 func (p *Printer) Event(c *Client) {
 	switch c.Msg.Command {
-	case "machine_id": // ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Printer
-	case "do_single":  //ส่ังการเคร่ืองปริ้นเตอร์ แบบส่งคาส่ังการกระทาคาสั่งเดียว โดย action_name และ action_data สามารถดูได้จากตาราง Action
-	case "do_group":   //ส่ังการเคร่ืองปร้ินเตอร์ แบบส่งคาส่ังการกระทาแบบเปน็ ชุด โดย action_name และ action_data สามารถดูได้จากตาราง Action
+	case "machine_id", "do_single", "do_group":
+		p.Send <- c.Msg
+	//case "machine_id": // ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Printer
+	//case "do_single":  //ส่ังการเคร่ืองปริ้นเตอร์ แบบส่งคาส่ังการกระทาคาสั่งเดียว โดย action_name และ action_data สามารถดูได้จากตาราง Action
+	//case "do_group":   //ส่ังการเคร่ืองปร้ินเตอร์ แบบส่งคาส่ังการกระทาแบบเปน็ ชุด โดย action_name และ action_data สามารถดูได้จากตาราง Action
 	case "near_end":   // Event แจ้งเตือนกระดาษใกล้หมด
 	case "no_paper":   // Event แจ้งเตือนกระดาษหมดแล้ว
 	}
@@ -49,15 +51,16 @@ func (p *Printer) Print(s *Sale) error {
 		Data:   data,
 	}
 	H.Dev.Send <- m
+	fmt.Println("สั่งพิมพ์ รอ Priner ตอบสนอง")
 	go func() {
-		m2 := <-H.Dev.Send
+		m2 := <-p.Send
 		ch <- m2
 	}()
 	m = <-ch
 	if !m.Result {
 		return errors.New("Err: printer error.")
 	}
-	fmt.Println("Print success!")
+	fmt.Println("พิมพ์สำเร็จ Print success!")
 	return nil
 }
 

@@ -54,6 +54,8 @@ func (s *Sale) Post() error {
 }
 
 func (s *Sale) Save() error {
+	s.Payment = PM.Total
+	s.Change = PM.Remain
 	fmt.Println("*Sale.Save() start")
 	sql1 := `INSERT INTO sale(
 		host_id,
@@ -102,6 +104,7 @@ func (s *Sale) Save() error {
 			fmt.Printf("Error when db.Exec(sql2) %v", err.Error())
 			return err
 		}
+
 	}
 
 	// Check result
