@@ -172,7 +172,7 @@ func (ba *BillAcceptor) Received(c *Client) {
 	// todo: ตรวจ AcceptedBill ถ้า false ให้ BA.Reject()
 
 	PM.Bill += received
-	PM.Escrow += received
+	PM.Escrow = received
 	PM.Total += received
 	m := &Message{
 		Device:  "bill_acc",
@@ -180,6 +180,6 @@ func (ba *BillAcceptor) Received(c *Client) {
 		Data:    received,
 	}
 	fmt.Printf("Sale = %v, Bill Received = %v, Bill Escrow=%v PM Total= %v\n", S.Total, PM.Bill, PM.Escrow, PM.Total)
-	PM.Send <- m
+	PM.Received <- m
 	PM.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
 }

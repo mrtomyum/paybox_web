@@ -138,12 +138,12 @@ function start_ba(){
 
 function stop_ca(){
     console.log('stop ca');
-    doSend('{"device":"coin_acc","type": "response","command": "set_inhibit","result": false}');
+    doSend('{"device":"coin_acc","type": "response","command": "set_inhibit","result": true}');
 }
 
 function stop_ba(){
     console.log('stop ba');
-    doSend('{"device":"bill_acc","type": "response","command": "set_inhibit","result": false}');
+    doSend('{"device":"bill_acc","type": "response","command": "set_inhibit","result": true}');
 }
 
 function coin_hopper(bank){

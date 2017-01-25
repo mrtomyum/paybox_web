@@ -20,8 +20,6 @@ func NewSale(c *gin.Context) {
 		log.Println("Error JSON from Web client.")
 	}
 	fmt.Printf("[NewSale()] รับค่า Sale จาก web->sale= %v\n", sale)
-	model.CheckAcceptedBill(sale)
-	DisplayAcceptedBill() // DisplayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 
 	// Payment
 	err := model.PM.Pay(sale)
@@ -56,15 +54,4 @@ func NewSale(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"command":"sale", "result": "success", "data": sale, })
 	fmt.Println("NewSale() COMPLETED, sale = ", sale)
-}
-
-func DisplayAcceptedBill() {
-	// Check MinAcceptedBill500 & 1000
-	m := &model.Message{
-		Command:"accepted_bill",
-		Type:   "event",
-		Data:   model.AB,
-	}
-	fmt.Println("Send message to Web = ", m)
-	model.H.Web.Send <- m
 }

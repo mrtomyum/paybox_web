@@ -63,7 +63,7 @@ func (ca *CoinAcceptor) Stop() {
 		Data:    true,
 	}
 	H.Dev.Send <- m
-	fmt.Println("1. สั่งปิดรับเหรียญรอ response จาก BA...")
+	fmt.Println("1. สั่งปิดรับเหรียญรอ response จาก CA...")
 	go func() {
 		m2 := <-ca.Send
 		if !m2.Result {
@@ -94,6 +94,6 @@ func (ca *CoinAcceptor) Received(c *Client) {
 		Data:    received,
 	}
 	fmt.Printf("Sale = %v, Coin Received = %v, PM Total= %v\n", S.Total, PM.Coin, PM.Total)
-	PM.Send <- m
+	PM.Received <- m
 	PM.OnHand(H.Web)
 }
