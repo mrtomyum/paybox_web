@@ -55,7 +55,7 @@ func (s *Sale) Post() error {
 
 func (s *Sale) Save() error {
 	s.Payment = PM.Total
-	s.Change = PM.Remain
+	s.Change = s.Payment - s.Total
 	fmt.Println("*Sale.Save() start")
 	sql1 := `INSERT INTO sale(
 		host_id,
