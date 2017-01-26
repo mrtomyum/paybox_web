@@ -122,7 +122,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 		Data:    action,
 	}
 	H.Dev.Send <- m1
-	fmt.Println("1. รอคำตอบจาก Bill Acceptor, Message=", m1)
+	fmt.Println("BA.Take() action = [%v] 1. รอคำตอบจาก Bill Acceptor", action)
 
 	go func() {
 		m2 := <-ba.Send
@@ -175,12 +175,12 @@ func (ba *BillAcceptor) Received(c *Client) {
 	PM.Bill += received
 	PM.BillEscrow = received
 	PM.Total += received
-	//	m := &Message{
-	//		Device:  "bill_acc",
-	//		Command: "received",
-	//		Data:    received,
-	//	}
+	m := &Message{
+		Device:  "bill_acc",
+		Command: "received",
+		Data:    received,
+	}
 	fmt.Printf("Sale = %v, Bill Received = %v, Bill Escrow=%v PM Total= %v\n", S.Total, PM.Bill, PM.BillEscrow, PM.Total)
-	//PM.Received <- m
+	PM.Received <- m
 	PM.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
 }

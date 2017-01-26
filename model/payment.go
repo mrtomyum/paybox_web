@@ -130,6 +130,12 @@ func (pm *Payment) Pay(sale *Sale) error {
 			}
 		}
 		if PM.Total >= sale.Total {
+			PM.Total = 0
+			PM.Coin = 0
+			PM.Bill = 0
+			PM.Remain = 0
+			PM.BillEscrow = 0
+			PM.CoinEscrow = 0
 			break
 		}
 	}
