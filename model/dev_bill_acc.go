@@ -122,18 +122,18 @@ func (ba *BillAcceptor) Take(action bool) error {
 		Data:    action,
 	}
 	H.Dev.Send <- m1
+	fmt.Println("1. รอคำตอบจาก Bill Acceptor, Message=", m1)
 
 	go func() {
 		m2 := <-ba.Send
-		fmt.Println("1. Response from Bill Acceptor:")
+		fmt.Println("2. Response from Bill Acceptor:")
 		ch <- m2
-		fmt.Println("2...")
+		//fmt.Println("3...")
 	}()
 
-	fmt.Println("3. รอคำตอบจาก Bill Acceptor, Message=", m1)
 	m3 := <-ch //  ที่นี่โปรแกรมจะ Block รอจนกว่าจะมี Message m3 จาก Channel ch
 	close(ch)
-	fmt.Println("4. m3=", m3)
+	//fmt.Println("4. m3=", m3)
 	if !m3.Result {
 		ba.Status = "Error cannot take bill"
 		return errors.New("Error Bill Acceptor cannot take bill")
@@ -162,7 +162,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 		PM.BillEscrow = 0         // ล้างยอดเงินพัก
 	}
 
-	fmt.Println("*BillAcceptor.Take() success.. m=:", m1)
+	fmt.Println("BA.Take() SUCCSS m1 =:", m1)
 	return nil
 }
 
