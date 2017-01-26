@@ -483,7 +483,7 @@ function send_order(){
 function order_list(itemCode,itemName,line,size,qty,unit,price){
    // console.log(itemCode+","+itemName+","+size+","+qty+","+unit+","+price);
 
-   listOrder.push({"line":line,"item_id":itemCode,"item_name":itemName,"qty":qty,"price_name":size,"price":price,"unit":unit});
+   listOrder.push({"line":parseInt(line),"item_id":parseInt(itemCode),"item_name":itemName,"qty":parseInt(qty),"price_name":size,"price":parseInt(price),"unit":unit});
    line += 1;
    console.log(JSON.stringify(listOrder));
    var list = "";
