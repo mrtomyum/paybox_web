@@ -50,6 +50,7 @@ func (ba *BillAcceptor) MachineId(c *Client) error {
 		log.Println("Error when get machine_id")
 	}
 	fmt.Println("Bill Acceptor machine id =", m.Data.(string))
+	ba.machineId = m.Data.(string)
 	m.Type = "response"
 	H.Web.Send <- m
 	return nil
@@ -152,13 +153,13 @@ func (ba *BillAcceptor) Take(action bool) error {
 	}
 	// อัพเดตยอดเงินสดในตู้ด้วย
 	if m1.Data.(bool) == true { // ถ้าสั่ง Take
-		CB.Bill += PM.Escrow  // เพิ่มยอดธนบัตรในถังธนบัตร
-		CB.Total += PM.Escrow // เพิ่มยอดรวมของ CashBox
-		PM.Escrow = 0         // ล้างยอดเงินพัก
+		CB.Bill += PM.BillEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
+		CB.Total += PM.BillEscrow // เพิ่มยอดรวมของ CashBox
+		PM.BillEscrow = 0         // ล้างยอดเงินพัก
 	} else {
-		PM.Total -= PM.Escrow // ลดยอดรับเงินรวม
-		PM.Bill -= PM.Escrow  // ลดยอดรับธนบัตร
-		PM.Escrow = 0         // ล้างยอดเงินพัก
+		PM.Total -= PM.BillEscrow // ลดยอดรับเงินรวม
+		PM.Bill -= PM.BillEscrow  // ลดยอดรับธนบัตร
+		PM.BillEscrow = 0         // ล้างยอดเงินพัก
 	}
 
 	fmt.Println("*BillAcceptor.Take() success.. m=:", m1)
@@ -172,14 +173,14 @@ func (ba *BillAcceptor) Received(c *Client) {
 	// todo: ตรวจ AcceptedBill ถ้า false ให้ BA.Reject()
 
 	PM.Bill += received
-	PM.Escrow = received
+	PM.BillEscrow = received
 	PM.Total += received
 	m := &Message{
 		Device:  "bill_acc",
 		Command: "received",
 		Data:    received,
 	}
-	fmt.Printf("Sale = %v, Bill Received = %v, Bill Escrow=%v PM Total= %v\n", S.Total, PM.Bill, PM.Escrow, PM.Total)
+	fmt.Printf("Sale = %v, Bill Received = %v, Bill Escrow=%v PM Total= %v\n", S.Total, PM.Bill, PM.BillEscrow, PM.Total)
 	PM.Received <- m
 	PM.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
 }

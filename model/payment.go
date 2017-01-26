@@ -8,12 +8,13 @@ import (
 
 // Payment คือยอดเงินพัก ยังไม่ได้รับชำระ
 type Payment struct {
-	Coin     float64 // มูลค่าเหรียญที่รับมา ที่ยังไม่ได้รับชำระ
-	Bill     float64 // มูลค่าธนบัตรที่รับมา ที่ยังไม่ได้รับชำระ
-	Escrow   float64 // มูลค่าธนบัตรที่พักอยู่ในตัวรับธนบัตร BA
-	Total    float64 // มูลค่าเงินพักทั้งหมด
-	Remain   float64 // เงินคงค้างชำระ
-	Received chan *Message
+	Coin       float64 // มูลค่าเหรียญที่รับมาทั้งหมด แต่ยังไม่ได้รับชำระ
+	CoinEscrow float64 // มูลค่าเหรียญที่พัก
+	Bill       float64 // มูลค่าธนบัตรที่รับมาทั้งหมด แต่ยังไม่ได้รับชำระ
+	BillEscrow float64 // มูลค่าธนบัตรที่พักอยู่ในตัวรับธนบัตร BA
+	Total      float64 // มูลค่าเงินพักทั้งหมด
+	Remain     float64 // เงินคงค้างชำระ
+	Received   chan *Message
 	//Card  float64 // มูลค่าบัตรเครดิตที่รับชำระแล้ว
 }
 
@@ -57,11 +58,11 @@ func (pm *Payment) Pay(sale *Sale) error {
 
 		fmt.Println("2. Waiting payment form BA or CA")
 		<-PM.Received
-		fmt.Printf("3. Received Escrow = %v, Payment = %v Sale= %v\n", PM.Escrow, PM.Total, S.Total)
-		if PM.Escrow != 0 { // ชำระเงินล่าสุดเป็น Bill
+		fmt.Printf("3. Received Escrow = %v, Payment = %v Sale= %v\n", PM.BillEscrow, PM.Total, S.Total)
+		if PM.BillEscrow != 0 { // ชำระเงินล่าสุดเป็น Bill
 			fmt.Println("4. ถ้ารับธนบัตร คืนธนบัตรที่ไม่รับ")
 		PAY:
-			switch PM.Escrow {
+			switch PM.BillEscrow {
 			case 20:
 				if !AB.B20 {
 					BA.Take(false)
@@ -89,34 +90,41 @@ func (pm *Payment) Pay(sale *Sale) error {
 				}
 			}
 		}
-		fmt.Println("ตรวจว่ายอดรับเงิน >= ยอดขายหรือยัง?")
+		fmt.Println("5. ยอดรับเงิน >= ยอดขายหรือยัง?")
 		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกินระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
 			change := PM.Total - sale.Total
+			fmt.Printf("YES -> 6. ต้องทอนเงินไหม? ")
 			if change != 0 { // ไม่มีเงินทอนให้ข้ามไป
-				fmt.Println("YES -> เช็คว่ามีเหรียญพอทอนไหม")
+				fmt.Printf("YES -> 7. เช็คว่ามีเหรียญพอทอนไหม")
 				if CB.Hopper >= change { // หากเหรียญใน Hopper พอทอน และยอดทอน != 0
-					fmt.Println("YES -> สั่งทอนเหรียญ")
+					fmt.Println("YES -> 8.1 สั่งทอนเหรียญ")
 					err := CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
 					if err != nil {
 						return err
 						log.Println("Error on CH Payout():", err.Error())
 					}
 					fmt.Println("SUCCESS -- ทอนเหรียญจาก Hopper สำเร็จ PM.Total=", PM.Total)
-					break
-				}
-				fmt.Println("NO -> รับด้วยธนบัตรรึเปล่า?")
-				if PM.Escrow != 0 { // ถ้ามียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
-					fmt.Println("ํYES -> สั่งคายธนบัตร")
-					err := BA.Take(false) // คายธนบัตร (Reject)
+				} else {
+					fmt.Println("NO -> 8.2 #เหรียญไม่พอทอน# รับธนบัตรรึเปล่า")
+					if PM.BillEscrow != 0 { // ถ้ามียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
+						fmt.Println("YES -> ถ้ารับด้วยธนบัตรให้คายธนบัตรคืนลูกค้า -- สั่งคายธนบัตร")
+						err := BA.Take(false) // คายธนบัตร (Reject)
+						if err != nil {
+							return err
+						}
+						fmt.Println("SUCCESS -- คายธนบัตรเมื่อเหรียญใน Hopper ไม่พอทอน PM.Total=", PM.Total)
+					}
+					fmt.Println("No -> รับมาด้วยเหรียญ -- ให้ทอนเหรียญตามจำนวนที่รับมา")
+					err := CH.PayoutByCash(PM.CoinEscrow)
 					if err != nil {
 						return err
+						log.Println("Error on CH Payout():", err.Error())
 					}
-					fmt.Println("SUCCESS -- คายธนบัตรเมื่อเหรียญใน Hopper ไม่พอทอน PM.Total=", PM.Total)
 				}
 			}
 		}
-		fmt.Println("NO -> รับด้วยธนบัตรรึเปล่า?")
-		if PM.Escrow != 0 { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
+		fmt.Println("NO -> 9. รับด้วยธนบัตรรึเปล่า?")
+		if PM.BillEscrow != 0 { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
 			// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
 			err := BA.Take(true) // เก็บธนบัตรลงถัง
 			if err != nil {

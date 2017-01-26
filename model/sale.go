@@ -102,15 +102,17 @@ func (s *Sale) Save() error {
 
 	sql2 := `INSERT INTO sale_sub(
 		sale_id,
+		line,
 		item_id,
 		item_name,
 		price_id,
-		price
+		price,
 		qty,
 		unit
 		)
-	VALUES(?,?,?,?,?)`
+	VALUES(?,?,?,?,?,?,?,?)`
 	for _, ss := range s.SaleSubs {
+		fmt.Println("start for range s.SaleSubs")
 		rs, err = db.Exec(sql2,
 			s.Id,
 			ss.Line,
@@ -122,11 +124,12 @@ func (s *Sale) Save() error {
 			ss.Unit,
 		)
 		if err != nil {
-			fmt.Printf("Error when db.Exec(sql2) %v", err.Error())
+			fmt.Printf("Error when db.Exec(sql2) %v\n", err.Error())
 			return err
 		}
-
+		fmt.Println("Insert sale_sub line ", ss)
 	}
+	fmt.Println("Save data sucess: sale =", s)
 
 	// Check result
 	//sales := []*Sale{}
