@@ -6,9 +6,9 @@ import (
 )
 
 type Printer struct {
-	Id     string
-	Status string
-	Send   chan *Message
+	machineId string `json:"machine_id"`
+	Status    string
+	Send      chan *Message
 }
 
 func (p *Printer) Event(c *Client) {

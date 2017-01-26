@@ -33,9 +33,9 @@ const (
 )
 
 type CoinHopper struct {
-	Id     string
-	Status string
-	Send   chan *Message
+	machineId string `json:"machine_id"`
+	Status    string
+	Send      chan *Message
 }
 
 // Todo: Try to Construct CoinHopper Object after Dev Client opened connection????
@@ -59,8 +59,8 @@ func (ch *CoinHopper) GetId() {
 			select {
 			case m := <-ch.Send:
 				fmt.Println("Get Response from CoinHopper:", m)
-				ch.Id = m.Data.(string)
-				fmt.Println("CoinHopper ID:", ch.Id, "Status:", ch.Status)
+				ch.machineId = m.Data.(string)
+				fmt.Println("CoinHopper ID:", ch.machineId, "Status:", ch.Status)
 				break
 			}
 		}

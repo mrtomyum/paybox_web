@@ -47,6 +47,25 @@ type SalePay struct {
 func (s *Sale) Post() error {
 	fmt.Println("method *Sale.Post()")
 	// Ping Server api.paybox.work:8080/ping
+	url := "http://paybox.work/api/v1/vending/sell"
+	fmt.Println("URL:>", url)
+
+	//var jsonStr = []byte(`{"title":"Buy cheese and bread for breakfast."}`)
+	//req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	//req.Header.Set("X-Custom-Header", "myvalue")
+	//req.Header.Set("Content-Type", "application/json")
+	//
+	//client := &http.Client{}
+	//resp, err := client.Do(req)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//defer resp.Body.Close()
+	//
+	//fmt.Println("response Status:", resp.Status)
+	//fmt.Println("response Headers:", resp.Header)
+	//body, _ := ioutil.ReadAll(resp.Body)
+	//fmt.Println("response Body:", string(body))
 	// if post Error s.IsPosted = false
 	// IsNetOnline => Post Order ขึ้น Cloud
 	s.IsPosted = true
@@ -79,14 +98,16 @@ func (s *Sale) Save() error {
 		return err
 	}
 	s.Id, _ = rs.LastInsertId()
-	fmt.Println("s.Id =", s.Id)
+	fmt.Println("s.machineId =", s.Id)
 
 	sql2 := `INSERT INTO sale_sub(
 		sale_id,
 		item_id,
-		qty,
+		item_name,
 		price_id,
 		price
+		qty,
+		unit
 		)
 	VALUES(?,?,?,?,?)`
 	for _, ss := range s.SaleSubs {

@@ -6,10 +6,10 @@ import (
 )
 
 type CoinAcceptor struct {
-	Id      string
-	Inhibit bool
-	Status  string
-	Send    chan *Message
+	machineId string `json:"machine_id"`
+	Inhibit   bool
+	Status    string
+	Send      chan *Message
 }
 
 // Event & Response from coin acceptor.

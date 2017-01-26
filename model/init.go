@@ -76,6 +76,7 @@ func init() {
 		B1000:true,
 	}
 	S = &Sale{
+		HostId:  "001",
 		Total:   0,
 		Payment: 0,
 		Change:  0,

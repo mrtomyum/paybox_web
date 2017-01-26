@@ -1,9 +1,9 @@
 package model
 
 type MainBoard struct {
-	Id     string
-	Status string
-	Send   chan *Message
+	machineId string `json:"machine_id"`
+	Status    string
+	Send      chan *Message
 }
 
 func (m *MainBoard) Event(c *Client) {
