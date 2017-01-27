@@ -49,7 +49,7 @@
                             var pay = total.split("-");
                             total = pay[1];
                         }
-                        document.getElementById("texttotal").innerHTML = "เงินถอน";
+                        document.getElementById("texttotal").innerHTML = "เงินทอน";
                         document.getElementById("pri2").value = t['data'];
                         document.getElementById("pri3").value = total;
                     }else{
