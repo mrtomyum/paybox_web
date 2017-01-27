@@ -25,25 +25,10 @@ func (p *Printer) Event(c *Client) {
 
 func (p *Printer) Print(s *Sale) error {
 	fmt.Println("p.Print() run")
-	data := `[
-		{ “set_text_size”:3},
-    	{ “printline” : “ร้านกาแฟ MOMO”},
-    	{  “set_text_size”:1},
-    	{ “printline” : “Ticketid  : 12”},
-    	{ “printline” : “รายการสินค้า” },
-    	{ “printline” : “ID     NAME      QTY     AMT”},
-		{ “printline” : “2     Late        1       40.00”},
-		{ “printline” : “----------------------”},
-		{ “printline” : “รวมมูลค่าสินค้า     75”},
-		{ “printline” : “เงินสด                100”},
-		{ “printline” : “ขอบคุณที่ใช้บริการ”},
-		{ “paper_cut”: {
-          	"type": "full_cut",
-            "feed": 1
-      		}
-        }
-    ]
-	`
+	data, err := p.makeSaleSlip(s)
+	if err != nil {
+		return err
+	}
 	ch := make(chan *Message)
 	m := &Message{
 		Device: "printer",
@@ -64,3 +49,38 @@ func (p *Printer) Print(s *Sale) error {
 	return nil
 }
 
+func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
+	header := `[
+		{"set_text_size":3},
+		{"printline" : "ร้านกาแฟ MOMO"},
+		{"set_text_size":1},
+		{"printline": "Ticketid  : 12"},
+		{"printline": "ID     NAME      QTY     AMT"},
+	`
+	item := `
+		{"printline": "2     Late        1       40.00"},
+
+	`
+	footer := `
+		{"printline": "----------------------"},
+		{"printline": "รวมมูลค่าสินค้า     %v"},
+		{"printline": "รับเงิน           %v"},
+		{"printline": "เงินทอน          %v"},
+		{"printline": "ขอบคุณที่ใช้บริการ"},
+		{"paper_cut": {"type": "partial_cut","feed": 1}}
+	`
+	queue := `
+		{"printline": "Ticket" },
+		{"set_text_size":8},
+		{%s},
+		{"paper_cut": {"type": "full_cut","feed": 1}}
+		]
+	`
+	data = fmt.Sprintf(header+item+footer+queue, s.Total, s.Payment, s.Change)
+	fmt.Println("data=", data)
+	return data, nil
+}
+
+func (p *Printer) makeTicket(s *Sale) {
+
+}

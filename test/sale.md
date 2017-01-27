@@ -63,7 +63,7 @@ Post sale transaction from web ui.
       		"price_id": 2,
       		"price": 60,
       		"qty ": 2,
-      		"unit": "แก้ว"
+      		"unit": "แก้ว"   
       	}]
     }
 }
