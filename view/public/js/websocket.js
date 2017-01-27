@@ -42,6 +42,7 @@
                     console.log(parseInt(JSON.stringify(t['data'])));
                     console.log(parseInt(balance));
                     console.log("ยอดเงิน "+parseInt(payment)+" ชำระ "+total);
+
                     if(total > 0){
                         console.log("true");
                         total = total.toString();
