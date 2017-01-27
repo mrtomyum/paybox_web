@@ -3,11 +3,14 @@ package model
 import (
 	"fmt"
 	"time"
+	//"errors"
+	//_ "github.com/go-sql-driver/mysql"
+	//"github.com/jmoiron/sqlx"
 )
 
 // Sale เป็นหัวเอกสารขายแต่ละครั้ง
 type Sale struct {
-	Id       int64
+	Id       uint64
 	Created  *time.Time
 	HostId   string `json:"host_id" db:"host_id"`
 	Total    float64 `json:"total"`
@@ -102,7 +105,8 @@ func (s *Sale) Save() error {
 		fmt.Printf("Error when db.Exec(sql1) %v", err.Error())
 		return err
 	}
-	s.Id, _ = rs.LastInsertId()
+	id, _ := rs.LastInsertId()
+	s.Id = uint64(id)
 	fmt.Println("s.machineId =", s.Id)
 
 	sql2 := `INSERT INTO sale_sub(
