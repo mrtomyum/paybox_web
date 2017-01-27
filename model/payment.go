@@ -60,35 +60,33 @@ func (pm *Payment) Pay(sale *Sale) error {
 		<-PM.Received
 		fmt.Printf("3. Received Escrow = %v, Payment = %v Sale= %v\n", PM.BillEscrow, PM.Total, S.Total)
 		if PM.BillEscrow != 0 { // ชำระเงินล่าสุดเป็น Bill
-			fmt.Println("4. ถ้ารับธนบัตร คืนธนบัตรที่ไม่รับ")
-		PAY:
+			fmt.Println("4. ถ้ารับธนบัตร ตรวจสอบเพื่อ Reject ธนบัตรที่ไม่รับ")
 			switch PM.BillEscrow {
-			case 20:
+			case 20.0:
 				if !AB.B20 {
 					BA.Take(false)
-					break PAY
 				}
-			case 50:
+			case 50.0:
 				if !AB.B50 {
 					BA.Take(false)
-					break PAY
 				}
-			case 100:
+			case 100.0:
 				if !AB.B100 {
 					BA.Take(false)
-					break PAY
 				}
 			case 500:
 				if !AB.B500 {
 					BA.Take(false)
-					break PAY
 				}
 			case 1000:
-				if !AB.B100 {
+				if !AB.B1000 {
 					BA.Take(false)
-					break PAY
 				}
+			default:
+				fmt.Println("ไม่เข้าเงื่อนไข")
 			}
+			fmt.Println("PM.BillEscrow =", PM.BillEscrow)
+			fmt.Println("AcceptedBill = ", AB)
 		}
 		fmt.Println("5. ยอดรับเงิน >= ยอดขายหรือยัง?")
 		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกินระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
@@ -130,6 +128,15 @@ func (pm *Payment) Pay(sale *Sale) error {
 			if err != nil {
 				return err
 			}
+		}
+		if PM.Total >= sale.Total {
+			PM.Total = 0
+			PM.Coin = 0
+			PM.Bill = 0
+			PM.Remain = 0
+			PM.BillEscrow = 0
+			PM.CoinEscrow = 0
+			break
 		}
 	}
 

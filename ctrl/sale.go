@@ -36,11 +36,6 @@ func NewSale(c *gin.Context) {
 	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
 	model.PM.OnHand(model.H.Web)
 
-	// เช็คสถานะ Network และ Server ว่า IsNetOnline อยู่หรือไม่?
-	if !model.H.IsNetOnline {
-		fmt.Println("Offline => Save sale to disk")
-	}
-
 	fmt.Println("Post ยอดขายขึ้น Cloud -> sale.Post()")
 	err = sale.Post()
 	if err != nil {

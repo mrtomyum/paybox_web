@@ -46,6 +46,11 @@ type SalePay struct {
 
 func (s *Sale) Post() error {
 	fmt.Println("method *Sale.Post()")
+	// เช็คสถานะ Network และ Server ว่า IsNetOnline อยู่หรือไม่?
+	if !H.IsNetOnline {
+		fmt.Println("Offline => Save sale to disk")
+	}
+
 	// Ping Server api.paybox.work:8080/ping
 	url := "http://paybox.work/api/v1/vending/sell"
 	fmt.Println("URL:>", url)

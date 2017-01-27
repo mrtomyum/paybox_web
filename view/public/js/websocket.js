@@ -22,6 +22,7 @@
       console.log("DISCONNECTED");
     }
 
+
     function onMessage(evt)
     {
       console.log('RESPONSE: ' + evt.data);
@@ -37,11 +38,11 @@
                     var pri1 = document.getElementById("pri1").value;
                     var balance = document.getElementById("pri3").value;
                     var payment =  document.getElementById("pri2").value;
-                    total = parseInt(JSON.stringify(t['data'])-parseInt(balance));
+                    total = parseInt(JSON.stringify(t['data']))-parseInt(pri1);
                     console.log(parseInt(JSON.stringify(t['data'])));
                     console.log(parseInt(balance));
                     console.log("ยอดเงิน "+parseInt(payment)+" ชำระ "+total);
-                    if(parseInt(payment)<= total){
+                    if(total > 0){
                         console.log("true");
                         total = total.toString();
                         if(total.includes("-")){
@@ -71,6 +72,45 @@
                     if(t['result']==true){
                         window.location = "index.html";
                     }
+                  }else if(t['command']=='accepted_bill'){
+                    var bank = "";
+                    var b20 = t['data'].b20;
+                    var b50 = t['data'].b50;
+                    var b100 = t['data'].b100;
+                    var b500 = t['data'].b500;
+                    var b1000 = t['data'].b1000;
+
+                    if(b20==true){
+                        bank += '<img src="img/b20_true.png" width="19%" style="padding-left:2%;">';
+                    }else{
+                        bank += '<img src="img/b20_false.png" width="19%" style="padding-left:2%;">';
+                    }
+
+                    if(b50==true){
+                        bank += '<img src="img/b50_true.png" width="19%" style="padding-left:2%;">';
+                    }else{
+                        bank += '<img src="img/b50_false.png" width="19%" style="padding-left:2%;">';
+                    }
+
+                    if(b100==true){
+                        bank += '<img src="img/b100_true.png" width="19%" style="padding-left:2%;">';
+                    }else{
+                        bank += '<img src="img/b100_false.png" width="19%" style="padding-left:2%;">';
+                    }
+
+                    if(b500==true){
+                        bank += '<img src="img/b500_true.png" width="19%" style="padding-left:2%;">';
+                    }else{
+                        bank += '<img src="img/b500_false.png" width="19%" style="padding-left:2%;">';
+                    }
+
+                    if(b1000==true){
+                        bank += '<img src="img/b1000_true.png" width="19%" style="padding-left:2%;">';
+                    }else{
+                        bank += '<img src="img/b1000_false.png" width="19%" style="padding-left:2%;">';
+                    }
+                    document.getElementById("bank_use").innerHTML = bank;
+
                   }
                   console.log("item "+evt.data);
             }else if(pathname[1]=="model.html"){
@@ -78,9 +118,9 @@
                   $("#datatext").append(evt.data+"<br>");
             }
 
-            if(t['command']=="status"){
+            if(t['command']=="warning"){
                 var m = t['data'];
-                Alert7.alert(m['message']);
+                alert(m['message']);
             }
 
     }
