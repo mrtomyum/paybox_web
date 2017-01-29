@@ -132,6 +132,7 @@ function detailmenu(id){
                 },
                 error: function(err){
                     console.log(JSON.stringify(err));
+                    alert("error api menu");
                 }
             });
   //var mydata = jQuery.parseJSON(data);

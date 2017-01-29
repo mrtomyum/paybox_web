@@ -662,7 +662,7 @@ function payment(){
                                     //console.log(JSON.stringify(res.result));
                      if(res.result==='success'){
                         $('#payment_onhand').modal('hide');
-                       Alert7.alert(res.result);
+                       alert(res.result);
                        setTimeout(function(){
                             window.location = 'index.html';
                        },2000)
