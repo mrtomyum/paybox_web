@@ -8,15 +8,18 @@ https://docs.google.com/document/d/1OfTsGxqN9QS4xgPgSkZJoN2dK2tgUIa_Cke57Ye86uo/
 ## Design
                  ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐
                  │               Paybox Cloud                │
+                 │               Java Spring                 │
                  └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘
                              ▲                      ▲
                              │                      │
                              ▼                      ▼
                  ┌───────────────────────┐ ┌─────────────────┐
                  │   Paybox Terminal     │ │  Paybox Mobile  │
+                 │        Golang         │ │     HTML/JS     │
                  └───────────────────────┘ └─────────────────┘
                  ┌──────────┐ ┌──────────┐
-                 │  Web UI  │ │  Divices │    
+                 │  Web UI  │ │  Divices │
+                 │  HTML/JS │ │  Qt/C++  │    
                  └──────────┘ └──────────┘ 
                  ┌──────────┐ ┌──────────┐ 
                  │   User   │ │ Hardware │     
