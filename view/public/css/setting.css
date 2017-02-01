@@ -176,11 +176,17 @@ img{
 }
 
 .logo{
-	width: 85%;
+	width: 30%;
 }
 .l800{
 	display: block;
 }
+
+.l802 span{
+	display: block;
+	font-size:24px;
+}
+
 #l480{
 	display: none;
 }
@@ -325,7 +331,7 @@ img{
       /*  border:1px red solid;*/
       vertical-align:middle;
       margin-bottom:0%;
-      margin-top:3%;
+      margin-top:2%;
       font-size:20px;
     }
 
