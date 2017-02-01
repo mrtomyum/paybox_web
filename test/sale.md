@@ -38,7 +38,7 @@ Post sale transaction from web ui.
 
 ===
 * Status:201
-* Content-Type: "applicaiton/json"
+* Content-Type: "application/json"
 ```
 {
     "command":"sale",
