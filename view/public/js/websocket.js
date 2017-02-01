@@ -13,13 +13,13 @@
 
     function onOpen(evt)
     {
-      console.log("CONNECTED");
+      console.log("CONNECTED HOST Websocket");
 
     }
 
     function onClose(evt)
     {
-      console.log("DISCONNECTED");
+      console.log("DISCONNECTED HOST Websocket");
     }
 
 
@@ -69,9 +69,11 @@
                     Alert7.alert("การทำรายการ "+t['data']);
                     if(t['result']==true){websocket.close(); /*setTimeout(function(){window.location = "index.html";},2000);*/}
                   }else if(t['command']=="cancel"){
-                    Alert7.alert("ยกเลิกรายการ "+JSON.stringify(p['data']));
+                    Alert7.alert("ยกเลิกรายการ "+JSON.stringify(t['data']));
                     if(t['result']==true){
                         window.location = "index.html";
+                    }else if(t['result']==false){
+                        alert(JSON.stringify(t['data']));
                     }
                   }else if(t['command']=='accepted_bill'){
                     var bank = "";

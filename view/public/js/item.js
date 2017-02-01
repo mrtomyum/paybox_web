@@ -461,7 +461,7 @@ function showmodal(id,name,line,img,unit,s,m,l){
 	document.getElementById("menusize").innerHTML = size;
 	document.getElementById("mo-pri").value = totalPrice+' ฿';
 
-	 $('#myModal').modal('show');
+	 $('#myModal').modal('show',50);
 }
 
 function send_order(){
@@ -476,7 +476,7 @@ function send_order(){
     price = price.split(" ");
 
     order_list(itemCode,itemName,line,size,qty,unit,price[0]);
-    $('#myModal').modal('toggle');
+    $('#myModal').modal('hide');
    // console.log("itemCode = "+itemCode+", itemName = "+itemName+", qty = "+qty+", size ="+size+", unit = "+unit+", price = "+price);
 }
 //var line = 1;
@@ -715,7 +715,8 @@ function print(){
 }
 
 function cancel_menu(){
-    var _alertA = new Alert7();
+   window.location = "index.html";
+   /* var _alertA = new Alert7();
     _alertA.setTitle("ยกเลิกรายการ");
     _alertA.setMessage("ท่านต้องการยกเลิกรายการ ใช่หรือไม่ ?");
     _alertA.setType(Alert7.TYPE_CONFIRM);
@@ -729,8 +730,9 @@ function cancel_menu(){
                // cancel += '"result" : true';
                 cancel += '}';
             doSend(cancel);
+
     });
     _alertA.present();
-
+*/
 
 }

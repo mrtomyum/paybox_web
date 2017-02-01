@@ -154,6 +154,11 @@ body{
 .l800{
 	display: block;
 }
+#l802 h3{
+        padding:1% 0 0 0;
+        margin:0;
+        font-size:30px;
+    }
 #l480{
 	display: none;
 }
@@ -202,6 +207,30 @@ body{
 		border: 5px solid #f00;
 	}
 
+}
+
+@media (min-width: 800px) and (max-width: 1000px) {
+.logo{
+	width: 40%;
+	margin-bottom:5%;
+}
+    .l800{
+        display: block;
+    }
+    #l802 h3{
+        padding:1% 0 0 0;
+        margin:0;
+    }
+    #l480{
+        display: none;
+    }
+    #menu_main{
+    	width: 100%;
+    	text-align: center;
+    	padding: 0;
+    	margin-top: 3%;
+    	margin-bottom: 0;
+    }
 }
 
 @media (min-width: 400px) and (max-width: 799px) {

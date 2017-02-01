@@ -6,6 +6,7 @@ $(document).ready(function(){
      localStorage.getID = 0;
      localStorage.language = 1;
 
+     call_websocket(); //open websocket
      document.getElementById("version").innerHTML = "เวอร์ชั่น 0.1";
      document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
 
