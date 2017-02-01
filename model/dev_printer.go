@@ -76,7 +76,7 @@ func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
 		{"paper_cut": {"type": "full_cut","feed": 1}}
 		]
 	`
-	data = fmt.Sprintf(header+item+footer+queue, s.Total, s.Payment, s.Change)
+	data = fmt.Sprintln(header+item+footer+queue, s.Total, s.Pay, s.Change)
 	fmt.Println("data=", data)
 	return data, nil
 }

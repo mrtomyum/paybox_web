@@ -3,9 +3,6 @@ package model
 import (
 	"fmt"
 	"time"
-	//"errors"
-	//_ "github.com/go-sql-driver/mysql"
-	//"github.com/jmoiron/sqlx"
 )
 
 // Sale เป็นหัวเอกสารขายแต่ละครั้ง
@@ -14,11 +11,12 @@ type Sale struct {
 	Created  *time.Time
 	HostId   string `json:"host_id" db:"host_id"`
 	Total    float64 `json:"total"`
-	Payment  float64 `json:"payment"`
+	Pay      float64 `json:"payment"`
 	Change   float64 `json:"change"`
 	Type     string `json:"type" db:"type"`
 	IsPosted bool `json:"is_posted" db:"is_posted"`
 	SaleSubs []*SaleSub `json:"sale_subs"`
+	SalePay  SalePay
 }
 
 // SaleSub เป็นรายการสินค้าที่ขายใน Sale
@@ -36,15 +34,15 @@ type SaleSub struct {
 // Payment เก็บรายละเอียดการชำระเงิน เหรียญ ธนบัตร หรือในอนาคตจะเพิ่มบัตรเครดิต และ Cashless Payment ได้ด้วย
 type SalePay struct {
 	SaleId  int64
-	THB20   int // จำนวนธนบัตรใบละ 20 บาท
-	THB50   int // จำนวนธนบัตรใบละ 50 บาท
-	THB100  int // จำนวนธนบัตรใบละ 100 บาท
-	THB500  int // จำนวนธนบัตรใบละ 500 บาท
-	THB1000 int // จำนวนธนบัตรใบละ 1000 บาท
-	THB1C   int // จำนวนเหรียญ 1 บาท
-	THB2C   int // จำนวนเหรียญ 2 บาท
-	THB5C   int // จำนวนเหรียญ 5 บาท
-	THB10C  int // จำนวนเหรียญ 10 บาท
+	TH20B   int `json:"th20b,omitempty"`   // จำนวนธนบัตรใบละ 20 บาท
+	TH50B   int `json:"th50b,omitempty"`   // จำนวนธนบัตรใบละ 50 บาท
+	TH100B  int `json:"th100b,omitempty"`  // จำนวนธนบัตรใบละ 100 บาท
+	TH500B  int `json:"th500b,omitempty"`  // จำนวนธนบัตรใบละ 500 บาท
+	TH1000B int `json:"th1000b,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
+	TH1C    int `json:"th1c,omitempty"`    // จำนวนเหรียญ 1 บาท
+	TH2C    int `json:"th2c,omitempty"`    // จำนวนเหรียญ 2 บาท
+	TH5C    int `json:"th5c,omitempty"`    // จำนวนเหรียญ 5 บาท
+	TH10C   int `json:"th10c,omitempty"`   // จำนวนเหรียญ 10 บาท
 }
 
 func (s *Sale) Post() error {
@@ -81,8 +79,8 @@ func (s *Sale) Post() error {
 }
 
 func (s *Sale) Save() error {
-	s.Payment = PM.Total
-	s.Change = s.Payment - s.Total
+	s.Pay = PM.Total
+	s.Change = s.Pay - s.Total
 	fmt.Println("*Sale.Save() start")
 	sql1 := `INSERT INTO sale(
 		host_id,
@@ -96,7 +94,7 @@ func (s *Sale) Save() error {
 	rs, err := db.Exec(sql1,
 		s.HostId,
 		s.Total,
-		s.Payment,
+		s.Pay,
 		s.Change,
 		s.Type,
 		s.IsPosted,

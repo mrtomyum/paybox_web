@@ -3,13 +3,14 @@ package test
 import (
 	"testing"
 	"github.com/mrtomyum/paybox_terminal/model"
+	"github.com/matryer/silk/runner"
 )
 
 func TestPrinter_makeSaleSlip(t *testing.T) {
 	s := model.Sale{
 		Id:      1,
 		Total:   120,
-		Payment: 150,
+		Pay:     150,
 		Change:  30,
 		Type:    "take_home",
 	}

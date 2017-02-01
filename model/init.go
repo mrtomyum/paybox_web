@@ -78,7 +78,7 @@ func init() {
 	S = &Sale{
 		HostId:  "001",
 		Total:   0,
-		Payment: 0,
+		Pay:     0,
 		Change:  0,
 	}
 }
