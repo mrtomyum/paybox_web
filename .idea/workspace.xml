@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="">
+    <list default="true" id="28172a4a-f4c6-444d-a0dc-6da7fe79182c" name="Default" comment="ปรับ รูปภาพให้เหลือ width 200">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view/public/css/main800x480.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paybox.db" afterPath="$PROJECT_DIR$/paybox.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ctrl/router.go" afterPath="$PROJECT_DIR$/ctrl/router.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/index.html" afterPath="$PROJECT_DIR$/view/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/item.html" afterPath="$PROJECT_DIR$/view/item.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/css/main.css" afterPath="$PROJECT_DIR$/view/public/css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/css/menu.css" afterPath="$PROJECT_DIR$/view/public/css/menu.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/css/select_main.css" afterPath="$PROJECT_DIR$/view/public/css/select_main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/css/setting.css" afterPath="$PROJECT_DIR$/view/public/css/setting.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/js/index.js" afterPath="$PROJECT_DIR$/view/public/js/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/js/item.js" afterPath="$PROJECT_DIR$/view/public/js/item.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/public/js/websocket.js" afterPath="$PROJECT_DIR$/view/public/js/websocket.js" />
     </list>
     <list id="5b54e2c5-fc8a-4659-b016-2967afcff956" name="New changelist" comment="" />
     <ignored path="paybox_terminal.iws" />
@@ -27,22 +38,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="websocket.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/view/public/js/websocket.js">
+      <file leaf-file-name="setting.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/view/setting.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="43" column="51" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="51" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="item.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/view/public/js/item.js">
+      <file leaf-file-name="setting.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/view/public/css/setting.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="494" column="76" selection-start-line="494" selection-start-column="76" selection-end-line="494" selection-end-column="76" />
-              <folding />
+            <state relative-caret-position="282">
+              <caret line="289" column="13" selection-start-line="289" selection-start-column="13" selection-end-line="289" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#6437#0" expanded="false" />
+                <element signature="e#0#6437#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -79,10 +93,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/template/include/header.tpl" />
-        <option value="$PROJECT_DIR$/template/include/footer.tpl" />
-        <option value="$PROJECT_DIR$/template/view/items.tpl" />
-        <option value="$PROJECT_DIR$/go-wrapper" />
         <option value="$PROJECT_DIR$/no-pic.patch" />
         <option value="$PROJECT_DIR$/controller/order.go" />
         <option value="$PROJECT_DIR$/controller/view.go" />
@@ -101,7 +111,6 @@
         <option value="$PROJECT_DIR$/view/template/index.tpl" />
         <option value="$PROJECT_DIR$/view/html/menu.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/view/public/js/index.js" />
         <option value="$PROJECT_DIR$/view/public/json/menu_all.json" />
         <option value="$PROJECT_DIR$/view/menu.html" />
         <option value="$PROJECT_DIR$/view/public/json/menu1.json" />
@@ -124,9 +133,17 @@
         <option value="$PROJECT_DIR$/controller/hub.go" />
         <option value="$PROJECT_DIR$/model/hub.go" />
         <option value="$PROJECT_DIR$/model/item.go" />
+        <option value="$PROJECT_DIR$/ctrl/router.go" />
         <option value="$PROJECT_DIR$/view/item.html" />
-        <option value="$PROJECT_DIR$/view/public/js/websocket.js" />
+        <option value="$PROJECT_DIR$/view/public/css/main800x480.css" />
+        <option value="$PROJECT_DIR$/view/public/css/main.css" />
         <option value="$PROJECT_DIR$/view/public/js/item.js" />
+        <option value="$PROJECT_DIR$/view/public/js/index.js" />
+        <option value="$PROJECT_DIR$/view/public/js/websocket.js" />
+        <option value="$PROJECT_DIR$/view/index.html" />
+        <option value="$PROJECT_DIR$/view/public/css/select_main.css" />
+        <option value="$PROJECT_DIR$/view/public/css/menu.css" />
+        <option value="$PROJECT_DIR$/view/public/css/setting.css" />
       </list>
     </option>
   </component>
@@ -168,9 +185,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -239,26 +254,16 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paybox_terminal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paybox_terminal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
+              <option name="myItemId" value="img" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files" />
+      </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -591,13 +596,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1478826841253</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Add model.Devicer interface">
-      <created>1479136624516</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1479136624516</updated>
     </task>
     <task id="LOCAL-00006" summary="try to add func ws... not complete yet">
       <created>1479179755995</created>
@@ -935,7 +933,14 @@
       <option name="project" value="LOCAL" />
       <updated>1484357509359</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="ปรับ รูปภาพให้เหลือ width 200">
+      <created>1485923074266</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1485923074266</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TodoView">
@@ -949,21 +954,21 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3258786" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3305648" sideWeight="0.5104261" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24222586" sideWeight="0.4852018" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24222586" sideWeight="0.515885" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24222586" sideWeight="0.48411497" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31414473" sideWeight="0.49624062" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.4895739" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18456884" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23298033" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1038,7 +1043,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add wsView, wsDevice for websocket listening  and serve." />
     <MESSAGE value="Change Port to 8888&#10;delete not need test function and file." />
     <MESSAGE value="Change Dockerfile -&gt; golang -onbuild" />
     <MESSAGE value="Try to us golang-alpine 1.7.3  again" />
@@ -1063,7 +1067,8 @@
     <MESSAGE value="ปรับการรับค่า websocket .." />
     <MESSAGE value="เปลี่ยน billing เป็น order" />
     <MESSAGE value="ปรับข้อมูล payload เรื่องของการ พิมพ์ใบเสร็จ" />
-    <option name="LAST_COMMIT_MESSAGE" value="ปรับข้อมูล payload เรื่องของการ พิมพ์ใบเสร็จ" />
+    <MESSAGE value="ปรับ รูปภาพให้เหลือ width 200" />
+    <option name="LAST_COMMIT_MESSAGE" value="ปรับ รูปภาพให้เหลือ width 200" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1079,26 +1084,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/model/device.go" />
-    <entry file="file://$PROJECT_DIR$/controller/router.go" />
-    <entry file="file://$PROJECT_DIR$/controller/item.go" />
-    <entry file="file://$PROJECT_DIR$/controller/menu.go" />
-    <entry file="file://$PROJECT_DIR$/model/item.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/menu.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/router.go" />
-    <entry file="file://$PROJECT_DIR$/controller/item.go" />
     <entry file="file://$PROJECT_DIR$/controller/menu.go" />
     <entry file="file://$PROJECT_DIR$/model/item.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -1200,13 +1185,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/public/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/public/json/menu_all.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1218,13 +1196,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/view/menu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -1249,13 +1220,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="35" column="10" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/send.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1277,13 +1241,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/order.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/model/order.go" />
     <entry file="file://$PROJECT_DIR$/model/menu.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1305,18 +1263,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/item.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="276" column="40" selection-start-line="276" selection-start-column="40" selection-end-line="276" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/client.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1275">
           <caret line="80" column="28" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1324,23 +1274,131 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ctrl/router.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/public/js/websocket.js">
+    <entry file="file://$PROJECT_DIR$/view/public/css/main480.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="43" column="51" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="51" />
+        <state relative-caret-position="238">
+          <caret line="14" column="20" selection-start-line="0" selection-start-column="0" selection-end-line="720" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/item.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="226" column="29" selection-start-line="226" selection-start-column="29" selection-end-line="226" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h4#0;n#label#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/public/js/item.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="494" column="76" selection-start-line="494" selection-start-column="76" selection-end-line="494" selection-end-column="76" />
+        <state relative-caret-position="152">
+          <caret line="717" column="34" selection-start-line="717" selection-start-column="34" selection-end-line="717" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/public/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="1457" column="24" selection-start-line="1457" selection-start-column="24" selection-end-line="1457" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/public/css/main800x480.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="549" column="4" selection-start-line="549" selection-start-column="4" selection-end-line="552" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/public/css/select_main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="230" column="21" selection-start-line="230" selection-start-column="21" selection-end-line="230" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="33" column="22" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="22" />
+          <folding>
+            <element signature="n#style#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/public/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/public/css/menu.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="319" column="25" selection-start-line="319" selection-start-column="25" selection-end-line="319" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#7413#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/public/js/websocket.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/menu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/setting.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/public/css/setting.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="289" column="13" selection-start-line="289" selection-start-column="13" selection-end-line="289" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#6437#0" expanded="false" />
+            <element signature="e#0#6437#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
