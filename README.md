@@ -5,6 +5,24 @@ Paybox Ticket Terminal software Service and Application written in Qt5 and inter
 ## API Document
 https://docs.google.com/document/d/1OfTsGxqN9QS4xgPgSkZJoN2dK2tgUIa_Cke57Ye86uo/edit?usp=sharing
 
+## Design
+                 ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐
+                 │               Paybox Cloud                │
+                 └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘
+                             ▲                      ▲
+                             │                      │
+                             ▼                      ▼
+                 ┌───────────────────────┐ ┌─────────────────┐
+                 │   Paybox Terminal     │ │  Paybox Mobile  │
+                 └───────────────────────┘ └─────────────────┘
+                 ┌──────────┐ ┌──────────┐
+                 │  Web UI  │ │  Divices │    
+                 └──────────┘ └──────────┘ 
+                 ┌──────────┐ ┌──────────┐ 
+                 │   User   │ │ Hardware │     
+                 └──────────┘ └──────────┘ 
+
+
 ## MVP Feature
 + Customer Interface for Ticket/Item selection and Payment
   + Browse Item from Categories, pictures.
