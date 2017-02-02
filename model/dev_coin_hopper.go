@@ -35,7 +35,7 @@ const (
 type CoinHopper struct {
 	machineId string `json:"machine_id"`
 	Status    string
-	Send      chan *Message
+	Receive   chan *Message
 }
 
 // Todo: Try to Construct CoinHopper Object after Dev Client opened connection????
@@ -57,7 +57,7 @@ func (ch *CoinHopper) GetId() {
 	go func() {
 		for {
 			select {
-			case m := <-ch.Send:
+			case m := <-ch.Receive:
 				fmt.Println("Get Response from CoinHopper:", m)
 				ch.machineId = m.Data.(string)
 				fmt.Println("CoinHopper ID:", ch.machineId, "Status:", ch.Status)

@@ -5,6 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"log"
+	"encoding/json"
+	"os"
 )
 
 type Client struct {
@@ -18,8 +20,8 @@ type Message struct {
 	Device  string `json:"device"`
 	Type    string `json:"type"`
 	Command string `json:"command"`
-	Result  bool `json:"result"`
-	Data    interface{} `json:"data"`
+	Result  bool `json:"result,omitempty"`
+	Data    interface{} `json:"data,omitempty"`
 }
 
 func (c *Client) Read() {
@@ -36,10 +38,10 @@ func (c *Client) Read() {
 		c.Msg = m
 		switch {
 		case c.Name == "web":
-			fmt.Println("Read::Web Connection message")
+			fmt.Println("Read::Web UI Connection message")
 			c.WebEvent()
 		case c.Name == "dev":
-			fmt.Println("Read::Web Connection message")
+			fmt.Println("Read::Device Connection message")
 			c.DevEvent()
 		default:
 			fmt.Println("Error: Case default: Message==>", m)
@@ -61,8 +63,14 @@ func (c *Client) Write() {
 				c.Ws.WriteJSON(gin.H{"message": "Cannot send data"})
 				return
 			}
-			fmt.Println("Client.Write():", c.Name, m)
 			c.Ws.WriteJSON(m)
+			// Debug check json Encode
+			b, err := json.Marshal(m)
+			if err != nil {
+				fmt.Println("error:", err)
+			}
+			os.Stdout.Write(b)
+			fmt.Println("Client.Write() on:", c.Name)
 		}
 	}
 }
@@ -86,7 +94,7 @@ func (c *Client) WebEvent() {
 // DevEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
 func (c *Client) DevEvent() {
-	fmt.Println("method DevEvent() Event message from Dev:", c.Msg)
+	fmt.Println("Start method DevEvent() Event message from Dev:", c.Msg)
 	switch c.Msg.Device {
 	case "coin_hopper":
 		CH.Event(c)

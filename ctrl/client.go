@@ -9,6 +9,16 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+var (
+	upgrader = websocket.Upgrader{
+		ReadBufferSize:  1024,
+		WriteBufferSize: 1024,
+		CheckOrigin: func(r *http.Request) bool {
+			return true
+		},
+	}
+)
+
 // wsServer ทำงานเมื่อ Web Client เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
 // Server ให้ Client เชื่อมต่อเข้ามา รัน goroutine จาก client.Write() & .Read()
 func ServWeb(w http.ResponseWriter, r *http.Request) {
@@ -18,6 +28,7 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
+	defer model.H.
 	defer conn.Close()
 	fmt.Println("start New Web connection success...")
 
@@ -55,8 +66,8 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 //}
 
 func CallDev() {
-	u := url.URL{Scheme:"ws", Host:"127.0.0.1:9999", Path: "/"}
-	//u := url.URL{Scheme:"ws", Host:"192.168.10.64:9999", Path: "/"}
+	//u := url.URL{Scheme:"ws", Host:"127.0.0.1:9999", Path: "/"}
+	u := url.URL{Scheme:"ws", Host:"192.168.10.64:9999", Path: "/"}
 	log.Printf("connecting to %s", u.String())
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
@@ -70,8 +81,8 @@ func CallDev() {
 		Name: "dev",
 		Msg:  &model.Message{},
 	}
-	fmt.Println("Start Dev Connection:", c.Name)
 	model.H.Dev = c
+	fmt.Println("Start Dev Connection, model.H.Dev:", model.H.Dev)
 	go c.Write()
 	c.Read()
 }

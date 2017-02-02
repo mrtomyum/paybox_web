@@ -3,19 +3,8 @@ package ctrl
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/contrib/static"
-	"net/http"
-	"github.com/gorilla/websocket"
 )
 
-var (
-	upgrader = websocket.Upgrader{
-		ReadBufferSize:  1024,
-		WriteBufferSize: 1024,
-		CheckOrigin: func(r *http.Request) bool {
-			return true
-		},
-	}
-)
 func Router(r *gin.Engine) *gin.Engine {
 	// for Static HTML
 	r.LoadHTMLGlob("view/**/*.tpl")

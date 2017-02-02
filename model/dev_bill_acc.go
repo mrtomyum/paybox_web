@@ -61,7 +61,7 @@ func (ba *BillAcceptor) Start() {
 	m := &Message{
 		Device:  "bill_acc",
 		Command: "set_inhibit",
-		Type:    "response",
+		Type:    "request",
 		Data:    true,
 	}
 	fmt.Println("1...สั่งเปิดรับธนบัตรรอ response จาก BA")
@@ -90,6 +90,7 @@ func (ba *BillAcceptor) Stop() {
 	m := &Message{
 		Device:  "bill_acc",
 		Command: "set_inhibit",
+		Type:    "request",
 		Data:    false,
 	}
 	H.Dev.Send <- m
