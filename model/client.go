@@ -14,6 +14,14 @@ type Client struct {
 	Msg  *Message
 }
 
+type Message struct {
+	Device  string `json:"device"`
+	Type    string `json:"type"`
+	Command string `json:"command"`
+	Result  bool `json:"result"`
+	Data    interface{} `json:"data"`
+}
+
 func (c *Client) Read() {
 	defer func() {
 		c.Ws.Close()
@@ -92,3 +100,4 @@ func (c *Client) DevEvent() {
 		log.Println("event cannot find function/message=", c.Msg)
 	}
 }
+

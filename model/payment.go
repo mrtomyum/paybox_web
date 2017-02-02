@@ -45,8 +45,12 @@ type AcceptedBill struct {
 }
 
 func (pm *Payment) Pay(sale *Sale) error {
+	// ตรวจสอบ Device Websocket Connecton ว่าสามารถติดต่อได้หรือยัง?
+	if H.Dev == nil {
+		log.Println("Device websocket ยังไม่ได้เชื่อมต่อเข้ามา")
+	}
 	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
-	fmt.Printf("func Pay() -- \n1. Start inhibit device BA, CA \n")
+	fmt.Println("func Pay() -- 1. Start inhibit device BA, CA ")
 	CA.Start()
 	BA.Start()
 
@@ -91,9 +95,9 @@ func (pm *Payment) Pay(sale *Sale) error {
 		fmt.Println("5. ยอดรับเงิน >= ยอดขายหรือยัง?")
 		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกินระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
 			change := PM.Total - sale.Total
-			fmt.Printf("YES -> 6. ต้องทอนเงินไหม? ")
+			fmt.Println("YES -> 6. ต้องทอนเงินไหม? ")
 			if change != 0 { // ไม่มีเงินทอนให้ข้ามไป
-				fmt.Printf("YES -> 7. เช็คว่ามีเหรียญพอทอนไหม")
+				fmt.Println("YES -> 7. เช็คว่ามีเหรียญพอทอนไหม")
 				if CB.Hopper >= change { // หากเหรียญใน Hopper พอทอน และยอดทอน != 0
 					fmt.Println("YES -> 8.1 สั่งทอนเหรียญ")
 					err := CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
