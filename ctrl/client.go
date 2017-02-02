@@ -54,12 +54,13 @@ func ServDev(w http.ResponseWriter, r *http.Request) {
 	c.Read()
 }
 
-func CallDev() error {
-	u := url.URL{Scheme:"ws", Host:"192.168.10.64:9999", Path: "/"}
+func CallDev() {
+	u := url.URL{Scheme:"ws", Host:"127.0.0.1:9999", Path: "/"}
+	//u := url.URL{Scheme:"ws", Host:"192.168.10.64:9999", Path: "/"}
 	log.Printf("connecting to %s", u.String())
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
-		return err
+		log.Println("Error call Device Websocket:", err)
 	}
 	fmt.Println("connected", conn)
 	defer conn.Close()
@@ -69,8 +70,8 @@ func CallDev() error {
 		Name: "dev",
 		Msg:  &model.Message{},
 	}
-	fmt.Println("Client:", c)
+	fmt.Println("Start Dev Connection:", c.Name)
+	model.H.Dev = c
 	go c.Write()
-	go c.Read()
-	return nil
+	c.Read()
 }
