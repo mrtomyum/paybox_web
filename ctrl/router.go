@@ -20,19 +20,22 @@ func Router(r *gin.Engine) *gin.Engine {
 	// for Static HTML
 	r.LoadHTMLGlob("view/**/*.tpl")
 
+	// for test run disable this if production
 	//r.Static("/html", "./view/html")
 	//r.Static("/js", "./view/public/js")
 	//r.Static("/css", "./view/public/css")
 	//r.Static("/img", "./view/public/img")
 	//r.Static("/json", "./view/public/json")
+	//r.Use(static.Serve("/", static.LocalFile("view", true)))
+
+	// for deploy production
 	r.Static("/js", "/opt/paybox/web_service/view/public/js")
 	r.Static("/css", "/opt/paybox/web_service/view/public/css")
 	r.Static("/img", "/opt/paybox/web_service/view/public/img")
 	r.Static("/json", "/opt/paybox/web_service/view/public/json")
+	r.Use(static.Serve("/", static.LocalFile("/opt/paybox/web_service/view", true)))
 
 	// for WebService endpoint call data in JSON
-	//r.Use(static.Serve("/", static.LocalFile("view", true)))
-	r.Use(static.Serve("/", static.LocalFile("/opt/paybox/web_service/view", true)))
 	r.GET("/menu", GetMenu)
 	r.GET("/menu/:id/", GetItemsByMenuId)
 	r.GET("/item/:id", GetItemById)
