@@ -36,6 +36,14 @@ func (c *Client) Read() {
 			break
 		}
 		c.Msg = m
+		// Debug check json Encode
+		b, err := json.Marshal(m)
+		if err != nil {
+			fmt.Println("error:", err)
+		}
+		os.Stdout.Write(b)
+		fmt.Println("Client.Read() on:", c.Name)
+
 		switch {
 		case c.Name == "web":
 			fmt.Println("Read::Web UI Connection message")
