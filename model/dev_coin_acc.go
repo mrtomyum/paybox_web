@@ -36,7 +36,7 @@ func (ca *CoinAcceptor) Start() {
 		Data:    true,
 	}
 	H.Dev.Send <- m
-	fmt.Println("1. สั่งเปิดรับเหรียญรอ response จาก BA...")
+	fmt.Println("1. สั่งเปิดรับเหรียญรอ response จาก CA...")
 	go func() {
 		m2 := <-ca.Send
 		if !m2.Result {
@@ -50,8 +50,8 @@ func (ca *CoinAcceptor) Start() {
 	}()
 	m = <-ch
 	close(ch)
-	ca.Status = "inhibit==false"
-	fmt.Println("2. เปิดรับเหรียญสำเร็จ, BA status:", ca.Status)
+	ca.Status = "inhibit==true"
+	fmt.Println("2. เปิดรับเหรียญสำเร็จ, CA status:", ca.Status)
 }
 
 func (ca *CoinAcceptor) Stop() {
@@ -78,7 +78,7 @@ func (ca *CoinAcceptor) Stop() {
 	m = <-ch
 	close(ch)
 	ca.Status = "inhibit==true"
-	fmt.Println("2. ปิดรับเหรียญสำเร็จ, BA status:", ca.Status)
+	fmt.Println("2. ปิดรับเหรียญสำเร็จ, CA status:", ca.Status)
 }
 
 func (ca *CoinAcceptor) Received(c *Client) {

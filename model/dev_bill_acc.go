@@ -80,8 +80,8 @@ func (ba *BillAcceptor) Start() {
 
 	m = <-ch
 	close(ch)
-	ba.Inhibit = false
-	ba.Status = "inhibit==false"
+	ba.Inhibit = true
+	ba.Status = "inhibit==true"
 	fmt.Println("2. เปิดรับธนบัตรสำเร็จ, BA status:", ba.Status)
 }
 
@@ -107,8 +107,8 @@ func (ba *BillAcceptor) Stop() {
 	}()
 	m = <-ch
 	close(ch)
-	ba.Inhibit = true
-	ba.Status = "inhibit==true"
+	ba.Inhibit = false
+	ba.Status = "inhibit==false"
 	fmt.Println("2. ปิดรับธนบัตรสำเร็จ, BA status:", ba.Status)
 }
 

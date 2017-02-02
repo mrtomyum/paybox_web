@@ -36,8 +36,10 @@ func (c *Client) Read() {
 		c.Msg = m
 		switch {
 		case c.Name == "web":
+			fmt.Println("Read::Web Connection message")
 			c.WebEvent()
 		case c.Name == "dev":
+			fmt.Println("Read::Web Connection message")
 			c.DevEvent()
 		default:
 			fmt.Println("Error: Case default: Message==>", m)

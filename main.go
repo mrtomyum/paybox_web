@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+
 	r := gin.Default()
 	app := ctrl.Router(r)
 	// Dial to Device WS server

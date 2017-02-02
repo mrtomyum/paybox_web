@@ -45,9 +45,11 @@ func Router(r *gin.Engine) *gin.Engine {
 	r.GET("/web", func(c *gin.Context) {
 		ServWeb(c.Writer, c.Request)
 	})
-	r.GET("/dev", func(c *gin.Context) {
-		ServDev(c.Writer, c.Request)
-	})
+	//r.GET("/dev", func(c *gin.Context) {
+	//	ServDev(c.Writer, c.Request)
+	//})
+
+
 	return r
 }
 
