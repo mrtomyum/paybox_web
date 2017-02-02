@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"github.com/mrtomyum/paybox_terminal/model"
+	"log"
 )
 
 // wsServer ทำงานเมื่อ Web Client เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
@@ -26,7 +27,13 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("Web:", c.Name, "...start send <-c to model.H.Webclient")
 	model.H.Web = c
-	//model.H.PM(c) // ส่งเงินพักที่มีตอนนี้ไปแสดงผล
+
+	// Dial to Device WS server
+	err := model.CallDev()
+	if err != nil {
+		log.Println("Error call Device Websocket:", err)
+	}
+
 	fmt.Println("Start Web connection")
 	go c.Write()
 	c.Read() // ดัก Event message ที่จะส่งมาตอนไหนก็ไม่รู้
@@ -51,3 +58,4 @@ func ServDev(w http.ResponseWriter, r *http.Request) {
 	go c.Write()
 	c.Read()
 }
+
