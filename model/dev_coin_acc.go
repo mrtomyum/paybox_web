@@ -33,7 +33,7 @@ func (ca *CoinAcceptor) Start() {
 		Device:  "coin_acc",
 		Command: "set_inhibit",
 		Type:    "request",
-		Data:    false,
+		Data:    true,
 	}
 	H.Dev.Send <- m
 	fmt.Println("1. สั่งเปิดรับเหรียญรอ response จาก BA...")
@@ -60,7 +60,7 @@ func (ca *CoinAcceptor) Stop() {
 		Device:  "coin_acc",
 		Command: "set_inhibit",
 		Type:    "request",
-		Data:    true,
+		Data:    false,
 	}
 	H.Dev.Send <- m
 	fmt.Println("1. สั่งปิดรับเหรียญรอ response จาก CA...")

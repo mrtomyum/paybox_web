@@ -29,8 +29,6 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("Web:", c.Name, "...start send <-c to model.H.Webclient")
 	model.H.Web = c
-
-
 	fmt.Println("Start Web connection")
 	go c.Write()
 	c.Read() // ดัก Event message ที่จะส่งมาตอนไหนก็ไม่รู้
@@ -57,20 +55,22 @@ func ServDev(w http.ResponseWriter, r *http.Request) {
 }
 
 func CallDev() error {
-	u := url.URL{Scheme:"ws", Host:"localhost:9999", Path: "/ws"}
+	u := url.URL{Scheme:"ws", Host:"192.168.10.64:9999", Path: "/"}
 	log.Printf("connecting to %s", u.String())
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
 		return err
 	}
+	fmt.Println("connected", conn)
 	defer conn.Close()
 	c := &model.Client{
 		Ws:   conn,
 		Send: make(chan *model.Message),
-		Name: "web",
+		Name: "dev",
 		Msg:  &model.Message{},
 	}
+	fmt.Println("Client:", c)
 	go c.Write()
-	c.Read()
+	go c.Read()
 	return nil
 }

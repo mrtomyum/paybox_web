@@ -11,7 +11,7 @@ func main() {
 	err := ctrl.CallDev()
 	if err != nil {
 		//log.Println("Error call Device Websocket:", err)
-		log.Fatal("Error dial:", err)
+		log.Println("Error dial:", err)
 	}
 
 	r := gin.Default()

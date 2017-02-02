@@ -62,7 +62,7 @@ func (ba *BillAcceptor) Start() {
 		Device:  "bill_acc",
 		Command: "set_inhibit",
 		Type:    "response",
-		Data:    false,
+		Data:    true,
 	}
 	fmt.Println("1...สั่งเปิดรับธนบัตรรอ response จาก BA")
 	H.Dev.Send <- m
@@ -80,7 +80,7 @@ func (ba *BillAcceptor) Start() {
 
 	m = <-ch
 	close(ch)
-	ba.Inhibit = true
+	ba.Inhibit = false
 	ba.Status = "inhibit==false"
 	fmt.Println("2. เปิดรับธนบัตรสำเร็จ, BA status:", ba.Status)
 }
@@ -90,7 +90,7 @@ func (ba *BillAcceptor) Stop() {
 	m := &Message{
 		Device:  "bill_acc",
 		Command: "set_inhibit",
-		Data:    true,
+		Data:    false,
 	}
 	H.Dev.Send <- m
 	fmt.Println("1. สั่งปิดรับธนบัตรรอ response จาก BA...")
@@ -107,7 +107,7 @@ func (ba *BillAcceptor) Stop() {
 	}()
 	m = <-ch
 	close(ch)
-	ba.Inhibit = false
+	ba.Inhibit = true
 	ba.Status = "inhibit==true"
 	fmt.Println("2. ปิดรับธนบัตรสำเร็จ, BA status:", ba.Status)
 }
@@ -122,7 +122,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 		Data:    action,
 	}
 	H.Dev.Send <- m1
-	fmt.Println("BA.Take() action = [%v] 1. รอคำตอบจาก Bill Acceptor", action)
+	fmt.Printf("BA.Take() action = [%v] 1. รอคำตอบจาก Bill Acceptor", action)
 
 	go func() {
 		m2 := <-ba.Send
