@@ -5,10 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"log"
-	"net/url"
-	"time"
-	"os"
-	"os/signal"
 )
 
 type Client struct {
@@ -16,6 +12,14 @@ type Client struct {
 	Send chan *Message
 	Name string
 	Msg  *Message
+}
+
+type Message struct {
+	Device  string `json:"device"`
+	Type    string `json:"type"`
+	Command string `json:"command"`
+	Result  bool `json:"result"`
+	Data    interface{} `json:"data"`
 }
 
 func (c *Client) Read() {
@@ -97,59 +101,3 @@ func (c *Client) DevEvent() {
 	}
 }
 
-func CallDev() error {
-	interrupt := make(chan os.Signal, 1)
-	signal.Notify(interrupt, os.Interrupt)
-	u := url.URL{Scheme:"ws", Host:"localhost:9999", Path: "/ws"}
-	log.Printf("connecting to %s", u.String())
-
-	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-	if err != nil {
-		log.Fatal("dial:", err)
-	}
-	defer c.Close()
-	done := make(chan struct{})
-	m := &Message{}
-
-	go func() {
-		defer c.Close()
-		defer close(done)
-		for {
-			err := c.ReadJSON(&m)
-			if err != nil {
-				log.Println("read:", err)
-				return
-			}
-			log.Panicf("recev: %s", m)
-		}
-	}()
-	ticker := time.NewTicker(time.Second)
-	defer ticker.Stop()
-
-	for {
-		select {
-		case t := <-ticker.C:
-			err := c.WriteMessage(websocket.TextMessage, []byte(t.String()))
-			if err != nil {
-				log.Println("write:", err)
-				return err
-			}
-		case <-interrupt:
-			log.Println("interrupt")
-			// To cleanly close a connection, a client should send a close
-			// frame and wait for the server to close the connection.
-			err := c.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
-			if err != nil {
-				log.Println("write close:", err)
-				return err
-			}
-				select {
-				case <-done:
-				case <-time.After(time.Second):
-				}
-			c.Close()
-			return nil
-		}
-	}
-	return nil
-}
