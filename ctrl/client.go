@@ -28,7 +28,6 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
-	defer model.H.
 	defer conn.Close()
 	fmt.Println("start New Web connection success...")
 
