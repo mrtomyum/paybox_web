@@ -367,8 +367,10 @@ br{display: none;}
 	height: 75px;
 	/*border: 1px yellow solid;*/
 	padding: 0 2% 0 0;
+	line-height:14px;
 	padding-bottom: 1%;
 	margin-top:2%;
+
 	text-align: right;
 }
 .btn-danger h1{margin:10% 0 10% 0;}
@@ -398,8 +400,9 @@ br{display: none;}
 	color: #000; 
 	font-weight: bold;
 	font-size: 45px;
-	padding-right: 5%;
+	padding: 0 0 5% 0;
 	text-align:right;
+	vertical-align: top;
 }
 
 #sub{
@@ -1107,7 +1110,7 @@ br{display: none;}
 		color: #000; 
 		font-weight: bold;
 		font-size: 70px;
-		padding-right: 5%;
+		padding: 0 0 5% 0;
 		text-align:right;
 	}
 
