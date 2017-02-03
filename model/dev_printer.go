@@ -33,6 +33,7 @@ func (p *Printer) Print(s *Sale) error {
 	m := &Message{
 		Device: "printer",
 		Command:"do_group",
+		Type:   "request",
 		Data:   data,
 	}
 	H.Dev.Send <- m
@@ -50,33 +51,12 @@ func (p *Printer) Print(s *Sale) error {
 }
 
 func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
-	header := `[
-		{"set_text_size":3},
-		{"printline" : "ร้านกาแฟ MOMO"},
-		{"set_text_size":1},
-		{"printline": "Ticketid  : 12"},
-		{"printline": "ID     NAME      QTY     AMT"},
-	`
-	item := `
-		{"printline": "2     Late        1       40.00"},
-
-	`
-	footer := `
-		{"printline": "----------------------"},
-		{"printline": "รวมมูลค่าสินค้า     %v"},
-		{"printline": "รับเงิน           %v"},
-		{"printline": "เงินทอน          %v"},
-		{"printline": "ขอบคุณที่ใช้บริการ"},
-		{"paper_cut": {"type": "partial_cut","feed": 1}}
-	`
-	queue := `
-		{"printline": "Ticket" },
-		{"set_text_size":8},
-		{%s},
-		{"paper_cut": {"type": "full_cut","feed": 1}}
-		]
-	`
-	data = fmt.Sprintln(header+item+footer+queue, s.Total, s.Pay, s.Change)
+	header := `[{"set_text_size":3},{"printline" : "ร้านกาแฟ MOMO"},{"set_text_size":1},{"printline": "Ticketid  : 12"},{"printline": "ID     NAME      QTY     AMT"},`
+	item := `{"printline": "2     Late        1       40.00"},`
+	footer := `{"printline": "----------------------"},{"printline": "รวมมูลค่าสินค้า     %v"},{"printline": "รับเงิน           %v"},{"printline": "เงินทอน          %v"},{"printline": "ขอบคุณที่ใช้บริการ"},{"paper_cut": {"type": "partial_cut","feed": 1}},`
+	queue := `{"printline": "Ticket" },{"set_text_size":8},{"paper_cut": {"type": "full_cut","feed": 1}}]`
+	//data = fmt.Sprintf(header+item+footer+queue, s.Total, s.Pay, s.Change)
+	data = header + item + footer + queue
 	fmt.Println("data=", data)
 	return data, nil
 }

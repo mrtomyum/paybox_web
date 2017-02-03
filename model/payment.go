@@ -59,9 +59,9 @@ func (pm *Payment) Pay(sale *Sale) error {
 	for {
 		CheckAcceptedBill(sale)
 		DisplayAcceptedBill() // DisplayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
-
 		fmt.Println("2. Waiting payment form BA or CA")
 		<-PM.Received
+
 		fmt.Printf("3. Received Escrow = %v, Payment = %v Sale= %v\n", PM.BillEscrow, PM.Total, S.Total)
 		if PM.BillEscrow != 0 { // ชำระเงินล่าสุดเป็น Bill
 			fmt.Println("4. ถ้ารับธนบัตร ตรวจสอบเพื่อ Reject ธนบัตรที่ไม่รับ")
@@ -89,9 +89,9 @@ func (pm *Payment) Pay(sale *Sale) error {
 			default:
 				fmt.Println("ไม่เข้าเงื่อนไข")
 			}
-			fmt.Println("PM.BillEscrow =", PM.BillEscrow)
-			fmt.Println("AcceptedBill = ", AB)
 		}
+		fmt.Println("PM.BillEscrow =", PM.BillEscrow)
+		fmt.Println("AcceptedBill = ", AB)
 		fmt.Println("5. ยอดรับเงิน >= ยอดขายหรือยัง?")
 		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกินระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
 			change := PM.Total - sale.Total
