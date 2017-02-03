@@ -723,7 +723,7 @@ function cancel_menu(){
     _alertA.addAction("No", function(){
 
     });
-    _alertA.addAction("Yes", function(){
+    _alertA.addAction("Yes", function(){*/
         var cancel = '{"device": "host",';
                 cancel += '"type" : "request",';
                 cancel += '"command" : "cancel"';
@@ -731,7 +731,7 @@ function cancel_menu(){
                 cancel += '}';
             doSend(cancel);
 
-    });
+    /*});
     _alertA.present();
 */
 

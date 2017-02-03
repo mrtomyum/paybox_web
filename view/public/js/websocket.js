@@ -122,8 +122,7 @@
             }
 
             if(t['command']=="warning"){
-                var m = t['data'];
-                alert(m['message']);
+                alert(t['data']);
             }
 
     }
