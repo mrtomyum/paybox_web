@@ -43,9 +43,9 @@
                     console.log(parseInt(balance));
                     console.log("ยอดเงิน "+parseInt(payment)+" ชำระ "+total);
 
-                    if(total > 0){
+                    if(total >= 0){
                         console.log("true");
-                        total = total.toString();
+                        //total = total.toString();
                         /*if(total.includes("-")){
                             var pay = total.split("-");
                             total = pay[1];
