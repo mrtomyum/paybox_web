@@ -132,11 +132,20 @@
                 if(t['data']=="success"){
                   $('#payment_onhand').modal('hide');
                   $('#bill_load').modal({backdrop: false});
+
+                  setTimeout(function(){
+                    window.location = "index.html";
+                  },5000);
                 }
             }
 
             if(t['command']=="print"){
-                alert(t['data']);
+
+                if(t['data']=="success"){
+                   window.location = "index.html";
+                }else{
+                    alert(t['data']);
+                }
             }
 
     }
