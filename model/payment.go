@@ -147,6 +147,15 @@ func (pm *Payment) Pay(sale *Sale) error {
 	// ปิดการรับชำระที่อุปกรณ์
 	CA.Stop()
 	BA.Stop()
+
+	m := &Message{
+		Device:  "host",
+		Command: "payment",
+		Type:    "event",
+		Data:    "success",
+	}
+
+	H.Web.Send <- m
 	return nil
 }
 

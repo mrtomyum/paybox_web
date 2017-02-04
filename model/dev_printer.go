@@ -47,6 +47,13 @@ func (p *Printer) Print(s *Sale) error {
 		return errors.New("Err: printer error.")
 	}
 	fmt.Println("พิมพ์สำเร็จ Print success!")
+	m3 := &Message{
+		Device:  "host",
+		Command: "print",
+		Type:    "event",
+		Data:    "success",
+	}
+	H.Web.Send <- m3
 	return nil
 }
 
