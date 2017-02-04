@@ -46,10 +46,10 @@
                     if(total > 0){
                         console.log("true");
                         total = total.toString();
-                        if(total.includes("-")){
+                      /*  if(total.includes("-")){
                             var pay = total.split("-");
                             total = pay[1];
-                        }
+                        }*/
                         document.getElementById("texttotal").innerHTML = "เงินทอน";
                         document.getElementById("pri2").value = t['data'];
                         document.getElementById("pri3").value = total;
