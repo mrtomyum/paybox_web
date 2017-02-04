@@ -62,7 +62,7 @@
                              total = pay[1];
                         //}
                         document.getElementById("texttotal").innerHTML = "ค้างชำระ";
-                        console.log("document.getElementById('pri2').value = "+t['data']);
+                        console.log("document.getElementById('pri2').value = "+t['data']);//
                         document.getElementById("pri2").value = t['data'];
                         document.getElementById("pri3").value = total;
                     }
