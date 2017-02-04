@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"errors"
+	"time"
 )
 
 type Printer struct {
@@ -29,6 +30,7 @@ func (p *Printer) Print(s *Sale) error {
 	if err != nil {
 		return err
 	}
+
 	ch := make(chan *Message)
 	m := &Message{
 		Device: "printer",
@@ -50,6 +52,43 @@ func (p *Printer) Print(s *Sale) error {
 	m3 := &Message{
 		Device:  "host",
 		Command: "print",
+		Type:    "event",
+		Data:    "success",
+	}
+	H.Web.Send <- m3
+	return nil
+}
+
+func (p *Printer) PrintTest() error {
+	fmt.Println("p.PrintTest() run")
+
+	// หน่วงเวลารอ Host เชื่อม Websocket -> Device ก่อน
+	timer := time.NewTimer(time.Millisecond * 100)
+	<-timer.C
+
+	data := `[{"set_text_size": 3},{"printline": "ร้านกาแฟ MOMO"}]`
+
+	ch := make(chan *Message)
+	m := &Message{
+		Device: "printer",
+		Command:"do_single",
+		Type:   "request",
+		Data:   data,
+	}
+	H.Dev.Send <- m
+	fmt.Println("1. สั่งพิมพ์ รอ Priner ตอบสนอง")
+	go func() {
+		m2 := <-p.Send
+		ch <- m2
+	}()
+	m = <-ch
+	if !m.Result {
+		return errors.New("Err: printer error.")
+	}
+	fmt.Println("พิมพ์สำเร็จ Print success!")
+	m3 := &Message{
+		Device:  "host",
+		Command: "print_test",
 		Type:    "event",
 		Data:    "success",
 	}
