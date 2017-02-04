@@ -88,12 +88,12 @@ func (ca *CoinAcceptor) Received(c *Client) {
 	PM.Total += received
 	CB.Hopper += received
 	CB.Total += received
-	m := &Message{
-		Device:  "coin_acc",
-		Command: "received",
-		Data:    received,
-	}
+	//m := &Message{
+	//	Device:  "coin_acc",
+	//	Command: "received",
+	//	Data:    received,
+	//}
 	fmt.Printf("Sale = %v, Coin Received = %v, PM Total= %v\n", S.Total, PM.Coin, PM.Total)
-	PM.Received <- m
+	PM.Received <- c.Msg
 	PM.OnHand(H.Web)
 }
