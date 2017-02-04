@@ -38,10 +38,8 @@ func (ba *BillAcceptor) MachineId(c *Client) error {
 	m := &Message{Device:"bill_acc", Command:"machine_id", Type: "request"}
 	c.Send <- m
 	go func() {
-		for {
-			m = <-ba.Send
-			ch <- m
-		}
+		m = <-ba.Send
+		ch <- m
 	}()
 	m = <-ch
 	if !m.Result {

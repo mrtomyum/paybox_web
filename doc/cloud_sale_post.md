@@ -18,7 +18,7 @@ Post sale transaction to cloud api.
     "sale_id": 1,
   	"total": 120,
   	"type": "take_home",
-  	"payment":{"th20b":0, "th50b":0, "th100b":0,"th500b":0,"th1000b":0, "th1c":0, "th2c":0, "th5c":0, "th10c":2}
+  	"sale_pay":{"th20b":0, "th50b":0, "th100b":0,"th500b":0,"th1000b":0, "th1c":0, "th2c":0, "th5c":0, "th10c":2}
   	"sale_subs": [{
   		"line": 1,
   		"item_id": 1,
