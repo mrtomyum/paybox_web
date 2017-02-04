@@ -128,7 +128,11 @@
             }
 
             if(t['command']=="payment"){
-                alert(t['data']);
+                //alert(t['data']);
+                if(t['data']=="success"){
+                  $('#payment_onhand').modal('hide');
+                  $('#bill_load').modal({backdrop: false});
+                }
             }
 
             if(t['command']=="print"){
