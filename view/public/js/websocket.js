@@ -127,6 +127,14 @@
                 alert(t['data']);
             }
 
+            if(t['command']=="payment"){
+                alert(t['data']);
+            }
+
+            if(t['command']=="print"){
+                alert(t['data']);
+            }
+
     }
 
     function onError(evt)
