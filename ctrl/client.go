@@ -72,7 +72,7 @@ func CallDev() {
 	if err != nil {
 		log.Println("Error call Device Websocket:", err)
 	}
-	fmt.Println("connected", conn)
+	fmt.Println("Websocket to device connected:", conn)
 	defer conn.Close()
 	c := &model.Client{
 		Ws:   conn,
@@ -81,7 +81,7 @@ func CallDev() {
 		Msg:  &model.Message{},
 	}
 	model.H.Dev = c
-	fmt.Println("Start Dev Connection, model.H.Dev:", model.H.Dev)
+	//fmt.Println("Start Dev Connection, model.H.Dev:", model.H.Dev)
 	go c.Write()
 	c.Read()
 }
