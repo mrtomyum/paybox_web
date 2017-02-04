@@ -10,11 +10,11 @@ func Router(r *gin.Engine) *gin.Engine {
 	r.LoadHTMLGlob("view/**/*.tpl")
 
 	// for test run disable this if production
-	//r.Static("/html", "./view/html")
-	//r.Static("/js", "./view/public/js")
-	//r.Static("/css", "./view/public/css")
-	//r.Static("/img", "./view/public/img")
-	//r.Static("/json", "./view/public/json")
+	//r.Static("/html", "view/html")
+	//r.Static("/js", "view/public/js")
+	//r.Static("/css", "view/public/css")
+	//r.Static("/img", "view/public/img")
+	//r.Static("/json", "view/public/json")
 	//r.Use(static.Serve("/", static.LocalFile("view", true)))
 
 	// Absolute path static file for deploy production.
