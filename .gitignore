@@ -9,6 +9,6 @@ config/sample/
 .idea/dictionaries/
 .idea/inspectionProfiles/
 .idea/*
-test/paybox.db
+doc/paybox.db
 projectFilesBackup/
 /.idea/
