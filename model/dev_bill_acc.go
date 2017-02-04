@@ -140,18 +140,20 @@ func (ba *BillAcceptor) Take(action bool) error {
 		return errors.New("Error Bill Acceptor cannot take bill")
 		log.Println("Error response from Bill Acceptor!")
 	}
+
 	// แจ้ง Message -> Web
-	message := ""
-	switch action {
-	case true:
-		message = "TAKE"
-	case false:
-		message = "REJECT"
-	}
-	H.Web.Send <- &Message{
-		Command: "warning",
-		Data:    message,
-	}
+	//message := ""
+	//switch action {
+	//case true:
+	//	message = "TAKE"
+	//case false:
+	//	message = "REJECT"
+	//}
+	//H.Web.Send <- &Message{
+	//	Command: "warning",
+	//	Data:    message,
+	//}
+
 	// อัพเดตยอดเงินสดในตู้ด้วย
 	if m1.Data.(bool) == true { // ถ้าสั่ง Take
 		CB.Bill += PM.BillEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
@@ -176,12 +178,12 @@ func (ba *BillAcceptor) Received(c *Client) {
 	PM.Bill += received
 	PM.BillEscrow = received
 	PM.Total += received
-	m := &Message{
-		Device:  "bill_acc",
-		Command: "received",
-		Data:    received,
-	}
+	//m := &Message{
+	//	Device:  "bill_acc",
+	//	Command: "received",
+	//	Data:    received,
+	//}
 	fmt.Printf("Sale = %v, Bill Received = %v, Bill Escrow=%v PM Total= %v\n", S.Total, PM.Bill, PM.BillEscrow, PM.Total)
-	PM.Received <- m
+	PM.Received <- c.Msg
 	PM.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
 }

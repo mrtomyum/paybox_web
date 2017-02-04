@@ -147,6 +147,15 @@ func (pm *Payment) Pay(sale *Sale) error {
 	// ปิดการรับชำระที่อุปกรณ์
 	CA.Stop()
 	BA.Stop()
+
+	m := &Message{
+		Device:  "host",
+		Command: "payment",
+		Type:    "event",
+		Data:    "success",
+	}
+
+	H.Web.Send <- m
 	return nil
 }
 
@@ -248,6 +257,7 @@ func CheckAcceptedBill(s *Sale) {
 func DisplayAcceptedBill() {
 	// Check MinAcceptedBill500 & 1000
 	m := &Message{
+		Device: "host",
 		Command:"accepted_bill",
 		Type:   "event",
 		Data:   AB,
