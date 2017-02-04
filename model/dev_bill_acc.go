@@ -140,18 +140,20 @@ func (ba *BillAcceptor) Take(action bool) error {
 		return errors.New("Error Bill Acceptor cannot take bill")
 		log.Println("Error response from Bill Acceptor!")
 	}
+
 	// แจ้ง Message -> Web
-	message := ""
-	switch action {
-	case true:
-		message = "TAKE"
-	case false:
-		message = "REJECT"
-	}
-	H.Web.Send <- &Message{
-		Command: "warning",
-		Data:    message,
-	}
+	//message := ""
+	//switch action {
+	//case true:
+	//	message = "TAKE"
+	//case false:
+	//	message = "REJECT"
+	//}
+	//H.Web.Send <- &Message{
+	//	Command: "warning",
+	//	Data:    message,
+	//}
+
 	// อัพเดตยอดเงินสดในตู้ด้วย
 	if m1.Data.(bool) == true { // ถ้าสั่ง Take
 		CB.Bill += PM.BillEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร

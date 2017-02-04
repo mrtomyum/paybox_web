@@ -248,6 +248,7 @@ func CheckAcceptedBill(s *Sale) {
 func DisplayAcceptedBill() {
 	// Check MinAcceptedBill500 & 1000
 	m := &Message{
+		Device: "host",
 		Command:"accepted_bill",
 		Type:   "event",
 		Data:   AB,
