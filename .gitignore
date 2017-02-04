@@ -10,3 +10,5 @@ config/sample/
 .idea/inspectionProfiles/
 .idea/*
 test/paybox.db
+projectFilesBackup/
+/.idea/
