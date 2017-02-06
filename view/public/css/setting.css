@@ -28,6 +28,10 @@ body{
         cursor: none;
 }
 
+a{
+    cursor: none;
+}
+
 .navbar{
 	margin-bottom: 0;
 }

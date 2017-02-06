@@ -26,6 +26,9 @@ body{
         cursor: none;
 }
 
+a{
+    cursor: none;
+}
 
 .container{
 	padding: 0 0 0 8%;

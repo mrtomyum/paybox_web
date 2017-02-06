@@ -26,6 +26,9 @@ body{
         -webkit-touch-callout: none;
 }
 
+a{
+    cursor: none;
+}
 
 .container{
 	padding: 0;
