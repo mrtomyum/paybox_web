@@ -30,6 +30,10 @@ a{
     cursor: none;
 }
 
+img{
+    cursor: none;
+}
+
 .container{
 	padding: 0 0 0 8%;
 	margin: 0;

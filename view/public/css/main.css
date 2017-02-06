@@ -30,6 +30,15 @@ a{
     cursor: none;
 }
 
+img{
+    cursor: none;
+}
+
+button{
+    cursor: none;
+}
+
+
 .logo{
 	width: 50%;
 	margin:2%;
