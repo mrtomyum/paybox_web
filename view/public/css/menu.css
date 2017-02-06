@@ -33,10 +33,12 @@ a{
 .container{
 	padding: 0;
 	margin: 0;
+	cursor: none;
 }
 
 .navbar{
 	margin-bottom: 0;
+	cursor: none;
 }
 
 .navbar-header{
@@ -47,6 +49,7 @@ a{
 	margin-top: 0%;
 	color: #fff;
 	padding-left: 1%;
+	cursor: none;
 }
 
 .nav-r{
@@ -56,18 +59,21 @@ a{
 	width: 80%; 
 	margin-top: 1%;
 	color: #fff;
+	cursor: none;
 }
 
 #img_setting{
     position: absolute;
     left: 90%;
     top: 85%;
+    cursor: none;
 }
 .bt_key{
     width: 30%;
     margin-bottom:2%;
     margin-left:2%;
     padding:0;
+    cursor: none;
 }
 
 .logo{
@@ -75,6 +81,7 @@ a{
 	margin-bottom:2%;
 	border-radius:100%;
 	border:5px solid #fff;
+	cursor: none;
 }
 
 #l480{
@@ -92,11 +99,13 @@ a{
 	text-align: center;
 	vertical-align: middle;
 	float: left;
+	cursor: none;
 }
 .block-img{
 	margin-bottom: 0%; 
 	width: 70%;
-	border-radius: 5px 5px 0 0; 
+	border-radius: 5px 5px 0 0;
+	cursor: none;
 }
 
 .block-2 h5{
@@ -108,6 +117,7 @@ a{
 	padding-top: 5%;
 	font-size: 20px;
 	border-radius: 0 0 5px 5px;
+	cursor: none;
 	/*border-top: 3px solid #602c06;*/
 }
 .scroll{
@@ -116,6 +126,7 @@ a{
 	height: 370px;
 	overflow: auto;
 	margin:0 auto;
+	cursor: none;
 }
 
 	#menu_main{
@@ -125,12 +136,14 @@ a{
 		margin-top: 0%;
 		margin-bottom: 0;
 		margin-left: 5%;
+		cursor: none;
 	}
 	.img_menu{
 		width: 30%;
 		margin-right: 5%;
 		border-radius: 100%;
 		border: 5px solid #fff;
+		cursor: none;
 	}
 	#menu_main hr {
 		  border: 0; 
@@ -138,12 +151,14 @@ a{
 		  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
 		  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
 		  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
-		  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 	
+		  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+		  cursor: none;
 	}
 	#language{
 		text-align: center; 
 		width: 100%;
 		height: 100px;
+		cursor: none;
 		/*border: 1px solid black;*/
 
 	}
@@ -152,16 +167,19 @@ a{
 		width: 100%;
 		margin: 0;
 		padding:0;
+		cursor: none;
 	}
 	.lang{
 		width: 6%;
 		border: 5px solid #fff;
 		border-radius: 100%;
+		cursor: none;
 	}
 
 	.active_img{
 		border-radius: 100%;
-		border: 5px solid #f00;
+		border: 5px solid #f00;\
+		cursor: none;
 	}
 
 .footer{
@@ -171,6 +189,7 @@ a{
 	bottom: 1%;
 	margin-top: 1%;
 	background-color: #FFF8DC;
+	cursor: none;
 }
 
 @media (min-width: 1024px) and (max-width: 1600px) {
