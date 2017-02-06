@@ -7,13 +7,6 @@ import (
 )
 
 func TestPrinter_makeSaleSlip(t *testing.T) {
-	s := model.Sale{
-		Id:      1,
-		Total:   120,
-		Pay:     150,
-		Change:  30,
-		Type:    "take_home",
-	}
 	ss1 := model.SaleSub{
 		SaleId:  1,
 		Line:    1,
@@ -34,9 +27,24 @@ func TestPrinter_makeSaleSlip(t *testing.T) {
 		Qty:     1,
 		Unit:    "แก้ว",
 	}
+	s := model.Sale{
+		Id:       1,
+		Total:    120,
+		Pay:      150,
+		Change:   30,
+		Type:     "take_home",
+		SaleSubs: [{&ss1}, {&ss2}],
+	}
 	s.SaleSubs = append(s.SaleSubs, &ss1)
 	s.SaleSubs = append(s.SaleSubs, &ss2)
 
 	model.P.Print(&s)
+
+}
+
+func TestSale_save(t *testing.T) {
+	ss := model.SaleSub{}
+	sp := model.SalePay{}
+	s := model.Sale{}
 
 }

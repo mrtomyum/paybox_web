@@ -34,15 +34,17 @@ type SaleSub struct {
 // Payment เก็บรายละเอียดการชำระเงิน เหรียญ ธนบัตร หรือในอนาคตจะเพิ่มบัตรเครดิต และ Cashless Payment ได้ด้วย
 type SalePay struct {
 	SaleId  int64
+	TH025C  int `json:"th025c,omitempty"`  // จำนวนเหรียญ 25 สตางค์
+	TH050C  int `json:"th050c,omitempty"`  // จำนวนเหรียญ 50 สตางค์
+	TH1C    int `json:"th1c,omitempty"`    // จำนวนเหรียญ 1 บาท
+	TH2C    int `json:"th2c,omitempty"`    // จำนวนเหรียญ 2 บาท
+	TH5C    int `json:"th5c,omitempty"`    // จำนวนเหรียญ 5 บาท
+	TH10C   int `json:"th10c,omitempty"`   // จำนวนเหรียญ 10 บาท
 	TH20B   int `json:"th20b,omitempty"`   // จำนวนธนบัตรใบละ 20 บาท
 	TH50B   int `json:"th50b,omitempty"`   // จำนวนธนบัตรใบละ 50 บาท
 	TH100B  int `json:"th100b,omitempty"`  // จำนวนธนบัตรใบละ 100 บาท
 	TH500B  int `json:"th500b,omitempty"`  // จำนวนธนบัตรใบละ 500 บาท
 	TH1000B int `json:"th1000b,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
-	TH1C    int `json:"th1c,omitempty"`    // จำนวนเหรียญ 1 บาท
-	TH2C    int `json:"th2c,omitempty"`    // จำนวนเหรียญ 2 บาท
-	TH5C    int `json:"th5c,omitempty"`    // จำนวนเหรียญ 5 บาท
-	TH10C   int `json:"th10c,omitempty"`   // จำนวนเหรียญ 10 บาท
 }
 
 func (s *Sale) Post() error {
