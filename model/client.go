@@ -112,7 +112,8 @@ func (c *Client) DevEvent() {
 		BA.Event(c)
 	case "printer":
 		P.Event(c)
-	case "periph":
+	case "mainboard":
+		//case "periph":
 		M.Event(c)
 	default:
 		log.Println("event cannot find function/message=", c.Msg)

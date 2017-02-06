@@ -59,14 +59,12 @@ func (p *Printer) Print(s *Sale) error {
 	return nil
 }
 
-func (p *Printer) PrintTest() error {
+func (p *Printer) PrintTest(data string) error {
 	fmt.Println("p.PrintTest() run")
 
-	// หน่วงเวลารอ Host เชื่อม Websocket -> Device ก่อน
+	// หน่วงเวลารอ Host เชื่อม Websocket -> Device ให้เสร็จก่อน
 	timer := time.NewTimer(time.Millisecond * 100)
 	<-timer.C
-
-	data := `[{"set_text_size": 3},{"printline": "ร้านกาแฟ MOMO"}]`
 
 	ch := make(chan *Message)
 	m := &Message{
