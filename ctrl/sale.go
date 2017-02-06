@@ -33,6 +33,8 @@ func NewSale(c *gin.Context) {
 		c.JSON(http.StatusConflict, gin.H{"command": "print", "result":"error", "message":err.Error()})
 	}
 
+	//model.P.PrintTest(data)
+
 	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
 	model.PM.OnHand(model.H.Web)
 
