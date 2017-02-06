@@ -54,6 +54,9 @@
                         console.log("document.getElementById('pri2').value = "+t['data']);
                         document.getElementById("pri2").value = t['data'];
                         document.getElementById("pri3").value = total;
+                        if(total!=0){
+                            document.getElementById("coinbill").innerHTML = "และเงินทอน "+total+" บาท";
+                        }
                     }else{
                         console.log("false");
                         total = total.toString();
