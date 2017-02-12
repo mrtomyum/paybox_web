@@ -8,8 +8,7 @@ import (
 
 func main() {
 
-	r := gin.Default()
-	app := ctrl.Router(r)
+	app := ctrl.Router()
 	// Dial to Device WS server
 	go ctrl.CallDev()
 	app.Run(":8888")

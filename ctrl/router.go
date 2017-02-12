@@ -5,7 +5,8 @@ import (
 	"github.com/gin-gonic/contrib/static"
 )
 
-func Router(r *gin.Engine) *gin.Engine {
+func Router() *gin.Engine {
+	r := gin.Default()
 	// for Static HTML template
 	r.LoadHTMLGlob("view/**/*.tpl")
 
