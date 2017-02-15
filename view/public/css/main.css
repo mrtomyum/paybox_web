@@ -4,7 +4,8 @@ src: url('font_page/RSU_BOLD.ttf');
 }
 
 * {
-font-family:  'RSU_BOLD';
+    font-family:  'RSU_BOLD';
+    cursor: none;
 }
 
 body{

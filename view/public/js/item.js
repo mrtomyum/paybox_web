@@ -630,7 +630,7 @@ function payment(){
         list += '</tr>';
         list += '</table>';
 
-    document.getElementById("bill_peyment").innerHTML = list;
+   // document.getElementById("bill_peyment").innerHTML = list;
     document.getElementById("pri3").value = ttPrice;
     var pri1 = document.getElementById("pri1").value;
         var pri2 = document.getElementById("pri2").value;

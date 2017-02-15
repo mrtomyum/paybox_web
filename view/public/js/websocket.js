@@ -89,33 +89,33 @@
                     var b1000 = t['data'].b1000;
 
                     if(b20==true){
-                        bank += '<img src="img/b20_true.png" width="19%" style="padding-left:2%;">';
+                        bank += '<img src="img/b20_true.png" width="100%" style="margin-bottom:5%;">';
                     }else{
-                        bank += '<img src="img/b20_false.png" width="19%" style="padding-left:2%;">';
+                        bank += '<img src="img/b20_false.png" width="100%" style="margin-bottom:5%;">';
                     }
 
                     if(b50==true){
-                        bank += '<img src="img/b50_true.png" width="19%" style="padding-left:2%;">';
+                        bank += '<img src="img/b50_true.png" width="100%" style="margin-bottom:5%;">';
                     }else{
-                        bank += '<img src="img/b50_false.png" width="19%" style="padding-left:2%;">';
+                        bank += '<img src="img/b50_false.png" width="100%" style="margin-bottom:5%;">';
                     }
 
                     if(b100==true){
-                        bank += '<img src="img/b100_true.png" width="19%" style="padding-left:2%;">';
+                        bank += '<img src="img/b100_true.png" width="100%" style="margin-bottom:5%;">';
                     }else{
-                        bank += '<img src="img/b100_false.png" width="19%" style="padding-left:2%;">';
+                        bank += '<img src="img/b100_false.png" width="100%" style="margin-bottom:5%;">';
                     }
 
                     if(b500==true){
-                        bank += '<img src="img/b500_true.png" width="19%" style="padding-left:2%;">';
+                        bank += '<img src="img/b500_true.png" width="100%" style="margin-bottom:5%;">';
                     }else{
-                        bank += '<img src="img/b500_false.png" width="19%" style="padding-left:2%;">';
+                        bank += '<img src="img/b500_false.png" width="100%" style="margin-bottom:5%;">';
                     }
 
                     if(b1000==true){
-                        bank += '<img src="img/b1000_true.png" width="19%" style="padding-left:2%;">';
+                        bank += '<img src="img/b1000_true.png" width="100%" style="margin-bottom:5%;">';
                     }else{
-                        bank += '<img src="img/b1000_false.png" width="19%" style="padding-left:2%;">';
+                        bank += '<img src="img/b1000_false.png" width="100%" style="margin-bottom:5%;">';
                     }
                     document.getElementById("bank_use").innerHTML = bank;
 
