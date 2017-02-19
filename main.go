@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/mrtomyum/paybox_terminal/ctrl"
 
 )
