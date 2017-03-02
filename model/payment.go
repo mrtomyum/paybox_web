@@ -116,7 +116,7 @@ func (pm *Payment) Pay(sale *Sale) error {
 						}
 						fmt.Println("SUCCESS -- คายธนบัตรเมื่อเหรียญใน Hopper ไม่พอทอน PM.Total=", PM.Total)
 					}
-					fmt.Println("No -> รับมาด้วยเหรียญ -- ให้ทอนเหรียญตามจำนวนที่รับมา")
+					fmt.Println("No -> 8.3 รับมาด้วยเหรียญ -- ให้ทอนเหรียญตามจำนวนที่รับมา")
 					err := CH.PayoutByCash(PM.CoinEscrow)
 					if err != nil {
 						return err
