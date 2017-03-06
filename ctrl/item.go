@@ -1,7 +1,7 @@
 package ctrl
 
 import (
-	"github.com/mrtomyum/paybox_terminal/model"
+	"github.com/mrtomyum/paybox_web/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"

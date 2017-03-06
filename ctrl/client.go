@@ -3,7 +3,7 @@ package ctrl
 import (
 	"fmt"
 	"net/http"
-	"github.com/mrtomyum/paybox_terminal/model"
+	"github.com/mrtomyum/paybox_web/model"
 	"log"
 	"net/url"
 	"github.com/gorilla/websocket"

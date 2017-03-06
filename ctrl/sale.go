@@ -2,7 +2,7 @@ package ctrl
 
 import (
 	"fmt"
-	"github.com/mrtomyum/paybox_terminal/model"
+	"github.com/mrtomyum/paybox_web/model"
 	"log"
 	"github.com/gin-gonic/gin"
 	"net/http"
