@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-
+	// Todo: Check NTP Server and adjust RTC
 	app := ctrl.Router()
 	// Dial to Device WS server
 	go ctrl.CallDev()

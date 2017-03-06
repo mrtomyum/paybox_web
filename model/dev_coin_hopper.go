@@ -80,22 +80,27 @@ func (ch *CoinHopper) Event(c *Client) {
 
 func (ch *CoinHopper) PayoutByCash(v float64) error {
 	// command to send to devClient for "payout" value = v
-	fmt.Println("CoinHopper Command=>Payout, Value:", v)
+	fmt.Println("Send Command to CoinHopper payout_by_cash, Value:", v)
+	waitChannel := make(chan *Message)
 	m := &Message{
 		Device:  "coin_hopper",
 		Type:    "request",
 		Command: "payout_by_cash",
+		Result:  nil,
 		Data:    v,
 	}
 	H.Dev.Send <- m
-	// Todo: set time-out function here ถ้าไม่มีตอบสนองจาก goroutine ภายใน 10 วินาที
 
 	// เปิด Goroutine เพื่อรอรับ MessagMessagee กลับมาจาก Channel ch.Response
 	go func() {
-		m := <-ch.Response
+		m2 := <-ch.Response
 		data := m.Data.(float32)
 		fmt.Printf("Got Response from CoinHopper payout value = %v\n", data)
+		waitChannel <- m2
 	}()
+	// Todo: set time-out function here ถ้าไม่มีตอบสนองจาก goroutine ภายใน 10 วินาที
+	m = <-waitChannel
+	close(waitChannel)
 	return nil
 }
 

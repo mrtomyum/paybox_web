@@ -78,7 +78,7 @@ func (c *Client) Write() {
 				fmt.Println("error:", err)
 			}
 			os.Stdout.Write(b)
-			fmt.Println("Client.Write() on:", c.Name)
+			fmt.Println("Client.Write() on:", c.Name, "Message =", c.Msg)
 		}
 	}
 }
