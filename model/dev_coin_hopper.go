@@ -86,7 +86,6 @@ func (ch *CoinHopper) PayoutByCash(v float64) error {
 		Device:  "coin_hopper",
 		Type:    "request",
 		Command: "payout_by_cash",
-		//Result:  nil,
 		Data:    v,
 	}
 	H.Dev.Send <- m

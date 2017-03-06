@@ -93,13 +93,21 @@ func (pm *Payment) Pay(sale *Sale) error {
 		fmt.Println("PM.BillEscrow =", PM.BillEscrow)
 		fmt.Println("AcceptedBill = ", AB)
 		fmt.Println("5. ยอดรับเงิน >= ยอดขายหรือยัง?")
-		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกินระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
+		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกินกว่ายอดขายหรือไม่?
 			change := PM.Total - sale.Total
 			fmt.Println("YES -> 6. ต้องทอนเงินไหม? ")
-			if change != 0 { // ไม่มีเงินทอนให้ข้ามไป
+			if change != 0 { // หากไม่ต้องทอนให้ข้ามไป
 				fmt.Println("YES -> 7. เช็คว่ามีเหรียญพอทอนไหม")
+				// ระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
 				if CB.Hopper >= change { // หากเหรียญใน Hopper พอทอน และยอดทอน != 0
-					fmt.Println("YES -> 8.1 สั่งทอนเหรียญ")
+					fmt.Println("YES -> 8.1 สั่งเก็บธนบัตร")
+					if PM.BillEscrow != 0 { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
+						err := BA.Take(true) // เก็บธนบัตรลงถัง
+						if err != nil {
+							return err
+						}
+					}
+					fmt.Println("YES -> 8.2 สั่งทอนเหรียญ")
 					err := CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
 					if err != nil {
 						return err
@@ -107,16 +115,16 @@ func (pm *Payment) Pay(sale *Sale) error {
 					}
 					fmt.Println("SUCCESS -- ทอนเหรียญจาก Hopper สำเร็จ PM.Total=", PM.Total)
 				} else {
-					fmt.Println("NO -> 8.2 #เหรียญไม่พอทอน# รับธนบัตรรึเปล่า")
+					fmt.Println("NO -> 9 #เหรียญไม่พอทอน# รับธนบัตรรึเปล่า")
 					if PM.BillEscrow != 0 { // ถ้ามียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
-						fmt.Println("YES -> ถ้ารับด้วยธนบัตรให้คายธนบัตรคืนลูกค้า -- สั่งคายธนบัตร")
+						fmt.Println("YES -> 9.1 ถ้ารับด้วยธนบัตรให้คายธนบัตรคืนลูกค้า -- สั่งคายธนบัตร")
 						err := BA.Take(false) // คายธนบัตร (Reject)
 						if err != nil {
 							return err
 						}
 						fmt.Println("SUCCESS -- คายธนบัตรเมื่อเหรียญใน Hopper ไม่พอทอน PM.Total=", PM.Total)
 					}
-					fmt.Println("No -> 8.3 รับมาด้วยเหรียญ -- ให้ทอนเหรียญตามจำนวนที่รับมา")
+					fmt.Println("No -> 9.2 รับมาด้วยเหรียญ -- ให้ทอนเหรียญตามจำนวนที่รับมา")
 					err := CH.PayoutByCash(PM.CoinEscrow)
 					if err != nil {
 						return err
@@ -125,14 +133,14 @@ func (pm *Payment) Pay(sale *Sale) error {
 				}
 			}
 		}
-		fmt.Println("NO -> 9. รับด้วยธนบัตรรึเปล่า?")
-		if PM.BillEscrow != 0 { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
+		//fmt.Println("NO -> 10 รับด้วยธนบัตรรึเปล่า?")
+		//if PM.BillEscrow != 0 { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
 			// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
-			err := BA.Take(true) // เก็บธนบัตรลงถัง
-			if err != nil {
-				return err
-			}
-		}
+		//err := BA.Take(true) // เก็บธนบัตรลงถัง
+		//if err != nil {
+		//	return err
+		//}
+		//}
 		if PM.Total >= sale.Total {
 			PM.Total = 0
 			PM.Coin = 0
