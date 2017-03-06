@@ -144,7 +144,7 @@
 
             if(t['command']=="print"){
 
-                if(t['data']=="success"){
+                if(t['data']=="Success"){
                    window.location = "index.html";
                 }else{
                     alert(t['data']);
