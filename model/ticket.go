@@ -4,7 +4,7 @@ package model
 type Ticket struct {
 	Id   int
 	Name string
-	Data map[string]interface{}
+	Data []*Action
 }
 
 // TicketAction  เป็น Junction Table ผูกฟอร์มและ Tiketไว้ด้วยกัน
@@ -16,11 +16,14 @@ type TicketAction struct {
 
 // Form เก็บอักขระฟอร์มต้นแบบ เป็นแถว
 type Action struct {
-	Print        string `json:"print"`
-	Printline    string `json:"printline"`
-	SetTextSize  int `json:"set_text_size"`
-	PrintBarcode PrintBarcode `json:"print_barcode"`
-	PrintQr      PrintQr `json:"print_qr"`
+	TicketId   int `json:"ticket_id"`
+	Action     string `json:"action"`
+	ActionData interface{} `json:"action_data"`
+	//Print        string `json:"print"`
+	//Printline    string `json:"printline"`
+	//SetTextSize  int `json:"set_text_size"`
+	//PrintBarcode PrintBarcode `json:"print_barcode"`
+	//PrintQr      PrintQr `json:"print_qr"`
 }
 
 type PrintBarcode struct {

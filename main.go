@@ -1,15 +1,13 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/mrtomyum/paybox_terminal/ctrl"
 
 )
 
 func main() {
 
-	r := gin.Default()
-	app := ctrl.Router(r)
+	app := ctrl.Router()
 	// Dial to Device WS server
 	go ctrl.CallDev()
 	app.Run(":8888")

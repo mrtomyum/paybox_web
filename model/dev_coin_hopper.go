@@ -53,11 +53,11 @@ func (ch *CoinHopper) GetId() {
 	}
 	H.Dev.Send <- m
 
-	// เปิด Goroutine เพื่อรอรับ Message กลับมาจาก Channel Send.
+	// เปิด Goroutine เพื่อรอรับ MessagMessagee กลับมาจาก Channel ch.Response
 	go func() {
 		m := <-ch.Response
 		ch.machineId = m.Data.(string)
-		fmt.Println("Get Response from CoinHopper ID:", ch.machineId, "Status:", ch.Status)
+		fmt.Println("Got Response from CoinHopper ID:", ch.machineId, "Status:", ch.Status)
 	}()
 }
 
@@ -81,6 +81,21 @@ func (ch *CoinHopper) Event(c *Client) {
 func (ch *CoinHopper) PayoutByCash(v float64) error {
 	// command to send to devClient for "payout" value = v
 	fmt.Println("CoinHopper Command=>Payout, Value:", v)
+	m := &Message{
+		Device:  "coin_hopper",
+		Type:    "request",
+		Command: "payout_by_cash",
+		Data:    v,
+	}
+	H.Dev.Send <- m
+	// Todo: set time-out function here ถ้าไม่มีตอบสนองจาก goroutine ภายใน 10 วินาที
+
+	// เปิด Goroutine เพื่อรอรับ MessagMessagee กลับมาจาก Channel ch.Response
+	go func() {
+		m := <-ch.Response
+		data := m.Data.(float32)
+		fmt.Printf("Got Response from CoinHopper payout value = %v\n", data)
+	}()
 	return nil
 }
 
