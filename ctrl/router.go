@@ -8,9 +8,9 @@ import (
 func Router() *gin.Engine {
 	r := gin.Default()
 	// for Static HTML template
-	r.LoadHTMLGlob("view/**/*.tpl")
 
 	// for test run disable this if production
+	//r.LoadHTMLGlob("view/**/*.tpl")
 	//r.Static("/html", "view/html")
 	//r.Static("/js", "view/public/js")
 	//r.Static("/css", "view/public/css")
@@ -19,6 +19,7 @@ func Router() *gin.Engine {
 	//r.Use(static.Serve("/", static.LocalFile("view", true)))
 
 	// Absolute path static file for deploy production.
+	r.LoadHTMLGlob("/opt/paybox/web_service/view/**/*.tpl")
 	r.Static("/js", "/opt/paybox/web_service/view/public/js")
 	r.Static("/css", "/opt/paybox/web_service/view/public/css")
 	r.Static("/img", "/opt/paybox/web_service/view/public/img")
