@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/mrtomyum/paybox_terminal/ctrl"
+	"github.com/mrtomyum/paybox_web/ctrl"
 
 )
 
