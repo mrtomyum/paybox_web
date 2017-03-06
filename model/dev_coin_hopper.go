@@ -94,7 +94,7 @@ func (ch *CoinHopper) PayoutByCash(v float64) error {
 	// เปิด Goroutine เพื่อรอรับ MessagMessagee กลับมาจาก Channel ch.Response
 	go func() {
 		m2 := <-ch.Response
-		data := m.Data.(float32)
+		data := m.Data.(float64)
 		fmt.Printf("Got Response from CoinHopper payout value = %v\n", data)
 		waitChannel <- m2
 	}()
