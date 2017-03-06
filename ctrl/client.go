@@ -37,7 +37,7 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 		Name: "web",
 		Msg:  &model.Message{},
 	}
-	fmt.Println("Web:", c.Name, "...start send <-c to model.H.Webclient")
+	//fmt.Println("Web:", c.Name, "...start send <-c to model.H.Webclient")
 	model.H.Web = c
 	fmt.Println("Start Web connection")
 	go c.Write()
@@ -52,7 +52,7 @@ func ServDev(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer conn.Close()
-	fmt.Println("start New Device connection success...")
+	//fmt.Println("start New Device connection success...")
 	c := &model.Client{
 		Ws:   conn,
 		Send: make(chan *model.Message),
@@ -70,9 +70,9 @@ func CallDev() {
 	log.Printf("connecting to %s", u.String())
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
-		log.Println("Error call Device Websocket:", err)
+		log.Println("Error call HW_SERVICE Websocket:", err)
 	}
-	fmt.Println("Websocket to device connected:", conn)
+	fmt.Println("Websocket to HW_SERVICE connected:", conn.RemoteAddr())
 	defer conn.Close()
 	c := &model.Client{
 		Ws:   conn,
