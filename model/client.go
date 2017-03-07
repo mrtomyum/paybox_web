@@ -32,7 +32,7 @@ func (c *Client) Read() {
 	for {
 		err := c.Ws.ReadJSON(&m)
 		if err != nil {
-			log.Println("Connection closed:", err)
+			log.Println("Connection: ", c.Name, " closed:", err)
 			break
 		}
 		c.Msg = m
@@ -42,7 +42,7 @@ func (c *Client) Read() {
 			fmt.Println("error:", err)
 		}
 		os.Stdout.Write(b)
-		fmt.Println("Client.Read() on:", c.Name)
+		fmt.Println("Client", c.Name, " read JSON message. Command:", m.Command)
 
 		switch {
 		case c.Name == "web":

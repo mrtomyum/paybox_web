@@ -2,8 +2,8 @@ package main
 //
 //import (
 //	"testing"
-//	"github.com/mrtomyum/paybox_terminal/model"
-//	"github.com/mrtomyum/paybox_terminal/ctrl"
+//	"github.com/mrtomyum/paybox_web/model"
+//	"github.com/mrtomyum/paybox_web/ctrl"
 //)
 //var db *sqlx.DB
 //

@@ -96,7 +96,7 @@ func (pm *Payment) Pay(sale *Sale) error {
 		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกินกว่ายอดขายหรือไม่?
 			change := PM.Total - sale.Total
 			fmt.Println("YES -> 6. ต้องทอนเงินไหม? ")
-			if change != 0 { // หากไม่ต้องทอนให้ข้ามไป
+			if change != 0 { // หากต้องทอนเงิน (ไม่ต้องทอนให้ข้ามไป)
 				fmt.Println("YES -> 7. เช็คว่ามีเหรียญพอทอนไหม")
 				// ระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
 				if CB.Hopper >= change { // หากเหรียญใน Hopper พอทอน และยอดทอน != 0
@@ -131,16 +131,17 @@ func (pm *Payment) Pay(sale *Sale) error {
 						log.Println("Error on CH Payout():", err.Error())
 					}
 				}
+			} else {
+				fmt.Println("NO -> 10 รับด้วยธนบัตรรึเปล่า?")
+				if PM.BillEscrow != 0 { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
+					// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
+					err := BA.Take(true) // เก็บธนบัตรลงถัง
+					if err != nil {
+						return err
+					}
+				}
 			}
 		}
-		//fmt.Println("NO -> 10 รับด้วยธนบัตรรึเปล่า?")
-		//if PM.BillEscrow != 0 { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
-			// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
-		//err := BA.Take(true) // เก็บธนบัตรลงถัง
-		//if err != nil {
-		//	return err
-		//}
-		//}
 		if PM.Total >= sale.Total {
 			PM.Total = 0
 			PM.Coin = 0

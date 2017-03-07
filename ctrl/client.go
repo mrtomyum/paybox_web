@@ -29,8 +29,6 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer conn.Close()
-	fmt.Println("start New Web connection success...")
-
 	c := &model.Client{
 		Ws:   conn,
 		Send: make(chan *model.Message),
@@ -39,9 +37,32 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 	}
 	//fmt.Println("Web:", c.Name, "...start send <-c to model.H.Webclient")
 	model.H.Web = c
-	fmt.Println("Start Web connection")
+	fmt.Println("Start WebSocket connection from Web:", conn.RemoteAddr())
 	go c.Write()
 	c.Read() // ดัก Event message ที่จะส่งมาตอนไหนก็ไม่รู้
+}
+
+// CallDev() เพื่อให้โปรแกรม Host เรียก WebSocket ไปยัง HW_SERVICE ที่พอร์ท 9999
+// ใช้สั่งงาน Request และรับ Event/Response จาก Device ต่างๆ
+func CallDev() {
+	u := url.URL{Scheme: "ws", Host: "127.0.0.1:9999", Path: "/"}
+	//u := url.URL{Scheme:"ws", Host:"192.168.10.64:9999", Path: "/"}
+	log.Printf("connecting to %s", u.String())
+	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+	if err != nil {
+		log.Println("Error call HW_SERVICE Websocket:", err)
+	}
+	defer conn.Close()
+	c := &model.Client{
+		Ws:   conn,
+		Send: make(chan *model.Message),
+		Name: "dev",
+		Msg:  &model.Message{},
+	}
+	model.H.Dev = c
+	fmt.Println("Start Websocket to HW_SERVICE connected:", conn.RemoteAddr())
+	go c.Write()
+	c.Read()
 }
 
 func ServDev(w http.ResponseWriter, r *http.Request) {
@@ -64,24 +85,3 @@ func ServDev(w http.ResponseWriter, r *http.Request) {
 	c.Read()
 }
 
-func CallDev() {
-	//u := url.URL{Scheme:"ws", Host:"127.0.0.1:9999", Path: "/"}
-	u := url.URL{Scheme:"ws", Host:"192.168.10.64:9999", Path: "/"}
-	log.Printf("connecting to %s", u.String())
-	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-	if err != nil {
-		log.Println("Error call HW_SERVICE Websocket:", err)
-	}
-	fmt.Println("Websocket to HW_SERVICE connected:", conn.RemoteAddr())
-	defer conn.Close()
-	c := &model.Client{
-		Ws:   conn,
-		Send: make(chan *model.Message),
-		Name: "dev",
-		Msg:  &model.Message{},
-	}
-	model.H.Dev = c
-	//fmt.Println("Start Dev Connection, model.H.Dev:", model.H.Dev)
-	go c.Write()
-	c.Read()
-}

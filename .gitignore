@@ -12,3 +12,4 @@ config/sample/
 doc/paybox.db
 projectFilesBackup/
 /.idea/
+/paybox.iml

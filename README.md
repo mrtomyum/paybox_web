@@ -1,4 +1,4 @@
-# Paybox_Terminal 1.0 
+# paybox_web 1.0
 "The Ticket vending machine terminal client."
 Paybox Ticket Terminal software Service and Application written in Qt5 and interface with QML.
 

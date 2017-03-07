@@ -2,7 +2,7 @@ package test
 
 import (
 	"testing"
-	"github.com/mrtomyum/paybox_terminal/model"
+	"github.com/mrtomyum/paybox_web/model"
 	"github.com/matryer/silk/runner"
 )
 
