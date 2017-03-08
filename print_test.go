@@ -2,11 +2,9 @@ package main
 
 import (
 	"testing"
-	"github.com/mrtomyum/paybox_terminal/model"
+	"github.com/mrtomyum/paybox_web/model"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/mrtomyum/paybox_terminal/ctrl"
-	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -86,10 +84,10 @@ func init() {
 		Change: 0,
 	}
 
-	r := gin.Default()
-	app := ctrl.Router(r)
-	go ctrl.CallDev()
-	app.Run(":8888")
+	//r := gin.Default()
+	//app := ctrl.Router(r)
+	//go ctrl.CallDev()
+	//app.Run(":8888")
 
 }
 

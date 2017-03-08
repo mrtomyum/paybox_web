@@ -22,9 +22,9 @@ $ ./opt/paybox/hw_service/HW_SERVICE
 ## Web Service (Go + JS - HTML)
 Cross Compile โค้ดของ go project ด้วย xgo https://github.com/karalabe/xgo
 ```
-$ xgo --targets=linux/arm-7 github.com/mrtomyum/paybox_terminal
+$ xgo --targets=linux/arm-7 github.com/mrtomyum/paybox_web
 ```
-จะได้ไฟล์ชื่อ paybox_terminal-linux-arm-7
+จะได้ไฟล์ชื่อ paybox_web-linux-arm-7
 
 ```
 $ ssh pb
@@ -33,7 +33,7 @@ $ exit
 ```
 copy file WEB_SERVICE จากเครื่องเราไปที่ตู้ปลายทางชื่อ WEB_SERVICE
 ```
-$ scp paybox_terminal-linux-arm-7 pb:/opt/paybox/web_service/WEB_SERVICE
+$ scp paybox_web-linux-arm-7 pb:/opt/paybox/web_service/WEB_SERVICE
 $ ssh pb
 $ ./opt/paybox/web_service/WEB_SERVICE
 ```
