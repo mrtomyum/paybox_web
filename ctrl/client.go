@@ -51,6 +51,7 @@ func CallDev() {
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
 		log.Println("Error call HW_SERVICE Websocket:", err)
+		return
 	}
 	defer conn.Close()
 	c := &model.Client{
@@ -68,7 +69,7 @@ func CallDev() {
 func ServDev(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("start ServDev Websocket for Device...")
 	conn, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
+	if err != nil { // pass this func if currently no WebSocket service
 		fmt.Println(err)
 		return
 	}
