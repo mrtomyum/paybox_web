@@ -176,6 +176,7 @@ func (ba *BillAcceptor) Received(c *Client) {
 	PM.Bill += received
 	PM.BillEscrow = received
 	PM.Total += received
+	PM.Remain -= received
 	//m := &Message{
 	//	Device:  "bill_acc",
 	//	Command: "received",
