@@ -95,20 +95,9 @@ func (pm *Payment) Pay(sale *Sale) error {
 					}
 					fmt.Println("SUCCESS -- ทอนเหรียญจาก Hopper สำเร็จ PM.Total=", PM.Total)
 				} else {
-					fmt.Println("NO -> 9 #เหรียญไม่พอทอน# รับธนบัตรรึเปล่า")
-					if PM.BillEscrow != 0 { // ถ้ามียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
-						fmt.Println("YES -> 9.1 ถ้ารับด้วยธนบัตรให้คายธนบัตรคืนลูกค้า -- สั่งคายธนบัตร")
-						err := BA.Take(false) // คายธนบัตร (Reject)
-						if err != nil {
-							return err
-						}
-						fmt.Println("SUCCESS -- คายธนบัตรเมื่อเหรียญใน Hopper ไม่พอทอน PM.Total=", PM.Total)
-					}
-					fmt.Println("No -> 9.2 รับมาด้วยเหรียญ -- ให้ทอนเหรียญตามจำนวนที่รับมา")
-					err := CH.PayoutByCash(PM.CoinEscrow)
+					err := pm.coinShortage()
 					if err != nil {
 						return err
-						log.Println("Error on CH Payout():", err.Error())
 					}
 				}
 			} else {
@@ -265,5 +254,24 @@ func (pm *Payment) RejectUnacceptedBill() error {
 	}
 	fmt.Println("PM.BillEscrow =", pm.BillEscrow)
 	fmt.Println("AcceptedBill = ", AB)
+	return nil
+}
+
+func (pm *Payment) coinShortage() error {
+	fmt.Println("NO -> 9 #เหรียญไม่พอทอน# รับธนบัตรรึเปล่า")
+	if pm.BillEscrow != 0 { // ถ้ามียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
+		fmt.Println("YES -> 9.1 ถ้ารับด้วยธนบัตรให้คายธนบัตรคืนลูกค้า -- สั่งคายธนบัตร")
+		err := BA.Take(false) // คายธนบัตร (Reject)
+		if err != nil {
+			return err
+		}
+		fmt.Println("SUCCESS -- คายธนบัตรเมื่อเหรียญใน Hopper ไม่พอทอน PM.Total=", PM.Total)
+	}
+	fmt.Println("No -> 9.2 รับมาด้วยเหรียญ -- ให้คืนเหรียญตามจำนวนที่รับมา")
+	err := CH.PayoutByCash(pm.CoinEscrow)
+	if err != nil {
+		return err
+		log.Println("Error on CH Payout():", err.Error())
+	}
 	return nil
 }
