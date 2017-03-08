@@ -75,39 +75,38 @@ func (pm *Payment) Pay(sale *Sale) error {
 		if PM.Total >= sale.Total { // เมื่อชำระเงินครบหรือเกินกว่ายอดขายหรือไม่?
 			fmt.Println("5. ยอดรับเงิน >= ยอดขาย")
 			change := PM.Total - sale.Total
+
 			if change != 0 { // หากต้องทอนเงิน (ไม่ต้องทอนให้ข้ามไป)
 				fmt.Println("YES -> 6. ต้องทอนเงิน ")
 				// ระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
-				if CB.Hopper >= change { // หากเหรียญใน Hopper พอทอน และยอดทอน != 0
-					fmt.Println("YES -> 7. มีเหรียญพอทอน")
-					if PM.BillEscrow != 0 { // ถ้ามีธนบัตรพักอยู่ ให้สั่งเก็บธนบัตร
-						fmt.Println("YES -> 8.1 สั่งเก็บธนบัตร")
-						err := BA.Take(true) // เก็บธนบัตรลงถัง
-						if err != nil {
-							return err
-						}
-					}
-					fmt.Println("8.2 และทอนเหรียญ")
-					err := CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
-					if err != nil {
-						return err
-						log.Println("Error on CH Payout():", err.Error())
-					}
-					fmt.Println("SUCCESS -- ทอนเหรียญจาก Hopper สำเร็จ PM.Total=", PM.Total)
-				} else {
+				if CB.Hopper < change { // หากเหรียญใน Hopper ไม่พอทอน และยอดทอน != 0
 					err := pm.coinShortage()
 					if err != nil {
 						return err
 					}
 				}
-			} else {
-				fmt.Println("NO -> 10 รับด้วยธนบัตรรึเปล่า?")
-				if PM.BillEscrow != 0 { // เฉพาะธนบัตรต้องสั่ง Take ก่อน
-					// กินธนบัตรที่พักไว้ *ระวัง! ถ้า Dev client ยังไม่เปิดคอนเนคชั่นจะ runtime error: invalid memory address or nil pointer derefere
+				fmt.Println("YES -> 7. มีเหรียญพอทอน")
+				if pm.BillEscrow != 0 { // ถ้ามีธนบัตรพักอยู่ ให้สั่งเก็บธนบัตร
 					err := BA.Take(true) // เก็บธนบัตรลงถัง
 					if err != nil {
 						return err
 					}
+					fmt.Println("YES -> 8.1 สั่งเก็บธนบัตรสำเร็จ")
+				}
+				err := CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
+				if err != nil {
+					return err
+					log.Println("Error on CH Payout():", err.Error())
+				}
+				fmt.Println("8.2 SUCCESS -- ทอนเหรียญจาก Hopper สำเร็จ PM.Total=", PM.Total)
+
+			} else { // ไม่ต้องทอนเงิน
+				if pm.BillEscrow != 0 { // ถ้ารับธนบัตร
+					err := BA.Take(true) // ให้เก็บธนบัตรลงถัง
+					if err != nil {
+						return err
+					}
+					fmt.Println("เก็บธนบัตรสำเร็จ")
 				}
 			}
 		}
