@@ -32,7 +32,7 @@ func (c *Client) Read() {
 	for {
 		err := c.Ws.ReadJSON(&m)
 		if err != nil {
-			log.Println("Connection: ", c.Name, " closed:", err)
+			log.Println("Ws.ReadJSON Error on : ", c.Name, " :", err)
 			break
 		}
 		c.Msg = m
