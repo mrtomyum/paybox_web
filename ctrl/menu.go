@@ -12,5 +12,7 @@ func GetMenu(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, err.Error())
 	}
+	model.CA.Start()
+	model.BA.Start()
 	ctx.JSON(http.StatusOK, langs)
 }
