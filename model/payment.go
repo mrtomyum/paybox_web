@@ -152,6 +152,15 @@ func (pm *Payment) OnHand(web *Client) {
 func (pm *Payment) Cancel(c *Client) error {
 	fmt.Println("Host.Cancel()...")
 
+	// ตรวจสอบก่อนว่าหากคืนธนบัตรใบล่าสุดใบเดียว เหรียญใน Hopper จะพอคืนตามยอดเงินรับชำระหรือไม่?
+	if pm.Total-pm.BillEscrow > CB.Hopper {
+		// ให้แจ้งเตือนการ Cancel ล้มเหลว
+		// แล้วคืนธนบัตรใบล่าสุด พร้อมทั้งพิมพ์คูปองคืนเงิน
+		// โดยไม่ทอนเหรียญที่เหลือเนื่องจากหากมีเหรียญเหลือน้อยมักมีปัญหาในการทอนล่าช้า
+		// หรืออาจมีจำนวนเหรียญไม่ตรงกับที่ได้รับแจ้งตอนเริ่มระบบ
+		pm.refund(PM.Total, PM.BillEscrow)
+	}
+
 	// Check Bill Acceptor
 	if PM.Total == 0 { // ไม่มีเงินพัก
 		log.Println("ไม่มีเงินพัก:")
@@ -161,8 +170,8 @@ func (pm *Payment) Cancel(c *Client) error {
 		c.Send <- c.Msg
 		return errors.New("ไม่มีเงินพัก")
 	}
-	// สั่งให้ BillAcceptor คืนเงินที่พักไว้
-	if PM.BillEscrow != 0 { // ถ้ามีธนบัติพักไว้
+	// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
+	if PM.BillEscrow != 0 { // ถ้ามีธนบัตรพักไว้
 		err := BA.Take(true) // เก็บธนบัตรลงถัง
 		if err != nil {
 			return err
@@ -179,15 +188,17 @@ func (pm *Payment) Cancel(c *Client) error {
 	if err != nil {
 		return err
 	}
-	PM.Total = 0 // เคลียร์ยอดเงินค้างให้หมด
-	PM.BillEscrow = 0
-	PM.CoinEscrow = 0
 
 	// Send message response back to Web Client
 	c.Msg.Type = "response"
 	c.Msg.Result = true
-	c.Msg.Data = "sucess"
+	c.Msg.Data = PM.Coin
 	c.Send <- c.Msg
+
+	PM.Total = 0 // เคลียร์ยอดเงินค้างให้หมด
+	PM.BillEscrow = 0
+	PM.CoinEscrow = 0
+	PM.Coin = 0
 	return nil
 }
 
@@ -257,7 +268,7 @@ func (pm *Payment) RejectUnacceptedBill() error {
 }
 
 func (pm *Payment) coinShortage() error {
-	fmt.Println("NO -> 9 #เหรียญไม่พอทอน# รับธนบัตรรึเปล่า")
+	fmt.Println("NO -> 9 รับธนบัตรรึเปล่า")
 	if pm.BillEscrow != 0 { // ถ้ามียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
 		fmt.Println("YES -> 9.1 ถ้ารับด้วยธนบัตรให้คายธนบัตรคืนลูกค้า -- สั่งคายธนบัตร")
 		err := BA.Take(false) // คายธนบัตร (Reject)
@@ -271,6 +282,20 @@ func (pm *Payment) coinShortage() error {
 	if err != nil {
 		return err
 		log.Println("Error on CH Payout():", err.Error())
+	}
+	return nil
+}
+
+func (pm *Payment) refund(total, billEscrow float64) error {
+	err := BA.Take(false)
+	if err != nil {
+		return err
+	}
+	// Print ใบคืนเงิน (Refund) ตามยอดเงินคงเหลือ
+	rf := total - billEscrow
+	err := P.makeRefund(rf)
+	if err != nil {
+		return err
 	}
 	return nil
 }

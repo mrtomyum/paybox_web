@@ -113,6 +113,7 @@ func (ba *BillAcceptor) Stop() {
 
 // สั่งให้ Bill Acceptor เก็บเงิน
 func (ba *BillAcceptor) Take(action bool) error {
+
 	ch := make(chan *Message)
 	m1 := &Message{
 		Device:  "bill_acc",
@@ -156,10 +157,12 @@ func (ba *BillAcceptor) Take(action bool) error {
 	if m1.Data.(bool) == true { // ถ้าสั่ง Take
 		CB.Bill += PM.BillEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
 		CB.Total += PM.BillEscrow // เพิ่มยอดรวมของ CashBox
+		PM.Bill += PM.BillEscrow
+		PM.Total += PM.BillEscrow
 		PM.BillEscrow = 0         // ล้างยอดเงินพัก
 	} else {
-		PM.Total -= PM.BillEscrow // ลดยอดรับเงินรวม
 		PM.Bill -= PM.BillEscrow  // ลดยอดรับธนบัตร
+		PM.Total -= PM.BillEscrow // ลดยอดรับเงินรวม
 		PM.BillEscrow = 0         // ล้างยอดเงินพัก
 	}
 
