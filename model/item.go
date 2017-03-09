@@ -58,7 +58,7 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 		case 3:
 			sql = `SELECT id, name_cn as name, unit_cn as unit, menu_seq, image FROM item WHERE menu_id = ?`
 		}
-		fmt.Println("case:", l.Id, l.Name)
+		//fmt.Println("case:", l.Id, l.Name)
 		err := db.Select(&items, sql, id)
 		if err != nil {
 			log.Println("Error select items")

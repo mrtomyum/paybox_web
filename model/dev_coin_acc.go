@@ -50,7 +50,7 @@ func (ca *CoinAcceptor) Start() {
 	}()
 	m = <-ch
 	close(ch)
-	ca.Status = "inhibit==true"
+	ca.Status = "INHIBIT"
 	fmt.Println("2. เปิดรับเหรียญสำเร็จ, CA status:", ca.Status)
 }
 

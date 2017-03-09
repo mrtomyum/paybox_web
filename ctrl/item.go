@@ -33,7 +33,8 @@ func GetItemsByMenuId(ctx *gin.Context) {
 	var item model.Item
 	langs, err := item.ByMenuId(id)
 	if err != nil {
-		ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
+		//ctx.HTML(http.StatusNotFound, "error.tpl", err.Error())
+		ctx.JSON(http.StatusNotFound, err.Error())
 	}
 	ctx.JSON(http.StatusOK, langs)
 }

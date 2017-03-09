@@ -107,6 +107,10 @@ func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
 	return data, nil
 }
 
-func (p *Printer) makeTicket(s *Sale) {
+func (p *Printer) makeTicket(s *Sale) error {
+	return nil
+}
 
+func (p *Printer) makeRefund(value float64) error {
+	return nil
 }

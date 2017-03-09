@@ -1,7 +1,5 @@
 package model
 
-import "log"
-
 type Lang struct {
 	Id     int     `json:"lang_id"`
 	Name   string  `json:"lang_name"`
@@ -43,14 +41,14 @@ func (m *Menu) Index() ([]*Lang, error) {
 		case 3:
 			sql = `SELECT id, name_cn as name, image, link FROM menu`
 		}
-		log.Println("case:", l.Id, l.Name)
+		//log.Println("case:", l.Id, l.Name)
 		err := db.Select(&menus, sql)
 		if err != nil {
 			return nil, err
 		}
 		l.Menus = menus
-		log.Println(l)
+		//log.Println(l)
 	}
-	log.Println(langs)
+	//log.Println(langs)
 	return langs, nil
 }
