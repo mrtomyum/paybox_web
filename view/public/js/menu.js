@@ -4,6 +4,7 @@ $(document).ready(function(){
     var id = localStorage.language;
     $("img").removeClass("active_img");
     $("#"+id).addClass("active_img");
+    call_websocket();
 
       responsiveVoice.OnVoiceReady = function() {
               console.log("speech time?");
