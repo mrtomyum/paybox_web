@@ -219,7 +219,7 @@ func (pm *Payment) DisplayAcceptedBill() {
 // ตรวจสอบธนบัตรที่ต้อง  Reject
 func (pm *Payment) RejectUnacceptedBill() error {
 	fmt.Println("4. ถ้ารับธนบัตร ตรวจสอบเพื่อ Reject ธนบัตรที่ไม่รับ")
-	if pm.BillEscrow != 0 { // ถ้ารับธนบัตรให้ตรวจเงินทอน เพื่อคุมธนบัตรที่งดรับ
+	if pm.BillEscrow == 0 {
 		return ErrNoBillEscrow
 	}
 	switch pm.BillEscrow {

@@ -24,12 +24,14 @@ func NewSale(c *gin.Context) {
 	// Payment
 	err := model.PM.Pay(sale)
 	if err != nil {
+		log.Println(err)
 		c.JSON(http.StatusConflict, gin.H{"command": "payment", "result":"error", "message":err.Error()})
 	}
 
 	// พิมพ์ตั๋ว และใบเสร็จ
 	err = model.P.Print(sale)
 	if err != nil {
+		log.Println(err)
 		c.JSON(http.StatusConflict, gin.H{"command": "print", "result":"error", "message":err.Error()})
 	}
 
@@ -41,6 +43,7 @@ func NewSale(c *gin.Context) {
 	fmt.Println("Post ยอดขายขึ้น Cloud -> sale.Post()")
 	err = sale.Post()
 	if err != nil {
+		log.Println(err)
 		c.JSON(http.StatusConflict, gin.H{"command": "post", "result":"error", "message":err.Error()})
 	}
 
@@ -48,6 +51,7 @@ func NewSale(c *gin.Context) {
 	fmt.Println("Save ยอดขายลง Local Storage")
 	err = sale.Save()
 	if err != nil {
+		log.Println(err)
 		c.JSON(http.StatusConflict, gin.H{"command": "save", "result":"error", "message":err.Error()})
 	}
 
