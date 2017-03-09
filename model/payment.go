@@ -300,13 +300,7 @@ func (pm *Payment) change(value float64) error {
 		return ErrCoinShortage
 	}
 	fmt.Println("YES -> 7. มีเหรียญพอทอน")
-	err := BA.Take(true) // เก็บธนบัตรลงถัง
-	if err != nil {
-		return err
-	}
-	fmt.Println("YES -> 8.1 สั่งเก็บธนบัตรสำเร็จ")
-
-	err = CH.PayoutByCash(value) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
+	err := CH.PayoutByCash(value) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
 	if err != nil {
 		return err
 		log.Println("Error on CH Payout():", err.Error())
