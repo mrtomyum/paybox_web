@@ -37,7 +37,7 @@ func (ba *BillAcceptor) Event(c *Client) {
 // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Bill Acceptor
 func (ba *BillAcceptor) MachineId(c *Client) error {
 	ch := make(chan *Message)
-	m := &Message{Device:"bill_acc", Command:"machine_id", Type: "request"}
+	m := &Message{Device: "bill_acc", Command: "machine_id", Type: "request"}
 	c.Send <- m
 	go func() {
 		m = <-ba.Send
@@ -113,9 +113,13 @@ func (ba *BillAcceptor) Stop() {
 	fmt.Println("2. ปิดรับธนบัตรสำเร็จ, BA status:", ba.Status)
 }
 
+var ErrNoBillEscrow error = errors.New("Error no bill escrowed = ไม่มีธนบัตรพัก")
+
 // สั่งให้ Bill Acceptor เก็บเงิน
 func (ba *BillAcceptor) Take(action bool) error {
-
+	if PM.BillEscrow == 0 { // ถ้ามีธนบัตรพักอยู่ ให้สั่งเก็บธนบัตร
+		return ErrNoBillEscrow
+	}
 	ch := make(chan *Message)
 	m1 := &Message{
 		Device:  "bill_acc",
@@ -161,7 +165,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 		CB.Total += PM.BillEscrow // เพิ่มยอดรวมของ CashBox
 		PM.Bill += PM.BillEscrow
 		PM.Total += PM.BillEscrow
-		PM.BillEscrow = 0         // ล้างยอดเงินพัก
+		PM.BillEscrow = 0 // ล้างยอดเงินพัก
 	} else {
 		PM.Bill -= PM.BillEscrow  // ลดยอดรับธนบัตร
 		PM.Total -= PM.BillEscrow // ลดยอดรับเงินรวม

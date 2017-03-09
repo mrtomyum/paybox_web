@@ -44,14 +44,16 @@ type AcceptedBill struct {
 	B1000 bool `json:"b1000"`
 }
 
+// *Payment Pay() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
 func (pm *Payment) Pay(sale *Sale) error {
-	// ตรวจสอบ Device Websocket Connecton ว่าสามารถติดต่อได้หรือยัง?
-	pm.Remain = sale.Total
-	if H.Dev == nil {
-		log.Println("Device websocket ยังไม่ได้เชื่อมต่อเข้ามา")
+	// ตรวจสอบ WebSocket Connection?
+	if H.Dev == nil || H.Web == nil {
+		log.Println("HW_SERVICE หรือ WebUI websocket ยังไม่ได้เชื่อมต่อ")
 	}
+
+	pm.Remain = sale.Total
 	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
-	fmt.Println("func Pay() -- 1. Start inhibit device BA, CA ")
+	fmt.Println("func Pay() -- 1. Start Payment device:")
 	CA.Start()
 	BA.Start()
 
@@ -64,11 +66,17 @@ func (pm *Payment) Pay(sale *Sale) error {
 		fmt.Println("2. Waiting payment form BA or CA")
 		<-pm.Received // Waiting for message from payment device.
 
-		if PM.BillEscrow != 0 { // ถ้ารับธนบัตรให้ตรวจเงินทอน เพื่อคุมธนบัตรที่งดรับ
-			fmt.Printf("3. รับธนบัตร Received Escrow = %v, Payment = %v Sale= %v\n", pm.BillEscrow, pm.Total, sale.Total)
-			err := pm.RejectUnacceptedBill()
-			if err != nil {
-				return err
+		fmt.Printf("3. รับธนบัตร Received Escrow = %v, Payment = %v Sale= %v\n", pm.BillEscrow, pm.Total, sale.Total)
+		switch {
+		case PM.Total >= sale.Total:
+			switch {
+			case pm.BillEscrow != 0:
+				err := pm.RejectUnacceptedBill()
+				if err != nil {
+					return err
+				}
+			case pm.CoinEscrow != 0:
+
 			}
 		}
 
@@ -86,14 +94,13 @@ func (pm *Payment) Pay(sale *Sale) error {
 					}
 				}
 				fmt.Println("YES -> 7. มีเหรียญพอทอน")
-				if pm.BillEscrow != 0 { // ถ้ามีธนบัตรพักอยู่ ให้สั่งเก็บธนบัตร
-					err := BA.Take(true) // เก็บธนบัตรลงถัง
-					if err != nil {
-						return err
-					}
-					fmt.Println("YES -> 8.1 สั่งเก็บธนบัตรสำเร็จ")
+				err := BA.Take(true) // เก็บธนบัตรลงถัง
+				if err != nil {
+					return err
 				}
-				err := CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
+				fmt.Println("YES -> 8.1 สั่งเก็บธนบัตรสำเร็จ")
+
+				err = CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
 				if err != nil {
 					return err
 					log.Println("Error on CH Payout():", err.Error())
@@ -170,21 +177,20 @@ func (pm *Payment) Cancel(c *Client) error {
 		c.Send <- c.Msg
 		return errors.New("ไม่มีเงินพัก")
 	}
+
 	// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
-	if PM.BillEscrow != 0 { // ถ้ามีธนบัตรพักไว้
-		err := BA.Take(true) // เก็บธนบัตรลงถัง
-		if err != nil {
-			return err
-		}
-		BA.Stop()
+	err := BA.Take(true) // เก็บธนบัตรลงถัง
+	if err != nil {
+		return err
 	}
+	BA.Stop()
 	// Success
 	PM.Coin = PM.Total - PM.Bill
 	PM.Total = PM.Coin
 	PM.Bill = 0
 
 	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.Coin ออกด้านหน้า
-	err := CH.PayoutByCash(PM.Coin)
+	err = CH.PayoutByCash(PM.Coin)
 	if err != nil {
 		return err
 	}
@@ -195,10 +201,12 @@ func (pm *Payment) Cancel(c *Client) error {
 	c.Msg.Data = PM.Coin
 	c.Send <- c.Msg
 
-	PM.Total = 0 // เคลียร์ยอดเงินค้างให้หมด
-	PM.BillEscrow = 0
-	PM.CoinEscrow = 0
-	PM.Coin = 0
+	pm.Total = 0 // เคลียร์ยอดเงินค้างให้หมด
+	pm.Bill = 0
+	pm.BillEscrow = 0
+	pm.Coin = 0
+	pm.CoinEscrow = 0
+	pm.Remain = 0
 	return nil
 }
 
@@ -227,18 +235,21 @@ func (pm *Payment) CheckAcceptedBill(s *Sale) {
 func (pm *Payment) DisplayAcceptedBill() {
 	// Check MinAcceptedBill500 & 1000
 	m := &Message{
-		Device: "host",
-		Command:"accepted_bill",
-		Type:   "event",
-		Data:   AB,
+		Device:  "host",
+		Command: "accepted_bill",
+		Type:    "event",
+		Data:    AB,
 	}
 	fmt.Println("Send message to WebUI = ", m)
 	H.Web.Send <- m
 }
 
 func (pm *Payment) RejectUnacceptedBill() error {
+	if pm.BillEscrow != 0 { // ถ้ารับธนบัตรให้ตรวจเงินทอน เพื่อคุมธนบัตรที่งดรับ
+		return ErrNoBillEscrow
+	}
 	fmt.Println("4. ถ้ารับธนบัตร ตรวจสอบเพื่อ Reject ธนบัตรที่ไม่รับ")
-	switch PM.BillEscrow {
+	switch pm.BillEscrow {
 	case 20.0:
 		if !AB.B20 {
 			BA.Take(false)
