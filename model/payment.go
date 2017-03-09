@@ -79,7 +79,9 @@ func (pm *Payment) Pay(sale *Sale) error {
 		if err != nil {
 			return err
 		}
-		fmt.Println("เก็บธนบัตรสำเร็จ")
+		pm.Remain = sale.Total - pm.Total
+
+		fmt.Printf("เก็บธนบัตรสำเร็จ: pm.Total= %v sale.Total= %v pm.Remain= %v", pm.Total, sale.Total, pm.Remain)
 		pm.OnHand(H.Web)
 	}
 	change := pm.Total - sale.Total
