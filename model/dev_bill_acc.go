@@ -21,6 +21,8 @@ func (ba *BillAcceptor) Event(c *Client) {
 	switch c.Msg.Command {
 	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
 		ba.Received(c)
+	case "time_out":
+		ba.TimeOut(c)
 	case "set_inhibit", "machine_id", "inhibit", "recently_inserted", "take_reject": // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ Bill Acceptor
 		ba.Send <- c.Msg
 	default:
@@ -188,4 +190,8 @@ func (ba *BillAcceptor) Received(c *Client) {
 	fmt.Printf("Sale = %v, Bill Received = %v, Bill Escrow=%v PM Total= %v\n", S.Total, PM.Bill, PM.BillEscrow, PM.Total)
 	PM.Received <- c.Msg
 	PM.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
+}
+
+func (ba *BillAcceptor) TimeOut(c *Client) {
+	PM.Cancel(c)
 }
