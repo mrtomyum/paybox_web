@@ -11,7 +11,7 @@ func Router() *gin.Engine {
 	pwd, _ := os.Getwd()
 	// for Static HTML template
 
-	// for test run disable this if production
+	// for production use PWD path
 	r.LoadHTMLGlob(pwd + "/view/**/*.tpl")
 	r.Static("/html", pwd+"/view/html")
 	r.Static("/js", pwd+"/view/public/js")
@@ -20,13 +20,14 @@ func Router() *gin.Engine {
 	r.Static("/json", pwd+"/view/public/json")
 	r.Use(static.Serve("/", static.LocalFile("view", true)))
 
-	// Absolute path static file for deploy production.
-	//r.LoadHTMLGlob("/opt/paybox/web_service/view/**/*.tpl")
-	//r.Static("/js", "/opt/paybox/web_service/view/public/js")
-	//r.Static("/css", "/opt/paybox/web_service/view/public/css")
-	//r.Static("/img", "/opt/paybox/web_service/view/public/img")
-	//r.Static("/json", "/opt/paybox/web_service/view/public/json")
-	//r.Use(static.Serve("/", static.LocalFile("/opt/paybox/web_service/view", true)))
+	//// for view2
+	//r.LoadHTMLGlob(pwd + "/view/**/*.tpl")
+	//r.Static("/html", pwd+"/view/html")
+	//r.Static("/js", pwd+"/view/public/js")
+	//r.Static("/css", pwd+"/view/public/css")
+	//r.Static("/img", pwd+"/view/public/img")
+	//r.Static("/json", pwd+"/view/public/json")
+	//r.Use(static.Serve("/", static.LocalFile("view", true)))
 
 	// WebService endpoint for web UI
 	r.GET("/menu", GetMenu)
