@@ -131,39 +131,37 @@ func (pm *Payment) Cancel(c *Client) error {
 	fmt.Println("Host.Cancel()...")
 
 	// ตรวจสอบก่อนว่าหากคืนธนบัตรใบล่าสุดใบเดียว เหรียญใน Hopper จะพอคืนตามยอดเงินรับชำระหรือไม่?
-	if pm.Total-pm.BillEscrow > CB.Hopper {
-		// คืนธนบัตรใบล่าสุด พร้อมทั้งพิมพ์คูปองคืนเงิน
-		// โดยไม่ทอนเหรียญที่เหลือเนื่องจากหากมีเหรียญเหลือน้อยมักมีปัญหาในการทอนล่าช้า
-		// หรืออาจมีจำนวนเหรียญไม่ตรงกับที่ได้รับแจ้งตอนเริ่มระบบ
-		// ตอนนี้เลือกวิธีให้ยกเลิกการขาย
-		pm.refund(PM.Total, PM.BillEscrow)
-		return ErrCoinShortage
-	}
+	//if pm.Total-pm.BillEscrow > CB.Hopper {
+	//	// คืนธนบัตรใบล่าสุด พร้อมทั้งพิมพ์คูปองคืนเงิน
+	//	// โดยไม่ทอนเหรียญที่เหลือเนื่องจากหากมีเหรียญเหลือน้อยมักมีปัญหาในการทอนล่าช้า
+	//	// หรืออาจมีจำนวนเหรียญไม่ตรงกับที่ได้รับแจ้งตอนเริ่มระบบ
+	//	// ตอนนี้เลือกวิธีให้ยกเลิกการขาย
+	//	pm.refund(PM.Total, PM.BillEscrow)
+	//	return ErrCoinShortage
+	//}
 
 	// Check Bill Acceptor
-	if PM.Total == 0 { // ไม่มีเงินพัก
+	if PM.Total == 0 { // ไม่มีเงินรับชำระ
 		log.Println("ไม่มีเงินพัก:")
 		c.Msg.Type = "response"
 		c.Msg.Result = false
-		c.Msg.Data = "ไม่มีเงินพัก"
+		c.Msg.Data = "ไม่มีเงินรับ"
 		c.Send <- c.Msg
 		return errors.New("ไม่มีเงินพัก")
 	}
 
 	// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
-	err := BA.Take(true) // เก็บธนบัตรลงถัง
+	err := BA.Take(false) // คายธนบัตร
 	if err != nil {
 		return err
 	}
+	change := PM.Total - PM.BillEscrow
 	BA.Stop()
 	CA.Stop()
 	// Success
-	PM.Coin = PM.Total - PM.Bill
-	PM.Total = PM.Coin
-	PM.Bill = 0
 
 	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.Coin ออกด้านหน้า
-	err = CH.PayoutByCash(PM.Coin)
+	err = CH.PayoutByCash(change)
 	if err != nil {
 		return err
 	}
@@ -292,16 +290,16 @@ func (pm *Payment) change(value float64) error {
 	fmt.Println("YES -> 6. ต้องทอนเงิน ")
 
 	// ระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
-	if CB.Hopper < value { // หากเหรียญใน Hopper ไม่พอทอน และยอดทอน != 0
-		err := pm.coinShortage()
-		if err != nil {
-			return err
-		}
-		return ErrCoinShortage
-	}
+	//if CB.Hopper < value { // หากเหรียญใน Hopper ไม่พอทอน และยอดทอน != 0
+	//	err := pm.coinShortage()
+	//	if err != nil {
+	//		return err
+	//	}
+	//	return ErrCoinShortage
+	//}
 	fmt.Println("YES -> 7. มีเหรียญพอทอน")
 	err := CH.PayoutByCash(value) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
-	if err != nil {
+	if err != nil
 		return err
 		log.Println("Error on CH Payout():", err.Error())
 	}
