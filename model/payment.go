@@ -75,18 +75,21 @@ func (pm *Payment) Pay(sale *Sale) error {
 				return err
 			}
 		}
-		if pm.Total-sale.Total > 0 { //ถ้าต้องทอนเงิน
-			err := pm.change(sale)
+		change := pm.Total - sale.Total
+		if change <= 0 { //ถ้าต้องทอนเงิน
+			err := pm.change(change)
 			if err != nil {
 				return err
 			}
-		} else { //ถ้าไม่ต้องทอนเงิน
-			err := BA.Take(true) // ให้เก็บธนบัตรลงถัง
-			if err != nil {
-				return err
-			}
-			fmt.Println("เก็บธนบัตรสำเร็จ")
+			continue
 		}
+		//ถ้าต้องทอนเงิน
+		err := BA.Take(true) // ให้เก็บธนบัตรลงถัง
+		if err != nil {
+			return err
+		}
+		fmt.Println("เก็บธนบัตรสำเร็จ")
+
 	}
 
 	// เช็คอีกรอบ ถ้ายอดเงินรับ >= ขอดขาย แล้ว ให้ล้างข้อมูล
@@ -152,6 +155,7 @@ func (pm *Payment) Cancel(c *Client) error {
 		return err
 	}
 	BA.Stop()
+	CA.Stop()
 	// Success
 	PM.Coin = PM.Total - PM.Bill
 	PM.Total = PM.Coin
@@ -282,15 +286,16 @@ func (pm *Payment) refund(total, billEscrow float64) error {
 	return nil
 }
 
-func (pm *Payment) change(sale *Sale) error {
+func (pm *Payment) change(value float64) error {
 	fmt.Println("YES -> 6. ต้องทอนเงิน ")
-	change := pm.Total - sale.Total
+
 	// ระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
-	if CB.Hopper < change { // หากเหรียญใน Hopper ไม่พอทอน และยอดทอน != 0
+	if CB.Hopper < value { // หากเหรียญใน Hopper ไม่พอทอน และยอดทอน != 0
 		err := pm.coinShortage()
 		if err != nil {
 			return err
 		}
+		return ErrCoinShortage
 	}
 	fmt.Println("YES -> 7. มีเหรียญพอทอน")
 	err := BA.Take(true) // เก็บธนบัตรลงถัง
@@ -299,7 +304,7 @@ func (pm *Payment) change(sale *Sale) error {
 	}
 	fmt.Println("YES -> 8.1 สั่งเก็บธนบัตรสำเร็จ")
 
-	err = CH.PayoutByCash(change) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
+	err = CH.PayoutByCash(value) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
 	if err != nil {
 		return err
 		log.Println("Error on CH Payout():", err.Error())
