@@ -75,25 +75,25 @@ func (pm *Payment) Pay(sale *Sale) error {
 				return err
 			}
 		}
-		change := pm.Total - sale.Total
-		if change > 0 { //ถ้าต้องทอนเงิน
-			err := pm.change(change)
-			if err != nil {
-				return err
-			}
-			continue
-		}
-		//ถ้าไม่ต้องทอนเงิน
 		err := BA.Take(true) // ให้เก็บธนบัตรลงถัง
 		if err != nil {
 			return err
 		}
 		fmt.Println("เก็บธนบัตรสำเร็จ")
-
+		pm.OnHand(H.Web)
+	}
+	change := pm.Total - sale.Total
+	if change > 0 { //ถ้าต้องทอนเงิน
+		fmt.Println("pm.change()")
+		err := pm.change(change)
+		if err != nil {
+			return err
+		}
 	}
 
 	// เช็คอีกรอบ ถ้ายอดเงินรับ >= ขอดขาย แล้ว ให้ล้างข้อมูล
 	// และ break ออกจาก for(ever) loop
+	fmt.Println("Reset Payment: ล้างยอดรับชำระ")
 	PM.Total = 0
 	PM.Coin = 0
 	PM.Bill = 0
@@ -216,11 +216,12 @@ func (pm *Payment) DisplayAcceptedBill() {
 	H.Web.Send <- m
 }
 
+// ตรวจสอบธนบัตรที่ต้อง  Reject
 func (pm *Payment) RejectUnacceptedBill() error {
+	fmt.Println("4. ถ้ารับธนบัตร ตรวจสอบเพื่อ Reject ธนบัตรที่ไม่รับ")
 	if pm.BillEscrow != 0 { // ถ้ารับธนบัตรให้ตรวจเงินทอน เพื่อคุมธนบัตรที่งดรับ
 		return ErrNoBillEscrow
 	}
-	fmt.Println("4. ถ้ารับธนบัตร ตรวจสอบเพื่อ Reject ธนบัตรที่ไม่รับ")
 	switch pm.BillEscrow {
 	case 20.0:
 		if !AB.B20 {
