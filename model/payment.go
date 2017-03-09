@@ -293,7 +293,7 @@ func (pm *Payment) refund(total, billEscrow float64) error {
 	}
 	// Print ใบคืนเงิน (Refund) ตามยอดเงินคงเหลือ
 	rf := total - billEscrow
-	err := P.makeRefund(rf)
+	err = P.makeRefund(rf)
 	if err != nil {
 		return err
 	}
