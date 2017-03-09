@@ -76,14 +76,14 @@ func (pm *Payment) Pay(sale *Sale) error {
 			}
 		}
 		change := pm.Total - sale.Total
-		if change <= 0 { //ถ้าต้องทอนเงิน
+		if change > 0 { //ถ้าต้องทอนเงิน
 			err := pm.change(change)
 			if err != nil {
 				return err
 			}
 			continue
 		}
-		//ถ้าต้องทอนเงิน
+		//ถ้าไม่ต้องทอนเงิน
 		err := BA.Take(true) // ให้เก็บธนบัตรลงถัง
 		if err != nil {
 			return err
