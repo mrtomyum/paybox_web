@@ -69,20 +69,18 @@ func (pm *Payment) Pay(sale *Sale) error {
 		msg := <-pm.Received // Waiting for message from payment device.
 
 		fmt.Printf("2. ยอดขาย = %v รับจาก = %v, Payment = %v \n", sale.Total, msg.Device, msg.Data)
-		if msg.Device == "bill_acc" {
+		if msg.Device == "bill_acc" { //ถ้าเป็นธนบัตร
 			err := pm.RejectUnacceptedBill()
 			if err != nil {
 				return err
 			}
+			err = BA.Take(true) // ให้เก็บธนบัตรลงถัง
+			if err != nil {
+				return err
+			}
+			fmt.Printf("เก็บธนบัตรสำเร็จ: pm.Total= %v sale.Total= %v pm.Remain= %v", pm.Total, sale.Total, pm.Remain)
+			pm.OnHand(H.Web)
 		}
-		err := BA.Take(true) // ให้เก็บธนบัตรลงถัง
-		if err != nil {
-			return err
-		}
-		pm.Remain = sale.Total - pm.Total
-
-		fmt.Printf("เก็บธนบัตรสำเร็จ: pm.Total= %v sale.Total= %v pm.Remain= %v", pm.Total, sale.Total, pm.Remain)
-		pm.OnHand(H.Web)
 	}
 	change := pm.Total - sale.Total
 	if change > 0 { //ถ้าต้องทอนเงิน
@@ -91,6 +89,7 @@ func (pm *Payment) Pay(sale *Sale) error {
 		if err != nil {
 			return err
 		}
+		fmt.Println("ทอนเงิน")
 	}
 
 	// เช็คอีกรอบ ถ้ายอดเงินรับ >= ขอดขาย แล้ว ให้ล้างข้อมูล
@@ -312,6 +311,6 @@ func (pm *Payment) change(value float64) error {
 		return err
 		log.Println("Error on CH Payout():", err.Error())
 	}
-	fmt.Println("8.2 SUCCESS -- ทอนเหรียญจาก Hopper สำเร็จ PM.Total=", pm.Total)
+	fmt.Println("8.2 SUCCESS -- ทอนเหรียญจาก Hopper สำเร็จ=", value, " PM.Total=", pm.Total)
 	return nil
 }

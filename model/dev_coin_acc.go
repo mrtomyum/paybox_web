@@ -86,6 +86,7 @@ func (ca *CoinAcceptor) Received(c *Client) {
 	received := c.Msg.Data.(float64)
 	PM.Coin += received
 	PM.Total += received
+	PM.Remain -= received
 	CB.Hopper += received
 	CB.Total += received
 	//m := &Message{

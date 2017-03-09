@@ -152,10 +152,9 @@ func (ba *BillAcceptor) Take(action bool) error {
 		CB.Total += PM.BillEscrow // เพิ่มยอดรวมของ CashBox
 		PM.Bill += PM.BillEscrow
 		PM.Total += PM.BillEscrow
+		PM.Remain -= PM.BillEscrow
 		PM.BillEscrow = 0 // ล้างยอดเงินพัก
 	} else {
-		PM.Bill -= PM.BillEscrow  // ลดยอดรับธนบัตร
-		PM.Total -= PM.BillEscrow // ลดยอดรับเงินรวม
 		PM.BillEscrow = 0         // ล้างยอดเงินพัก
 	}
 
@@ -169,15 +168,7 @@ func (ba *BillAcceptor) Received(c *Client) {
 
 	// todo: ตรวจ AcceptedBill ถ้า false ให้ BA.Reject()
 
-	PM.Bill += received
 	PM.BillEscrow = received
-	PM.Total += received
-	PM.Remain -= received
-	//m := &Message{
-	//	Device:  "bill_acc",
-	//	Command: "received",
-	//	Data:    received,
-	//}
 	fmt.Printf("Sale = %v, Bill Received = %v, Bill Escrow=%v PM Total= %v\n", S.Total, PM.Bill, PM.BillEscrow, PM.Total)
 	PM.Received <- c.Msg
 	PM.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
