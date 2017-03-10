@@ -10,23 +10,22 @@ var ErrCoinShortage error = errors.New("Not enough coin to change// ไม่ม
 
 // Payment คือยอดเงินพัก ยังไม่ได้รับชำระ
 type Payment struct {
-	Coin       float64 // มูลค่าเหรียญที่รับมาทั้งหมด แต่ยังไม่ได้รับชำระ
-	CoinEscrow float64 // มูลค่าเหรียญที่พัก
-	Bill       float64 // มูลค่าธนบัตรที่รับมาทั้งหมด แต่ยังไม่ได้รับชำระ
-	BillEscrow float64 // มูลค่าธนบัตรที่พักอยู่ในตัวรับธนบัตร BA
-	Total      float64 // มูลค่าเงินพักทั้งหมด
-	Remain     float64 // เงินคงค้างชำระ
-	Received   chan *Message
+	coin       float64 // มูลค่าเหรียญที่รับมาทั้งหมด แต่ยังไม่ได้รับชำระ
+	bill       float64 // มูลค่าธนบัตรที่รับมาทั้งหมด แต่ยังไม่ได้รับชำระ
+	billEscrow float64 // มูลค่าธนบัตรที่พักอยู่ในตัวรับธนบัตร BA
+	total      float64 // มูลค่าเงินพักทั้งหมด
+	remain     float64 // เงินคงค้างชำระ
+	receivedCh chan *Message
 	//Card  float64 // มูลค่าบัตรเครดิตที่รับชำระแล้ว
 }
 
 // CashBox คือถังเก็บเงิน แยกเป็น 3 จุด
-// คือ ชุดทอนเหรียญ Hopper, ถังเก็บเหรียญล้น CoinBox และถังเก็บธนบัตร BillBox
+// คือ ชุดทอนเหรียญ hopper, ถังเก็บเหรียญล้น CoinBox และถังเก็บธนบัตร BillBox
 type CashBox struct {
-	Hopper float64 // มูลค่าเหรียญใน Coin Hopper
-	Coin   float64 // มูลค่าเหรียญใน CainBox
-	Bill   float64 // มูลค่าธนบัตรในกล่องเก็บธนบัตร
-	Total  float64 // รวมมูลค่าเงินในตู้นี้
+	hopper float64 // มูลค่าเหรียญใน coin hopper
+	coin   float64 // มูลค่าเหรียญใน CainBox
+	bill   float64 // มูลค่าธนบัตรในกล่องเก็บธนบัตร
+	total  float64 // รวมมูลค่าเงินในตู้นี้
 }
 
 // AcceptedValue ระบุค่ายอดขายขั้นต่ำที่ยอมรับธนบัตรแต่ละขนาด 0 = ไม่จำกัด
@@ -53,7 +52,7 @@ func (pm *Payment) Pay(sale *Sale) error {
 		log.Println("HW_SERVICE หรือ WebUI websocket ยังไม่ได้เชื่อมต่อ")
 	}
 
-	pm.Remain = sale.Total
+	pm.remain = sale.Total
 	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
 	fmt.Println("func Pay() -- 1. Start Payment device:")
 	CA.Start()
@@ -62,11 +61,11 @@ func (pm *Payment) Pay(sale *Sale) error {
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน และจะสะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลา
 	// จนกว่าจะได้ยอด Payment >= Sale
-	for pm.Total < sale.Total {
+	for pm.total < sale.Total {
 		pm.CheckAcceptedBill(sale)
 		pm.DisplayAcceptedBill() // DisplayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 		fmt.Println("1. Waiting payment form BA or CA")
-		msg := <-pm.Received // Waiting for message from payment device.
+		msg := <-pm.receivedCh // Waiting for message from payment device.
 
 		fmt.Printf("2. ยอดขาย = %v รับจาก = %v, Payment = %v \n", sale.Total, msg.Device, msg.Data)
 		if msg.Device == "bill_acc" { //ถ้าเป็นธนบัตร
@@ -78,11 +77,11 @@ func (pm *Payment) Pay(sale *Sale) error {
 			if err != nil {
 				return err
 			}
-			fmt.Printf("เก็บธนบัตรสำเร็จ: pm.Total= %v sale.Total= %v pm.Remain= %v", pm.Total, sale.Total, pm.Remain)
+			fmt.Printf("เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v", pm.total, sale.Total, pm.remain)
 			pm.OnHand(H.Web)
 		}
 	}
-	change := pm.Total - sale.Total
+	change := pm.total - sale.Total
 	if change > 0 { //ถ้าต้องทอนเงิน
 		fmt.Println("pm.change()")
 		err := pm.change(change)
@@ -95,12 +94,11 @@ func (pm *Payment) Pay(sale *Sale) error {
 	// เช็คอีกรอบ ถ้ายอดเงินรับ >= ขอดขาย แล้ว ให้ล้างข้อมูล
 	// และ break ออกจาก for(ever) loop
 	fmt.Println("Reset Payment: ล้างยอดรับชำระ")
-	PM.Total = 0
-	PM.Coin = 0
-	PM.Bill = 0
-	PM.Remain = 0
-	PM.BillEscrow = 0
-	PM.CoinEscrow = 0
+	PM.total = 0
+	PM.coin = 0
+	PM.bill = 0
+	PM.remain = 0
+	PM.billEscrow = 0
 
 	// ปิดการรับชำระที่อุปกรณ์
 	CA.Stop()
@@ -122,26 +120,26 @@ func (pm *Payment) OnHand(web *Client) {
 	web.Msg.Command = "onhand"
 	web.Msg.Result = true
 	web.Msg.Type = "event"
-	web.Msg.Data = pm.Total
+	web.Msg.Data = pm.total
 	web.Send <- web.Msg
 }
 
-// Cancel คืนเงินจากทุก Device โดยตรวจสอบเงิน Escrow ใน Bill Acceptor ด้วยถ้ามีให้คืนเงิน
+// Cancel คืนเงินจากทุก Device โดยตรวจสอบเงิน Escrow ใน bill Acceptor ด้วยถ้ามีให้คืนเงิน
 func (pm *Payment) Cancel(c *Client) error {
 	fmt.Println("Host.Cancel()...")
 
-	// ตรวจสอบก่อนว่าหากคืนธนบัตรใบล่าสุดใบเดียว เหรียญใน Hopper จะพอคืนตามยอดเงินรับชำระหรือไม่?
-	//if pm.Total-pm.BillEscrow > CB.Hopper {
+	// ตรวจสอบก่อนว่าหากคืนธนบัตรใบล่าสุดใบเดียว เหรียญใน hopper จะพอคืนตามยอดเงินรับชำระหรือไม่?
+	//if pm.total-pm.billEscrow > CB.hopper {
 	//	// คืนธนบัตรใบล่าสุด พร้อมทั้งพิมพ์คูปองคืนเงิน
 	//	// โดยไม่ทอนเหรียญที่เหลือเนื่องจากหากมีเหรียญเหลือน้อยมักมีปัญหาในการทอนล่าช้า
 	//	// หรืออาจมีจำนวนเหรียญไม่ตรงกับที่ได้รับแจ้งตอนเริ่มระบบ
 	//	// ตอนนี้เลือกวิธีให้ยกเลิกการขาย
-	//	pm.refund(PM.Total, PM.BillEscrow)
+	//	pm.refund(PM.total, PM.billEscrow)
 	//	return ErrCoinShortage
 	//}
 
-	// Check Bill Acceptor
-	if PM.Total == 0 { // ไม่มีเงินรับชำระ
+	// Check bill Acceptor
+	if PM.total == 0 { // ไม่มีเงินรับชำระ
 		log.Println("ไม่มีเงินพัก:")
 		c.Msg.Type = "response"
 		c.Msg.Result = false
@@ -155,12 +153,12 @@ func (pm *Payment) Cancel(c *Client) error {
 	if err != nil {
 		return err
 	}
-	change := PM.Total - PM.BillEscrow
+	change := PM.total - PM.billEscrow
 	BA.Stop()
 	CA.Stop()
 	// Success
 
-	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.Coin ออกด้านหน้า
+	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.coin ออกด้านหน้า
 	err = CH.PayoutByCash(change)
 	if err != nil {
 		return err
@@ -169,36 +167,35 @@ func (pm *Payment) Cancel(c *Client) error {
 	// Send message response back to Web Client
 	c.Msg.Type = "response"
 	c.Msg.Result = true
-	c.Msg.Data = PM.Coin
+	c.Msg.Data = PM.coin
 	c.Send <- c.Msg
 
-	pm.Total = 0 // เคลียร์ยอดเงินค้างให้หมด
-	pm.Bill = 0
-	pm.BillEscrow = 0
-	pm.Coin = 0
-	pm.CoinEscrow = 0
-	pm.Remain = 0
+	pm.total = 0 // เคลียร์ยอดเงินค้างให้หมด
+	pm.bill = 0
+	pm.billEscrow = 0
+	pm.coin = 0
+	pm.remain = 0
 	return nil
 }
 
 func (pm *Payment) CheckAcceptedBill(s *Sale) {
-	// ตรวจยอดขาย เทียบกับ เงินทอนใน Hopper ว่าพอหรือไม่
+	// ตรวจยอดขาย เทียบกับ เงินทอนใน hopper ว่าพอหรือไม่
 	// เพื่อเลือกเปิด/ปิดรับธนบัตร เงื่อนไขคือ...
-	// ธนบัตรที่จะรับ ถ้าหักยอดคงค้างชำระ แล้วต้องน้อยกว่า เงินที่เหลือใน Hopper
+	// ธนบัตรที่จะรับ ถ้าหักยอดคงค้างชำระ แล้วต้องน้อยกว่า เงินที่เหลือใน hopper
 	switch {
-	case s.Total < AV.B20 || 20-pm.Remain > CB.Hopper:
+	case s.Total < AV.B20 || 20-pm.remain > CB.hopper:
 		AB.B20 = false
 		fallthrough
-	case s.Total < AV.B50 || 50-pm.Remain > CB.Hopper:
+	case s.Total < AV.B50 || 50-pm.remain > CB.hopper:
 		AB.B50 = false
 		fallthrough
-	case s.Total < AV.B100 || 100-pm.Remain > CB.Hopper:
+	case s.Total < AV.B100 || 100-pm.remain > CB.hopper:
 		AB.B100 = false
 		fallthrough
-	case s.Total < AV.B500 || 500-pm.Remain > CB.Hopper:
+	case s.Total < AV.B500 || 500-pm.remain > CB.hopper:
 		AB.B500 = false
 		fallthrough
-	case s.Total < AV.B1000 || 1000-pm.Remain > CB.Hopper:
+	case s.Total < AV.B1000 || 1000-pm.remain > CB.hopper:
 		AB.B1000 = false
 	}
 }
@@ -218,10 +215,10 @@ func (pm *Payment) DisplayAcceptedBill() {
 // ตรวจสอบธนบัตรที่ต้อง  Reject
 func (pm *Payment) RejectUnacceptedBill() error {
 	fmt.Println("4. ถ้ารับธนบัตร ตรวจสอบเพื่อ Reject ธนบัตรที่ไม่รับ")
-	if pm.BillEscrow == 0 {
+	if pm.billEscrow == 0 {
 		return ErrNoBillEscrow
 	}
-	switch pm.BillEscrow {
+	switch pm.billEscrow {
 	case 20.0:
 		if !AB.B20 {
 			BA.Take(false)
@@ -245,7 +242,7 @@ func (pm *Payment) RejectUnacceptedBill() error {
 	default:
 		fmt.Println("ไม่เข้าเงื่อนไข")
 	}
-	fmt.Println("PM.BillEscrow =", pm.BillEscrow)
+	fmt.Println("PM.billEscrow =", pm.billEscrow)
 	fmt.Println("AcceptedBill = ", AB)
 	return nil
 }
@@ -253,16 +250,16 @@ func (pm *Payment) RejectUnacceptedBill() error {
 // coinShortage() เมื่อเหรียญไม่พอจะให้ยกเลิกการขาย โดยทำอะไรบ้าง... 1. คายธนบัตร 2. คืนเหรียญที่รับมา
 func (pm *Payment) coinShortage() error {
 	fmt.Println("NO -> 9 รับธนบัตรรึเปล่า")
-	if pm.BillEscrow != 0 { // ถ้ามียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
+	if pm.billEscrow != 0 { // ถ้ามียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
 		fmt.Println("YES -> 9.1 ถ้ารับด้วยธนบัตรให้คายธนบัตรคืนลูกค้า -- สั่งคายธนบัตร")
 		err := BA.Take(false) // คายธนบัตร (Reject)
 		if err != nil {
 			return err
 		}
-		fmt.Println("SUCCESS -- คายธนบัตรเมื่อเหรียญใน Hopper ไม่พอทอน PM.Total=", PM.Total)
+		fmt.Println("SUCCESS -- คายธนบัตรเมื่อเหรียญใน hopper ไม่พอทอน PM.total=", PM.total)
 	}
 	fmt.Println("No -> 9.2 รับมาด้วยเหรียญ -- ให้คืนเหรียญตามจำนวนที่รับมา")
-	err := CH.PayoutByCash(pm.CoinEscrow)
+	err := CH.PayoutByCash(pm.coin)
 	if err != nil {
 		return err
 		log.Println("Error on CH Payout():", err.Error())
@@ -290,7 +287,7 @@ func (pm *Payment) change(value float64) error {
 	fmt.Println("YES -> 6. ต้องทอนเงิน ")
 
 	// ระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
-	//if CB.Hopper < value { // หากเหรียญใน Hopper ไม่พอทอน และยอดทอน != 0
+	//if CB.hopper < value { // หากเหรียญใน hopper ไม่พอทอน และยอดทอน != 0
 	//	err := pm.coinShortage()
 	//	if err != nil {
 	//		return err
@@ -299,10 +296,10 @@ func (pm *Payment) change(value float64) error {
 	//}
 	fmt.Println("YES -> 7. มีเหรียญพอทอน")
 	err := CH.PayoutByCash(value) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
-	if err != nil
+	if err != nil {
 		return err
 		log.Println("Error on CH Payout():", err.Error())
 	}
-	fmt.Println("8.2 SUCCESS -- ทอนเหรียญจาก Hopper สำเร็จ=", value, " PM.Total=", pm.Total)
+	fmt.Println("8.2 SUCCESS -- ทอนเหรียญจาก hopper สำเร็จ=", value, " PM.total=", pm.total)
 	return nil
 }

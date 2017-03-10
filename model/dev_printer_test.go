@@ -51,17 +51,17 @@ func init() {
 		Send:   make(chan *model.Message),
 	}
 	PM = &model.Payment{
-		Coin:     0,
-		Bill:     0,
-		Total:    0,
-		Remain:   0,
-		Received: make(chan *model.Message),
+		coin:       0,
+		bill:       0,
+		total:      0,
+		remain:     0,
+		receivedCh: make(chan *model.Message),
 	}
 	CB = &model.CashBox{
-		Hopper: 1000, // todo: เพิ่ม API สั่งเพิ่มเหรียญ
-		Coin:   0,
-		Bill:   0,
-		Total:  0,
+		hopper: 1000, // todo: เพิ่ม API สั่งเพิ่มเหรียญ
+		coin:   0,
+		bill:   0,
+		total:  0,
 	}
 	AV = &model.AcceptedValue{
 		B20:   0,

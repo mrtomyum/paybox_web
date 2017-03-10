@@ -41,9 +41,9 @@ func (ca *CoinAcceptor) Start() {
 		m2 := <-ca.Send
 		if !m2.Result {
 			m2.Command = "warning"
-			m2.Data = "Error: Coin Acceptor cannot start."
+			m2.Data = "Error: coin Acceptor cannot start."
 			H.Web.Send <- m2
-			log.Println("Error: Coin Acceptor cannot start.")
+			log.Println("Error: coin Acceptor cannot start.")
 		}
 		ch <- m2
 		return
@@ -68,9 +68,9 @@ func (ca *CoinAcceptor) Stop() {
 		m2 := <-ca.Send
 		if !m2.Result {
 			m2.Command = "warning"
-			m2.Data = "Error: Coin Acceptor cannot stop."
+			m2.Data = "Error: coin Acceptor cannot stop."
 			H.Web.Send <- m2
-			log.Println("Error: Coin Acceptor cannot stop.")
+			log.Println("Error: coin Acceptor cannot stop.")
 		}
 		ch <- m2
 		return
@@ -82,19 +82,19 @@ func (ca *CoinAcceptor) Stop() {
 }
 
 func (ca *CoinAcceptor) Received(c *Client) {
-	fmt.Println("Start method: ca.Received()")
+	fmt.Println("Start method: ca.receivedCh()")
 	received := c.Msg.Data.(float64)
-	PM.Coin += received
-	PM.Total += received
-	PM.Remain -= received
-	CB.Hopper += received
-	CB.Total += received
+	PM.coin += received
+	PM.total += received
+	PM.remain -= received
+	CB.hopper += received
+	CB.total += received
 	//m := &Message{
 	//	Device:  "coin_acc",
 	//	Command: "received",
 	//	Data:    received,
 	//}
-	fmt.Printf("Sale = %v, Coin Received = %v, PM Total= %v\n", S.Total, PM.Coin, PM.Total)
-	PM.Received <- c.Msg
+	fmt.Printf("Sale = %v, coin receivedCh = %v, PM total= %v\n", S.Total, PM.coin, PM.total)
+	PM.receivedCh <- c.Msg
 	PM.OnHand(H.Web)
 }

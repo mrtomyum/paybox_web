@@ -43,7 +43,7 @@ func (ch *CoinHopper) Setup() {
 	CH.GetId()
 }
 
-//ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins Hopper
+//ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins hopper
 func (ch *CoinHopper) GetId() {
 	fmt.Println("CoinHopper.GetId() start")
 	m := &Message{
@@ -64,16 +64,16 @@ func (ch *CoinHopper) GetId() {
 func (ch *CoinHopper) Event(c *Client) {
 	switch c.Msg.Command {
 	//case "status":         // ร้องขอสถานะต่างๆของอุปกรณ์
-	//case "cash_amount":    // ร้องขอจานวนเงินคงเหลือใน Coins Hopper
-	//case "coin_count":     // ร้องขอจานวนเงินเหรียญคงเหลือใน Coins Hopper
-	//case "set_coin_count": // ตั้งค่าจำนวนเงินคงเหลือใน Coins Hopper
+	//case "cash_amount":    // ร้องขอจานวนเงินคงเหลือใน Coins hopper
+	//case "coin_count":     // ร้องขอจานวนเงินเหรียญคงเหลือใน Coins hopper
+	//case "set_coin_count": // ตั้งค่าจำนวนเงินคงเหลือใน Coins hopper
 	//case "payout_by_cash": // ร้องขอการจ่ายเหรียญออกทางด้านหน้าเครื่องโดยระบุจานวนเป็นยอดเงิน
 	//case "payout_by_coin": // ร้องขอการจ่ายเหรียญออกทางด้านหน้าเครื่องโดยระบุจานวนเป็นจานวนเหรียญ
 	//case "empty":          // ร้องขอการปล่อยเหรียญทั้งหมดออกทางด้านล่าง
 	//case "reset":          // ร้องขอการ Reset ตัวเครื่อง เพ่ือเคลียร์ค่า Error ต่างๆ
 	case "status", "cash_amount", "coin_count", "set_coin_count", "paybout_by_cash", "payout_by_coin", "empty", "reset":
 		ch.Response <- c.Msg
-	case "status_change": // Event น้ีจะเกิดข้ึนเม่ือสถานะใดๆของ Coins Hopper มีการเปลี่ยนแปลง
+	case "status_change": // Event น้ีจะเกิดข้ึนเม่ือสถานะใดๆของ Coins hopper มีการเปลี่ยนแปลง
 		ch.StatusChange(c)
 	}
 }

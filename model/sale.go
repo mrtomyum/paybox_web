@@ -81,7 +81,7 @@ func (s *Sale) Post() error {
 }
 
 func (s *Sale) Save() error {
-	s.Pay = PM.Total
+	s.Pay = PM.total
 	s.Change = s.Pay - s.Total
 	fmt.Println("*Sale.Save() start")
 	sql1 := `INSERT INTO sale(
