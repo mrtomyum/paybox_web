@@ -7,7 +7,6 @@ import (
 	"log"
 	"encoding/json"
 	"os"
-	"github.com/mrtomyum/paybox_web/ctrl"
 )
 
 type Client struct {
@@ -28,7 +27,6 @@ type Message struct {
 func (c *Client) Read() {
 	defer func() {
 		c.Ws.Close()
-		go ctrl.CallDev()
 	}()
 	m := &Message{}
 	for {
@@ -45,7 +43,7 @@ func (c *Client) Read() {
 		}
 		os.Stdout.Write(b)
 		fmt.Println("Client", c.Name, " read JSON message. Command:", m.Command)
-		a
+
 		switch {
 		case c.Name == "web":
 			fmt.Println("Read::Web UI Connection message")
