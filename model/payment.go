@@ -48,7 +48,7 @@ type AcceptedBill struct {
 // *Payment Pay() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
 func (pm *Payment) Pay(sale *Sale) error {
 	// ตรวจสอบ WebSocket Connection?
-	if H.Dev == nil || H.Web == nil {
+	if H.Hw == nil || H.Web == nil {
 		log.Println("HW_SERVICE หรือ WebUI websocket ยังไม่ได้เชื่อมต่อ")
 	}
 

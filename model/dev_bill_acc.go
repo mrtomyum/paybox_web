@@ -64,7 +64,7 @@ func (ba *BillAcceptor) Start() {
 		Data:    true,
 	}
 	fmt.Println("1...สั่งเปิดรับธนบัตรรอ response จาก BA")
-	H.Dev.Send <- m
+	H.Hw.Send <- m
 	//go func() {
 	m2 := <-ba.Send
 	if !m2.Result {
@@ -93,7 +93,7 @@ func (ba *BillAcceptor) Stop() {
 		Type:    "request",
 		Data:    false,
 	}
-	H.Dev.Send <- m
+	H.Hw.Send <- m
 	fmt.Println("1. สั่งปิดรับธนบัตรรอ response จาก BA...")
 	//go func () {
 	m2 := <-ba.Send
@@ -127,7 +127,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 		Type:    "request",
 		Data:    action,
 	}
-	H.Dev.Send <- m
+	H.Hw.Send <- m
 	fmt.Printf("BA.Take() action = [%v] 1. รอคำตอบจาก bill Acceptor", action)
 
 	//go func() {

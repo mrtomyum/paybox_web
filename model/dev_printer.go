@@ -37,7 +37,7 @@ func (p *Printer) Print(s *Sale) error {
 		Type:    "request",
 		Data:    data,
 	}
-	H.Dev.Send <- m
+	H.Hw.Send <- m
 	fmt.Println("1. สั่งพิมพ์ รอ Priner ตอบสนอง")
 	//go func() {
 	m = <-p.Send
@@ -71,7 +71,7 @@ func (p *Printer) PrintTest(data string) error {
 		Type:    "request",
 		Data:    data,
 	}
-	H.Dev.Send <- m
+	H.Hw.Send <- m
 	fmt.Println("1. สั่งพิมพ์ รอ Priner ตอบสนอง")
 
 	m = <-p.Send

@@ -38,7 +38,7 @@ type CoinHopper struct {
 	Response  chan *Message
 }
 
-// Todo: Try to Construct CoinHopper Object after Dev Client opened connection????
+// Todo: Try to Construct CoinHopper Object after Hw Client opened connection????
 func (ch *CoinHopper) Setup() {
 	CH.GetId()
 }
@@ -51,7 +51,7 @@ func (ch *CoinHopper) GetId() {
 		Type:    "request",
 		Command: "machine_id",
 	}
-	H.Dev.Send <- m
+	H.Hw.Send <- m
 
 	// เปิด Goroutine เพื่อรอรับ MessagMessagee กลับมาจาก Channel ch.Response
 	go func() {
@@ -90,7 +90,7 @@ func (ch *CoinHopper) PayoutByCash(v float64) error {
 		Command: "payout_by_cash",
 		Data:    v,
 	}
-	H.Dev.Send <- m
+	H.Hw.Send <- m
 	fmt.Println("Waiting response from coin hopper.")
 	m = <-ch.Response
 	log.Println("Got response from coin hopper:", m)

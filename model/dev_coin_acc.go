@@ -35,7 +35,7 @@ func (ca *CoinAcceptor) Start() {
 		Type:    "request",
 		Data:    true,
 	}
-	H.Dev.Send <- m
+	H.Hw.Send <- m
 	fmt.Println("1. สั่งเปิดรับเหรียญรอ response จาก CA...")
 	//go func() {
 	m = <-ca.Send
@@ -62,7 +62,7 @@ func (ca *CoinAcceptor) Stop() {
 		Type:    "request",
 		Data:    false,
 	}
-	H.Dev.Send <- m
+	H.Hw.Send <- m
 	fmt.Println("1. สั่งปิดรับเหรียญรอ response จาก CA...")
 	//go func() {
 	m = <-ca.Send
