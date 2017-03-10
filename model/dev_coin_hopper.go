@@ -73,6 +73,7 @@ func (ch *CoinHopper) Event(c *Client) {
 	//case "reset":          // ร้องขอการ Reset ตัวเครื่อง เพ่ือเคลียร์ค่า Error ต่างๆ
 	case "status", "cash_amount", "coin_count", "set_coin_count", "paybout_by_cash", "payout_by_coin", "empty", "reset":
 		ch.Response <- c.Msg
+		log.Println("ch.Response <-c.Msg", c.Msg)
 	case "status_change": // Event น้ีจะเกิดข้ึนเม่ือสถานะใดๆของ Coins hopper มีการเปลี่ยนแปลง
 		ch.StatusChange(c)
 	}
@@ -80,7 +81,8 @@ func (ch *CoinHopper) Event(c *Client) {
 
 func (ch *CoinHopper) PayoutByCash(v float64) error {
 	// command to send to devClient for "payout" value = v
-	fmt.Println("Send Command to CoinHopper payout_by_cash, Value:", v)
+	fmt.Println("====Send Command to CoinHopper payout_by_cash, Value:", v, "====")
+	defer fmt.Println("==============================================================")
 	waitChannel := make(chan *Message)
 	m := &Message{
 		Device:  "coin_hopper",
@@ -89,16 +91,18 @@ func (ch *CoinHopper) PayoutByCash(v float64) error {
 		Data:    v,
 	}
 	H.Dev.Send <- m
+	fmt.Println("Waiting response from coin hopper.")
 
-	// เปิด Goroutine เพื่อรอรับ MessagMessagee กลับมาจาก Channel ch.Response
-	go func() {
-		m2 := <-ch.Response
-		data := m.Data.(float64)
-		fmt.Printf("Got Response from CoinHopper payout value = %v\n", data)
-		waitChannel <- m2
-	}()
-	// Todo: set time-out function here ถ้าไม่มีตอบสนองจาก goroutine ภายใน 10 วินาที
-	m = <-waitChannel
+	//// เปิด Goroutine เพื่อรอรับ MessagMessagee กลับมาจาก Channel ch.Response
+	//go func() {
+	//	m2 := <-ch.Response
+	//	data := m.Data.(float64)
+	//	fmt.Printf("Got Response from CoinHopper payout value = %v\n", data)
+	//	waitChannel <- m2
+	//}()
+	//m = <-waitChannel
+	m = <-ch.Response
+	log.Println("Got response from coin hopper:", m)
 	close(waitChannel)
 	return nil
 }

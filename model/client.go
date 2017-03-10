@@ -61,6 +61,8 @@ func (c *Client) Read() {
 }
 
 func (c *Client) Write() {
+	fmt.Println("=======*Client.Write()========")
+	defer fmt.Println("==============================")
 	defer func() {
 		c.Ws.Close()
 	}()
@@ -78,7 +80,7 @@ func (c *Client) Write() {
 				fmt.Println("error:", err)
 			}
 			os.Stdout.Write(b)
-			fmt.Println("Client.Write() on:", c.Name, "Message =", c.Msg)
+		//fmt.Println("Client.Write() on:", c.Name, ", Message =", c.Msg)
 		}
 	}
 }
