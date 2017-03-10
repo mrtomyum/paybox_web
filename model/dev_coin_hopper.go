@@ -82,7 +82,7 @@ func (ch *CoinHopper) Event(c *Client) {
 func (ch *CoinHopper) PayoutByCash(v float64) error {
 	// command to send to devClient for "payout" value = v
 	fmt.Println("====Send Command to CoinHopper payout_by_cash, Value:", v, "====")
-	defer fmt.Println("==============================================================")
+	defer fmt.Println("============================================================")
 	waitChannel := make(chan *Message)
 	m := &Message{
 		Device:  "coin_hopper",
@@ -92,18 +92,10 @@ func (ch *CoinHopper) PayoutByCash(v float64) error {
 	}
 	H.Dev.Send <- m
 	fmt.Println("Waiting response from coin hopper.")
-
-	//// เปิด Goroutine เพื่อรอรับ MessagMessagee กลับมาจาก Channel ch.Response
-	//go func() {
-	//	m2 := <-ch.Response
-	//	data := m.Data.(float64)
-	//	fmt.Printf("Got Response from CoinHopper payout value = %v\n", data)
-	//	waitChannel <- m2
-	//}()
-	//m = <-waitChannel
 	m = <-ch.Response
 	log.Println("Got response from coin hopper:", m)
 	close(waitChannel)
+	// todo: ให้ตรวจ result == false  และ return error ด้วย เช่นกรณีเหรียญหมด
 	return nil
 }
 
@@ -131,4 +123,14 @@ func (ch *CoinHopper) StatusChange(c *Client) {
 	// If Net == online Send msg to Cloud
 	// If Net != online SQL ErrorLog
 	H.Web.Send <- c.Msg // ตอนนี้กำหนดให้ทุกสถานะจะส่งไปให้ Web ด้วย
+}
+
+// CoinCount() ร้องขอจำนวนเหรียญแต่ละขนาดที่เหลือใน Hopper
+func (ch *CoinHopper) CoinCount() error {
+	return nil
+}
+
+// SetCoinCount() สั่งเพิ่ม/ลดจำนวนเหรียญแต่ละขนาด ที่ใส่เข้าใน Hopper
+func (ch *CoinHopper) SetCoinCount() error {
+	return nil
 }

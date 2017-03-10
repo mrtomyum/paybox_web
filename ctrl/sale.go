@@ -38,7 +38,7 @@ func NewSale(c *gin.Context) {
 	//model.P.PrintTest(data)
 
 	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
-	model.PM.OnHand(model.H.Web)
+	//model.PM.OnHand(model.H.Web)
 
 	fmt.Println("Post ยอดขายขึ้น Cloud -> sale.Post()")
 	err = sale.Post()

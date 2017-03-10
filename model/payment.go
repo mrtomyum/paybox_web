@@ -88,18 +88,17 @@ func (pm *Payment) Pay(sale *Sale) error {
 		if err != nil {
 			return err
 		}
-		fmt.Println("ทอนเงิน")
 	}
 
-	// เช็คอีกรอบ ถ้ายอดเงินรับ >= ขอดขาย แล้ว ให้ล้างข้อมูล
-	// และ break ออกจาก for(ever) loop
+	// ล้างข้อมูล
 	fmt.Println("Reset Payment: ล้างยอดรับชำระ")
-	PM.total = 0
 	PM.coin = 0
 	PM.bill = 0
-	PM.remain = 0
 	PM.billEscrow = 0
-
+	PM.remain = 0
+	PM.total = 0
+	// ล้างยอดส่งให้ WebUI
+	pm.OnHand(H.Web)
 	// ปิดการรับชำระที่อุปกรณ์
 	CA.Stop()
 	BA.Stop()
@@ -300,6 +299,6 @@ func (pm *Payment) change(value float64) error {
 		return err
 		log.Println("Error on CH Payout():", err.Error())
 	}
-	fmt.Println("8.2 SUCCESS -- ทอนเหรียญจาก hopper สำเร็จ=", value, " PM.total=", pm.total)
+	fmt.Println("8.2 SUCCESS -- ทอนเหรียญจาก hopper =", value)
 	return nil
 }
