@@ -50,7 +50,7 @@ func (c *Client) Read() {
 			c.WebEvent()
 		case c.Name == "dev":
 			fmt.Println("Read::Device Connection message")
-			c.DevEvent()
+			c.HwEvent()
 		default:
 			fmt.Println("Error: Case default: Message==>", m)
 			m.Type = "response"
@@ -101,10 +101,10 @@ func (c *Client) WebEvent() {
 	}
 }
 
-// DevEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
+// HwEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
-func (c *Client) DevEvent() {
-	fmt.Println("Start method DevEvent() Event message from Hw:", c.Msg)
+func (c *Client) HwEvent() {
+	fmt.Println("Start method HwEvent() Event message from Hw:", c.Msg)
 	switch c.Msg.Device {
 	case "coin_hopper":
 		CH.Event(c)

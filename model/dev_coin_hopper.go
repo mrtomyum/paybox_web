@@ -16,6 +16,8 @@ package model
 import (
 	"fmt"
 	"log"
+	"github.com/gin-gonic/gin"
+	"errors"
 )
 
 type CoinHopperStatus int
@@ -36,6 +38,10 @@ type CoinHopper struct {
 	machineId string `json:"machine_id"`
 	Status    string
 	Response  chan *Message
+	c1        int
+	c2        int
+	c5        int
+	c10       int
 }
 
 // Todo: Try to Construct CoinHopper Object after Hw Client opened connection????
@@ -125,12 +131,44 @@ func (ch *CoinHopper) StatusChange(c *Client) {
 	H.Web.Send <- c.Msg // ตอนนี้กำหนดให้ทุกสถานะจะส่งไปให้ Web ด้วย
 }
 
+func (ch *CoinHopper) Reset() error {
+	return nil
+}
+
 // CoinCount() ร้องขอจำนวนเหรียญแต่ละขนาดที่เหลือใน Hopper
 func (ch *CoinHopper) CoinCount() error {
 	return nil
 }
 
-// SetCoinCount() สั่งเพิ่ม/ลดจำนวนเหรียญแต่ละขนาด ที่ใส่เข้าใน Hopper
-func (ch *CoinHopper) SetCoinCount() error {
+// SetCoinCount() คำสั่ง เพิ่ม/ลด จำนวนเหรียญคงเหลือใน Coins Hopper
+// ระวัง เมธอดนี้จะเพิ่ม หรือลด จากค่าเดิมเท่านั้น
+func (ch *CoinHopper) SetCoinCount(c1, c2, c5, c10 int) error {
+	fmt.Println("===*CoinHopper.SetCoinCount()===START")
+	defer fmt.Println("===*CoinHopper.SetCoinCount()===END")
+
+	data := gin.H{
+		"coin_1":  c1,
+		"coin_2":  c2,
+		"coin_5":  c5,
+		"coin_10": c10,
+	}
+	m := &Message{
+		Device:  "coin_hopper",
+		Type:    "request",
+		Command: "set_coin_count",
+		Data:    data,
+	}
+	H.Hw.Send <- m
+	m = <-ch.Response
+	fmt.Println("Response from CoinHopper:", m)
+	errSetCoinCount := errors.New("Error set_coin_count to CoinHopper.")
+	if !m.Result {
+		return errSetCoinCount
+	}
+	return nil
+}
+
+// Empty() ปล่อยเหรียญลง CoinBox ทั้งหมด และน่าจะรีเซ็ท coin_count ด้วย
+func (ch *CoinHopper) Empty() error {
 	return nil
 }
