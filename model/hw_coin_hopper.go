@@ -38,10 +38,10 @@ type CoinHopper struct {
 	machineId string `json:"machine_id"`
 	Status    string
 	Response  chan *Message
-	c1        int
-	c2        int
-	c5        int
-	c10       int
+	C1        int
+	C2        int
+	C5        int
+	C10       int
 }
 
 // Todo: Try to Construct CoinHopper Object after Hw Client opened connection????
@@ -172,3 +172,4 @@ func (ch *CoinHopper) SetCoinCount(c1, c2, c5, c10 int) error {
 func (ch *CoinHopper) Empty() error {
 	return nil
 }
+

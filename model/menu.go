@@ -1,5 +1,7 @@
 package model
 
+import "log"
+
 type Lang struct {
 	Id     int     `json:"lang_id"`
 	Name   string  `json:"lang_name"`
@@ -49,6 +51,6 @@ func (m *Menu) Index() ([]*Lang, error) {
 		l.Menus = menus
 		//log.Println(l)
 	}
-	//log.Println(langs)
+	log.Println(langs)
 	return langs, nil
 }

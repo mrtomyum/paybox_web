@@ -7,12 +7,18 @@ import (
 
 func TestCoinHopper_CoinCount(t *testing.T) {
 	// Arrange
+	var c = []struct {
+		in     int
+		expect int
+	}{
+		{10, 10},
+		{10, 10},
+		{10, 10},
+		{10, 10},
+	}
 	model.CH.Reset()
-	inC1 := 10
-	inC2 := 10
-	inC5 := 10
-	inC10 := 10
-	model.CH.SetCoinCount(inC1, inC2, inC5, inC10)
+
+	model.CH.SetCoinCount(c[0].in, c[1].in, c[2].in, c[3].in)
 	// Act
 	err := model.CH.CoinCount()
 	if err != nil {
@@ -20,12 +26,11 @@ func TestCoinHopper_CoinCount(t *testing.T) {
 	}
 
 	// Assert
-	outC1 := model.CH.QtyC1()
-	outC2 := model.CH.QtyC2()
-	outC5 := model.CH.QtyC5()
-	outC10 := model.CH.QtyC10()
-	if outC1 != 10 || outC2 != 10 || outC5 != 10 || outC10 != 10 {
+	if model.CH.C1 != c[1].expect ||
+		model.CH.C2 != c[2].expect ||
+		model.CH.C5 != c[3].expect ||
+		model.CH.C5 != c[4].expect {
 		t.Fail()
-		t.Logf("Expected C1 = 10 Got model.Ch.QtyC1() = ", 10, "But got":, outC1)
+		t.Logf("Expected C1 = %v , but got: %v\n", c[1].expect, model.CH.C1)
 	}
 }
