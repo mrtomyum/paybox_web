@@ -87,7 +87,7 @@ function detailmenu(id){
                     for (var i = 0; i < listmenu.length; i++) {
                           menu += '<li>';
                           menu += '<a href="javascript:active_menu('+listmenu[i].Id+',\''+listmenu[i].name+'\',\''+result[id].lang_name+'\');">';
-                          menu += '<img src="public/img/'+listmenu[i].image+'" onError="this.src = \'public/img/noimg.jpg\'" class="block-img">';
+                        menu += '<img src="/img/' + listmenu[i].image + '" onError="this.src = \'/img/noimg.jpg\'" class="block-img">';
                           menu += '<p>'+listmenu[i].name+'</p>';
                           menu += '</a>';
                           menu += '</li>';

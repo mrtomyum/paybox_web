@@ -19,7 +19,7 @@ function menu_detail(lang,menuId){
                     	item += '\''+price[0].name+'/'+price[0].price+'\'';
                     	item += ',\''+price[1].name+'/'+price[1].price+'\'';
                     	item += ',\''+price[2].name+'/'+price[2].price+'\')"><a href="#">';
-                    	item += '<img src="public/img/life.png" class="active_menu" style="width:200px; height:200px;">';
+                        item += '<img src="/img/life.png" class="active_menu" style="width:200px; height:200px;">';
                     	item += '<img src="/img/'+items[i].image+'" onError="this.src = \'/img/noimg.jpg\'" class="block-img">';
                     	item += '<span class="item-name">'+items[i].name;
                     	item += '</span><span class="item-price">'+price[0].price+' ฿</span>';
