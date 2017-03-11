@@ -60,13 +60,13 @@ func CallDev() {
 		Name: "dev",
 		Msg:  &model.Message{},
 	}
-	model.H.Dev = c
+	model.H.Hw = c
 	fmt.Println("Start Websocket to HW_SERVICE connected:", conn.RemoteAddr())
 	go c.Write()
 	c.Read()
 }
 
-func ServDev(w http.ResponseWriter, r *http.Request) {
+func ServHW(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("start ServDev Websocket for Device...")
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil { // pass this func if currently no WebSocket service
@@ -81,7 +81,7 @@ func ServDev(w http.ResponseWriter, r *http.Request) {
 		Name: "dev",
 	}
 	fmt.Println("Start Dev Connection:")
-	model.H.Dev = c
+	model.H.Hw = c
 	go c.Write()
 	c.Read()
 }
