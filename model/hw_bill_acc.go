@@ -145,7 +145,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 	PM.remain -= PM.billEscrow
 	PM.billEscrow = 0 // ล้างยอดเงินพัก
 
-	fmt.Println("BA.Take() SUCCSS m1 =:", m)
+	fmt.Println("BA.Take() SUCCSS msg =:", m)
 	return nil
 }
 
@@ -158,9 +158,10 @@ func (ba *BillAcceptor) Received(c *Client) {
 	PM.billEscrow = received
 	fmt.Printf("รับธนบัตรมา %v Sale = %v, bill receivedCh = %v, bill Escrow=%v PM total= %v\n", PM.billEscrow, S.Total, PM.bill, PM.total)
 	PM.receivedCh <- c.Msg
-	PM.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
+	PM.sendOnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
 }
 
 func (ba *BillAcceptor) TimeOut(c *Client) {
 	PM.Cancel(c)
+	log.Println("Bill Acceptor -> Time Out")
 }

@@ -80,7 +80,7 @@ func (pm *Payment) Pay(sale *Sale) error {
 				return err
 			}
 			fmt.Printf("เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v", pm.total, sale.Total, pm.remain)
-			pm.OnHand(H.Web)
+			pm.sendOnHand(H.Web)
 		}
 	}
 	change := pm.total - sale.Total
@@ -100,13 +100,13 @@ func (pm *Payment) Pay(sale *Sale) error {
 	PM.remain = 0
 	PM.total = 0
 	// ส่งยอดที่ล้างแล้วให้ WebUI
-	pm.OnHand(H.Web)
+	pm.sendOnHand(H.Web)
 	// ปิดการรับชำระที่อุปกรณ์
 	CA.Stop()
 	BA.Stop()
 
 	m := &Message{
-		Device:  "host",
+		Device:  "web",
 		Command: "payment",
 		Type:    "event",
 		Data:    "success",
@@ -116,8 +116,8 @@ func (pm *Payment) Pay(sale *Sale) error {
 }
 
 // OnHand ส่งค่าเงินพัก Escrow ไว้กลับไปให้ web
-func (pm *Payment) OnHand(web *Client) {
-	fmt.Println("method *Host.OnHand()...")
+func (pm *Payment) sendOnHand(web *Client) {
+	fmt.Println("method *Host.sendOnHand()...")
 	web.Msg.Command = "onhand"
 	web.Msg.Result = true
 	web.Msg.Type = "event"
@@ -126,7 +126,7 @@ func (pm *Payment) OnHand(web *Client) {
 }
 
 // Cancel คืนเงินจากทุก Device โดยตรวจสอบเงิน Escrow ใน bill Acceptor ด้วยถ้ามีให้คืนเงิน
-func (pm *Payment) Cancel(c *Client) error {
+func (pm *Payment) Cancel(c *Client) {
 	fmt.Println("call *Payment.Cancel()")
 
 	// ตรวจสอบก่อนว่าหากคืนธนบัตรใบล่าสุดใบเดียว เหรียญใน hopper จะพอคืนตามยอดเงินรับชำระหรือไม่?
@@ -140,30 +140,32 @@ func (pm *Payment) Cancel(c *Client) error {
 	//}
 	fmt.Printf("pm.billEscrow: %v pm.total: %v ", pm.billEscrow, pm.total)
 	// Check bill Acceptor
-	if PM.total == 0 { // ไม่มีเงินรับชำระ
-		//log.Println("ไม่มีเงินพัก:")
+
+	switch {
+	case pm.total == 0: // ไม่มีเงินรับชำระ
 		c.Msg.Type = "response"
 		c.Msg.Result = false
 		c.Msg.Data = "ไม่มีเงินรับ"
 		c.Send <- c.Msg
-		return errors.New("ไม่มีเงินพัก")
-	}
-	// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
-	if pm.billEscrow != 0 {
+		pm.reset()
+		return
+
+	case pm.billEscrow != 0: //มีธนบัตร
+		// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
 		err := BA.Take(false) // คายธนบัตร
 		if err != nil {
-			return err
+			log.Println(err.Error())
 		}
 	}
-	change := PM.total - PM.billEscrow
+
 	BA.Stop()
 	CA.Stop()
-	// Success
 
 	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.coin ออกด้านหน้า
+	change := PM.total - PM.billEscrow
 	err := CH.PayoutByCash(change)
 	if err != nil {
-		return err
+		log.Println(err.Error())
 	}
 
 	// Send message response back to Web Client
@@ -172,12 +174,7 @@ func (pm *Payment) Cancel(c *Client) error {
 	c.Msg.Data = PM.coin
 	c.Send <- c.Msg
 
-	pm.total = 0 // เคลียร์ยอดเงินค้างให้หมด
-	pm.bill = 0
-	pm.billEscrow = 0
-	pm.coin = 0
-	pm.remain = 0
-	return nil
+	pm.reset()
 }
 
 func (pm *Payment) checkAcceptedBill(s *Sale) {
@@ -268,7 +265,6 @@ func (pm *Payment) refund(total, billEscrow float64) error {
 func (pm *Payment) change(value float64) error {
 	fmt.Println("YES -> 6. ต้องทอนเงิน ")
 	// ส่ง Web Socket: "command": "change", "data": value
-
 	m := &Message{
 		Device:  "web",
 		Type:    "event",
@@ -276,7 +272,6 @@ func (pm *Payment) change(value float64) error {
 		Data:    value,
 	}
 	H.Web.Send <- m
-
 	// ระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
 	//if CB.hopper < value { // หากเหรียญใน hopper ไม่พอทอน และยอดทอน != 0
 	//	err := pm.coinShortage()
@@ -313,4 +308,12 @@ func (pm *Payment) coinShortage() error {
 		log.Println("Error on CH Payout():", err.Error())
 	}
 	return nil
+}
+
+func (pm *Payment) reset() {
+	pm.total = 0 // เคลียร์ยอดเงินค้างให้หมด
+	pm.bill = 0
+	pm.billEscrow = 0
+	pm.coin = 0
+	pm.remain = 0
 }

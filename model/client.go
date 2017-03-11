@@ -93,7 +93,7 @@ func (c *Client) WebEvent() {
 	fmt.Println("Request message from Web")
 	switch c.Msg.Command {
 	case "onhand":
-		PM.OnHand(c)
+		PM.sendOnHand(c)
 	case "cancel":
 		PM.Cancel(c)
 	default:

@@ -96,5 +96,5 @@ func (ca *CoinAcceptor) Received(c *Client) {
 	//}
 	fmt.Printf("Sale = %v, coin receivedCh = %v, PM total= %v\n", S.Total, PM.coin, PM.total)
 	PM.receivedCh <- c.Msg
-	PM.OnHand(H.Web)
+	PM.sendOnHand(H.Web)
 }
