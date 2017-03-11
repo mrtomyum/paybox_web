@@ -266,7 +266,7 @@ a:link{
         }
 
 #info{
-    width: 100%
+    width: 100%;
     border: 5px red solid;
     border-radius: 10px;
     padding: 10% 5% 5% 5%;
