@@ -46,10 +46,10 @@ func (c *Client) Read() {
 
 		switch {
 		case c.Name == "web":
-			fmt.Println("Read::Web UI Connection message")
+			//fmt.Println("Read::Web UI Connection message")
 			c.WebEvent()
 		case c.Name == "dev":
-			fmt.Println("Read::Device Cภพonnection message")
+			//fmt.Println("Read::Device Connection message")
 			c.HwEvent()
 		default:
 			fmt.Println("Error: Case default: Message==>", m)
@@ -97,14 +97,14 @@ func (c *Client) WebEvent() {
 	case "cancel":
 		PM.Cancel(c)
 	default:
-		log.Println("Client.WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
+		log.Println("WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
 	}
 }
 
 // HwEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
 func (c *Client) HwEvent() {
-	fmt.Println("Start method HwEvent() Event message from Hw:", c.Msg)
+	fmt.Println("HwEvent():", c.Msg)
 	switch c.Msg.Device {
 	case "coin_hopper":
 		CH.Event(c)

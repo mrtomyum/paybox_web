@@ -137,6 +137,7 @@ func (ch *CoinHopper) Reset() error {
 
 // CoinCount() ร้องขอจำนวนเหรียญแต่ละขนาดที่เหลือใน Hopper
 func (ch *CoinHopper) CoinCount() error {
+	// กำหนดให้ตรวจสอบทุกรอบที่จบการขาย/ทอนเงิน แล้วส่งเป็น WebSocket Event ให้กับ WebUI
 	return nil
 }
 

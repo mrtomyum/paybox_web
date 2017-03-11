@@ -51,7 +51,9 @@ func (pm *Payment) Pay(sale *Sale) error {
 	if H.Hw == nil || H.Web == nil {
 		log.Println("HW_SERVICE หรือ WebUI websocket ยังไม่ได้เชื่อมต่อ")
 	}
-
+	if sale.Total == 0 {
+		return errors.New("Sale Total is 0 cannot do payment.")
+	}
 	pm.remain = sale.Total
 	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
 	fmt.Println("func Pay() -- 1. Start Payment device:")
@@ -97,7 +99,7 @@ func (pm *Payment) Pay(sale *Sale) error {
 	PM.billEscrow = 0
 	PM.remain = 0
 	PM.total = 0
-	// ล้างยอดส่งให้ WebUI
+	// ส่งยอดที่ล้างแล้วให้ WebUI
 	pm.OnHand(H.Web)
 	// ปิดการรับชำระที่อุปกรณ์
 	CA.Stop()
@@ -241,8 +243,7 @@ func (pm *Payment) rejectUnacceptedBill() error {
 	default:
 		fmt.Println("ไม่เข้าเงื่อนไข")
 	}
-	fmt.Println("PM.billEscrow =", pm.billEscrow)
-	fmt.Println("AcceptedBill = ", AB)
+	fmt.Println("PM.billEscrow =", pm.billEscrow, "AcceptedBill = ", AB)
 	return nil
 }
 
