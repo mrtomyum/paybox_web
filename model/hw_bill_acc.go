@@ -156,7 +156,7 @@ func (ba *BillAcceptor) Received(c *Client) {
 	// todo: ตรวจ AcceptedBill ถ้า false ให้ BA.Reject()
 
 	PM.billEscrow = received
-	fmt.Printf("Sale = %v, bill receivedCh = %v, bill Escrow=%v PM total= %v\n", S.Total, PM.bill, PM.billEscrow, PM.total)
+	fmt.Printf("รับธนบัตรมา %v Sale = %v, bill receivedCh = %v, bill Escrow=%v PM total= %v\n", PM.billEscrow, S.Total, PM.bill, PM.total)
 	PM.receivedCh <- c.Msg
 	PM.OnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
 }
