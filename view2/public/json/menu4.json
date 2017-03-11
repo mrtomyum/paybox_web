@@ -1,0 +1,275 @@
+menu_kids = `[
+{
+"langId": "1",
+"langName": "en",
+"menuId": "4",
+"itemList":[
+{
+"id": "1",
+"name": "fresh milk",
+"img": "img/fresh_milk.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "2",
+"name": "milk tea",
+"img": "img/milk_tea.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "3",
+"name": "Green tea, milk",
+"img": "img/Green_tea.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "4",
+"name": "chocolate",
+"img": "img/chocolate.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "5",
+"name": "pink milk",
+"img": "img/pink_milk.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "6",
+"name": "Milk and honey",
+"img": "img/Milk_honey.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+}
+]
+},
+{
+"langId": "2",
+"langName": "th",
+"menuId": "4",
+"itemList":[
+{
+"id": "1",
+"name": "นมสด",
+"img": "img/fresh_milk.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "2",
+"name": "ชาไทย",
+"img": "img/milk_tea.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "3",
+"name": "ชาเขียว",
+"img": "img/Green_tea.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "4",
+"name": "ช็อกโกแลต",
+"img": "img/chocolate.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "5",
+"name": "นมชมพู",
+"img": "img/pink_milk.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "6",
+"name": "นมสดน้ำผึ้ง",
+"img": "img/Milk_honey.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+}
+]
+},
+{
+"langId": "3",
+"langName": "ch",
+"menuId": "4",
+"itemList":[
+{
+"id": "1",
+"name": "鮮牛奶",
+"img": "img/fresh_milk.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "2",
+"name": "泰國茶",
+"img": "img/milk_tea.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "3",
+"name": "綠茶",
+"img": "img/Green_tea.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "4",
+"name": "巧克力",
+"img": "img/chocolate.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "5",
+"name": "豆漿粉",
+"img": "img/pink_milk.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+},
+{
+"id": "6",
+"name": "牛奶和蜂蜜",
+"img": "img/Milk_honey.jpg",
+"size":[
+{"sizeId": "1", "name": "s", "price": "30"
+},
+{
+"sizeId": "2", "name": "m", "price": "35"
+},
+{
+"sizeId": "3", "name": "l", "price": "40"}
+]
+}
+]
+}
+]`;

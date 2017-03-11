@@ -1,0 +1,72 @@
+.payC {
+    display:block;
+    width:65px;
+    height:65px;
+    line-height:72px;
+    border: 2px solid #f5f5f5;
+    border-radius: 50%;
+    color:#fff;
+    text-align:center;
+    text-decoration:none;
+    background: #ff6666;
+    box-shadow: 0 0 3px gray;
+    font-size:50px;
+    font-weight:bold;
+    float:left;
+    margin: 0 10%;
+}
+
+.payC:hover {
+    background: #f00;
+    color:#fff;
+}
+
+.payC img {
+    display: block;
+    width: 100%;
+    padding: 12%;
+    height: auto;
+}
+
+.payK {
+    display:block;
+    width:65px;
+    height:65px;
+    line-height:72px;
+    border: 2px solid #f5f5f5;
+    border-radius: 50%;
+    color:#fff;
+    text-align:center;
+    text-decoration:none;
+    background: #00cc44;
+    box-shadow: 0 0 3px gray;
+    font-size:50px;
+    font-weight:bold;
+    float:left;
+}
+.payK:hover {
+    background: #009933;
+    color:#fff;
+}
+
+.circle{
+    width:60px;
+    height:60px;
+    border-radius:50px;
+    font-size:30px;
+    color:#fff;
+    line-height:60px;
+    text-align:center;
+   /* background:#000;*/
+    position: absolute;
+    top:85%;
+    left:90%;
+    }
+        .circle img{
+            width:100%;
+        }
+        .circle img:active{
+            width:99%;
+            border:5px solid #000;
+            border-radius:50%;
+        }

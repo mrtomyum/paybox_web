@@ -1,0 +1,74 @@
+@media (min-width: 800px) and (max-width: 1000px) {
+.left{
+  height: 415px; 
+  overflow: auto;
+}
+
+.menu-back{
+	height: 420px;
+}
+
+.left h1{
+    text-align: right;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.right{
+  overflow: auto;
+  height: 410px; 
+}
+
+    #info ol{    
+        font-size: 12px;
+    }
+    #info ol li{
+    	margin: 5% 0 0 20%;
+        font-size: 12px;
+    }
+
+     .block-3{
+        width: 162.5px;
+        height: 162.5px;
+        float: left;
+        font-size:18px;
+        /*border: 2px gray solid;
+        border-radius: 10px 10px 0 0;*/
+        margin: 2% 0 2% 2%;
+     }
+
+        .block-3 img{
+            width:100%;
+        }
+
+        .block-3 a:active img{
+                display:block
+        }
+
+        .item-name{
+            float: left;
+            width: 70%;
+            text-align: left;
+            word-wrap:break-word;
+        }
+
+        .item-price{
+            float: left;
+            width: 28%;
+            text-align: right;
+            word-wrap:break-word;
+        }
+
+         .block-2 a{
+             display:inline-block;
+             border:1px solid gray;
+             width:150px;
+             height:150px;
+             border-radius:9px;
+             margin:2% 0.5% 0% 0.5%;
+             font-size:20px;
+             word-wrap:break-word;
+         }
+
+}

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="public/css/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="public/css/button.css">
+    <link rel="stylesheet" type="text/css" href="public/css/main.css">
+    <link rel="stylesheet" type="text/css" href="public/css/main480.css">
+    <link rel="stylesheet" type="text/css" href="public/css/main1024.css">
+
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+
+    <div data-role="none" class="nav-bar">
+        <img src="public/img/logo_paybox.png" class="img-header">
+        <div id="time"><span id="version"></span> <br/> <span id="N_time"></span> <span id="timer"></span></div>
+    </div>
+
+    <div data-role="main" class="ui-content menu-back">
+        <h1 style="line-height: 20px; padding: 0; margin: 3% 0 1% 0; font-size: 60px;">เมนูหลัก</h1>
+        <div id="list_menu"></div>
+        <!--    <ul class="block-2">
+              <li>
+                <a href="">
+                  <img src="public/img/hot_list.png" onError="this.src = 'public/img/noimg.jpg'" class="block-img">
+                  <br>HOT
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <img src="public/img/hot_list.png" onError="this.src = 'public/img/noimg.jpg'" class="block-img">
+                  <br>HOT
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <img src="public/img/hot_list.png" onError="this.src = 'public/img/noimg.jpg'" class="block-img">
+                  <br>HOT
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <img src="public/img/hot_list.png" onError="this.src = 'public/img/noimg.jpg'" class="block-img">
+                  <br>HOT
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <img src="public/img/hot_list.png" onError="this.src = 'public/img/noimg.jpg'" class="block-img">
+                  <br>HOT
+                </a>
+              </li>
+
+            </ul>
+        -->
+        <div id="language">
+            <a href="javascript:onsaythai(0)"><img src="/img/thaiflag.png" class="lang" style="border: 5px solid #fff;"></a>
+            <a href="javascript:onsayeng(1)"><img src="/img/uk-flag.png" class="lang"
+                                                  style="border: 5px solid #fff;"></a>
+            <a href="javascript:onsaychina(2)"><img src="/img/China.png" class="lang"
+                                                    style="border: 5px solid #fff;"></a>
+            <h1>language </h1>
+        </div>
+
+    </div>
+</div>
+
+<div data-role="page" id="page_item">
+    <div data-role="none" class="nav-bar">
+        <img src="public/img/logo_paybox.png" class="img-header">
+        <div id="time"><span id="version2"></span> <br/> <span id="Name_time2"></span> <span id="timer2"></span></div>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <div class="block-center">
+            <div id="list_item"></div>
+
+            <!--
+                  <div class="block-3">
+                    <a href="">
+                      <img src="public/img/life.png" class="active_menu" style="width:200px; height:200px;">
+                      <img src="public/img/vanilla_latte_hot.jpg" onError="this.src = 'public/img/hot_list.png'">
+                      <span class="item-name"> cocoa hot</span>
+                      <span class="item-price">10 ฿</span>
+                    </a>
+                  </div>
+            -->
+        </div>
+    </div>
+    <div class="circle" onclick="cancel()"><img src="public/img/back.png"></div>
+
+
+    <div data-role="popup" id="select_item">
+        <div data-role="header">
+            <h1 id="Mitem_title"></h1>
+            <input type="hidden" id="MitemNo">
+            <input type="hidden" id="MitemName">
+            <input type="hidden" id="line">
+            <input type="hidden" id="Munit">
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <div id="pop-left">
+                <div id="pop-img">
+                    <div id="Mimg"></div><!--<img src="public/img/cocoa_frappe.jpg">-->
+                </div>
+            </div>
+            <div id="pop-right">
+                <div id="pop-qty">
+                    <img src="public/img/delete.png" onclick="removeQty()">
+                    <input type="number" id="mo_qty" readonly data-role="none">
+                    <img src="public/img/add.png" onclick="addQty()">
+                </div>
+
+                <div id="pop-size" data-role="controlgroup" data-type="vertical">
+                    <div id="menusize">
+                        <!--<button class="ui-btn ui-shadow " style="font-size: 24px;">Small</button>
+                        <button class="ui-btn ui-shadow" style="font-size: 24px;">Medium</button>
+                        <button class="ui-btn ui-shadow" style="font-size: 24px;">Large</button>-->
+                    </div>
+                    <input type="hidden" id="Msize">
+                </div>
+            </div>
+        </div>
+
+        <div data-role="footer">
+            <div id="f-left">
+                <div id="pop-pri">
+                    0 ฿
+                </div>
+                <input type="hidden" value="1" id="mo-pri">
+            </div>
+            <div id="f-right">
+                <a href="#" class="payC" data-rel="back">&#x2718;</a>
+                <a href="#" class="payK" onclick="send_order()">&#10004;</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div data-role="popup" id="pop_payment" data-dismissible="false">
+        <div data-role="main" class="ui-content">
+
+            <div id="pay-left">
+                <h3 style="clear:both; padding-left: 5%; line-height: 0;"><u>ธนบัตรที่สามารถชำระได้</u></h3>
+                <img src="public/img/b20_true.png" class="bank">
+                <img src="public/img/b50_true.png" class="bank">
+                <img src="public/img/b100_true.png" class="bank">
+                <img src="public/img/b500_true.png" class="bank">
+                <img src="public/img/b1000_true.png" class="bank">
+                <div id="bank_use"></div>
+                <hr style="clear:both; border: 0; margin-bottom: 20%;">
+                <h3 style="padding-left: 5%; line-height: 0;"><u>เหรียญที่สามารถชำระได้</u></h3>
+                <img src="public/img/c1.png" class="coin">
+                <img src="public/img/c2.png" class="coin">
+                <img src="public/img/c5.png" class="coin">
+                <img src="public/img/c10.png" class="coin">
+            </div>
+            <div id="pay-right">
+                <h4 style="line-height: 0;"><span id="txtmacPri"
+                                                  style="width:100%; font-size: 40px; line-height: 14px; margin-bottom: 0; text-align: center;">ยอดชำระ</span>
+                </h4>
+                <div id="textpri2">0</div>
+                <input type="hidden" name="pri2" id="pri2" readonly>
+                <span id="txtUnit2"></span>
+
+                <h4 style="line-height: 0;"><span id="texttotal"
+                                                  style="width:100%; font-size: 40px; line-height: 14px;">ค้างชำระ</span>
+                </h4>
+                <div id="textpri3">0</div>
+                <input type="hidden" name="pri3" id="pri3" readonly>
+                <span id="txtUnit3"></span>
+
+                <button class="bt-cancel" data-role="none" onclick="bill()"><img src="public/img/cancel.png" width="30%"
+                                                                                 style="margin: 4% 2% 2% 2%;"></button>
+            </div>
+
+        </div>
+    </div>
+
+    <div data-role="popup" id="pop_bill" data-dismissible="false">
+        <div data-role="main" class="ui-content" style="padding: 10%; text-align: center;">
+            <img src="public/img/bill.png" width="20%">
+            <h1>กรุณารอรับใบเสร็จและเงินถอน</h1>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="public/js/jquery-1.11.3.min.js"></script>
+<script src="public/js/jquery.mobile-1.4.5.min.js"></script>
+<script src="public/js/voice.js"></script>
+<script src="public/js/websocket.js"></script>
+<script src="public/js/menu.js"></script>
+<script src="public/js/item.js"></script>
+
+</body>
+</html>

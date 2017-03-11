@@ -1,0 +1,102 @@
+@media (min-width: 1024px) and (max-width: 1100px) {
+body{
+	background: #fff;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+    overflow: none;
+    cursor: none;
+}
+
+a{
+    cursor: none;
+}
+
+img{
+    cursor: none;
+}
+
+button{
+    cursor: none;
+}
+
+
+* {
+    font-family:  'RSU_BOLD';
+    cursor: none;
+}
+
+.nav-bar{
+    height: 60px;
+    border-bottom: 10px solid #d9d9d9;
+}
+
+.menu-back{
+    height: 525px;
+}
+
+.left{
+  height: 520px; 
+  overflow: auto;
+}
+
+.left h1{
+    text-align: right;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.right{
+  overflow: auto;
+  height: 520px; 
+}
+    #info {
+        margin-top: 15%;
+    }
+
+    #info h4{
+        padding: 0;
+        margin: 0;
+        line-height: 8px;
+        font-size: 20px;
+    }
+
+    #info ol{
+        font-size: 16px;
+    }
+
+    #info ol li{
+        margin: 5% 0 0 20%;
+        font-size: 16px;
+    }
+
+    .block-center{
+        margin:auto;
+        width:90%;
+        height: 500px;
+        /*border:1px solid red;*/
+        text-align:center;
+        padding: 2% 0 0 0;
+    }
+        .block-3{
+                width: 208px;
+                height: 208px;
+                float: left;
+                font-size:18px;
+                /*border: 2px gray solid;
+                border-radius: 10px 10px 0 0;*/
+                margin: 2% 0 2% 2%;
+             }
+
+}
