@@ -9,7 +9,7 @@ func main() {
 	// Todo: Check NTP Server and adjust RTC
 	app := ctrl.Router()
 	// Dial to Device WS server
-	//go ctrl.CallDev()
+	go ctrl.CallDev()
 	app.Run(":8888")
 	//app.RunTLS(
 	//	":8088",
