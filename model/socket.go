@@ -10,8 +10,8 @@ import (
 	"os/signal"
 )
 
-type Client struct {
-	Ws   *websocket.Conn
+type Socket struct {
+	Conn *websocket.Conn
 	Send chan *Message
 	Name string
 	Msg  *Message
@@ -25,16 +25,16 @@ type Message struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func (c *Client) Read() {
+func (c *Socket) Read() {
 	done := make(chan struct{})
-	defer c.Ws.Close()
+	defer c.Conn.Close()
 	defer close(done)
 
 	m := &Message{}
 	for {
-		err := c.Ws.ReadJSON(&m)
+		err := c.Conn.ReadJSON(&m)
 		if err != nil {
-			log.Println("Ws.ReadJSON Error on : ", c.Name, " :", err)
+			log.Println("Conn.ReadJSON Error on : ", c.Name, " :", err)
 			break
 		}
 		c.Msg = m
@@ -44,7 +44,7 @@ func (c *Client) Read() {
 			fmt.Println("error:", err)
 		}
 		os.Stdout.Write(b)
-		fmt.Println("Client", c.Name, " read JSON message. Command:", m.Command)
+		fmt.Println("Socket", c.Name, " read JSON message. Command:", m.Command)
 
 		switch {
 		case c.Name == "web":
@@ -62,21 +62,21 @@ func (c *Client) Read() {
 	}
 }
 
-func (c *Client) Write() {
+func (c *Socket) Write() {
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
 
-	fmt.Println("=======*Client.Write()========")
-	defer fmt.Println("=====*Client.Write()=== END ====")
-	defer c.Ws.Close()
+	fmt.Println("=======*Socket.Write()========")
+	defer fmt.Println("=====*Socket.Write()=== END ====")
+	defer c.Conn.Close()
 	for {
 		select {
 		case m, ok := <-c.Send:
 			if !ok {
-				c.Ws.WriteJSON(gin.H{"message": "Cannot send data"})
+				c.Conn.WriteJSON(gin.H{"message": "Cannot send data"})
 				return
 			}
-			c.Ws.WriteJSON(m)
+			c.Conn.WriteJSON(m)
 			// Debug check json Encode
 			b, err := json.Marshal(m)
 			if err != nil {
@@ -87,7 +87,7 @@ func (c *Client) Write() {
 			log.Println("interrupt")
 			// To cleanly close a connection, a client should send a close
 			// frame and wait for the server to close the connection.
-			err := c.Ws.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
+			err := c.Conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
 			if err != nil {
 				log.Println("write close:", err)
 				return
@@ -98,7 +98,7 @@ func (c *Client) Write() {
 }
 
 // WebEvent แยกเส้นทาง Message Request จาก Web Frontend โดยแยกตาม Command ต่างๆ
-func (c *Client) WebEvent() {
+func (c *Socket) WebEvent() {
 	// ปกติแล้ว  Web จะไม่สั่งการ Device ตรงๆ
 	// จะสั่งผ่าน Host ให้ Host ทำงานระดับล่างแทน
 	// แต่ตรงนี้มีไว้สำหรับการ Debug ผ่าน Web GUI
@@ -115,7 +115,7 @@ func (c *Client) WebEvent() {
 
 // HwEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
-func (c *Client) HwEvent() {
+func (c *Socket) HwEvent() {
 	fmt.Println("HwEvent():", c.Msg)
 	switch c.Msg.Device {
 	case "coin_hopper":

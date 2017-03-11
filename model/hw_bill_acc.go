@@ -16,8 +16,8 @@ type BillAcceptor struct {
 // Event & Response from bill acceptor.
 // อุปกรณ์จะทำงานครั้งละ 1 command อยู่แล้ว
 // ดังนั้นไม่ต้องกลัวจะมี Event หรือ Response ข้ามลำดับกัน
-func (ba *BillAcceptor) Event(c *Client) {
-	fmt.Println("BillAcceptor Event...with Client=", c.Name)
+func (ba *BillAcceptor) Event(c *Socket) {
+	fmt.Println("BillAcceptor Event...with Socket=", c.Name)
 	switch c.Msg.Command {
 	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
 		ba.Received(c)
@@ -35,7 +35,7 @@ func (ba *BillAcceptor) Event(c *Client) {
 }
 
 // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ bill Acceptor
-func (ba *BillAcceptor) MachineId(c *Client) error {
+func (ba *BillAcceptor) MachineId(c *Socket) error {
 	m := &Message{Device: "bill_acc", Command: "machine_id", Type: "request"}
 	c.Send <- m
 	//go func() {
@@ -149,7 +149,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 	return nil
 }
 
-func (ba *BillAcceptor) Received(c *Client) {
+func (ba *BillAcceptor) Received(c *Socket) {
 	fmt.Println("Start method: ba.receivedCh()")
 	received := c.Msg.Data.(float64)
 
@@ -161,7 +161,7 @@ func (ba *BillAcceptor) Received(c *Client) {
 	PM.sendOnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
 }
 
-func (ba *BillAcceptor) TimeOut(c *Client) {
+func (ba *BillAcceptor) TimeOut(c *Socket) {
 	PM.Cancel(c)
 	log.Println("Bill Acceptor -> Time Out")
 }

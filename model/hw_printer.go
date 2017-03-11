@@ -12,7 +12,7 @@ type Printer struct {
 	Send      chan *Message
 }
 
-func (p *Printer) Event(c *Client) {
+func (p *Printer) Event(c *Socket) {
 	switch c.Msg.Command {
 	case "machine_id", "do_single", "do_group":
 		p.Send <- c.Msg
@@ -49,7 +49,7 @@ func (p *Printer) Print(s *Sale) error {
 	}
 	fmt.Println("พิมพ์สำเร็จ Print success!")
 	m2 := &Message{
-		Device:  "host",
+		Device:  "web",
 		Command: "print",
 		Type:    "event",
 		Data:    "success",
@@ -80,7 +80,7 @@ func (p *Printer) PrintTest(data string) error {
 	}
 	fmt.Println("พิมพ์สำเร็จ Print success!")
 	m2 := &Message{
-		Device:  "host",
+		Device:  "web",
 		Command: "print_test",
 		Type:    "event",
 		Data:    "success",

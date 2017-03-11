@@ -6,7 +6,7 @@ type MainBoard struct {
 	Send      chan *Message
 }
 
-func (m *MainBoard) Event(c *Client) {
+func (m *MainBoard) Event(c *Socket) {
 	switch c.Msg.Command {
 	case "machine_id":    // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Main Board
 	case "set_ex_output": // สั่งงาน External Output ของ Main board

@@ -128,7 +128,7 @@ func (pm *Payment) New(sale *Sale) error {
 }
 
 // OnHand ส่งค่าเงินพัก Escrow ไว้กลับไปให้ web
-func (pm *Payment) sendOnHand(web *Client) {
+func (pm *Payment) sendOnHand(web *Socket) {
 	fmt.Println("method *Host.sendOnHand()...")
 	web.Msg.Command = "onhand"
 	web.Msg.Result = true
@@ -138,7 +138,7 @@ func (pm *Payment) sendOnHand(web *Client) {
 }
 
 // Cancel คืนเงินจากทุก Device โดยตรวจสอบเงิน Escrow ใน bill Acceptor ด้วยถ้ามีให้คืนเงิน
-func (pm *Payment) Cancel(c *Client) {
+func (pm *Payment) Cancel(c *Socket) {
 	fmt.Println("call *Payment.Cancel()")
 
 	// ตรวจสอบก่อนว่าหากคืนธนบัตรใบล่าสุดใบเดียว เหรียญใน hopper จะพอคืนตามยอดเงินรับชำระหรือไม่?
@@ -180,7 +180,7 @@ func (pm *Payment) Cancel(c *Client) {
 		log.Println(err.Error())
 	}
 
-	// Send message response back to Web Client
+	// Send message response back to Web Socket
 	c.Msg.Type = "response"
 	c.Msg.Result = true
 	c.Msg.Data = PM.coin
@@ -213,7 +213,7 @@ func (pm *Payment) checkAcceptedBill(s *Sale) {
 func (pm *Payment) displayAcceptedBill() {
 	// Check MinAcceptedBill500 & 1000
 	m := &Message{
-		Device:  "host",
+		Device:  "web",
 		Command: "accepted_bill",
 		Type:    "event",
 		Data:    AB,

@@ -19,8 +19,8 @@ var (
 	}
 )
 
-// wsServer ทำงานเมื่อ Web Client เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
-// Server ให้ Client เชื่อมต่อเข้ามา รัน goroutine จาก client.Write() & .Read()
+// wsServer ทำงานเมื่อ Web Socket เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
+// Server ให้ Socket เชื่อมต่อเข้ามา รัน goroutine จาก client.Write() & .Read()
 func ServWeb(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("start ServWeb Websocket for Web...")
 	conn, err := upgrader.Upgrade(w, r, nil)
@@ -29,8 +29,8 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer conn.Close()
-	c := &model.Client{
-		Ws:   conn,
+	c := &model.Socket{
+		Conn: conn,
 		Send: make(chan *model.Message),
 		Name: "web",
 		Msg:  &model.Message{},
@@ -55,8 +55,8 @@ func CallDev() {
 	}
 	defer conn.Close()
 
-	c := &model.Client{
-		Ws:   conn,
+	c := &model.Socket{
+		Conn: conn,
 		Send: make(chan *model.Message),
 		Name: "dev",
 		Msg:  &model.Message{},
@@ -76,8 +76,8 @@ func ServHW(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 	//fmt.Println("start New Device connection success...")
-	c := &model.Client{
-		Ws:   conn,
+	c := &model.Socket{
+		Conn: conn,
 		Send: make(chan *model.Message),
 		Name: "dev",
 	}

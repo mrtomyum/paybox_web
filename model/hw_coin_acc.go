@@ -13,7 +13,7 @@ type CoinAcceptor struct {
 }
 
 // Event & Response from coin acceptor.
-func (ca *CoinAcceptor) Event(c *Client) {
+func (ca *CoinAcceptor) Event(c *Socket) {
 	switch c.Msg.Command {
 	case "received": // Event น้ีจะเกิดขึ้นเมื่อเคร่ืองรับเหรียญได้รับเหรียญ
 		ca.Received(c)
@@ -81,7 +81,7 @@ func (ca *CoinAcceptor) Stop() {
 	fmt.Println("2. ปิดรับเหรียญสำเร็จ, CA status:", ca.Status)
 }
 
-func (ca *CoinAcceptor) Received(c *Client) {
+func (ca *CoinAcceptor) Received(c *Socket) {
 	fmt.Println("Start method: ca.receivedCh()")
 	received := c.Msg.Data.(float64)
 	PM.coin += received

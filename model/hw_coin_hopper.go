@@ -44,7 +44,7 @@ type CoinHopper struct {
 	C10       int
 }
 
-// Todo: Try to Construct CoinHopper Object after Hw Client opened connection????
+// Todo: Try to Construct CoinHopper Object after Hw Socket opened connection????
 func (ch *CoinHopper) Setup() {
 	CH.GetId()
 }
@@ -67,7 +67,7 @@ func (ch *CoinHopper) GetId() {
 	}()
 }
 
-func (ch *CoinHopper) Event(c *Client) {
+func (ch *CoinHopper) Event(c *Socket) {
 	switch c.Msg.Command {
 	//case "status":         // ร้องขอสถานะต่างๆของอุปกรณ์
 	//case "cash_amount":    // ร้องขอจานวนเงินคงเหลือใน Coins hopper
@@ -108,7 +108,7 @@ func (ch *CoinHopper) PayoutByCash(v float64) error {
 // StatusChange ตอบสนองต่อ Event ที่ถูกส่งมาจาก CoinHopper
 // Message เฉพาะบางรายการที่จำเป็นจะส่งแจ้งเตือนให้ Web นำไปแสดงผลบอก User
 // แต่โดยทั่วไปจะต้องส่งขึ้น Cloud ทันทีท้งนี้หากติดต่อไม่ได้ ต้องลง Errorlog เก็บไว้
-func (ch *CoinHopper) StatusChange(c *Client) {
+func (ch *CoinHopper) StatusChange(c *Socket) {
 	fmt.Println("CoinHopper.StatusChange() start")
 	switch c.Msg.Data.(string) {
 	case "ready":
