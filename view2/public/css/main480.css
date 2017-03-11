@@ -1,4 +1,8 @@
 @media (min-width: 800px) and (max-width: 1000px) {
+*{
+    overflow:hidden;
+}
+
 .left{
   height: 415px; 
   overflow: auto;
