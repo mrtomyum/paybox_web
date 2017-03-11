@@ -1,68 +1,70 @@
 $(document).ready(function(){
 call_websocket();
-setTimeout(function(){
-    if(localStorage.language){
-        var id = localStorage.language;
-    }else{
-        var id = 0;
-    }
-     switch(parseInt(id)){
-         case 0 : onsaythai(id);
-                  console.log("ไทย");
-                break;
-         case 1 : onsayeng(id);
-                  console.log("อังกฤษ");
-                break;
-         case 2 : onsaychina(id);
-                  console.log("จีน");
-                break;
-     }
-   // var id = 2;
-    active_lang(id);
+    setTimeout(function(){
+        if(localStorage.language){
+            var id = localStorage.language;
+        }else{
+            var id = 0;
+        }
+         switch(parseInt(id)){
+             case 0 : onsaythai(id);
+                      console.log("ไทย");
+                    break;
+             case 1 : onsayeng(id);
+                      console.log("อังกฤษ");
+                    break;
+             case 2 : onsaychina(id);
+                      console.log("จีน");
+                    break;
+         }
+       // var id = 2;
+        detailmenu(id);
+        console.log("screen width : "+screen.width);
 
-    var worker = new Worker('js/time.js');
-        worker.onmessage = function (event) {
-            document.getElementById('timer').innerHTML =event.data ;
-            document.getElementById('timer2').innerText =event.data;
-        };
+        active_lang(id);
+
+        var worker = new Worker('js/time.js');
+            worker.onmessage = function (event) {
+                document.getElementById('timer').innerHTML =event.data ;
+                document.getElementById('timer2').innerText =event.data;
+            };
 
 
-	switch(parseInt(id)){
-	    case 1:
-	            document.getElementById("version").innerHTML = "เวอร์ชั่น 0.1";
-	            document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
+        switch(parseInt(id)){
+            case 1:
+                    document.getElementById("version").innerHTML = "เวอร์ชั่น 0.1";
+                    document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
 
-	        //    document.getElementById("bt_back").innerHTML = "ย้อนกลับ";
+                //    document.getElementById("bt_back").innerHTML = "ย้อนกลับ";
 
-                 document.getElementById("N_time").innerHTML = "เวลา ";
-                 document.getElementById("Name_time2").innerHTML = "เวลา ";
+                     document.getElementById("N_time").innerHTML = "เวลา ";
+                     document.getElementById("Name_time2").innerHTML = "เวลา ";
 
-	            break;
-	    case 2:
-                document.getElementById("version").innerHTML = "version 0.1";
-                document.getElementById("version2").innerHTML = "version 0.1 ";
+                    break;
+            case 2:
+                    document.getElementById("version").innerHTML = "version 0.1";
+                    document.getElementById("version2").innerHTML = "version 0.1 ";
 
-               // document.getElementById("bt_back").innerHTML = "back";
+                   // document.getElementById("bt_back").innerHTML = "back";
 
-                 document.getElementById("N_time").innerHTML = "time ";
-                 document.getElementById("Name_time2").innerHTML = "time ";
-	            break;
-	    case 3:
-               	document.getElementById("version").innerHTML = "版本 0.1";
-               	document.getElementById("version2").innerHTML = "版本 0.1 ";
+                     document.getElementById("N_time").innerHTML = "time ";
+                     document.getElementById("Name_time2").innerHTML = "time ";
+                    break;
+            case 3:
+                    document.getElementById("version").innerHTML = "版本 0.1";
+                    document.getElementById("version2").innerHTML = "版本 0.1 ";
 
-               //	document.getElementById("bt_back").innerHTML = "背部";
+                   //	document.getElementById("bt_back").innerHTML = "背部";
 
-               	document.getElementById("N_time").innerHTML = "時間 ";
-                document.getElementById("Name_time2").innerHTML = "時間 ";
+                    document.getElementById("N_time").innerHTML = "時間 ";
+                    document.getElementById("Name_time2").innerHTML = "時間 ";
 
-	            break;
-	}
+                    break;
+        }
 
-   // console.log(id);
-    detailmenu(id);
-    console.log("screen width : "+screen.width);
-},300);
+       // console.log(id);
+
+    },300);
 });
 
 function detailmenu(id){

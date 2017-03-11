@@ -35,6 +35,7 @@ button{
 * {
     font-family:  'RSU_BOLD';
     cursor: none;
+    overflow: none;
 }
 
 
