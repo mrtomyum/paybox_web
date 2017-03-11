@@ -32,7 +32,7 @@
               var t = JSON.parse(evt.data);
            //   var p = t['payload'];;
               console.log(t);
-            if(pathname[1]=="item.html"){
+           // if(pathname[1]=="item.html"){
                   if(t['command']=="onhand"){
                     var total = 0;
                     var pri1 = document.getElementById("pri1").value;
@@ -121,10 +121,10 @@
 
                   }
                   console.log("item "+evt.data);
-            }else if(pathname[1]=="model.html"){
+           /* }else if(pathname[1]=="model.html"){
                   console.log(evt.data);
                   $("#datatext").append(evt.data+"<br>");
-            }
+            }*/
 
             if(t['command']=="warning"){
                 alert(t['data']);

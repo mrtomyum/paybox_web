@@ -318,9 +318,9 @@ img{
 		border-radius: 100%;
 	}
 
-	.active_img{
+	.language .active_img{
 		border-radius: 100%;
-		border: 5px solid #f00;
+		border: 5px solid red;
 	}
 }
 @media (min-width: 800px) and (max-width: 1000px) {
