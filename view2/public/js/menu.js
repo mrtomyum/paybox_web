@@ -61,6 +61,7 @@ setTimeout(function(){
 
    // console.log(id);
     detailmenu(id);
+    console.log("screen width : "+screen.width);
 },300);
 });
 
