@@ -116,12 +116,13 @@ function active_menu(menuId,mName,lName){
     localStorage.lName = lName;
 
     console.log("active " +localStorage.language);
+    menu_detail(localStorage.language,menuId);
 
-    $.mobile.changePage("#page_item");
-    //setTimeout(function(){
-        menu_detail(localStorage.language,menuId);
+
+    setTimeout(function(){
+        $.mobile.changePage("#page_item");
        // voice_say(localStorage.language,mName);
-  //  },100);
+    },100);
 
 }
 
