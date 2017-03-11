@@ -1,22 +1,4 @@
 @media (min-width: 800px) and (max-width: 1000px) {
-body{
-    	background: #fff;
-    	-webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-user-drag: none;
-        user-drag: none;
-        -webkit-touch-callout: none;
-        overflow: hidden;
-}
-
 .left{
   height: 415px; 
   overflow: auto;

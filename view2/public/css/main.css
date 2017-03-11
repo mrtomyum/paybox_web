@@ -17,7 +17,7 @@ body{
     -webkit-user-drag: none;
     user-drag: none;
     -webkit-touch-callout: none;
-    overflow: hidden;
+    overflow: none;
     cursor: none;
 }
 
@@ -36,8 +36,6 @@ button {
 * {
     font-family: 'RSU_BOLD';
     cursor: none;
-    overflow:hidden;
-
 }
 
 a:link{
