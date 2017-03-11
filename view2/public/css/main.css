@@ -17,7 +17,7 @@ body{
     -webkit-user-drag: none;
     user-drag: none;
     -webkit-touch-callout: none;
-    overflow: none;
+    overflow: hidden;
     cursor: none;
 }
 

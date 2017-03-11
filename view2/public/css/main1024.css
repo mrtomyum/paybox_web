@@ -14,7 +14,7 @@ body{
     -webkit-user-drag: none;
     user-drag: none;
     -webkit-touch-callout: none;
-    overflow: none;
+    overflow: hidden;
     cursor: none;
 }
 
@@ -34,7 +34,6 @@ button{
 * {
     font-family:  'RSU_BOLD';
     cursor: none;
-    overflow: hidden;
 }
 
 .nav-bar{
