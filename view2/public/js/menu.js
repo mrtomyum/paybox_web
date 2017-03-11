@@ -115,10 +115,10 @@ function active_menu(menuId,mName,lName){
     console.log("active " +localStorage.language);
 
     $.mobile.changePage("#page_item");
-    setTimeout(function(){
+    /*setTimeout(function(){
         menu_detail(localStorage.language,menuId);
         voice_say(localStorage.language,mName);
-    },100);
+    },100);*/
 
 }
 
@@ -138,8 +138,8 @@ function voice_say(lang,content){
 }
 
 function onsayeng(id){
-    responsiveVoice.setDefaultVoice("UK English Female");
-    responsiveVoice.speak("English language");
+//    responsiveVoice.setDefaultVoice("UK English Female");
+//    responsiveVoice.speak("English language");
  
     active_lang(id);
 
@@ -156,8 +156,8 @@ function onsayeng(id){
 }
 
 function onsaythai(id){
-    responsiveVoice.setDefaultVoice("Thai Female");
-    responsiveVoice.speak("ภาษาไทย");
+//    responsiveVoice.setDefaultVoice("Thai Female");
+//    responsiveVoice.speak("ภาษาไทย");
 
     active_lang(id);
 
@@ -177,8 +177,8 @@ function onsaythai(id){
 }
 
 function onsaychina(id){
-    responsiveVoice.setDefaultVoice("Chinese Female");
-    responsiveVoice.speak("中國");
+//    responsiveVoice.setDefaultVoice("Chinese Female");
+//    responsiveVoice.speak("中國");
 
     active_lang(id);
 
