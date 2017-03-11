@@ -13,7 +13,7 @@ var (
 	CA *CoinAcceptor
 	CH *CoinHopper
 	P  *Printer
-	M  *MainBoard
+	MB *MainBoard
 	PM *Payment
 	CB *CashBox
 	AV *AcceptedValue
@@ -46,9 +46,10 @@ func init() {
 		Status: "ok",
 		Send:   make(chan *Message),
 	}
-	M = &MainBoard{
-		Status: "ok",
-		Send:   make(chan *Message),
+	MB = &MainBoard{
+		Status:  "ok",
+		Send:    make(chan *Message),
+		PinOpen: 15, // <- เปลี่ยนหมายเลขพินต่อ Magnetic Sensor ทีนี่
 	}
 	PM = &Payment{
 		coin:       0,

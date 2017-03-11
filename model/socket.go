@@ -127,7 +127,7 @@ func (c *Socket) HwEvent() {
 	case "printer":
 		P.Event(c)
 	case "mainboard":
-		M.Event(c)
+		MB.Event(c)
 	default:
 		log.Println("event cannot find function/message=", c.Msg)
 	}
