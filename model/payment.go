@@ -54,6 +54,10 @@ func (pm *Payment) init() {
 		B500:  true,
 		B1000: true,
 	}
+	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
+	fmt.Println("func New() -- 1. Start Payment device:")
+	CA.Start()
+	BA.Start()
 }
 
 // *Payment New() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
@@ -67,10 +71,6 @@ func (pm *Payment) New(sale *Sale) error {
 	}
 	pm.init()
 	pm.remain = sale.Total
-	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
-	fmt.Println("func New() -- 1. Start Payment device:")
-	CA.Start()
-	BA.Start()
 
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน และจะสะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลา
@@ -112,7 +112,7 @@ func (pm *Payment) New(sale *Sale) error {
 	PM.remain = 0
 	PM.total = 0
 	// ส่งยอดที่ล้างแล้วให้ WebUI
-	pm.sendOnHand(H.Web)
+	//pm.sendOnHand(H.Web)
 	// ปิดการรับชำระที่อุปกรณ์
 	CA.Stop()
 	BA.Stop()

@@ -48,12 +48,13 @@ func CallDev() {
 	//u := url.URL{Scheme: "ws", Host: "127.0.0.1:9999", Path: "/"}
 	u := url.URL{Scheme:"ws", Host:"192.168.10.64:9999", Path: "/"}
 	log.Printf("connecting to %s", u.String())
+
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
-		log.Println("Error call HW_SERVICE Websocket:", err)
-		return
+		log.Fatal("Error call HW_SERVICE Websocket:", err)
 	}
 	defer conn.Close()
+
 	c := &model.Client{
 		Ws:   conn,
 		Send: make(chan *model.Message),
