@@ -115,10 +115,10 @@ function active_menu(menuId,mName,lName){
     console.log("active " +localStorage.language);
 
     $.mobile.changePage("#page_item");
-    /*setTimeout(function(){
+    setTimeout(function(){
         menu_detail(localStorage.language,menuId);
-        voice_say(localStorage.language,mName);
-    },100);*/
+       // voice_say(localStorage.language,mName);
+    },100);
 
 }
 
