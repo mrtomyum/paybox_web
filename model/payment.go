@@ -153,23 +153,23 @@ func (pm *Payment) Cancel(c *Client) {
 	fmt.Printf("pm.billEscrow: %v pm.total: %v ", pm.billEscrow, pm.total)
 	// Check bill Acceptor
 
-	switch {
-	case pm.total == 0: // ไม่มีเงินรับชำระ
+	if pm.total == 0 { // ไม่มีเงินรับชำระ
+		BA.Stop()
+		CA.Stop()
 		c.Msg.Type = "response"
 		c.Msg.Result = false
 		c.Msg.Data = "ไม่มีเงินรับ"
 		c.Send <- c.Msg
 		pm.reset()
 		return
-
-	case pm.billEscrow != 0: //มีธนบัตร
+	}
+	if pm.billEscrow != 0 { //มีธนบัตร
 		// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
 		err := BA.Take(false) // คายธนบัตร
 		if err != nil {
 			log.Println(err.Error())
 		}
 	}
-
 	BA.Stop()
 	CA.Stop()
 
@@ -185,7 +185,6 @@ func (pm *Payment) Cancel(c *Client) {
 	c.Msg.Result = true
 	c.Msg.Data = PM.coin
 	c.Send <- c.Msg
-
 	pm.reset()
 }
 
