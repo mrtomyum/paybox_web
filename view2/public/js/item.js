@@ -194,6 +194,26 @@ function send_order(){
         console.log("send order : "+itemCode,itemName,line,size,qty,unit,price[0]);
         doSend('{"Device":"host","type":"request","command":"onhand"}');
 
+        var orderType = "coffee";
+        var listOrder = '{"line":'+parseInt(line)+',"item_id":'+parseInt(itemCode)+',"item_name":"'+itemName+'","qty":'+parseInt(qty)+',"price_name":"'+size+'","price":'+parseInt(price)+',"unit":"'+unit+'"}';
+        var output = '{"total":'+price+',"type":"'+orderType+'","sale_subs":['+listOrder+']}';
+        //console.log(parseInt(pri2)+","+parseInt(pri1));
+        console.log(output);
+        $.ajax({
+                url: "http://"+window.location.host+"/sale",
+                data: output,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                type: "POST",
+                cache: false,
+                success: function(res){
+                   console.log("payment sale "+JSON.stringify(res.result));
+                },
+                error: function(err){
+                     console.log(JSON.stringify(err));
+                }
+        });
+
 	setTimeout(function(){
 		$("#pop_payment").popup('open');
 	},100);
@@ -208,4 +228,10 @@ function bill(){
 
 function cancel(){
     $.mobile.changePage("#pageone");
+    var cancel = '{"device":"host",';
+                 cancel += '"type":"request",';
+                 cancel += '"command":"cancel"';
+                   // cancel += '"result" : true';
+                 cancel += '}';
+                 doSend(cancel);
 }

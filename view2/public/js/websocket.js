@@ -41,12 +41,11 @@
                     var payment =  document.getElementById("pri2").value;
                     console.log("ราคารวม "+pri1);
                     console.log("ยอดค้างชำระ "+balance);
-                    console.log("ยอดเงินที่จ่ายแล้ว "+payment);
 
                     total = parseInt(JSON.stringify(t['data']))-parseInt(pri1);
                     console.log(parseInt(JSON.stringify(t['data'])));
                     console.log(parseInt(balance));
-                    console.log("ยอดเงิน "+parseInt(payment)+" ผลลัพย์ total "+total);
+                    console.log("ผลลัพย์ total "+total);
 
                     if(total >= 0){
                         console.log("true");
@@ -85,9 +84,9 @@
                     Alert7.alert("การทำรายการ "+t['data']);
                     if(t['result']==true){websocket.close(); /*setTimeout(function(){window.location = "index.html";},2000);*/}
                   }else if(t['command']=="cancel"){
-                    Alert7.alert("ยกเลิกรายการ "+JSON.stringify(t['data']));
+                    alert("ยกเลิกรายการ "+JSON.stringify(t['data']));
                     if(t['result']==true){
-                        window.location = "index.html";
+                        $.mobile.changePage("#pageone");
                     }else if(t['result']==false){
                         alert(JSON.stringify(t['data']));
                     }
@@ -100,33 +99,33 @@
                     var b1000 = t['data'].b1000;
 
                     if(b20==true){
-                        bank += '<img src="img/b20_true.png" width="100%" style="margin-bottom:5%;">';
+                        bank += '<img src="public/img/b20_true.png" class="bank">';
                     }else{
-                        bank += '<img src="img/b20_false.png" width="100%" style="margin-bottom:5%;">';
+                        bank += '<img src="img/b20_false.png" class="bank">';
                     }
 
                     if(b50==true){
-                        bank += '<img src="img/b50_true.png" width="100%" style="margin-bottom:5%;">';
+                        bank += '<img src="img/b50_true.png" class="bank">';
                     }else{
-                        bank += '<img src="img/b50_false.png" width="100%" style="margin-bottom:5%;">';
+                        bank += '<img src="img/b50_false.png" class="bank">';
                     }
 
                     if(b100==true){
-                        bank += '<img src="img/b100_true.png" width="100%" style="margin-bottom:5%;">';
+                        bank += '<img src="img/b100_true.png" class="bank">';
                     }else{
-                        bank += '<img src="img/b100_false.png" width="100%" style="margin-bottom:5%;">';
+                        bank += '<img src="img/b100_false.png" class="bank">';
                     }
 
                     if(b500==true){
-                        bank += '<img src="img/b500_true.png" width="100%" style="margin-bottom:5%;">';
+                        bank += '<img src="img/b500_true.png" class="bank">';
                     }else{
-                        bank += '<img src="img/b500_false.png" width="100%" style="margin-bottom:5%;">';
+                        bank += '<img src="img/b500_false.png" class="bank">';
                     }
 
                     if(b1000==true){
-                        bank += '<img src="img/b1000_true.png" width="100%" style="margin-bottom:5%;">';
+                        bank += '<img src="img/b1000_true.png" wclass="bank">';
                     }else{
-                        bank += '<img src="img/b1000_false.png" width="100%" style="margin-bottom:5%;">';
+                        bank += '<img src="img/b1000_false.png" class="bank">';
                     }
                     document.getElementById("bank_use").innerHTML = bank;
 
@@ -144,11 +143,12 @@
             if(t['command']=="payment"){
                 //alert(t['data']);
                 if(t['data']=="success"){
-                  $('#payment_onhand').modal('hide');
-                  $('#bill_load').modal({backdrop: false});
-
+                  	$("#pop_payment").popup('close');
+                  	setTimeout(function(){
+                  		$("#pop_bill").popup('open');
+                  	},100);
                   setTimeout(function(){
-                    window.location = "index.html";
+                    $.mobile.changePage("#pageone");
                   },5000);
                 }
             }
@@ -156,7 +156,8 @@
             if(t['command']=="print"){
 
                 if(t['data']=="success"){
-                   window.location = "index.html";
+                   $.mobile.changePage("#pageone");
+                   console.log("print success");
                 }else{
                     alert(t['data']);
                 }
