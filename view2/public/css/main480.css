@@ -44,8 +44,9 @@ button{
   overflow: auto;
 }
 
-.menu-back{
+.ui-content{
 	height: 420px;
+	overflow: none;
 }
 
 .left h1{

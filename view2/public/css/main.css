@@ -18,24 +18,10 @@ body{
     user-drag: none;
     -webkit-touch-callout: none;
     overflow: none;
-    cursor: none;
-}
-
-a {
-    cursor: none;
-}
-
-img {
-    cursor: none;
-}
-
-button {
-    cursor: none;
 }
 
 * {
     font-family: 'RSU_BOLD';
-    cursor: none;
 }
 
 a:link{
@@ -67,6 +53,7 @@ a:link{
     margin: 0;
     background: #fff;
     text-align: center;
+    overflow: none;
 }
 
 .left{
@@ -373,6 +360,7 @@ a:link{
     /*border:1px solid red;*/
     text-align:center;
     padding: 2% 0 0 0;
+    overflow: none;
 }
 
 .block-2{
@@ -466,3 +454,4 @@ a:link{
         height:200px;
         position:absolute;
     }
+
