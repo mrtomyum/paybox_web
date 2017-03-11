@@ -215,8 +215,9 @@ function send_order(){
         });
 
 	setTimeout(function(){
+	    console.log("เปิดการใช้งาน ชำระเงิน");
 		$("#pop_payment").popup('open');
-	},100);
+	},300);
 }
 
 function bill(){
