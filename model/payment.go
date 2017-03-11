@@ -267,6 +267,15 @@ func (pm *Payment) refund(total, billEscrow float64) error {
 
 func (pm *Payment) change(value float64) error {
 	fmt.Println("YES -> 6. ต้องทอนเงิน ")
+	// ส่ง Web Socket: "command": "change", "data": value
+
+	m := &Message{
+		Device:  "web",
+		Type:    "event",
+		Command: "change",
+		Data:    value,
+	}
+	H.Web.Send <- m
 
 	// ระบบจะยังไม่ Take เงิน ต้องตรวจก่อนว่ามีเหรียญพอทอนหรือไม่?
 	//if CB.hopper < value { // หากเหรียญใน hopper ไม่พอทอน และยอดทอน != 0
