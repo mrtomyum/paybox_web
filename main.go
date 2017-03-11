@@ -8,7 +8,7 @@ func main() {
 	// Todo: Check NTP Server and adjust RTC
 	app := ctrl.Router()
 	// Dial to Device WS server
-	ctrl.CallHardwareWebSocket()
+	go ctrl.CallDev()
 	app.Run(":8888")
 	//app.RunTLS(
 	//	":8088",

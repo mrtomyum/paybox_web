@@ -49,7 +49,7 @@ func (c *Client) Read() {
 			fmt.Println("Read::Web UI Connection message")
 			c.WebEvent()
 		case c.Name == "dev":
-			fmt.Println("Read::Device Connection message")
+			fmt.Println("Read::Device Cภพonnection message")
 			c.HwEvent()
 		default:
 			fmt.Println("Error: Case default: Message==>", m)
@@ -115,7 +115,6 @@ func (c *Client) HwEvent() {
 	case "printer":
 		P.Event(c)
 	case "mainboard":
-		//case "periph":
 		M.Event(c)
 	default:
 		log.Println("event cannot find function/message=", c.Msg)
