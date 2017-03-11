@@ -45,8 +45,19 @@ type AcceptedBill struct {
 	B1000 bool `json:"b1000"`
 }
 
-// *Payment Pay() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
-func (pm *Payment) Pay(sale *Sale) error {
+// init() ทำการรีเซ็ทค่าที่ควรถูกตั้งใหม่ทุกครั้งที่สร้าง Payment ใหม่ขึ้นมา
+func (pm *Payment) init() {
+	AB = &AcceptedBill{
+		B20:   true,
+		B50:   true,
+		B100:  true,
+		B500:  true,
+		B1000: true,
+	}
+}
+
+// *Payment New() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
+func (pm *Payment) New(sale *Sale) error {
 	// ตรวจสอบ WebSocket Connection?
 	if H.Hw == nil || H.Web == nil {
 		log.Println("HW_SERVICE หรือ WebUI websocket ยังไม่ได้เชื่อมต่อ")
@@ -54,9 +65,10 @@ func (pm *Payment) Pay(sale *Sale) error {
 	if sale.Total == 0 {
 		return errors.New("Sale Total is 0 cannot do payment.")
 	}
+	pm.init()
 	pm.remain = sale.Total
 	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
-	fmt.Println("func Pay() -- 1. Start Payment device:")
+	fmt.Println("func New() -- 1. Start Payment device:")
 	CA.Start()
 	BA.Start()
 

@@ -95,7 +95,7 @@ func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
 	item := `{"action":"printline", "action_data": "2     Late        1       40.00"},`
 	footer := `{"action":"printline", "action_data": "----------------------"},{"action":"printline", "action_data": "รวมมูลค่าสินค้า     %v"},{"action":"printline","action_data": "รับเงิน           %v"},{"action":"printline", "action_data": "เงินทอน          %v"},{"action":"printline", "action_data": "ขอบคุณที่ใช้บริการ"},{"action":"paper_cut","action_data": {"type": "partial_cut","feed": 1}},`
 	queue := `{"action":"printline","action_data": "Ticket" },{"action":"set_text_size","action_data":8},{"action":"paper_cut","action_data": {"type": "full_cut","feed": 1}}]`
-	//data = fmt.Sprintf(header+item+footer+queue, s.total, s.Pay, s.Change)
+	//data = fmt.Sprintf(header+item+footer+queue, s.total, s.New, s.Change)
 	//data = header
 	data = header + item + footer + queue
 	fmt.Println("data=", data)

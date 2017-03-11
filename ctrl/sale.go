@@ -22,7 +22,7 @@ func NewSale(c *gin.Context) {
 	fmt.Printf("[NewSale()] รับค่า Sale จาก web->sale= %v\n", sale)
 
 	// Payment
-	err := model.PM.Pay(sale)
+	err := model.PM.New(sale)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusConflict, gin.H{"command": "payment", "result":"error", "message":err.Error()})

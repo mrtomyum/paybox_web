@@ -70,13 +70,13 @@ func init() {
 		B500: 300,
 		B1000:700,
 	}
-	AB = &AcceptedBill{
-		B20:  true,
-		B50:  true,
-		B100: true,
-		B500: true,
-		B1000:true,
-	}
+	//AB = &AcceptedBill{
+	//	B20:  true,
+	//	B50:  true,
+	//	B100: true,
+	//	B500: true,
+	//	B1000:true,
+	//}
 	S = &Sale{
 		HostId:  "001",
 		Total:   0,
