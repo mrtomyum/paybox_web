@@ -2,14 +2,40 @@
 font-family: 'RSU_BOLD';
 src: url('font_page/RSU_BOLD.ttf');
 }
-
-* {
-    font-family:  'RSU_BOLD';
+body{
+    background: #fff;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+    overflow: none;
+    cursor: none;
 }
 
-body{
-    background: #fff;    
-    overflow: none;
+a {
+    cursor: none;
+}
+
+img {
+    cursor: none;
+}
+
+button {
+    cursor: none;
+}
+
+* {
+    font-family: 'RSU_BOLD';
+    cursor: none;
 }
 
 a:link{
