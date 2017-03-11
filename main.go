@@ -2,6 +2,8 @@ package main
 
 import (
 	"github.com/mrtomyum/paybox_web/ctrl"
+	"github.com/mrtomyum/paybox_web/model"
+	"time"
 )
 
 func main() {
@@ -9,6 +11,9 @@ func main() {
 	app := ctrl.Router()
 	// Dial to Device WS server
 	go ctrl.CallDev()
+	time.Sleep(1 * time.Second)
+	model.CA.Stop()
+	model.BA.Stop()
 	app.Run(":8888")
 	//app.RunTLS(
 	//	":8088",

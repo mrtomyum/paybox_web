@@ -117,7 +117,7 @@ var ErrNoBillEscrow error = errors.New("Error no bill escrowed = ไม่มี
 
 // สั่งให้ bill Acceptor เก็บเงิน
 func (ba *BillAcceptor) Take(action bool) error {
-	if PM.billEscrow == 0 { // ถ้ามีธนบัตรพักอยู่ ให้สั่งเก็บธนบัตร
+	if PM.billEscrow == 0 { // ถ้าไม่มีธนบัตรพักอยู่
 		return ErrNoBillEscrow
 	}
 	//ch := make(chan *Message)
@@ -130,14 +130,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 	H.Hw.Send <- m
 	fmt.Printf("BA.Take() action = [%v] 1. รอคำตอบจาก bill Acceptor", action)
 
-	//go func() {
 	m = <-ba.Send
-	//fmt.Println("2. Response from bill Acceptor:")
-	//ch <- m2
-	//}()
-	//
-	//m3 := <-ch //  ที่นี่โปรแกรมจะ Block รอจนกว่าจะมี Message m3 จาก Channel ch
-	//close(ch)
 	if !m.Result {
 		ba.Status = "Error cannot take bill"
 		log.Println("Error response from bill Acceptor!")
@@ -145,16 +138,12 @@ func (ba *BillAcceptor) Take(action bool) error {
 	}
 
 	// อัพเดตยอดเงินสดในตู้ด้วย
-	//if m.Result { // ถ้าสั่ง Take
 	CB.bill += PM.billEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
 	CB.total += PM.billEscrow // เพิ่มยอดรวมของ CashBox
 	PM.bill += PM.billEscrow
 	PM.total += PM.billEscrow
 	PM.remain -= PM.billEscrow
 	PM.billEscrow = 0 // ล้างยอดเงินพัก
-	//} else {
-	//	PM.billEscrow = 0 // ล้างยอดเงินพัก
-	//}
 
 	fmt.Println("BA.Take() SUCCSS m1 =:", m)
 	return nil
