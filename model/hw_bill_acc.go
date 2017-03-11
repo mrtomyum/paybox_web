@@ -140,21 +140,21 @@ func (ba *BillAcceptor) Take(action bool) error {
 	//close(ch)
 	if !m.Result {
 		ba.Status = "Error cannot take bill"
-		return errors.New("Error bill Acceptor cannot take bill")
 		log.Println("Error response from bill Acceptor!")
+		return errors.New("Error bill Acceptor cannot take bill")
 	}
 
 	// อัพเดตยอดเงินสดในตู้ด้วย
-	if m.Data.(bool) == true { // ถ้าสั่ง Take
-		CB.bill += PM.billEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
-		CB.total += PM.billEscrow // เพิ่มยอดรวมของ CashBox
-		PM.bill += PM.billEscrow
-		PM.total += PM.billEscrow
-		PM.remain -= PM.billEscrow
-		PM.billEscrow = 0 // ล้างยอดเงินพัก
-	} else {
-		PM.billEscrow = 0 // ล้างยอดเงินพัก
-	}
+	//if m.Result { // ถ้าสั่ง Take
+	CB.bill += PM.billEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
+	CB.total += PM.billEscrow // เพิ่มยอดรวมของ CashBox
+	PM.bill += PM.billEscrow
+	PM.total += PM.billEscrow
+	PM.remain -= PM.billEscrow
+	PM.billEscrow = 0 // ล้างยอดเงินพัก
+	//} else {
+	//	PM.billEscrow = 0 // ล้างยอดเงินพัก
+	//}
 
 	fmt.Println("BA.Take() SUCCSS m1 =:", m)
 	return nil
