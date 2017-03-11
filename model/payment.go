@@ -127,7 +127,7 @@ func (pm *Payment) OnHand(web *Client) {
 
 // Cancel คืนเงินจากทุก Device โดยตรวจสอบเงิน Escrow ใน bill Acceptor ด้วยถ้ามีให้คืนเงิน
 func (pm *Payment) Cancel(c *Client) error {
-	fmt.Println("Host.Cancel()...")
+	fmt.Println("call *Payment.Cancel()")
 
 	// ตรวจสอบก่อนว่าหากคืนธนบัตรใบล่าสุดใบเดียว เหรียญใน hopper จะพอคืนตามยอดเงินรับชำระหรือไม่?
 	//if pm.total-pm.billEscrow > CB.hopper {
@@ -138,17 +138,16 @@ func (pm *Payment) Cancel(c *Client) error {
 	//	pm.refund(PM.total, PM.billEscrow)
 	//	return ErrCoinShortage
 	//}
-
+	fmt.Printf("pm.billEscrow: %v pm.total: %v ", pm.billEscrow, pm.total)
 	// Check bill Acceptor
 	if PM.total == 0 { // ไม่มีเงินรับชำระ
-		log.Println("ไม่มีเงินพัก:")
+		//log.Println("ไม่มีเงินพัก:")
 		c.Msg.Type = "response"
 		c.Msg.Result = false
 		c.Msg.Data = "ไม่มีเงินรับ"
 		c.Send <- c.Msg
 		return errors.New("ไม่มีเงินพัก")
 	}
-
 	// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
 	if pm.billEscrow != 0 {
 		err := BA.Take(false) // คายธนบัตร
@@ -219,6 +218,7 @@ func (pm *Payment) displayAcceptedBill() {
 func (pm *Payment) rejectUnacceptedBill() error {
 	fmt.Println("4. ถ้ารับธนบัตร ตรวจสอบเพื่อ Reject ธนบัตรที่ไม่รับ")
 	if pm.billEscrow == 0 {
+		log.Println(ErrCoinShortage.Error())
 		return ErrNoBillEscrow
 	}
 	switch pm.billEscrow {
