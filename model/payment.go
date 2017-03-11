@@ -154,6 +154,13 @@ func (pm *Payment) Cancel(c *Client) {
 	// Check bill Acceptor
 
 	if pm.total == 0 { // ไม่มีเงินรับชำระ
+		if pm.billEscrow != 0 { //มีธนบัตร
+			// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
+			err := BA.Take(false) // คายธนบัตร
+			if err != nil {
+				log.Println(err.Error())
+			}
+		}
 		BA.Stop()
 		CA.Stop()
 		c.Msg.Type = "response"
@@ -162,13 +169,6 @@ func (pm *Payment) Cancel(c *Client) {
 		c.Send <- c.Msg
 		pm.reset()
 		return
-	}
-	if pm.billEscrow != 0 { //มีธนบัตร
-		// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
-		err := BA.Take(false) // คายธนบัตร
-		if err != nil {
-			log.Println(err.Error())
-		}
 	}
 	BA.Stop()
 	CA.Stop()
