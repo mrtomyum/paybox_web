@@ -150,9 +150,11 @@ func (pm *Payment) Cancel(c *Client) error {
 	}
 
 	// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
-	err := BA.Take(false) // คายธนบัตร
-	if err != nil {
-		return err
+	if pm.billEscrow != 0 {
+		err := BA.Take(false) // คายธนบัตร
+		if err != nil {
+			return err
+		}
 	}
 	change := PM.total - PM.billEscrow
 	BA.Stop()
@@ -160,7 +162,7 @@ func (pm *Payment) Cancel(c *Client) error {
 	// Success
 
 	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.coin ออกด้านหน้า
-	err = CH.PayoutByCash(change)
+	err := CH.PayoutByCash(change)
 	if err != nil {
 		return err
 	}
