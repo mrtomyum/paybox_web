@@ -7,7 +7,7 @@ import (
 	"log"
 	"encoding/json"
 	"os"
-	"os/signal"
+	//"os/signal"
 )
 
 type Socket struct {
@@ -39,11 +39,11 @@ func (c *Socket) Read() {
 		}
 		c.Msg = m
 		// Debug check json Encode
-		b, err := json.Marshal(m)
-		if err != nil {
-			fmt.Println("error:", err)
-		}
-		os.Stdout.Write(b)
+		//b, err := json.Marshal(m)
+		//if err != nil {
+		//	fmt.Println("error:", err)
+		//}
+		//os.Stdout.Write(b)
 		fmt.Println("Socket", c.Name, " read JSON message. Command:", m.Command)
 
 		switch {
@@ -63,8 +63,8 @@ func (c *Socket) Read() {
 }
 
 func (c *Socket) Write() {
-	interrupt := make(chan os.Signal, 1)
-	signal.Notify(interrupt, os.Interrupt)
+	//interrupt := make(chan os.Signal, 1)
+	//signal.Notify(interrupt, os.Interrupt)
 
 	fmt.Println("=======*Socket.Write()========")
 	defer fmt.Println("=====*Socket.Write()=== END ====")
@@ -83,16 +83,16 @@ func (c *Socket) Write() {
 				fmt.Println("error:", err)
 			}
 			os.Stdout.Write(b)
-		case <-interrupt:
-			log.Println("interrupt")
-			// To cleanly close a connection, a client should send a close
-			// frame and wait for the server to close the connection.
-			err := c.Conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
-			if err != nil {
-				log.Println("write close:", err)
-				return
-			}
-			return
+		//case <-interrupt:
+		//	log.Println("interrupt")
+		//	// To cleanly close a connection, a client should send a close
+		//	// frame and wait for the server to close the connection.
+		//	err := c.Conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
+		//	if err != nil {
+		//		log.Println("write close:", err)
+		//		return
+		//	}
+		//	return
 		}
 	}
 }

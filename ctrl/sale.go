@@ -23,7 +23,7 @@ func NewSale(c *gin.Context) {
 
 	err := sale.New()
 	if err != nil {
-		log.Println(err)
+		log.Println("================>>>>>>", err)
 		c.JSON(http.StatusConflict, gin.H{"command": "post", "result": "error", "message": err.Error()})
 	}
 
