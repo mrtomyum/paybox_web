@@ -5,7 +5,6 @@ import (
 	"time"
 	"log"
 	"net/http"
-	"github.com/gin-gonic/gin"
 	"errors"
 	"bytes"
 	"io/ioutil"
