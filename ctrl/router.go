@@ -50,7 +50,7 @@ func Router() *gin.Engine {
 	})
 	// เปิดบริการ WebSocket ให้โปรแกรมเว็บทดสอบ เรียกตอบเข้ามา
 	//r.GET("/dev", func(c *gin.Context) {
-	//	ServHW(c.Writer, c.Request)
+	//	ServHw(c.Writer, c.Request)
 	//})
 
 

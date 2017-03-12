@@ -51,13 +51,7 @@ func init() {
 		Send:    make(chan *Message),
 		PinOpen: 15, // <- เปลี่ยนหมายเลขพินต่อ Magnetic Sensor ทีนี่
 	}
-	PM = &Payment{
-		coin:       0,
-		bill:       0,
-		total:      0,
-		remain:     0,
-		receivedCh: make(chan *Message),
-	}
+
 	CB = &CashBox{
 		hopper: 1000, // todo: เพิ่ม API สั่งเพิ่มเหรียญ
 		coin:   0,

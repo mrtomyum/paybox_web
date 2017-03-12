@@ -11,7 +11,7 @@ func main() {
 	// Todo: Check NTP Server and adjust RTC
 	app := ctrl.Router()
 	// Dial to Device WS server
-	go ctrl.CallDev()
+	go ctrl.CallHw()
 	time.Sleep(1 * time.Second)
 	model.CA.Stop()
 	model.BA.Stop()

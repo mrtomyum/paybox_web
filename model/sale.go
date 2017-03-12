@@ -3,6 +3,13 @@ package model
 import (
 	"fmt"
 	"time"
+	"log"
+	"net/http"
+	"github.com/gin-gonic/gin"
+	"errors"
+	"bytes"
+	"io/ioutil"
+	"encoding/json"
 )
 
 // Sale เป็นหัวเอกสารขายแต่ละครั้ง
@@ -47,36 +54,81 @@ type SalePay struct {
 	TH1000B int `json:"th1000b,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
 }
 
+func (s *Sale) New() error {
+	payment := &Payment{
+		coin:       0,
+		bill:       0,
+		billEscrow: 0,
+		total:      0,
+		remain:     0,
+		receivedCh: make(chan *Message),
+	}
+	// Payment
+	err := payment.New(s)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	// พิมพ์ตั๋ว และใบเสร็จ
+	err = P.Print(s)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	// Post ขึ้น Cloud ถ้าผิดพลาดจะได้บันทึกสถานะใน Save() เพื่อรอ Post ใหม่
+	err = s.Post()
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	// บันทึกลง Local Storage
+	err = s.Save()
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	return nil
+}
+
 func (s *Sale) Post() error {
 	fmt.Println("method *Sale.Post()")
 	// เช็คสถานะ Network และ Server ว่า IsNetOnline อยู่หรือไม่?
-	if !H.IsNetOnline {
+	isOnline, err := MB.IsOnline()
+	if err != nil {
+		return err
+	}
+	if isOnline {
 		fmt.Println("Offline => Save sale to disk")
+		return errors.New("Offline => Save sale to disk and try again.")
 	}
 
 	// Ping Server api.paybox.work:8080/ping
 	url := "http://paybox.work/api/v1/vending/sell"
 	fmt.Println("URL:>", url)
 
-	//var jsonStr = []byte(`{"title":"Buy cheese and bread for breakfast."}`)
-	//req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	b := new(bytes.Buffer)
+	json.NewEncoder(b).Encode(s)
+	//req, err := http.NewRequest("POST", url, b)
 	//req.Header.Set("X-Custom-Header", "myvalue")
 	//req.Header.Set("Content-Type", "application/json")
-	//
+
 	//client := &http.Client{}
 	//resp, err := client.Do(req)
 	//if err != nil {
-	//	panic(err)
+	//	return err
 	//}
-	//defer resp.Body.Close()
-	//
-	//fmt.Println("response Status:", resp.Status)
-	//fmt.Println("response Headers:", resp.Header)
-	//body, _ := ioutil.ReadAll(resp.Body)
-	//fmt.Println("response Body:", string(body))
-	// if post Error s.IsPosted = false
+	resp, _ := http.Post(url, "application/json; charset=utf-8", b)
+	defer resp.Body.Close()
+	fmt.Println("response Status:", resp.Status)
+	fmt.Println("response Headers:", resp.Header)
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("response Body:", string(body))
+	if string(body) == "post error" { // todo: น่าจะใช้ JSON response ไหม?
+		s.IsPosted = false
+	}
 	// IsNetOnline => Post Order ขึ้น Cloud
 	s.IsPosted = true
+	fmt.Println("Post ยอดขายขึ้น Cloud -> sale.Post()")
 	return nil
 }
 

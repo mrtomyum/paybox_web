@@ -20,19 +20,19 @@ import (
 	"errors"
 )
 
-type CoinHopperStatus int
-
-const (
-	DISABLE                 CoinHopperStatus = iota
-	CALIBRATION_FAULT
-	NO_KEY_SET
-	COIN_JAMMED
-	FRAUD
-	HOPPER_EMPTY
-	MEMORY_ERROR
-	SENSORS_NOT_INITIALISED
-	LID_REMOVED
-)
+//type CoinHopperStatus int
+//
+//const (
+//	DISABLE                 CoinHopperStatus = iota
+//	CALIBRATION_FAULT
+//	NO_KEY_SET
+//	COIN_JAMMED
+//	FRAUD
+//	HOPPER_EMPTY
+//	MEMORY_ERROR
+//	SENSORS_NOT_INITIALISED
+//	LID_REMOVED
+//)
 
 type CoinHopper struct {
 	machineId string `json:"machine_id"`
