@@ -47,6 +47,13 @@ type AcceptedBill struct {
 
 // init() ทำการรีเซ็ทค่าที่ควรถูกตั้งใหม่ทุกครั้งที่สร้าง Payment ใหม่ขึ้นมา
 func (pm *Payment) init() {
+	//pm.coin = 0
+	//pm.bill = 0
+	//pm.billEscrow = 0
+	//pm.total = 0
+	//pm.remain =0
+	//pm.receivedCh = make(chan *Message)
+
 	AB = &AcceptedBill{
 		B20:   true,
 		B50:   true,
@@ -62,10 +69,15 @@ func (pm *Payment) init() {
 
 // *Payment New() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
 func (pm *Payment) New(sale *Sale) error {
+
 	// ตรวจสอบ WebSocket Connection?
-	if H.Hw == nil || H.Web == nil {
-		log.Println("HW_SERVICE หรือ WebUI websocket ยังไม่ได้เชื่อมต่อ")
+	switch {
+	case H.Hw == nil:
+		log.Println("HW_SERVICE websocket ยังไม่ได้เชื่อมต่อ")
+	case H.Web == nil:
+		log.Println("WEB UI websocket ยังไม่ได้เชื่อมต่อ")
 	}
+
 	if sale.Total == 0 {
 		return errors.New("Sale Total is 0 cannot do payment.")
 	}
@@ -129,7 +141,7 @@ func (pm *Payment) New(sale *Sale) error {
 
 // OnHand ส่งค่าเงินพัก Escrow ไว้กลับไปให้ web
 func (pm *Payment) sendOnHand(web *Socket) {
-	fmt.Println("method *Host.sendOnHand()...")
+	fmt.Println("method *Host.sendOnHand()... pm.total =", pm.total)
 	web.Msg.Command = "onhand"
 	web.Msg.Result = true
 	web.Msg.Type = "event"

@@ -3,7 +3,6 @@ package model
 import (
 	"fmt"
 	"time"
-	"log"
 	"net/http"
 	"errors"
 	"bytes"
@@ -53,41 +52,41 @@ type SalePay struct {
 	TH1000B int `json:"th1000b,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
 }
 
-func (s *Sale) New() error {
-	payment := &Payment{
-		coin:       0,
-		bill:       0,
-		billEscrow: 0,
-		total:      0,
-		remain:     0,
-		receivedCh: make(chan *Message),
-	}
-	// Payment
-	err := payment.New(s)
-	if err != nil {
-		log.Println(err)
-		return err
-	}
-	// พิมพ์ตั๋ว และใบเสร็จ
-	err = P.Print(s)
-	if err != nil {
-		log.Println(err)
-		return err
-	}
-	// Post ขึ้น Cloud ถ้าผิดพลาดจะได้บันทึกสถานะใน Save() เพื่อรอ Post ใหม่
-	err = s.Post()
-	if err != nil {
-		log.Println(err)
-		return err
-	}
-	// บันทึกลง Local Storage
-	err = s.Save()
-	if err != nil {
-		log.Println(err)
-		return err
-	}
-	return nil
-}
+//func (s *Sale) New() error {
+//	payment := &Payment{
+//		coin:       0,
+//		bill:       0,
+//		billEscrow: 0,
+//		total:      0,
+//		remain:     0,
+//		receivedCh: make(chan *Message),
+//	}
+//	// Payment
+//	err := payment.New(s)
+//	if err != nil {
+//		log.Println(err)
+//		return err
+//	}
+//	// พิมพ์ตั๋ว และใบเสร็จ
+//	err = P.Print(s)
+//	if err != nil {
+//		log.Println(err)
+//		return err
+//	}
+//	// Post ขึ้น Cloud ถ้าผิดพลาดจะได้บันทึกสถานะใน Save() เพื่อรอ Post ใหม่
+//	err = s.Post()
+//	if err != nil {
+//		log.Println(err)
+//		return err
+//	}
+//	// บันทึกลง Local Storage
+//	err = s.Save()
+//	if err != nil {
+//		log.Println(err)
+//		return err
+//	}
+//	return nil
+//}
 
 func (s *Sale) Post() error {
 	fmt.Println("method *Sale.Post()")

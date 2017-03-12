@@ -17,7 +17,7 @@ type BillAcceptor struct {
 // อุปกรณ์จะทำงานครั้งละ 1 command อยู่แล้ว
 // ดังนั้นไม่ต้องกลัวจะมี Event หรือ Response ข้ามลำดับกัน
 func (ba *BillAcceptor) Event(c *Socket) {
-	fmt.Println("BillAcceptor Event...with Socket=", c.Name)
+	//fmt.Println("BillAcceptor Event...with Socket=", c.Name)
 	switch c.Msg.Command {
 	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
 		ba.Received(c)

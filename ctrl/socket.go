@@ -22,7 +22,7 @@ var (
 // wsServer ทำงานเมื่อ Web Socket เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
 // Server ให้ Socket เชื่อมต่อเข้ามา รัน goroutine จาก client.Write() & .Read()
 func ServWeb(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("start ServWeb Websocket for Web...")
+	//fmt.Println("start ServWeb Websocket for Web...")
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -37,7 +37,7 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 	}
 	//fmt.Println("Web:", c.Name, "...start send <-c to model.H.Webclient")
 	model.H.Web = c
-	fmt.Println("Start WebSocket connection from Web:", conn.RemoteAddr())
+	//fmt.Println("Start WebSocket connection from Web:", conn.RemoteAddr())
 	go c.Write()
 	c.Read() // ดัก Event message ที่จะส่งมาตอนไหนก็ไม่รู้
 }

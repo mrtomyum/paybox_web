@@ -24,6 +24,15 @@ var (
 func init() {
 	pwd, _ := os.Getwd()
 	db = sqlx.MustConnect("sqlite3", pwd+"/paybox.db")
+
+	PM = &Payment{
+		coin:       0,
+		bill:       0,
+		billEscrow: 0,
+		total:      0,
+		remain:     0,
+		receivedCh: make(chan *Message),
+	}
 	H = &Host{
 		Id:                      "001",
 		IsNetOnline:             true,

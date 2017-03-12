@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"log"
-	"encoding/json"
-	"os"
+	//"encoding/json"
+	//"os"
 	//"os/signal"
 )
 
@@ -26,25 +26,19 @@ type Message struct {
 }
 
 func (c *Socket) Read() {
-	done := make(chan struct{})
-	defer c.Conn.Close()
-	defer close(done)
+	defer func() {
+		c.Conn.Close()
+	}()
 
 	m := &Message{}
 	for {
 		err := c.Conn.ReadJSON(&m)
+		fmt.Println("<========*Socket.Read()==========", c.Name, c.Conn.RemoteAddr(), m)
 		if err != nil {
-			log.Println("Conn.ReadJSON Error on : ", c.Name, " :", err)
+			log.Println(c.Name, "<<===Conn.ReadJSON Error on:", err)
 			break
 		}
 		c.Msg = m
-		// Debug check json Encode
-		//b, err := json.Marshal(m)
-		//if err != nil {
-		//	fmt.Println("error:", err)
-		//}
-		//os.Stdout.Write(b)
-		fmt.Println("Socket", c.Name, " read JSON message. Command:", m.Command)
 
 		switch {
 		case c.Name == "web":
@@ -66,33 +60,19 @@ func (c *Socket) Write() {
 	//interrupt := make(chan os.Signal, 1)
 	//signal.Notify(interrupt, os.Interrupt)
 
-	fmt.Println("=======*Socket.Write()========")
-	defer fmt.Println("=====*Socket.Write()=== END ====")
+	fmt.Println("=======*Socket.Write()== START =>", c.Name, c.Conn.RemoteAddr())
+	defer fmt.Println("=====*Socket.Write()=== END ==>", c.Name, c.Conn.RemoteAddr())
 	defer c.Conn.Close()
 	for {
 		select {
 		case m, ok := <-c.Send:
 			if !ok {
 				c.Conn.WriteJSON(gin.H{"message": "Cannot send data"})
+				log.Println("===>>>lose WS connection:", c.Conn.RemoteAddr())
 				return
 			}
 			c.Conn.WriteJSON(m)
-			// Debug check json Encode
-			b, err := json.Marshal(m)
-			if err != nil {
-				fmt.Println("error:", err)
-			}
-			os.Stdout.Write(b)
-		//case <-interrupt:
-		//	log.Println("interrupt")
-		//	// To cleanly close a connection, a client should send a close
-		//	// frame and wait for the server to close the connection.
-		//	err := c.Conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
-		//	if err != nil {
-		//		log.Println("write close:", err)
-		//		return
-		//	}
-		//	return
+			fmt.Println("====*Socket.Conn.WriteJSON()====>", c.Name, c.Conn.RemoteAddr(), m)
 		}
 	}
 }
@@ -102,7 +82,7 @@ func (c *Socket) WebEvent() {
 	// ปกติแล้ว  Web จะไม่สั่งการ Device ตรงๆ
 	// จะสั่งผ่าน Host ให้ Host ทำงานระดับล่างแทน
 	// แต่ตรงนี้มีไว้สำหรับการ Debug ผ่าน Web GUI
-	fmt.Println("Request message from Web")
+	//fmt.Println("Request message from Web")
 	switch c.Msg.Command {
 	case "onhand":
 		PM.sendOnHand(c)
@@ -116,7 +96,7 @@ func (c *Socket) WebEvent() {
 // HwEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
 func (c *Socket) HwEvent() {
-	fmt.Println("HwEvent():", c.Msg)
+	//fmt.Println("HwEvent():", c.Msg)
 	switch c.Msg.Device {
 	case "coin_hopper":
 		CH.Event(c)
@@ -132,4 +112,3 @@ func (c *Socket) HwEvent() {
 		log.Println("event cannot find function/message=", c.Msg)
 	}
 }
-
