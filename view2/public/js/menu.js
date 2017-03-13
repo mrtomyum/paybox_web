@@ -1,4 +1,5 @@
 $(document).ready(function(){
+$.mobile.changePage("#pageone");
 call_websocket();
     setTimeout(function () {
         if (localStorage.language) {
