@@ -100,8 +100,15 @@ func (ch *CoinHopper) PayoutByCoin(c1, c2, c5, c10 int) error {
 	if !m.Result {
 		return errors.New("Error payout from Hopper.")
 	}
+	v2 := 2 * c2
+	v5 := 5 * c5
+	v10 := 10 * c10
+	value := c1 + v2 + v5 + v10
+	CB.hopper -= float64(value)
 	return nil
 }
+
+// PayoutByCash จ่ายเหรียญออกจาก Hopper โดยระบุยอดเงิน
 func (ch *CoinHopper) PayoutByCash(v float64) error {
 	// command to send to devClient for "payout" value = v
 	fmt.Println("====Send Command to CoinHopper payout_by_cash, Value:", v, "====")
@@ -120,6 +127,7 @@ func (ch *CoinHopper) PayoutByCash(v float64) error {
 	if !m.Result {
 		return errors.New("Error payout from Hopper.")
 	}
+	CB.hopper -= m.Data.(float64) //ลดยอดเหรียญใน hopper
 	return nil
 }
 
