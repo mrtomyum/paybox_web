@@ -1,16 +1,69 @@
 package model
 
+import (
+	"errors"
+)
+
 type MainBoard struct {
 	machineId string `json:"machine_id"`
 	Status    string
 	Send      chan *Message
+	PinOpen   int
 }
 
-func (m *MainBoard) Event(c *Client) {
+func (mb *MainBoard) Event(c *Socket) {
 	switch c.Msg.Command {
 	case "machine_id":    // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Main Board
+		mb.Send <- c.Msg
 	case "set_ex_output": // สั่งงาน External Output ของ Main board
+		mb.Send <- c.Msg
 	case "get_ex_output": // ใช้สาหรับอ่านค่า External Input ของ Main board
+		mb.Send <- c.Msg
 	case "get_3g_status": // Event แจ้งสถานะของ Network
+		mb.Send <- c.Msg
+	}
+}
+
+// IsOpen() เช็คสถานะ Magnetic Sensor ว่าฝาตู้เปิดหรือไม่ ให้วน loop ตรวจสอบเซนเซอร์ไว้ทุก 1 วินาที
+func (mb *MainBoard) IsOpen() (bool, error) {
+	m := &Message{
+		Device:  "mainboard",
+		Type:    "request",
+		Command: "get_ex_output",
+		Data:    mb.PinOpen,
+	}
+	H.Hw.Send <- m
+	m = <-mb.Send
+	if !m.Result {
+		return false, errors.New("Error get 3g status")
+	}
+	switch m.Data {
+	case false:
+		return false, nil
+	case true:
+		return true, nil
+	default:
+		return false, errors.New("Abnormal Message.Data")
+	}
+}
+
+func (mb *MainBoard) IsOnline() (bool, error) {
+	m := &Message{
+		Device:  "mainboard",
+		Type:    "request",
+		Command: "get_3g_status",
+	}
+	H.Hw.Send <- m
+	m = <-mb.Send
+	if !m.Result {
+		return false, errors.New("Error get 3g status")
+	}
+	switch m.Data {
+	case "offline":
+		return false, nil
+	case "online":
+		return true, nil
+	default:
+		return false, errors.New("Abnormal Message.Data")
 	}
 }

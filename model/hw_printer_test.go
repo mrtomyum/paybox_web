@@ -39,8 +39,8 @@ func init() {
 	}
 
 	CH = &model.CoinHopper{
-		Status:   "ok",
-		Response: make(chan *model.Message),
+		Status: "ok",
+		Send:   make(chan *model.Message),
 	}
 	P = &model.Printer{
 		Status: "ok",

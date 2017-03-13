@@ -13,7 +13,7 @@ var (
 	CA *CoinAcceptor
 	CH *CoinHopper
 	P  *Printer
-	M  *MainBoard
+	MB *MainBoard
 	PM *Payment
 	CB *CashBox
 	AV *AcceptedValue
@@ -24,6 +24,15 @@ var (
 func init() {
 	pwd, _ := os.Getwd()
 	db = sqlx.MustConnect("sqlite3", pwd+"/paybox.db")
+
+	PM = &Payment{
+		coin:       0,
+		bill:       0,
+		billEscrow: 0,
+		total:      0,
+		remain:     0,
+		receivedCh: make(chan *Message),
+	}
 	H = &Host{
 		Id:                      "001",
 		IsNetOnline:             true,
@@ -39,24 +48,19 @@ func init() {
 	}
 
 	CH = &CoinHopper{
-		Status:   "ok",
-		Response: make(chan *Message),
+		Status: "ok",
+		Send:   make(chan *Message),
 	}
 	P = &Printer{
 		Status: "ok",
 		Send:   make(chan *Message),
 	}
-	M = &MainBoard{
-		Status: "ok",
-		Send:   make(chan *Message),
+	MB = &MainBoard{
+		Status:  "ok",
+		Send:    make(chan *Message),
+		PinOpen: 15, // <- เปลี่ยนหมายเลขพินต่อ Magnetic Sensor ทีนี่
 	}
-	PM = &Payment{
-		coin:       0,
-		bill:       0,
-		total:      0,
-		remain:     0,
-		receivedCh: make(chan *Message),
-	}
+
 	CB = &CashBox{
 		hopper: 1000, // todo: เพิ่ม API สั่งเพิ่มเหรียญ
 		coin:   0,
@@ -70,13 +74,13 @@ func init() {
 		B500: 300,
 		B1000:700,
 	}
-	AB = &AcceptedBill{
-		B20:  true,
-		B50:  true,
-		B100: true,
-		B500: true,
-		B1000:true,
-	}
+	//AB = &AcceptedBill{
+	//	B20:  true,
+	//	B50:  true,
+	//	B100: true,
+	//	B500: true,
+	//	B1000:true,
+	//}
 	S = &Sale{
 		HostId:  "001",
 		Total:   0,

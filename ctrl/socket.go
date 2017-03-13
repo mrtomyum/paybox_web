@@ -19,43 +19,44 @@ var (
 	}
 )
 
-// wsServer ทำงานเมื่อ Web Client เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
-// Server ให้ Client เชื่อมต่อเข้ามา รัน goroutine จาก client.Write() & .Read()
+// wsServer ทำงานเมื่อ Web Socket เรียกเพจ /ws ระบบ Host จะทำตัวเป็น
+// Server ให้ Socket เชื่อมต่อเข้ามา รัน goroutine จาก client.Write() & .Read()
 func ServWeb(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("start ServWeb Websocket for Web...")
+	//fmt.Println("start ServWeb Websocket for Web...")
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	defer conn.Close()
-	c := &model.Client{
-		Ws:   conn,
+	c := &model.Socket{
+		Conn: conn,
 		Send: make(chan *model.Message),
 		Name: "web",
 		Msg:  &model.Message{},
 	}
 	//fmt.Println("Web:", c.Name, "...start send <-c to model.H.Webclient")
 	model.H.Web = c
-	fmt.Println("Start WebSocket connection from Web:", conn.RemoteAddr())
+	//fmt.Println("Start WebSocket connection from Web:", conn.RemoteAddr())
 	go c.Write()
 	c.Read() // ดัก Event message ที่จะส่งมาตอนไหนก็ไม่รู้
 }
 
-// CallDev() เพื่อให้โปรแกรม Host เรียก WebSocket ไปยัง HW_SERVICE ที่พอร์ท 9999
+// CallHw() เพื่อให้โปรแกรม Host เรียก WebSocket ไปยัง HW_SERVICE ที่พอร์ท 9999
 // ใช้สั่งงาน Request และรับ Event/Response จาก Device ต่างๆ
-func CallDev() {
+func CallHw() {
 	//u := url.URL{Scheme: "ws", Host: "127.0.0.1:9999", Path: "/"}
 	u := url.URL{Scheme:"ws", Host:"192.168.10.64:9999", Path: "/"}
 	log.Printf("connecting to %s", u.String())
+
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
-		log.Println("Error call HW_SERVICE Websocket:", err)
-		return
+		log.Fatal("Error call HW_SERVICE Websocket:", err)
 	}
 	defer conn.Close()
-	c := &model.Client{
-		Ws:   conn,
+
+	c := &model.Socket{
+		Conn: conn,
 		Send: make(chan *model.Message),
 		Name: "dev",
 		Msg:  &model.Message{},
@@ -66,7 +67,7 @@ func CallDev() {
 	c.Read()
 }
 
-func ServHW(w http.ResponseWriter, r *http.Request) {
+func ServHw(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("start ServDev Websocket for Device...")
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil { // pass this func if currently no WebSocket service
@@ -75,8 +76,8 @@ func ServHW(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 	//fmt.Println("start New Device connection success...")
-	c := &model.Client{
-		Ws:   conn,
+	c := &model.Socket{
+		Conn: conn,
 		Send: make(chan *model.Message),
 		Name: "dev",
 	}
