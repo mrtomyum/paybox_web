@@ -140,21 +140,14 @@
                 alert(t['data']);
             }
 
-            if(t['command']=="payment"){
-                //alert(t['data']);
-                if(t['data']=="success"){
-                  	$("#pop_payment").popup('close');
-                  	setTimeout(function(){
-                  		$("#pop_bill").popup('open');
-                  	},100);
-                  setTimeout(function(){
-                    $.mobile.changePage("#pageone");
-                  },5000);
-                }
+            if(t['command']=="change"){
+                   $("#pop_payment").popup('close');
+                   setTimeout(function(){
+                       $("#pop_bill").popup('open');
+                   },300);
             }
 
             if(t['command']=="print"){
-
                 if(t['data']=="success"){
                    $.mobile.changePage("#pageone");
                    console.log("print success");
