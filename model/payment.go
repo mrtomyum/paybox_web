@@ -176,7 +176,7 @@ func (pm *Payment) Cancel(c *Socket) {
 		BA.Stop()
 		CA.Stop()
 		c.Msg.Type = "response"
-		c.Msg.Result = false
+		c.Msg.Result = true
 		c.Msg.Data = "ไม่มีเงินรับ"
 		c.Send <- c.Msg
 		pm.reset()
@@ -193,6 +193,7 @@ func (pm *Payment) Cancel(c *Socket) {
 	}
 
 	// Send message response back to Web Socket
+	c.Msg.Device = "web"
 	c.Msg.Type = "response"
 	c.Msg.Result = true
 	c.Msg.Data = PM.coin
