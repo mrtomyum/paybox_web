@@ -95,11 +95,7 @@ func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
 	//data = header
 	//data = header + item + footer + queue
 	body :=
-		`{
-			"device": "printer",
-			"type": "request",
-			"command": "do_group",
-			"data": [{
+		`[{
 				"action": "print_qr",
 				"action_data": {
 					"mag": 0,
@@ -125,8 +121,7 @@ func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
 					"type": "full_cut",
 					"feed": 90
 				}
-			}]
-		}`
+			}]`
 
 	data = body
 	//fmt.Println("data=", data)
