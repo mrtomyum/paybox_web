@@ -1,5 +1,25 @@
+var num_call = 0;
 $(document).ready(function(){
 call_websocket();
+/*setInterval(function(){
+     $.ajax({
+             url: "http://"+window.location.host+"/menu/1",
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             type: "GET",
+             cache: false,
+                 success: function(result){
+                   num_call++;
+                   console.log("API Sample ready!! " + num_call);
+
+                 },
+                 error: function (err){
+                    console.log("API Sample Not ready!! ERROR "+ JSON.stringify(err));
+                 }
+           });
+ }, 1000);*/
+
+
     setTimeout(function () {
         if (localStorage.language) {
             var id = localStorage.language;
@@ -117,12 +137,6 @@ function active_menu(menuId,mName,lName){
 
     console.log("active " +localStorage.language);
     menu_detail(localStorage.language,menuId);
-
-
-    setTimeout(function(){
-        $.mobile.changePage("#page_item");
-       // voice_say(localStorage.language,mName);
-    },100);
 
 }
 

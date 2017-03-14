@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="public/css/main.css">
     <link rel="stylesheet" type="text/css" href="public/css/main1024.css">
     <link rel="stylesheet" type="text/css" href="public/css/main480.css">
+    <link rel="stylesheet" href="css/alertify.core.css"/>
+    <link rel="stylesheet" href="css/alertify.default.css" id="toggleCSS"/>
 
 
 </head>
@@ -135,7 +137,7 @@
                 <input type="hidden" value="1" id="mo-pri">
             </div>
             <div id="f-right">
-                <a href="#" class="payC" data-rel="back">&#x2718;</a>
+                <a href="#" class="payC" onclick="pop_back()">&#x2718;</a>
                 <a href="#" class="payK" onclick="send_order()">&#10004;</a>
             </div>
         </div>
@@ -186,7 +188,7 @@
     <div data-role="popup" id="pop_bill" data-dismissible="false">
         <div data-role="main" class="ui-content" style="padding: 10%; text-align: center;">
             <img src="public/img/bill.png" width="20%">
-            <h1>กรุณารอรับใบเสร็จและเงินถอน</h1>
+            <h1><span id="W_payment"></span><span id="W_change"></span></h1>
         </div>
     </div>
 
@@ -195,6 +197,7 @@
 
 <script src="public/js/jquery-1.11.3.min.js"></script>
 <script src="public/js/jquery.mobile-1.4.5.min.js"></script>
+<script src="js/alertify.js"></script>
 <!--<script src="public/js/voice.js"></script>-->
 <script src="public/js/websocket.js"></script>
 <script src="public/js/menu.js"></script>

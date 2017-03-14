@@ -8,16 +8,35 @@
     color:#fff;
     text-align:center;
     text-decoration:none;
-    background: #ff6666;
+    background: #e60000;
     box-shadow: 0 0 3px gray;
     font-size:50px;
     font-weight:bold;
     float:left;
     margin: 0 10%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+    cursor: none;
 }
 
 .payC:hover {
-    background: #f00;
+    background: #990000;
+    color:#fff;
+}
+
+.payC:active {
+    background: #990000;
     color:#fff;
 }
 
@@ -38,16 +57,35 @@
     color:#fff;
     text-align:center;
     text-decoration:none;
-    background: #00cc44;
+    background: #009900;
     box-shadow: 0 0 3px gray;
     font-size:50px;
     font-weight:bold;
     float:left;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+    cursor: none;
 }
 .payK:hover {
-    background: #009933;
-    color:#fff;
-}
+     background: #001a00;
+     color:#fff;
+ }
+
+ .payK:active {
+     background: #001a00;
+     color:#fff;
+ }
 
 .circle{
     width:60px;
@@ -70,3 +108,20 @@
             border:5px solid #000;
             border-radius:50%;
         }
+
+    .ui-shadow{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+    cursor: none;
+    }
