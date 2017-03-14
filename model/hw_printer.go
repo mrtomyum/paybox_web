@@ -94,7 +94,41 @@ func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
 	//data = fmt.Sprintf(header+item+footer+queue, s.total, s.New, s.Change)
 	//data = header
 	//data = header + item + footer + queue
-	data = header
+	body :=
+		`{
+			"device": "printer",
+			"type": "request",
+			"command": "do_group",
+			"data": [{
+				"action": "print_qr",
+				"action_data": {
+					"mag": 0,
+					"ecl": 0,
+					"data_type": "alpha",
+					"data": "http://paybox.work"
+				}
+			}, {
+				"action": "set_text_size",
+				"action_data": 0
+			}, {
+				"action": "printline",
+				"action_data": "คาปูชิโน่ปั่น L "
+			}, {
+				"action": "set_text_size",
+				"action_data": 1
+			}, {
+				"action": "printline",
+				"action_data": "Q: 2     P: 120"
+			}, {
+				"action": "paper_cut",
+				"action_data": {
+					"type": "full_cut",
+					"feed": 90
+				}
+			}]
+		}`
+
+	data = body
 	//fmt.Println("data=", data)
 	return data, nil
 }
@@ -106,4 +140,3 @@ func (p *Printer) makeTicket(s *Sale) error {
 func (p *Printer) makeRefund(value float64) error {
 	return nil
 }
-
