@@ -86,7 +86,7 @@ func (p *Printer) PrintTest(data string) error {
 }
 
 func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
-	header := `[{"action":"set_text_size","action_data":3},{"action":"printline", "action_data":"ร้านกาแฟ MOMO"},{"action":"set_text_size","action_data":1},{"action":"printline", "action_data":"Ticketid: 12"},{"action":"printline", "action_data": "ID     NAME      QTY     AMT"},`
+	//header := `[{"action":"set_text_size","action_data":3},{"action":"printline", "action_data":"ร้านกาแฟ MOMO"},{"action":"set_text_size","action_data":1},{"action":"printline", "action_data":"Ticketid: 12"},{"action":"printline", "action_data": "ID     NAME      QTY     AMT"},`
 	//header := `[{"set_text_size":3},{"printline" : "ร้านกาแฟ MOMO"},{"set_text_size":1},{"printline": "Ticketid  : 12"},{"printline": "ID     NAME      QTY     AMT"},`
 	//item := `{"action":"printline", "action_data": "2     Late        1       40.00"},`
 	//footer := `{"action":"printline", "action_data": "----------------------"},{"action":"printline", "action_data": "รวมมูลค่าสินค้า     %v"},{"action":"printline","action_data": "รับเงิน           %v"},{"action":"printline", "action_data": "เงินทอน          %v"},{"action":"printline", "action_data": "ขอบคุณที่ใช้บริการ"},{"action":"paper_cut","action_data": {"type": "partial_cut","feed": 1}},`
