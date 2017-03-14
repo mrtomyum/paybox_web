@@ -1,5 +1,6 @@
 function menu_detail(lang,menuId){
 	console.log(lang+", "+menuId);
+    var api = 0;
     $.ajax({
             url: "http://"+window.location.host+"/menu/"+(parseInt(menuId)),
           //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
@@ -15,7 +16,7 @@ function menu_detail(lang,menuId){
                     for(var i = 0; i < items.length; i++){
                     	var price = items[i].prices;
                     	item += '<div class="block-3"';
-                    	item += 'onclick="show_modal(\''+items[i].Id+'\',\''+items[i].name+'\',\''+items[i].menu_seq+'\',\'/img/'+items[i].image+'\',\''+items[i].unit+'\',';
+                    	item += 'onclick="show_modal('+i+',\''+items[i].Id+'\',\''+items[i].name+'\',\''+items[i].menu_seq+'\',\'/img/'+items[i].image+'\',\''+items[i].unit+'\',';
                     	item += '\''+price[0].name+'/'+price[0].price+'\'';
                     	item += ',\''+price[1].name+'/'+price[1].price+'\'';
                     	item += ',\''+price[2].name+'/'+price[2].price+'\')"><a href="#">';
@@ -27,18 +28,36 @@ function menu_detail(lang,menuId){
                     }
                     					//console.log(item);
                     document.getElementById("list_item").innerHTML = item;
+
+                    setTimeout(function(){
+                        $.mobile.changePage("#page_item");
+                       // voice_say(localStorage.language,mName);
+                    },100);
+                    api = 1;
                 },
                 error: function (err){
                     console.log(JSON.stringify(err));
                 }
           });
 
+          setTimeout(function(){
+              if(api==0){
+                 alertify.error("กรุณารอการแก้ไขข้อบกพร่องสักครู่");
+                 window.location.reload();
+              }
+          },300);
+
+         // console.log("http://"+window.location.host+"/menu/"+(parseInt(menuId)));
+
 }
 
-function show_modal(id,name,line,img,unit,s,m,l){
+function show_modal(c_id,id,name,line,img,unit,s,m,l){
 
-	console.log(id+","+name+","+line+","+img+","+unit+","+s+","+m+","+l);
-
+	console.log(c_id+","+id+","+name+","+line+","+img+","+unit+","+s+","+m+","+l);
+     var img_ac = document.getElementsByClassName("active_menu");
+     for(var i = 0; i < img_ac.length; i++){
+         img_ac[c_id].style.display = "block";
+     }
 
 	var Mitem = id+' : '+name;
 	var Mimg = '<img src="'+img+'" onError="this.src = \'/img/noimg.jpg\'" width="100%"/>';
@@ -155,6 +174,7 @@ function active_size(name,price,id){
 	    /*$("h1").removeClass("acsize");
 		$("#"+id).addClass("acsize");*/
 		console.log(name+","+price+","+id);
+
 		var x = document.getElementsByClassName("ui-shadow");
         for (i = 0; i < x.length; i++) {
              if(id==i){
@@ -235,4 +255,12 @@ function cancel(){
                    // cancel += '"result" : true';
                  cancel += '}';
                  doSend(cancel);
+}
+
+function pop_back(){
+    $("#select_item").popup("close");
+    var img_ac = document.getElementsByClassName("active_menu");
+    for(var i = 0; i < img_ac.length; i++){
+        img_ac[i].style.display = "none";
+    }
 }

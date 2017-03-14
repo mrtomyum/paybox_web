@@ -20,6 +20,7 @@
     function onClose(evt)
     {
       console.log("DISCONNECTED HOST Websocket");
+      call_websocket();
     }
 
 
@@ -50,10 +51,10 @@
                     if(total >= 0){
                         console.log("true");
                         //total = total.toString();
-                        if(total.includes("-")){
+                      /*  if(total.includes("-")){
                             var pay = total.split("-");
                             total = pay[1];
-                        }
+                        }*/
                         document.getElementById("texttotal").innerHTML = "เงินทอน";
                         console.log("document.getElementById('pri2').value = "+t['data']);
                         document.getElementById("pri2").value = t['data'];
@@ -62,7 +63,7 @@
                         document.getElementById("pri3").value = total;
                         document.getElementById("textpri3").innerHTML = total;
 
-                       /* if(total!=0){
+                      /*  if(total!=0){
                             document.getElementById("coinbill").innerHTML = "และเงินทอน "+total+" บาท";
                         }*/
                     }else{
@@ -84,11 +85,13 @@
                     Alert7.alert("การทำรายการ "+t['data']);
                     if(t['result']==true){websocket.close(); /*setTimeout(function(){window.location = "index.html";},2000);*/}
                   }else if(t['command']=="cancel"){
-                    alert("ยกเลิกรายการ "+JSON.stringify(t['data']));
+                    document.getElementById("list_item").innerHTML = "";
+                    alertify.error("ยกเลิกรายการ "+JSON.stringify(t['data']));
+
                     if(t['result']==true){
                         $.mobile.changePage("#pageone");
                     }else if(t['result']==false){
-                        alert(JSON.stringify(t['data']));
+                        alertify.success(JSON.stringify(t['data']));
                     }
                   }else if(t['command']=='accepted_bill'){
                     var bank = "";
@@ -123,7 +126,7 @@
                     }
 
                     if(b1000==true){
-                        bank += '<img src="img/b1000_true.png" wclass="bank">';
+                        bank += '<img src="img/b1000_true.png" class="bank">';
                     }else{
                         bank += '<img src="img/b1000_false.png" class="bank">';
                     }
@@ -142,6 +145,16 @@
 
             if(t['command']=="change"){
                    $("#pop_payment").popup('close');
+                   document.getElementById("W_payment").innerHTML = "กรุณารอรับใบเสร็จ";
+                   document.getElementById("W_change").innerHTML = "และเงินทอน "+t['data']+" บาท";
+                   setTimeout(function(){
+                       $("#pop_bill").popup('open');
+                   },300);
+            }
+
+            if(t['command']=="payment"){
+                   $("#pop_payment").popup('close');
+                   document.getElementById("W_payment").innerHTML = "กรุณารอรับใบเสร็จ";
                    setTimeout(function(){
                        $("#pop_bill").popup('open');
                    },300);
@@ -149,10 +162,15 @@
 
             if(t['command']=="print"){
                 if(t['data']=="success"){
-                   $.mobile.changePage("#pageone");
+                   setTimeout(function(){
+                    document.getElementById("W_payment").innerHTML = "";
+                    document.getElementById("W_change").innerHTML = "";
+                    document.getElementById("list_item").innerHTML = "";
+                    $.mobile.changePage("#pageone");
+                   },1500);
                    console.log("print success");
                 }else{
-                    alert(t['data']);
+                    alertify.error(t['data']);
                 }
             }
 

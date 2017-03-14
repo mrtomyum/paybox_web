@@ -13,7 +13,6 @@ function getMyDateFormat() {
     var s = addZero(d.getSeconds());
     return h + ":" + m;
 }
-var time = "";
 
 setInterval(function() {
   postMessage(getMyDateFormat());
