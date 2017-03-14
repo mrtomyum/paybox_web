@@ -39,11 +39,7 @@ func (p *Printer) Print(s *Sale) error {
 	}
 	H.Hw.Send <- m
 	fmt.Println("1. สั่งพิมพ์ รอ Priner ตอบสนอง")
-	//go func() {
 	m = <-p.Send
-	//ch <- m2
-	//}()
-	//m = <-ch
 	if !m.Result {
 		return errors.New("Err: printer error.")
 	}
@@ -90,15 +86,16 @@ func (p *Printer) PrintTest(data string) error {
 }
 
 func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
-	header := `[{"action":"set_text_size","action_data":3},{"action":"printline", "action_data":"ร้านกาแฟ MOMO"},{"action":"set_text_size","action_data":1},{"action":"printline", "action_data":"Ticketid  : 12"},{"action":"printline", "action_data": "ID     NAME      QTY     AMT"},`
+	header := `[{"action":"set_text_size","action_data":3},{"action":"printline", "action_data":"ร้านกาแฟ MOMO"},{"action":"set_text_size","action_data":1},{"action":"printline", "action_data":"Ticketid: 12"},{"action":"printline", "action_data": "ID     NAME      QTY     AMT"},`
 	//header := `[{"set_text_size":3},{"printline" : "ร้านกาแฟ MOMO"},{"set_text_size":1},{"printline": "Ticketid  : 12"},{"printline": "ID     NAME      QTY     AMT"},`
-	item := `{"action":"printline", "action_data": "2     Late        1       40.00"},`
-	footer := `{"action":"printline", "action_data": "----------------------"},{"action":"printline", "action_data": "รวมมูลค่าสินค้า     %v"},{"action":"printline","action_data": "รับเงิน           %v"},{"action":"printline", "action_data": "เงินทอน          %v"},{"action":"printline", "action_data": "ขอบคุณที่ใช้บริการ"},{"action":"paper_cut","action_data": {"type": "partial_cut","feed": 1}},`
-	queue := `{"action":"printline","action_data": "Ticket" },{"action":"set_text_size","action_data":8},{"action":"paper_cut","action_data": {"type": "full_cut","feed": 1}}]`
+	//item := `{"action":"printline", "action_data": "2     Late        1       40.00"},`
+	//footer := `{"action":"printline", "action_data": "----------------------"},{"action":"printline", "action_data": "รวมมูลค่าสินค้า     %v"},{"action":"printline","action_data": "รับเงิน           %v"},{"action":"printline", "action_data": "เงินทอน          %v"},{"action":"printline", "action_data": "ขอบคุณที่ใช้บริการ"},{"action":"paper_cut","action_data": {"type": "partial_cut","feed": 1}},`
+	//queue := `{"action":"printline","action_data": "Ticket" },{"action":"set_text_size","action_data":8},{"action":"paper_cut","action_data": {"type": "full_cut","feed": 1}}]`
 	//data = fmt.Sprintf(header+item+footer+queue, s.total, s.New, s.Change)
 	//data = header
-	data = header + item + footer + queue
-	fmt.Println("data=", data)
+	//data = header + item + footer + queue
+	data = header
+	//fmt.Println("data=", data)
 	return data, nil
 }
 
@@ -109,3 +106,4 @@ func (p *Printer) makeTicket(s *Sale) error {
 func (p *Printer) makeRefund(value float64) error {
 	return nil
 }
+
