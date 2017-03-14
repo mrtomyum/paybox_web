@@ -34,8 +34,8 @@ func init() {
 		receivedCh: make(chan *Message),
 	}
 	H = &Host{
-		Id:                      "001",
-		IsNetOnline:             true,
+		Id:          "001",
+		IsNetOnline: true,
 	}
 	BA = &BillAcceptor{
 		Status: "ok",
@@ -51,6 +51,7 @@ func init() {
 		Status: "ok",
 		Send:   make(chan *Message),
 	}
+	//Todo: เพิ่ม Struct เก็บจำนวนเหรียญแต่ละขนาดไว้ด้วย แล้วกำหนดให้ตรวจสอบยอดคงเหลือจาก coin_hopper ตอนเริ่มต้น และทุกขั้นตอนที่มีการรับ coin_acc จ่าย coin_hopper
 	P = &Printer{
 		Status: "ok",
 		Send:   make(chan *Message),
@@ -68,11 +69,11 @@ func init() {
 		total:  0,
 	}
 	AV = &AcceptedValue{
-		B20:  0,
-		B50:  0,
-		B100: 0,
-		B500: 300,
-		B1000:700,
+		B20:   0,
+		B50:   0,
+		B100:  0,
+		B500:  300,
+		B1000: 700,
 	}
 	//AB = &AcceptedBill{
 	//	B20:  true,
@@ -82,9 +83,9 @@ func init() {
 	//	B1000:true,
 	//}
 	S = &Sale{
-		HostId:  "001",
-		Total:   0,
-		Pay:     0,
-		Change:  0,
+		HostId: "001",
+		Total:  0,
+		Pay:    0,
+		Change: 0,
 	}
 }

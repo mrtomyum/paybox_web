@@ -60,14 +60,6 @@ func (ch *CoinHopper) GetId() {
 
 func (ch *CoinHopper) Event(c *Socket) {
 	switch c.Msg.Command {
-	//case "status":         // ร้องขอสถานะต่างๆของอุปกรณ์
-	//case "cash_amount":    // ร้องขอจานวนเงินคงเหลือใน Coins hopper
-	//case "coin_count":     // ร้องขอจานวนเงินเหรียญคงเหลือใน Coins hopper
-	//case "set_coin_count": // ตั้งค่าจำนวนเงินคงเหลือใน Coins hopper
-	//case "payout_by_cash": // ร้องขอการจ่ายเหรียญออกทางด้านหน้าเครื่องโดยระบุจานวนเป็นยอดเงิน
-	//case "payout_by_coin": // ร้องขอการจ่ายเหรียญออกทางด้านหน้าเครื่องโดยระบุจานวนเป็นจานวนเหรียญ
-	//case "empty":          // ร้องขอการปล่อยเหรียญทั้งหมดออกทางด้านล่าง
-	//case "reset":          // ร้องขอการ Reset ตัวเครื่อง เพ่ือเคลียร์ค่า Error ต่างๆ
 	case "status", "cash_amount", "coin_count", "set_coin_count", "paybout_by_cash", "payout_by_coin", "empty", "reset":
 		ch.Send <- c.Msg
 		log.Println("ch.Send <-c.Msg", c.Msg)
@@ -100,8 +92,17 @@ func (ch *CoinHopper) PayoutByCoin(c1, c2, c5, c10 int) error {
 	if !m.Result {
 		return errors.New("Error payout from Hopper.")
 	}
+	//นับมูลค่าเหรียญที่จ่าย
+	v2 := 2 * c2
+	v5 := 5 * c5
+	v10 := 10 * c10
+	value := c1 + v2 + v5 + v10
+	CB.hopper -= float64(value)
+	// todo: อ่านยอดคงเหลือของเหรียญแต่ละขนาด
 	return nil
 }
+
+// PayoutByCash จ่ายเหรียญออกจาก Hopper โดยระบุยอดเงิน
 func (ch *CoinHopper) PayoutByCash(v float64) error {
 	// command to send to devClient for "payout" value = v
 	fmt.Println("====Send Command to CoinHopper payout_by_cash, Value:", v, "====")
@@ -120,6 +121,7 @@ func (ch *CoinHopper) PayoutByCash(v float64) error {
 	if !m.Result {
 		return errors.New("Error payout from Hopper.")
 	}
+	CB.hopper -= m.Data.(float64) //ลดยอดเหรียญใน hopper
 	return nil
 }
 
@@ -147,6 +149,8 @@ func (ch *CoinHopper) CoinCount() error {
 	}
 	H.Hw.Send <- m
 	m = <-ch.Send
+	// todo ปรับยอดคงเหลือของเหรียญแต่ละขนาด
+	// m.Data
 	return nil
 }
 
