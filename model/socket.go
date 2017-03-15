@@ -56,6 +56,7 @@ func (c *Socket) Read() {
 	}
 }
 
+// Write() ส่วนเขียนข้อความไปยัง WebSocket
 func (c *Socket) Write() {
 	//interrupt := make(chan os.Signal, 1)
 	//signal.Notify(interrupt, os.Interrupt)
@@ -72,17 +73,15 @@ func (c *Socket) Write() {
 				return
 			}
 			c.Conn.WriteJSON(m)
-			fmt.Printf("====*Socket.Conn.WriteJSON()====> %s:%v\n%v\n%v", c.Name, c.Conn.RemoteAddr(), m, m.Data)
+			fmt.Printf("\n====*Socket.Conn.WriteJSON()====> %s:%v\nMessage:========\n%vData:========\n%v\n", c.Name, c.Conn.RemoteAddr(), m, m.Data)
 		}
 	}
 }
 
 // WebEvent แยกเส้นทาง Message Request จาก Web Frontend โดยแยกตาม Command ต่างๆ
 func (c *Socket) WebEvent() {
-	// ปกติแล้ว  Web จะไม่สั่งการ Device ตรงๆ
-	// จะสั่งผ่าน Host ให้ Host ทำงานระดับล่างแทน
-	// แต่ตรงนี้มีไว้สำหรับการ Debug ผ่าน Web GUI
-	//fmt.Println("Request message from Web")
+	// ปกติแล้ว  Web จะไม่สั่งการ Device ตรงๆ แต่จะสั่งผ่าน Host ให้ Host ทำงานระดับล่างแทน
+	// แต่ตรงนี้มีไว้สำหรับการ Debug ผ่าน Web GUI fmt.Println("Request message from Web")
 	switch c.Msg.Command {
 	case "onhand":
 		PM.sendOnHand(c)
