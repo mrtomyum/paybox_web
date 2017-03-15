@@ -28,20 +28,15 @@ func (p *Printer) Event(c *Socket) {
 func (p *Printer) Print(s *Sale) error {
 	fmt.Println("p.Print() run")
 	//data, _ := p.makeSaleSlip(s)
-	data := `{
-    "device":"printer",
-    "type": "request",
-    "command": "do_single",
-    "result": null,
-    "data": {
+	data := `
+ 	{
         "action": "printline",
         "action_data":   "สวัสดีครับ"
-    }
-}
-`
+    	}
+	`
 	m := &Message{
 		Device:  "printer",
-		Command: "do_group",
+		Command: "do_single",
 		Type:    "request",
 		Data:    data,
 	}
