@@ -46,7 +46,7 @@ func (p *Printer) Print(s *Sale) error {
 		Data:    data,
 	}
 	H.Hw.Send <- m
-	fmt.Println("1. สั่งพิมพ์ รอ Priner ตอบสนอง")
+	fmt.Println("1. สั่งพิมพ์ รอ Priner ตอบสนอง...")
 	m = <-p.Send
 	if !m.Result {
 		return errors.New("Err: printer error.")
