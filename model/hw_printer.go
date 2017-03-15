@@ -26,11 +26,7 @@ func (p *Printer) Event(c *Socket) {
 
 func (p *Printer) Print(s *Sale) error {
 	fmt.Println("p.Print() run")
-	data, err := p.makeSaleSlip(s)
-	if err != nil {
-		return err
-	}
-
+	data, _ := p.makeSaleSlip(s)
 	m := &Message{
 		Device:  "printer",
 		Command: "do_group",
@@ -122,7 +118,6 @@ func (p *Printer) makeSaleSlip(s *Sale) (data string, err error) {
 					"feed": 90
 				}
 			}]`
-
 	data = body
 	//fmt.Println("data=", data)
 	return data, nil
