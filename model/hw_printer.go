@@ -26,11 +26,10 @@ func (p *Printer) Event(c *Socket) {
 func (p *Printer) makeTicket(s *Sale) doGroup {
 	var g doGroup
 	g.setTextSize(0)
-	g.printLine("===================< Logo >======================")
-	g.printLine("|                                               |")
-	g.printLine("|                                               |")
-	g.printLine("|                                               |")
 	g.printLine("============ ร้านกาแฟ สุขใจขายได้สบายดี =============")
+	g.printLine("|                                               |")
+	g.printLine("|                                               |")
+	g.printLine("===================< Logo >======================")
 
 	ss := s.SaleSubs
 	for _, sub := range ss {
@@ -45,6 +44,7 @@ func (p *Printer) makeTicket(s *Sale) doGroup {
 	sum := fmt.Sprintf("%6s%4.2f%6s%6.2f%6s%6.2f", "Total:", s.Total, "Payment:", s.Pay, "Change:", s.Change)
 	g.print(sum)
 	g.newline()
+	g.printLine("================================================")
 	g.printBarcode("CODE39", "12345678")
 	g.paperCut("full_cut", 90)
 	fmt.Println(&g.actions)
