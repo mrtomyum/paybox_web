@@ -53,7 +53,7 @@ func (pm *Payment) init() {
 	//pm.total = 0
 	//pm.remain =0
 	//pm.receivedCh = make(chan *Message)
-
+	//
 	AB = &AcceptedBill{
 		B20:   true,
 		B50:   true,

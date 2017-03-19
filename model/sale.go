@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"io/ioutil"
 	"encoding/json"
+	"github.com/jmoiron/sqlx"
 )
 
 // Sale เป็นหัวเอกสารขายแต่ละครั้ง
@@ -26,14 +27,15 @@ type Sale struct {
 
 // SaleSub เป็นรายการสินค้าที่ขายใน Sale
 type SaleSub struct {
-	SaleId   uint64 `json:"sale_id" db:"sale_id"`
-	Line     uint64 `json:"line"`
-	ItemId   uint64  `json:"item_id" db:"item_id"`
-	ItemName string  `json:"item_name" db:"item_name"`
-	PriceId  int     `json:"price_id" db:"price_id"`
-	Price    float64 `json:"price"`
-	Qty      int     `json:"qty"`
-	Unit     string `json:"unit"`
+	SaleId    uint64 `json:"sale_id" db:"sale_id"`
+	Line      uint64 `json:"line"`
+	ItemId    uint64  `json:"item_id" db:"item_id"`
+	ItemName  string  `json:"item_name" db:"item_name"`
+	PriceId   int `json:"price_id" db:"price_id"`
+	PriceName string `json:"price_name" db:"price_name"`
+	Price     float64 `json:"price"`
+	Qty       int     `json:"qty"`
+	Unit      string `json:"unit"`
 }
 
 // Payment เก็บรายละเอียดการชำระเงิน เหรียญ ธนบัตร หรือในอนาคตจะเพิ่มบัตรเครดิต และ Cashless Payment ได้ด้วย
@@ -52,41 +54,26 @@ type SalePay struct {
 	TH1000B int `json:"th1000b,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
 }
 
-//func (s *Sale) New() error {
-//	payment := &Payment{
-//		coin:       0,
-//		bill:       0,
-//		billEscrow: 0,
-//		total:      0,
-//		remain:     0,
-//		receivedCh: make(chan *Message),
-//	}
-//	// Payment
-//	err := payment.New(s)
-//	if err != nil {
-//		log.Println(err)
-//		return err
-//	}
-//	// พิมพ์ตั๋ว และใบเสร็จ
-//	err = P.Print(s)
-//	if err != nil {
-//		log.Println(err)
-//		return err
-//	}
-//	// Post ขึ้น Cloud ถ้าผิดพลาดจะได้บันทึกสถานะใน Save() เพื่อรอ Post ใหม่
-//	err = s.Post()
-//	if err != nil {
-//		log.Println(err)
-//		return err
-//	}
-//	// บันทึกลง Local Storage
-//	err = s.Save()
-//	if err != nil {
-//		log.Println(err)
-//		return err
-//	}
-//	return nil
-//}
+// *ไม่น่าได้ใช้* GetSaleSubFK เพราะ WebUI อาจส่งชื่อสินค้า/ราคามาผิด เลยตรวจใหม่ซ้ำ
+func (s *Sale) GetSaleSubFK(db *sqlx.DB) error {
+	sql1 := `SELECT name FROM item WHERE id = ? LIMIT 1`
+	sql2 := `SELECT name FROM price WHERE id = ? LIMIT 1`
+	var name string
+	ss := s.SaleSubs
+	for _, sub := range ss {
+		err := db.Get(&name, sql1, sub.ItemId)
+		if err != nil {
+			return err
+		}
+		sub.ItemName = name
+		err = db.Get(&name, sql2, sub.PriceId)
+		if err != nil {
+			return err
+		}
+		sub.PriceName = name
+	}
+	return nil
+}
 
 func (s *Sale) Post() error {
 	fmt.Println("method *Sale.Post()")

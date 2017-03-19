@@ -3,7 +3,6 @@ package model
 import (
 	"fmt"
 	"errors"
-	"strconv"
 )
 
 type Printer struct {
@@ -24,15 +23,28 @@ func (p *Printer) Event(c *Socket) {
 	}
 }
 
-func (p *Printer) doTicket(s *Sale) doGroup {
+func (p *Printer) makeTicket(s *Sale) doGroup {
 	var g doGroup
-	g.setTextSize(1)
-	g.printLine("ร้านกาแฟขายได้สบายดี")
 	g.setTextSize(0)
-	g.printLine("ยินดีต้อนรับ")
-	sale := strconv.FormatFloat(s.Total, 'f', 2, 64)
-	text := "มูลค่าขาย" + sale + "บาท"
-	g.printLine(text)
+	g.printLine("===================< Logo >======================")
+	g.printLine("|                                               |")
+	g.printLine("|                                               |")
+	g.printLine("|                                               |")
+	g.printLine("============ ร้านกาแฟ สุขใจขายได้สบายดี =============")
+
+	ss := s.SaleSubs
+	for _, sub := range ss {
+		item := fmt.Sprintf("%2dx%-17s%5s", sub.Qty, sub.ItemName, sub.PriceName)
+		detail := fmt.Sprintf("@%3.2f฿ = %4.2f฿", sub.Price, float64(sub.Qty)*sub.Price)
+		g.setTextSize(1)
+		g.printLine(item)
+		g.setTextSize(0)
+		g.print(detail)
+		g.newline()
+	}
+	sum := fmt.Sprintf("%6s%4.2f%6s%6.2f%6s%6.2f", "Total:", s.Total, "Payment:", s.Pay, "Change:", s.Change)
+	g.print(sum)
+	g.newline()
 	g.printBarcode("CODE39", "12345678")
 	g.paperCut("full_cut", 90)
 	fmt.Println(&g.actions)
@@ -41,7 +53,7 @@ func (p *Printer) doTicket(s *Sale) doGroup {
 
 func (p *Printer) Print(s *Sale) error {
 	fmt.Println("p.Print() run")
-	data := p.doTicket(s)
+	data := p.makeTicket(s)
 	//data := gin.H{"action": "printline", "action_data": "นี่คือคูปอง"}
 	m := &Message{
 		Device:  "printer",
