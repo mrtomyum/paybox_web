@@ -24,21 +24,24 @@ func (p *Printer) Event(c *Socket) {
 	}
 }
 
-func (p *Printer) DoTicket(s *Sale) doGroup {
+func (p *Printer) doTicket(s *Sale) doGroup {
 	var g doGroup
+	g.setTextSize(1)
+	g.printLine("ร้านกาแฟขายได้สบายดี")
 	g.setTextSize(0)
-	g.printLine("ร้านกาแฟสบายดี ยินดีต้อนรับ")
+	g.printLine("ยินดีต้อนรับ")
 	sale := strconv.FormatFloat(s.Total, 'f', 2, 64)
 	text := "มูลค่าขาย" + sale + "บาท"
 	g.printLine(text)
-	g.paperCut("full_cut", 80)
-	fmt.Println(g.actions)
+	g.printBarcode("CODE39", "12345678")
+	g.paperCut("full_cut", 90)
+	fmt.Println(&g.actions)
 	return g
 }
 
 func (p *Printer) Print(s *Sale) error {
 	fmt.Println("p.Print() run")
-	data := p.DoTicket(s)
+	data := p.doTicket(s)
 	//data := gin.H{"action": "printline", "action_data": "นี่คือคูปอง"}
 	m := &Message{
 		Device:  "printer",
@@ -116,15 +119,12 @@ func (g *doGroup) newline() {
 }
 
 type barcode struct {
-	Type string
-	Data string
+	Type string `json:"type"`
+	Data string `json:"data"`
 }
 
 func (g *doGroup) printBarcode(t, d string) {
-	data := &barcode{
-		Type: t,
-		Data: d,
-	}
+	data := barcode{t, d}
 	a := &action{
 		Name: "print_barcode",
 		Data: data,
@@ -133,33 +133,28 @@ func (g *doGroup) printBarcode(t, d string) {
 }
 
 type qrCode struct {
-	Mag  int
-	Ect  int
-	Type string
-	Data string
+	Mag      int `json:"mag"`
+	Ecl      int `json:"ect"`
+	DataType string `json:"data_type"`
+	Data     string `json:"data"`
 }
 
-func (g *doGroup) printQr(m, e int, t, d string) {
-	data := &qrCode{
-		Mag:  m,
-		Ect:  e,
-		Type: t,
-		Data: d,
-	}
+func (g *doGroup) printQr(mag, ecl int, data_type, data string) {
+	d := qrCode{mag, ecl, data_type, data}
 	a := &action{
 		Name: "print_qr",
-		Data: data,
+		Data: d,
 	}
 	g.actions = append(g.actions, a)
 }
 
 type paperCut struct {
-	Type string
-	Feed int
+	Type string `json:"type"`
+	Feed int `json:"feed"`
 }
 
 func (g *doGroup) paperCut(t string, f int) {
-	data := &paperCut{
+	data := paperCut{
 		Type: t,
 		Feed: f,
 	}

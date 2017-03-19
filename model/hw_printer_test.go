@@ -5,7 +5,6 @@ import (
 	"github.com/mrtomyum/paybox_web/model"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
-	"golang.org/x/tools/go/gcimporter15/testdata"
 	"fmt"
 )
 
@@ -105,6 +104,6 @@ func init() {
 }
 
 func TestPrinter_doTicket(t *testing.T) {
-	x := p.DoTicket(s)
+	x := p.doTicket(s)
 	fmt.Println(x)
 }
