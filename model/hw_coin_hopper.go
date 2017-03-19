@@ -149,8 +149,14 @@ func (ch *CoinHopper) CoinCount() error {
 	}
 	H.Hw.Send <- m
 	m = <-ch.Send
-	// todo ปรับยอดคงเหลือของเหรียญแต่ละขนาด
-	// m.Data
+	if !m.Result {
+		return errors.New("Error response from command coin_hopper.coin_count")
+	}
+	data := m.Data.(map[string]interface{})
+	ch.C1 = data["coin_1"].(int)
+	ch.C2 = data["coin_2"].(int)
+	ch.C5 = data["coin_5"].(int)
+	ch.C10 = data["coin_10"].(int)
 	return nil
 }
 

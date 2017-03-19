@@ -78,13 +78,13 @@ func (p *Printer) makeRefund(value float64) error {
 	return nil
 }
 
-//===================================
-
+//=============== ACTION ====================
 type action struct {
 	Name string `json:"action"`
 	Data interface{} `json:"action_data"`
 }
 
+//=============== DO_GROUP ====================
 type doGroup struct {
 	actions []*action
 }
@@ -98,18 +98,12 @@ func (g *doGroup) print(s string) {
 }
 
 func (g *doGroup) printLine(s string) {
-	a := &action{
-		Name: "printline",
-		Data: s,
-	}
+	a := &action{"printline", s}
 	g.actions = append(g.actions, a)
 }
 
 func (g *doGroup) setTextSize(size int) {
-	a := &action{
-		Name: "set_text_size",
-		Data: size,
-	}
+	a := &action{"set_text_size", size}
 	g.actions = append(g.actions, a)
 }
 
@@ -118,6 +112,7 @@ func (g *doGroup) newline() {
 	g.actions = append(g.actions, a)
 }
 
+//=========== BARCODE =============
 type barcode struct {
 	Type string `json:"type"`
 	Data string `json:"data"`
@@ -132,6 +127,7 @@ func (g *doGroup) printBarcode(t, d string) {
 	g.actions = append(g.actions, a)
 }
 
+//=========== QR_CODE =============
 type qrCode struct {
 	Mag      int `json:"mag"`
 	Ecl      int `json:"ect"`
@@ -148,6 +144,7 @@ func (g *doGroup) printQr(mag, ecl int, data_type, data string) {
 	g.actions = append(g.actions, a)
 }
 
+//=========== PAPER_CUT =============
 type paperCut struct {
 	Type string `json:"type"`
 	Feed int `json:"feed"`
