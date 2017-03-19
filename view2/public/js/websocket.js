@@ -171,6 +171,7 @@
                    console.log("print success");
                 }else{
                     alertify.error(t['data']);
+                    $.mobile.changePage("#pageone");
                 }
             }
 

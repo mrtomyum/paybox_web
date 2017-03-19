@@ -5,6 +5,8 @@ import (
 	"github.com/mrtomyum/paybox_web/model"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
+	"golang.org/x/tools/go/gcimporter15/testdata"
+	"fmt"
 )
 
 var (
@@ -13,13 +15,13 @@ var (
 	BA *model.BillAcceptor
 	CA *model.CoinAcceptor
 	CH *model.CoinHopper
-	P  *model.Printer
+	p  *model.Printer
 	M  *model.MainBoard
 	PM *model.Payment
 	CB *model.CashBox
 	AV *model.AcceptedValue
 	AB *model.AcceptedBill
-	S  *model.Sale
+	s  *model.Sale
 )
 
 func init() {
@@ -42,7 +44,7 @@ func init() {
 		Status: "ok",
 		Send:   make(chan *model.Message),
 	}
-	P = &model.Printer{
+	p = &model.Printer{
 		Status: "ok",
 		Send:   make(chan *model.Message),
 	}
@@ -70,35 +72,39 @@ func init() {
 		B500:  true,
 		B1000: true,
 	}
-	S = &model.Sale{
-		HostId: "001",
-		Total:  0,
-		Pay:    0,
-		Change: 0,
+	s = &model.Sale{
+		HostId:   "001",
+		Total:    90,
+		Pay:      100,
+		Change:   10,
+		Type:     "TICKET",
+		IsPosted: false,
 	}
-
-	//r := gin.Default()
-	//app := ctrl.Router(r)
-	//go ctrl.CallDev()
-	//app.Run(":8888")
+	ss1 := &model.SaleSub{
+		Line:     1,
+		ItemId:   12345,
+		ItemName: "คาปูชิโน่ร้อน",
+		PriceId:  43,
+		Price:    35.00,
+		Qty:      2,
+		Unit:     "แก้ว",
+	}
+	ss2 := &model.SaleSub{
+		Line:     1,
+		ItemId:   12345,
+		ItemName: "คาปูชิโน่ร้อน",
+		PriceId:  43,
+		Price:    35.00,
+		Qty:      2,
+		Unit:     "แก้ว",
+	}
+	ss := make([]*model.SaleSub, 10)
+	ss = append(ss, ss1, ss2)
+	s.SaleSubs = ss
 
 }
 
-func TestPrint(t *testing.T) {
-	data := `[
-        {
-            "action": "print",
-            "action_data": "Hello World"
-        },
-        {
-        "action": "print",
-        "action_data": "Hello World"
-        }
-    ]`
-
-	err := P.PrintTest(data)
-	if err != nil {
-		t.Log(err.Error())
-	}
-
+func TestPrinter_doTicket(t *testing.T) {
+	x := p.DoTicket(s)
+	fmt.Println(x)
 }

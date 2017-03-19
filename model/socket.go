@@ -11,10 +11,10 @@ import (
 )
 
 type Socket struct {
-	Conn *websocket.Conn
-	Send chan *Message
 	Name string
+	Conn *websocket.Conn
 	Msg  *Message
+	Send chan *Message
 }
 
 type Message struct {
@@ -73,7 +73,7 @@ func (c *Socket) Write() {
 				return
 			}
 			c.Conn.WriteJSON(m)
-			fmt.Printf("\n====*Socket.Conn.WriteJSON()====> %s:%v\nMessage:========\n%v\nData:========\n%v\n", c.Name, c.Conn.RemoteAddr(), m, m.Data)
+			fmt.Printf("\n====*Socket.Conn.WriteJSON()====> %s:%v Message:==>\n%v\n", c.Name, c.Conn.RemoteAddr(), m)
 		}
 	}
 }
