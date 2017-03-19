@@ -91,9 +91,11 @@ func init() {
 		Change: 0,
 	}
 	i := new(Item)
+	Items = make([]*Item, 100)
 	var err error
 	Items, err = i.GetAll()
 	if err != nil {
 		log.Println(err.Error())
 	}
+
 }

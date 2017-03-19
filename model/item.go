@@ -3,7 +3,6 @@ package model
 import (
 	"log"
 	"fmt"
-	"github.com/jmoiron/sqlx"
 )
 
 type Item struct {
