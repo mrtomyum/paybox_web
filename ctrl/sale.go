@@ -29,7 +29,7 @@ func NewSale(c *gin.Context) {
 	}
 
 	// พิมพ์ตั๋ว และใบเสร็จ
-	err = model.P.Print(sale)
+	err = model.P.PrintTicket(sale)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusConflict, gin.H{"command": "print", "result": "error", "message": err.Error()})

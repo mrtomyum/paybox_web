@@ -51,7 +51,8 @@ func (p *Printer) makeTicket(s *Sale) doGroup {
 	return g
 }
 
-func (p *Printer) Print(s *Sale) error {
+// Print() รับค่า Sale แล้วพิมพ์ฟอร์มที่กำหนด ให้
+func (p *Printer) PrintTicket(s *Sale) error {
 	fmt.Println("p.Print() run")
 	data := p.makeTicket(s)
 	//data := gin.H{"action": "printline", "action_data": "นี่คือคูปอง"}

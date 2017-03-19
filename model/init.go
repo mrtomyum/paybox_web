@@ -4,21 +4,23 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
 	"os"
+	"log"
 )
 
 var (
-	db *sqlx.DB
-	H  *Host
-	BA *BillAcceptor
-	CA *CoinAcceptor
-	CH *CoinHopper
-	P  *Printer
-	MB *MainBoard
-	PM *Payment
-	CB *CashBox
-	AV *AcceptedValue
-	AB *AcceptedBill
-	S  *Sale
+	db    *sqlx.DB
+	H     *Host
+	BA    *BillAcceptor
+	CA    *CoinAcceptor
+	CH    *CoinHopper
+	P     *Printer
+	MB    *MainBoard
+	PM    *Payment
+	CB    *CashBox
+	AV    *AcceptedValue
+	AB    *AcceptedBill
+	S     *Sale
+	Items []*Item
 )
 
 func init() {
@@ -87,5 +89,11 @@ func init() {
 		Total:  0,
 		Pay:    0,
 		Change: 0,
+	}
+	i := new(Item)
+	var err error
+	Items, err = i.GetAll()
+	if err != nil {
+		log.Println(err.Error())
 	}
 }

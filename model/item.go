@@ -3,6 +3,7 @@ package model
 import (
 	"log"
 	"fmt"
+	"github.com/jmoiron/sqlx"
 )
 
 type Item struct {
@@ -61,10 +62,10 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 		//fmt.Println("case:", l.Id, l.Name)
 		err := db.Select(&items, sql, id)
 		if err != nil {
-			log.Println("Error select items")
+			log.Println("Error select Items")
 			return nil, err
 		}
-		fmt.Println("items:", items)
+		fmt.Println("Items:", items)
 		// query Size{}
 		for _, i := range items {
 			prices := []*Price{}
@@ -80,4 +81,13 @@ func (i *Item) ByMenuId(id int64) ([]*Lang, error) {
 		l.Items = items
 	}
 	return langs, nil
+}
+
+func (i *Item) GetAll() (items []*Item, err error) {
+	sql := `SELECT * FROM item`
+	err = db.Select(&items, sql)
+	if err != nil {
+		return nil, err
+	}
+	return items, err
 }

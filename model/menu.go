@@ -7,7 +7,7 @@ type Lang struct {
 	Name   string  `json:"lang_name"`
 	Menus  []*Menu `json:"menus,omitempty"`
 	MenuId int     `json:"menu_id,omitempty"`
-	Items  []*Item `json:"items,omitempty"`
+	Items  []*Item `json:"Items,omitempty"`
 }
 
 type Menu struct {

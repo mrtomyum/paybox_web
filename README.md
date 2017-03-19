@@ -6,24 +6,24 @@ Paybox Ticket Terminal software Service and Application written in Qt5 and inter
 https://docs.google.com/document/d/1OfTsGxqN9QS4xgPgSkZJoN2dK2tgUIa_Cke57Ye86uo/edit?usp=sharing
 
 ## Design
-                 ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐
-                 │               Paybox Cloud                │
-                 │               Java Spring                 │
-                 └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘
-                             ▲                      ▲
-                             │                      │
+                 ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─  ── ─ ─ ─ ┐
+                 │                Paybox Cloud                 │
+                 │                Java Spring                  │
+                 └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘
+                             ▲                       ▲
+                             │                       │
                              ▼                      ▼
-                 ┌───────────────────────┐ ┌─────────────────┐
-                 │   Paybox Terminal     │ │  Paybox Mobile  │
-                 │        Golang         │ │     HTML/JS     │
-                 └───────────────────────┘ └─────────────────┘
-                 ┌──────────┐ ┌──────────┐
-                 │  Web UI  │ │  Divices │
-                 │  HTML/JS │ │  Qt/C++  │    
-                 └──────────┘ └──────────┘ 
-                 ┌──────────┐ ┌──────────┐ 
-                 │   User   │ │ Hardware │     
-                 └──────────┘ └──────────┘ 
+                 ┌─────────────────────────┐ ┌─────────────────┐
+                 │    Paybox WEB_SERICE    │ │  Paybox Mobile  │
+                 │         Golang          │ │     HTML/JS     │
+                 └─────────────────────────┘ └─────────────────┘
+                 ┌──────────┐ ┌────────────┐
+                 │  Web UI  │ │ HW_SERVICE │
+                 │  HTML/JS │ │   Qt/C++   │
+                 └──────────┘ └────────────┘
+                 ┌──────────┐ ┌────────────┐
+                 │   User   │ │  Hardware  │
+                 └──────────┘ └────────────┘
 
 
 ## MVP Feature
@@ -31,12 +31,12 @@ https://docs.google.com/document/d/1OfTsGxqN9QS4xgPgSkZJoN2dK2tgUIa_Cke57Ye86uo/
   + Browse Item from Categories, pictures.
   + Or Short-cut select item by press on-screen numeric button. (Client must print a list of product with NUMBER for customer)
   + [Ux] User select less than 3 click must found target item.
-  + User choose size and quantity then select other item or proceed to check-out.
-  + Display 3 language in same page [Thai, Eng, Chinese].
+  + User choose size(price) and quantity then ~~select other item and~~ proceed to check-out with no other item.
+  + Display 3 language for selection in first page. [Thai, Eng, Chinese].
   + Voice greeting and sound effect when user selecting.
  
 + Local Storage 
-  + DB SQlite3 
+  + DB Sqlite3
   + Local pictures and media file.
   
 + Initialization on boot or manual or push command for "System Health Check-up" such as...
