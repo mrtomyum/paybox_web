@@ -3,7 +3,6 @@ package model
 import (
 	"fmt"
 	"errors"
-	"github.com/gin-gonic/gin"
 	"strconv"
 )
 
@@ -25,9 +24,8 @@ func (p *Printer) Event(c *Socket) {
 	}
 }
 
-func (p *Printer) DoTicket(s *Sale) group {
-
-	var g group
+func (p *Printer) DoTicket(s *Sale) doGroup {
+	var g doGroup
 	g.setTextSize(0)
 	g.printLine("ร้านกาแฟสบายดี ยินดีต้อนรับ")
 	sale := strconv.FormatFloat(s.Total, 'f', 2, 64)
@@ -46,7 +44,7 @@ func (p *Printer) Print(s *Sale) error {
 		Device:  "printer",
 		Command: "do_group",
 		Type:    "request",
-		Data:    data,
+		Data:    data.actions,
 	}
 
 	H.Hw.Send <- m
@@ -79,75 +77,95 @@ func (p *Printer) makeRefund(value float64) error {
 
 //===================================
 
-type group struct {
-	actions []gin.H
+type action struct {
+	Name string `json:"action"`
+	Data interface{} `json:"action_data"`
 }
 
-func (g *group) print(t string) {
-	a := gin.H{
-		"action":      "print",
-		"action_data": t,
+type doGroup struct {
+	actions []*action
+}
+
+func (g *doGroup) print(s string) {
+	a := &action{
+		Name: "print",
+		Data: s,
 	}
 	g.actions = append(g.actions, a)
 }
 
-func (g *group) printLine(s string) {
-	a := gin.H{
-		"action":      "printline",
-		"action_data": s,
+func (g *doGroup) printLine(s string) {
+	a := &action{
+		Name: "printline",
+		Data: s,
 	}
 	g.actions = append(g.actions, a)
 }
 
-func (g *group) setTextSize(size int) {
-	a := gin.H{
-		"action":      "set_text_size",
-		"action_data": size,
+func (g *doGroup) setTextSize(size int) {
+	a := &action{
+		Name: "set_text_size",
+		Data: size,
 	}
 	g.actions = append(g.actions, a)
 }
 
-func (g *group) newline() {
-	a := gin.H{"action": "newline"}
+func (g *doGroup) newline() {
+	a := &action{Name: "newline"}
 	g.actions = append(g.actions, a)
 }
 
-func (g *group) printBarcode(t, d string) {
-	data := gin.H{
-		"type": t,
-		"data": d,
-	}
-	a := gin.H{
-		"action":      "print_barcode",
-		"action_data": data,
-	}
-	g.actions = append(g.actions, a)
+type barcode struct {
+	Type string
+	Data string
 }
 
-func (g *group) printQr(m, e int, t, d string) {
-	data := gin.H{
-		"mag":  m,
-		"ect":  e,
-		"type": t,
-		"data": d,
+func (g *doGroup) printBarcode(t, d string) {
+	data := &barcode{
+		Type: t,
+		Data: d,
 	}
-	a := gin.H{
-		"action":      "print_qr",
-		"action_data": data,
+	a := &action{
+		Name: "print_barcode",
+		Data: data,
 	}
 	g.actions = append(g.actions, a)
 }
 
-func (g *group) paperCut(t string, f int) {
-	data := gin.H{
-		"type": t,
-		"feed": f,
+type qrCode struct {
+	Mag  int
+	Ect  int
+	Type string
+	Data string
+}
+
+func (g *doGroup) printQr(m, e int, t, d string) {
+	data := &qrCode{
+		Mag:  m,
+		Ect:  e,
+		Type: t,
+		Data: d,
 	}
-	a := gin.H{
-		"action":      "paper_cut",
-		"action_data": data,
+	a := &action{
+		Name: "print_qr",
+		Data: data,
 	}
 	g.actions = append(g.actions, a)
 }
 
+type paperCut struct {
+	Type string
+	Feed int
+}
 
+func (g *doGroup) paperCut(t string, f int) {
+	data := &paperCut{
+		Type: t,
+		Feed: f,
+	}
+	a := &action{
+		Name: "paper_cut",
+		Data: data,
+	}
+	g.actions = append(g.actions, a)
+}
