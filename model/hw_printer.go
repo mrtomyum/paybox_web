@@ -19,7 +19,21 @@ func (p *Printer) Event(c *Socket) {
 	case "machine_id", "do_single", "do_group":
 		p.Send <- c.Msg
 	case "near_end": // Event แจ้งเตือนกระดาษใกล้หมด
+		m := &Message{
+			Device:  "web",
+			Command: "near_end",
+			Type:    "event",
+			Data:    "Paper near end // คำเตือน กระดาษใกล้หมด โปรดแจ้งพนักงาน",
+		}
+		H.Web.Send <- m
 	case "no_paper": // Event แจ้งเตือนกระดาษหมดแล้ว
+		m := &Message{
+			Device:  "web",
+			Command: "no_paper",
+			Type:    "event",
+			Data:    "Paper run out// คำเตือน กระดาษหมด!! กรุณาแจ้งพนักงานให้เปลี่ยนกระดาษ",
+		}
+		H.Web.Send <- m
 	}
 }
 
@@ -27,7 +41,6 @@ func (p *Printer) makeTicket(s *Sale) doGroup {
 	var g doGroup
 	g.setTextSize(0)
 	g.printLine("============ ร้านกาแฟ สุขใจขายได้สบายดี =============")
-	g.printLine("|                                               |")
 	g.printLine("|                                               |")
 	g.printLine("===================< Logo >======================")
 
