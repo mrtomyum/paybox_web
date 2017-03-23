@@ -68,7 +68,7 @@ func (pm *Payment) init() {
 }
 
 // *Payment New() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
-func (pm *Payment) New(sale *Sale) error {
+func (pm *Payment) New(s *Sale) error {
 
 	// ตรวจสอบ WebSocket Connection?
 	switch {
@@ -78,22 +78,25 @@ func (pm *Payment) New(sale *Sale) error {
 		log.Println("WEB UI websocket ยังไม่ได้เชื่อมต่อ")
 	}
 
-	if sale.Total == 0 {
+	if s.Total == 0 {
 		return errors.New("Sale Total is 0 cannot do payment.")
 	}
 	pm.init()
-	pm.remain = sale.Total
+	pm.remain = s.Total
+	sp := new(SalePay)
+	s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
 
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน และจะสะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลา
 	// จนกว่าจะได้ยอด Payment >= Sale
-	for pm.total < sale.Total {
-		pm.checkAcceptedBill(sale)
+	for pm.total < s.Total {
+		pm.checkAcceptedBill(s)
 		pm.displayAcceptedBill() // displayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 		fmt.Println("1. Waiting payment form BA or CA")
 		msg := <-pm.receivedCh // Waiting for message from payment device.
+		// Todo: ให้ Cancel() ทำการส่ง pm.receivedCh เข้ามาด้วย msg.command: "cancel" แล้วทำการตรวจ if cancel ให้ break ออกจาก loop
 
-		fmt.Printf("2. ยอดขาย = %v รับจาก = %v, Payment = %v \n", sale.Total, msg.Device, msg.Data)
+		fmt.Printf("2. ยอดขาย = %v รับจาก = %v, Payment = %v \n", s.Total, msg.Device, msg.Data)
 		if msg.Device == "bill_acc" { //ถ้าเป็นธนบัตร
 			err := pm.rejectUnacceptedBill()
 			if err != nil {
@@ -103,11 +106,17 @@ func (pm *Payment) New(sale *Sale) error {
 			if err != nil {
 				return err
 			}
-			fmt.Printf("เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v", pm.total, sale.Total, pm.remain)
+			fmt.Printf("เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v", pm.total, s.Total, pm.remain)
 			pm.sendOnHand(H.Web)
 		}
+		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
+		err := sp.Add(msg)
+		if err != nil {
+			return err
+		}
 	}
-	change := pm.total - sale.Total
+	// ทอนเงิน
+	change := pm.total - s.Total
 	if change > 0 { //ถ้าต้องทอนเงิน
 		fmt.Println("pm.change()")
 		err := pm.change(change)

@@ -47,7 +47,8 @@ func (mb *MainBoard) IsOpen() (bool, error) {
 	}
 }
 
-func (mb *MainBoard) IsOnline() (bool, error) {
+// IsOnline() ตรวจเช็คสถานะ Internet และ Server Endpoint ผ่าน Hardware 3G Module
+func (mb *MainBoard) IsOnline() bool {
 	m := &Message{
 		Device:  "mainboard",
 		Type:    "request",
@@ -56,14 +57,24 @@ func (mb *MainBoard) IsOnline() (bool, error) {
 	H.Hw.Send <- m
 	m = <-mb.Send
 	if !m.Result {
-		return false, errors.New("Error get 3g status")
+		return false
 	}
-	switch m.Data {
-	case "offline":
-		return false, nil
-	case "online":
-		return true, nil
-	default:
-		return false, errors.New("Abnormal Message.Data")
+
+	// Todo: Check Server Endpoint response this request.
+	var response bool
+	// Try send REST req.
+	// if no response for within timeout sec. then return false.
+
+	switch {
+	case m.Data == "offline":
+		return false
+	case m.Data == "online" && !response:
+		return false
 	}
+	return true
+}
+
+func (mb *MainBoard) GetMachineId() string {
+	mb.machineId = "xxx" // todo: implement this.
+	return ""
 }

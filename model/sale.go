@@ -22,7 +22,7 @@ type Sale struct {
 	Type     string `json:"type" db:"type"`
 	IsPosted bool `json:"is_posted" db:"is_posted"`
 	SaleSubs []*SaleSub `json:"sale_subs"`
-	SalePay  SalePay
+	SalePay  *SalePay
 }
 
 // SaleSub เป็นรายการสินค้าที่ขายใน Sale
@@ -36,22 +36,6 @@ type SaleSub struct {
 	Price     float64 `json:"price"`
 	Qty       int     `json:"qty"`
 	Unit      string `json:"unit"`
-}
-
-// Payment เก็บรายละเอียดการชำระเงิน เหรียญ ธนบัตร หรือในอนาคตจะเพิ่มบัตรเครดิต และ Cashless Payment ได้ด้วย
-type SalePay struct {
-	SaleId  int64
-	TH025C  int `json:"th025c,omitempty"`  // จำนวนเหรียญ 25 สตางค์
-	TH050C  int `json:"th050c,omitempty"`  // จำนวนเหรียญ 50 สตางค์
-	TH1C    int `json:"th1c,omitempty"`    // จำนวนเหรียญ 1 บาท
-	TH2C    int `json:"th2c,omitempty"`    // จำนวนเหรียญ 2 บาท
-	TH5C    int `json:"th5c,omitempty"`    // จำนวนเหรียญ 5 บาท
-	TH10C   int `json:"th10c,omitempty"`   // จำนวนเหรียญ 10 บาท
-	TH20B   int `json:"th20b,omitempty"`   // จำนวนธนบัตรใบละ 20 บาท
-	TH50B   int `json:"th50b,omitempty"`   // จำนวนธนบัตรใบละ 50 บาท
-	TH100B  int `json:"th100b,omitempty"`  // จำนวนธนบัตรใบละ 100 บาท
-	TH500B  int `json:"th500b,omitempty"`  // จำนวนธนบัตรใบละ 500 บาท
-	TH1000B int `json:"th1000b,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
 }
 
 // *ไม่น่าได้ใช้* GetSaleSubFK เพราะ WebUI อาจส่งชื่อสินค้า/ราคามาผิด เลยตรวจใหม่ซ้ำ
@@ -78,16 +62,11 @@ func (s *Sale) GetSaleSubFK(db *sqlx.DB) error {
 func (s *Sale) Post() error {
 	fmt.Println("method *Sale.Post()")
 	// เช็คสถานะ Network และ Server ว่า IsNetOnline อยู่หรือไม่?
-	isOnline, err := MB.IsOnline()
-	if err != nil {
-		return err
-	}
-	if isOnline {
+	if !MB.IsOnline() {
 		fmt.Println("Offline => Save sale to disk")
 		return errors.New("Offline => Save sale to disk and try again.")
 	}
 
-	// Ping Server api.paybox.work:8080/ping
 	url := "http://paybox.work/api/v1/vending/sell"
 	fmt.Println("URL:>", url)
 
@@ -188,5 +167,47 @@ func (s *Sale) Save() error {
 	//	fmt.Println("Read database row->", v)
 	//}
 	//fmt.Println("*Sale.Save() completed, data->", sales)
+	return nil
+}
+
+// Payment เก็บรายละเอียดการชำระเงิน เหรียญ ธนบัตร หรือในอนาคตจะเพิ่มบัตรเครดิต และ Cashless Payment ได้ด้วย
+type SalePay struct {
+	SaleId int64
+	C025   int `json:"c025,omitempty"`  // จำนวนเหรียญ 25 สตางค์
+	C050   int `json:"c050,omitempty"`  // จำนวนเหรียญ 50 สตางค์
+	C1     int `json:"c1,omitempty"`    // จำนวนเหรียญ 1 บาท
+	C2     int `json:"c2,omitempty"`    // จำนวนเหรียญ 2 บาท
+	C5     int `json:"c5,omitempty"`    // จำนวนเหรียญ 5 บาท
+	C10    int `json:"c10,omitempty"`   // จำนวนเหรียญ 10 บาท
+	B20    int `json:"b20,omitempty"`   // จำนวนธนบัตรใบละ 20 บาท
+	B50    int `json:"b50,omitempty"`   // จำนวนธนบัตรใบละ 50 บาท
+	B100   int `json:"b100,omitempty"`  // จำนวนธนบัตรใบละ 100 บาท
+	B500   int `json:"b500,omitempty"`  // จำนวนธนบัตรใบละ 500 บาท
+	B1000  int `json:"b1000,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
+}
+
+func (sp *SalePay) Add(msg *Message) error {
+	switch msg.Data.(float64) {
+	case 1:
+		sp.C1++
+	case 2:
+		sp.C2++
+	case 5:
+		sp.C5++
+	case 10:
+		sp.C10++
+	case 20:
+		sp.B20++
+	case 50:
+		sp.B50++
+	case 100:
+		sp.B100++
+	case 500:
+		sp.B500++
+	case 1000:
+		sp.B1000++
+	default:
+		return errors.New("Received payment data incorrect. No payment media found. //น่าจะระบุประเภทธนบัตรหรือเหรียญผิด")
+	}
 	return nil
 }
