@@ -95,22 +95,26 @@ func (pm *Payment) New(s *Sale) error {
 		fmt.Println("1. Waiting payment form BA or CA")
 		msg := <-pm.receivedCh // Waiting for message from payment device.
 		// Todo: ให้ Cancel() ทำการส่ง pm.receivedCh เข้ามาด้วย msg.command: "cancel" แล้วทำการตรวจ if cancel ให้ break ออกจาก loop
-
 		fmt.Printf("2. ยอดขาย = %v รับจาก = %v, Payment = %v \n", s.Total, msg.Device, msg.Data)
+
+		value := msg.Data.(float64)
 		if msg.Device == "bill_acc" { //ถ้าเป็นธนบัตร
 			err := pm.rejectUnacceptedBill()
 			if err != nil {
 				return err
 			}
+			fmt.Printf("1. msg =%v msg.Data = %v\n", msg, msg.Data)
 			err = BA.Take(true) // ให้เก็บธนบัตรลงถัง
 			if err != nil {
 				return err
 			}
+			fmt.Printf("2. msg =%v msg.Data = %v\n", msg, msg.Data)
 			fmt.Printf("เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v", pm.total, s.Total, pm.remain)
 			pm.sendOnHand(H.Web)
+			fmt.Printf("3. msg =%v msg.Data = %v\n", msg, msg.Data)
 		}
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
-		err := sp.Add(msg)
+		err := sp.Add(value)
 		if err != nil {
 			return err
 		}
@@ -273,7 +277,7 @@ func (pm *Payment) rejectUnacceptedBill() error {
 			BA.Take(false)
 		}
 	default:
-		fmt.Println("ไม่เข้าเงื่อนไข")
+		fmt.Printf("มูลค่า BillEscrow = %v ไม่เข้าเงื่อนไข\n", pm.billEscrow)
 	}
 	fmt.Println("PM.billEscrow =", pm.billEscrow, "AcceptedBill = ", AB)
 	return nil

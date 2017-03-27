@@ -19,7 +19,6 @@ var (
 	CB    *CashBox
 	AV    *AcceptedValue
 	AB    *AcceptedBill
-	S     *Sale
 	Items []*Item
 )
 

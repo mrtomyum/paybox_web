@@ -128,7 +128,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 		Data:    action,
 	}
 	H.Hw.Send <- m
-	fmt.Printf("BA.Take() action = [%v] 1. รอคำตอบจาก bill Acceptor", action)
+	fmt.Printf("BA.Take() action = [%v] 1. รอคำตอบจาก bill Acceptor\n", action)
 
 	m = <-ba.Send
 	if !m.Result {
@@ -145,7 +145,7 @@ func (ba *BillAcceptor) Take(action bool) error {
 	PM.remain -= PM.billEscrow
 	PM.billEscrow = 0 // ล้างยอดเงินพัก
 
-	fmt.Println("BA.Take() SUCCSS msg =:", m)
+	fmt.Printf("BA.Take() SUCCSS msg %v m.Result= %v, m.Data= %v\n", m, m.Result, m.Data)
 	return nil
 }
 
@@ -156,9 +156,9 @@ func (ba *BillAcceptor) Received(c *Socket) {
 	// todo: ตรวจ AcceptedBill ถ้า false ให้ BA.Reject()
 
 	PM.billEscrow = received
-	fmt.Printf("รับธนบัตรมา %v Sale = %v, bill receivedCh = %v, bill Escrow=%v PM total= %v\n", PM.billEscrow, S.Total, PM.bill, PM.total)
+	//fmt.Printf("Sale = %v, bill receivedCh = %v, bill Escrow=%v PM total= %v\n",  S.Total, PM.bill, PM.billEscrow, PM.total)
 	PM.receivedCh <- c.Msg
-	PM.sendOnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web
+	//PM.sendOnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web **ไม่ควรแจ้งจุดนี้ ควรแจ้งเมื่อสั่ง Take แล้วเท่านั้น
 }
 
 func (ba *BillAcceptor) TimeOut(c *Socket) {

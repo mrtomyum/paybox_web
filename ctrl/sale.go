@@ -38,8 +38,13 @@ func NewSale(c *gin.Context) {
 
 	//model.P.PrintTest(data)
 
-	// ส่งยอดเงินพักในมือให้ web client ล้างยอดเงิน
-	//model.PM.OnHand(model.H.Web)
+	// ถ้า Net IsNetOnline และ Post สำเร็จ ให้บันทึก SQL sale.completed = true
+	fmt.Println("Save ยอดขายลง Local Storage")
+	err = s.Save()
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusConflict, gin.H{"command": "save", "result": "error", "message": err.Error()})
+	}
 
 	fmt.Println("Post ยอดขายขึ้น Cloud -> sale.Post()")
 	err = s.Post()
@@ -48,13 +53,6 @@ func NewSale(c *gin.Context) {
 		c.JSON(http.StatusConflict, gin.H{"command": "post", "result": "error", "message": err.Error()})
 	}
 
-	// ถ้า Net IsNetOnline และ Post สำเร็จ ให้บันทึก SQL sale.completed = true
-	fmt.Println("Save ยอดขายลง Local Storage")
-	err = s.Save()
-	if err != nil {
-		log.Println(err)
-		c.JSON(http.StatusConflict, gin.H{"command": "save", "result": "error", "message": err.Error()})
-	}
 
 	c.JSON(http.StatusOK, gin.H{"command": "sale", "result": "success", "data": s, })
 	fmt.Println("NewSale() COMPLETED, sale = ", s)

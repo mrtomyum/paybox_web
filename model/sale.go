@@ -186,8 +186,8 @@ type SalePay struct {
 	B1000  int `json:"b1000,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
 }
 
-func (sp *SalePay) Add(msg *Message) error {
-	switch msg.Data.(float64) {
+func (sp *SalePay) Add(value float64) error {
+	switch value {
 	case 1:
 		sp.C1++
 	case 2:

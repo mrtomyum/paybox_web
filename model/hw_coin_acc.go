@@ -89,12 +89,8 @@ func (ca *CoinAcceptor) Received(c *Socket) {
 	PM.remain -= received
 	CB.hopper += received
 	CB.total += received
-	//m := &Message{
-	//	Device:  "coin_acc",
-	//	Command: "received",
-	//	Data:    received,
-	//}
-	fmt.Printf("Sale = %v, coin receivedCh = %v, PM total= %v\n", S.Total, PM.coin, PM.total)
+
+	fmt.Println("coin receivedCh =", PM.coin, "PM total=", PM.total)
 	PM.receivedCh <- c.Msg
 	PM.sendOnHand(H.Web)
 }
