@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"errors"
+	"time"
 )
 
 type Printer struct {
@@ -40,10 +41,10 @@ func (p *Printer) Event(c *Socket) {
 func (p *Printer) makeTicket(s *Sale) doGroup {
 	var g doGroup
 	g.setTextSize(0)
-	g.printLine("============ ร้านกาแฟ สุขใจขายได้สบายดี =============")
-	g.printLine("|                                               |")
-	g.printLine("===================< Logo >======================")
-
+	g.printLine("============ ร้านกาแฟ สุขใจขายได้สบายดี ============")
+	var today = time.Now()
+	date := fmt.Sprintf("%s", today.Format(time.RFC3339Nano))
+	g.printLine(date)
 	ss := s.SaleSubs
 	for _, sub := range ss {
 		item := fmt.Sprintf("%2dx%-17s%5s", sub.Qty, sub.ItemName, sub.PriceName)
@@ -58,7 +59,7 @@ func (p *Printer) makeTicket(s *Sale) doGroup {
 	g.print(sum)
 	g.newline()
 	g.printLine("================================================")
-	g.printBarcode("CODE39", "12345678")
+	//g.printBarcode("CODE39", "12345678")
 	g.paperCut("full_cut", 90)
 	fmt.Println(&g.actions)
 	return g
