@@ -12,8 +12,8 @@ func main() {
 	// Dial to Device WS server
 	go ctrl.CallHw()
 	time.Sleep(1 * time.Second)
-	model.CA.Stop()
 	model.BA.Stop()
+	model.CA.Stop()
 	app.Run(":8888")
 	//app.RunTLS(
 	//	":8088",

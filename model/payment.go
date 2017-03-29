@@ -63,8 +63,8 @@ func (pm *Payment) init() {
 	}
 	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
 	fmt.Println("func New() -- 1. Start Payment device:")
-	CA.Start()
 	BA.Start()
+	CA.Start()
 }
 
 // *Payment New() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
