@@ -24,6 +24,8 @@ func NewSale(c *gin.Context) {
 
 	// Payment
 	err := model.PM.New(s)
+	//pm := new(model.Payment)
+	//err := pm.New(s)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusConflict, gin.H{"command": "payment", "result": "error", "message": err.Error()})

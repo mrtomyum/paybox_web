@@ -186,6 +186,7 @@ type SalePay struct {
 	B1000  int `json:"b1000,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
 }
 
+// *SalePay.Add() นี้แก้ไขชั่วคราว รับ value ของเงินเข้ามาบันทึก ซึ่งจะผิดพลาดได้หากมีการออกเหรียญ 20 บาท ระบบจะคิดว่าเป็น Bank20 (B20) หมด
 func (sp *SalePay) Add(value float64) error {
 	switch value {
 	case 1:

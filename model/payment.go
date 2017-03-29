@@ -47,13 +47,13 @@ type AcceptedBill struct {
 
 // init() ทำการรีเซ็ทค่าที่ควรถูกตั้งใหม่ทุกครั้งที่สร้าง Payment ใหม่ขึ้นมา
 func (pm *Payment) init() {
-	//pm.coin = 0
-	//pm.bill = 0
-	//pm.billEscrow = 0
-	//pm.total = 0
-	//pm.remain =0
-	//pm.receivedCh = make(chan *Message)
-	//
+	pm.coin = 0
+	pm.bill = 0
+	pm.billEscrow = 0
+	pm.total = 0
+	pm.remain = 0
+	pm.receivedCh = make(chan *Message)
+
 	AB = &AcceptedBill{
 		B20:   true,
 		B50:   true,
@@ -69,7 +69,6 @@ func (pm *Payment) init() {
 
 // *Payment New() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
 func (pm *Payment) New(s *Sale) error {
-
 	// ตรวจสอบ WebSocket Connection?
 	switch {
 	case H.Hw == nil:
@@ -82,6 +81,7 @@ func (pm *Payment) New(s *Sale) error {
 		return errors.New("Sale Total is 0 cannot do payment.")
 	}
 	pm.init()
+	defer close(pm.receivedCh)
 	pm.remain = s.Total
 	sp := new(SalePay)
 	s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
@@ -94,25 +94,29 @@ func (pm *Payment) New(s *Sale) error {
 		pm.displayAcceptedBill() // displayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 		fmt.Println("1. Waiting payment form BA or CA")
 		msg := <-pm.receivedCh // Waiting for message from payment device.
+
 		// Todo: ให้ Cancel() ทำการส่ง pm.receivedCh เข้ามาด้วย msg.command: "cancel" แล้วทำการตรวจ if cancel ให้ break ออกจาก loop
 		fmt.Printf("2. ยอดขาย = %v รับจาก = %v, Payment = %v \n", s.Total, msg.Device, msg.Data)
 
 		value := msg.Data.(float64)
-		if msg.Device == "bill_acc" { //ถ้าเป็นธนบัตร
+		switch msg.Device {
+		case "bill_acc": //ถ้าเป็นธนบัตร
+			pm.billEscrow = value
 			err := pm.rejectUnacceptedBill()
 			if err != nil {
 				return err
 			}
-			fmt.Printf("1. msg =%v msg.Data = %v\n", msg, msg.Data)
-			err = BA.Take(true) // ให้เก็บธนบัตรลงถัง
+			fmt.Printf("check msg #1. msg =%v msg.Data = %v\n", msg, msg.Data)
+			err = pm.takeBill(true) // ให้เก็บธนบัตรลงถัง
 			if err != nil {
 				return err
 			}
-			fmt.Printf("2. msg =%v msg.Data = %v\n", msg, msg.Data)
+			fmt.Printf("check msg #2. msg =%v msg.Data = %v\n", msg, msg.Data)
 			fmt.Printf("เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v", pm.total, s.Total, pm.remain)
-			pm.sendOnHand(H.Web)
-			fmt.Printf("3. msg =%v msg.Data = %v\n", msg, msg.Data)
+		case "coin_acc":
+			pm.takeCoin(value)
 		}
+		pm.sendOnHand(H.Web)
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
 		err := sp.Add(value)
 		if err != nil {
@@ -128,14 +132,9 @@ func (pm *Payment) New(s *Sale) error {
 			return err
 		}
 	}
-
 	// ล้างข้อมูล
 	fmt.Println("Reset Payment: ล้างยอดรับชำระ")
-	PM.coin = 0
-	PM.bill = 0
-	PM.billEscrow = 0
-	PM.remain = 0
-	PM.total = 0
+	pm.reset()
 	// ส่งยอดที่ล้างแล้วให้ WebUI
 	//pm.sendOnHand(H.Web)
 	// ปิดการรับชำระที่อุปกรณ์
@@ -181,7 +180,7 @@ func (pm *Payment) Cancel(c *Socket) {
 	if pm.total == 0 { // ไม่มีเงินรับชำระ
 		if pm.billEscrow != 0 { //มีธนบัตร
 			// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
-			err := BA.Take(false) // คายธนบัตร
+			err := pm.takeBill(false) // คายธนบัตร
 			if err != nil {
 				log.Println(err.Error())
 			}
@@ -199,7 +198,7 @@ func (pm *Payment) Cancel(c *Socket) {
 	CA.Stop()
 
 	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.coin ออกด้านหน้า
-	change := PM.total - PM.billEscrow
+	change := pm.total - pm.billEscrow
 	err := CH.PayoutByCash(change)
 	if err != nil {
 		log.Println(err.Error())
@@ -209,7 +208,7 @@ func (pm *Payment) Cancel(c *Socket) {
 	c.Msg.Device = "web"
 	c.Msg.Type = "response"
 	c.Msg.Result = true
-	c.Msg.Data = PM.coin
+	c.Msg.Data = pm.coin
 	c.Send <- c.Msg
 	pm.reset()
 }
@@ -258,23 +257,23 @@ func (pm *Payment) rejectUnacceptedBill() error {
 	switch pm.billEscrow {
 	case 20.0:
 		if !AB.B20 {
-			BA.Take(false)
+			pm.takeBill(false)
 		}
 	case 50.0:
 		if !AB.B50 {
-			BA.Take(false)
+			pm.takeBill(false)
 		}
 	case 100.0:
 		if !AB.B100 {
-			BA.Take(false)
+			pm.takeBill(false)
 		}
 	case 500:
 		if !AB.B500 {
-			BA.Take(false)
+			pm.takeBill(false)
 		}
 	case 1000:
 		if !AB.B1000 {
-			BA.Take(false)
+			pm.takeBill(false)
 		}
 	default:
 		fmt.Printf("มูลค่า BillEscrow = %v ไม่เข้าเงื่อนไข\n", pm.billEscrow)
@@ -285,7 +284,7 @@ func (pm *Payment) rejectUnacceptedBill() error {
 
 // refund() เมื่อต้องการพิมพ์ใบคืนเงิน ในกรณีเงินทอนไม่พอ
 func (pm *Payment) refund(total, billEscrow float64) error {
-	err := BA.Take(false) //คายธนบัตร
+	err := pm.takeBill(false) //คายธนบัตร
 	if err != nil {
 		return err
 	}
@@ -332,7 +331,7 @@ func (pm *Payment) coinShortage() error {
 	fmt.Println("NO -> 9 รับธนบัตรรึเปล่า")
 	if pm.billEscrow != 0 { // ถ้ามียอดรับล่าสุดเป็นธนบัตร (ที่ถูกพักไว้)
 		fmt.Println("YES -> 9.1 ถ้ารับด้วยธนบัตรให้คายธนบัตรคืนลูกค้า -- สั่งคายธนบัตร")
-		err := BA.Take(false) // คายธนบัตร (Reject)
+		err := pm.takeBill(false) // คายธนบัตร (Reject)
 		if err != nil {
 			return err
 		}
@@ -353,4 +352,45 @@ func (pm *Payment) reset() {
 	pm.billEscrow = 0
 	pm.coin = 0
 	pm.remain = 0
+}
+
+func (pm *Payment) takeBill(action bool) error {
+	if pm.billEscrow == 0 { // ถ้าไม่มีธนบัตรพักอยู่
+		return ErrNoBillEscrow
+	}
+	m := &Message{
+		Device:  "bill_acc",
+		Command: "take_reject",
+		Type:    "request",
+		Data:    action,
+	}
+	H.Hw.Send <- m
+	fmt.Printf("pm.takeBill() action = [%v] 1. รอคำตอบจาก bill Acceptor\n", action)
+
+	m = <-BA.Send
+	if !m.Result {
+		BA.Status = "Error cannot take bill"
+		log.Println("Error response from bill Acceptor!")
+		return errors.New("Error bill Acceptor cannot take bill")
+	}
+
+	// อัพเดตยอดเงินสดในตู้ด้วย
+	CB.bill += pm.billEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
+	CB.total += pm.billEscrow // เพิ่มยอดรวมของ CashBox
+	pm.bill += pm.billEscrow
+	pm.total += pm.billEscrow
+	pm.remain -= pm.billEscrow
+	pm.billEscrow = 0 // ล้างยอดเงินพัก
+
+	fmt.Printf("BA.takeBill() SUCCSS msg %v m.Result= %v, m.Data= %v\n", m, m.Result, m.Data)
+	return nil
+}
+
+func (pm *Payment) takeCoin(value float64) {
+	pm.coin += value
+	pm.total += value
+	pm.remain -= value
+	CB.hopper += value
+	CB.total += value
+	fmt.Println("coin receivedCh =", pm.coin, "pm total=", pm.total)
 }

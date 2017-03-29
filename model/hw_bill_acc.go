@@ -116,52 +116,45 @@ func (ba *BillAcceptor) Stop() {
 var ErrNoBillEscrow error = errors.New("Error no bill escrowed = ไม่มีธนบัตรพัก")
 
 // สั่งให้ bill Acceptor เก็บเงิน
-func (ba *BillAcceptor) Take(action bool) error {
-	if PM.billEscrow == 0 { // ถ้าไม่มีธนบัตรพักอยู่
-		return ErrNoBillEscrow
-	}
-	//ch := make(chan *Message)
-	m := &Message{
-		Device:  "bill_acc",
-		Command: "take_reject",
-		Type:    "request",
-		Data:    action,
-	}
-	H.Hw.Send <- m
-	fmt.Printf("BA.Take() action = [%v] 1. รอคำตอบจาก bill Acceptor\n", action)
+//func (ba *BillAcceptor) Take(action bool) error {
+//	//if PM.billEscrow == 0 { // ถ้าไม่มีธนบัตรพักอยู่
+//	//	return ErrNoBillEscrow
+//	//}
+//	m := &Message{
+//		Device:  "bill_acc",
+//		Command: "take_reject",
+//		Type:    "request",
+//		Data:    action,
+//	}
+//	H.Hw.Send <- m
+//	fmt.Printf("BA.Take() action = [%v] 1. รอคำตอบจาก bill Acceptor\n", action)
+//
+//	m = <-ba.Send
+//	if !m.Result {
+//		ba.Status = "Error cannot take bill"
+//		log.Println("Error response from bill Acceptor!")
+//		return errors.New("Error bill Acceptor cannot take bill")
+//	}
+//
+//	// อัพเดตยอดเงินสดในตู้ด้วย
+//	CB.bill += PM.billEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
+//	CB.total += PM.billEscrow // เพิ่มยอดรวมของ CashBox
+//	PM.bill += PM.billEscrow
+//	PM.total += PM.billEscrow
+//	PM.remain -= PM.billEscrow
+//	PM.billEscrow = 0 // ล้างยอดเงินพัก
+//
+//	fmt.Printf("BA.Take() SUCCSS msg %v m.Result= %v, m.Data= %v\n", m, m.Result, m.Data)
+//	return nil
+//}
 
-	m = <-ba.Send
-	if !m.Result {
-		ba.Status = "Error cannot take bill"
-		log.Println("Error response from bill Acceptor!")
-		return errors.New("Error bill Acceptor cannot take bill")
-	}
-
-	// อัพเดตยอดเงินสดในตู้ด้วย
-	CB.bill += PM.billEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
-	CB.total += PM.billEscrow // เพิ่มยอดรวมของ CashBox
-	PM.bill += PM.billEscrow
-	PM.total += PM.billEscrow
-	PM.remain -= PM.billEscrow
-	PM.billEscrow = 0 // ล้างยอดเงินพัก
-
-	fmt.Printf("BA.Take() SUCCSS msg %v m.Result= %v, m.Data= %v\n", m, m.Result, m.Data)
-	return nil
-}
-
-func (ba *BillAcceptor) Received(c *Socket) {
+func (ba *BillAcceptor) Received(s *Socket) {
 	fmt.Println("Start method: ba.receivedCh()")
-	received := c.Msg.Data.(float64)
-
 	// todo: ตรวจ AcceptedBill ถ้า false ให้ BA.Reject()
-
-	PM.billEscrow = received
-	//fmt.Printf("Sale = %v, bill receivedCh = %v, bill Escrow=%v PM total= %v\n",  S.Total, PM.bill, PM.billEscrow, PM.total)
-	PM.receivedCh <- c.Msg
-	//PM.sendOnHand(H.Web) // แจ้งยอดเงิน Payment กลับ Web **ไม่ควรแจ้งจุดนี้ ควรแจ้งเมื่อสั่ง Take แล้วเท่านั้น
+	PM.receivedCh <- s.Msg
 }
 
-func (ba *BillAcceptor) TimeOut(c *Socket) {
-	PM.Cancel(c)
+func (ba *BillAcceptor) TimeOut(s *Socket) {
+	PM.Cancel(s)
 	log.Println("Bill Acceptor -> Time Out")
 }

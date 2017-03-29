@@ -83,14 +83,5 @@ func (ca *CoinAcceptor) Stop() {
 
 func (ca *CoinAcceptor) Received(c *Socket) {
 	fmt.Println("Start method: ca.receivedCh()")
-	received := c.Msg.Data.(float64)
-	PM.coin += received
-	PM.total += received
-	PM.remain -= received
-	CB.hopper += received
-	CB.total += received
-
-	fmt.Println("coin receivedCh =", PM.coin, "PM total=", PM.total)
 	PM.receivedCh <- c.Msg
-	PM.sendOnHand(H.Web)
 }
