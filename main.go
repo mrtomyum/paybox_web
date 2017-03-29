@@ -2,18 +2,17 @@ package main
 
 import (
 	"github.com/mrtomyum/paybox_web/ctrl"
-	"github.com/mrtomyum/paybox_web/model"
 	"time"
 )
 
 func main() {
 	// Todo: Check NTP Server and adjust RTC
 	app := ctrl.Router()
+
 	// Dial to Device WS server
 	go ctrl.CallHw()
-	time.Sleep(1 * time.Second)
-	model.BA.Stop()
-	model.CA.Stop()
+	time.Sleep(3 * time.Second)
+
 	app.Run(":8888")
 	//app.RunTLS(
 	//	":8088",

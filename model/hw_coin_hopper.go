@@ -69,7 +69,7 @@ func (ch *CoinHopper) Event(c *Socket) {
 }
 
 func (ch *CoinHopper) PayoutByCoin(c1, c2, c5, c10 int) error {
-	fmt.Println("====Send Command to CoinHopper payout_by_coin, Value: c1=%v c2=%v c5=%v c10=%v ", c1, c2, c5, c10)
+	fmt.Println("==== Send Command to CoinHopper payout_by_coin, Value: c1=%v c2=%v c5=%v c10=%v ", c1, c2, c5, c10)
 	defer fmt.Println("============================================================")
 
 	data := gin.H{
