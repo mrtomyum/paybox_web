@@ -95,7 +95,7 @@ func (ba *BillAcceptor) Stop() {
 	}
 	H.Hw.Send <- m
 	fmt.Println("1. สั่งปิดรับธนบัตรรอ response จาก BA...")
-	//go func () {
+
 	m2 := <-ba.Send
 	if !m2.Result {
 		m2.Command = "warning"

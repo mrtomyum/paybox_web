@@ -34,10 +34,7 @@ func init() {
 		remain:     0,
 		//receivedCh: make(chan *Message),
 	}
-	H = &Host{
-		Id:          "001",
-		IsNetOnline: true,
-	}
+
 	BA = &BillAcceptor{
 		Status: "ok",
 		Send:   make(chan *Message),
@@ -85,4 +82,8 @@ func init() {
 		log.Println(err.Error())
 	}
 
+	H = &Host{
+		Id:          "001",
+		IsNetOnline: true,
+	}
 }

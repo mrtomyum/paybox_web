@@ -61,8 +61,8 @@ func (c *Socket) Write() {
 	//interrupt := make(chan os.Signal, 1)
 	//signal.Notify(interrupt, os.Interrupt)
 
-	fmt.Println("=======*Socket.Write()== START =>", c.Name, c.Conn.RemoteAddr())
-	defer fmt.Println("=====*Socket.Write()=== END ==>", c.Name, c.Conn.RemoteAddr())
+	fmt.Println("=======*Socket.Write()== START รอส่ง message =", c.Name, c.Conn.RemoteAddr())
+	defer fmt.Println("=====*Socket.Write()=== END ==", c.Name, c.Conn.RemoteAddr())
 	defer c.Conn.Close()
 	for {
 		select {
