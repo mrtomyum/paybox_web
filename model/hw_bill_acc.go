@@ -16,8 +16,8 @@ type BillAcceptor struct {
 // Event & Response from bill acceptor.
 // อุปกรณ์จะทำงานครั้งละ 1 command อยู่แล้ว
 // ดังนั้นไม่ต้องกลัวจะมี Event หรือ Response ข้ามลำดับกัน
-func (ba *BillAcceptor) Event(c *Socket) {
-	//fmt.Println("BillAcceptor Event...with Socket=", c.Name)
+func (ba *BillAcceptor) event(c *Socket) {
+	//fmt.Println("BillAcceptor Event...with Socket=", s.Name)
 	switch c.Msg.Command {
 	case "received": // Event  นี้จะเกิดขึ้นเม่ือเคร่ืองรับธนบัตรได้รับธนบัตร
 		ba.Received(c)
@@ -65,7 +65,7 @@ func (ba *BillAcceptor) Start() {
 	}
 	fmt.Println("1...สั่งเปิดรับธนบัตรรอ response จาก BA")
 	H.Hw.Send <- m
-	//go func() {
+	// I/O blocking รอ HW ตอบกลับ
 	m2 := <-ba.Send
 	if !m2.Result {
 		m2.Command = "warning"
@@ -95,7 +95,7 @@ func (ba *BillAcceptor) Stop() {
 	}
 	H.Hw.Send <- m
 	fmt.Println("1. สั่งปิดรับธนบัตรรอ response จาก BA...")
-
+	// I/O blocking รอ HW ตอบกลับ
 	m2 := <-ba.Send
 	if !m2.Result {
 		m2.Command = "warning"

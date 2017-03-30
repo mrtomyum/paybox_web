@@ -2,14 +2,16 @@ package main
 
 import (
 	"github.com/mrtomyum/paybox_web/ctrl"
-	"time"
 )
 
 func main() {
-	// Todo: Check NTP Server and adjust RTC
+	// Todo: Check NTP Server and adjust RTC and Test Hardware status
 	app := ctrl.Router()
-	// Dial to Device WS server
-	go ctrl.CallHw()
+
+	// Dial to HW_SERVICE
+
+	go ctrl.OpenSocket()
+
 	// Run Web Server
 	app.Run(":8888")
 

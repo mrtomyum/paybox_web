@@ -8,7 +8,6 @@ import (
 )
 
 func GetMenu(ctx *gin.Context) {
-	checkHW()
 	model.BA.Stop()
 	model.CA.Stop()
 	var menu model.Menu
@@ -18,21 +17,4 @@ func GetMenu(ctx *gin.Context) {
 		ctx.JSON(http.StatusNotFound, err.Error())
 	}
 	ctx.JSON(http.StatusOK, langs)
-}
-
-func checkHW() {
-	//model.H.Hw.Conn.SetCloseHandler(func())
-
-	{
-		//time.Sleep(1 * time.Second)
-		//log.Println("HW_SERVICE is not connected!!")
-		//m := model.Message{
-		//Device:"web",
-		//Type:"event",
-		//Command:"alert",
-		//Data: "HW_SERVICE is not connected!!",
-		//}
-		//model.H.Web.Send <- m
-	}
-
 }

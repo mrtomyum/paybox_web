@@ -15,7 +15,7 @@ type Printer struct {
 //case "machine_id": // ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Printer
 //case "do_single":  //ส่ังการเคร่ืองปริ้นเตอร์ แบบส่งคาส่ังการกระทาคาสั่งเดียว โดย action_name และ action_data สามารถดูได้จากตาราง Action
 //case "do_group":   //ส่ังการเคร่ืองปร้ินเตอร์ แบบส่งคาส่ังการกระทาแบบเปน็ ชุด โดย action_name และ action_data สามารถดูได้จากตาราง Action
-func (p *Printer) Event(c *Socket) {
+func (p *Printer) event(c *Socket) {
 	switch c.Msg.Command {
 	case "machine_id", "do_single", "do_group":
 		p.Send <- c.Msg

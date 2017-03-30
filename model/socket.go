@@ -25,89 +25,81 @@ type Message struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func (c *Socket) Read() {
+func (s *Socket) Read() {
 	defer func() {
-		c.Conn.Close()
+		s.Conn.Close()
 	}()
 
 	m := &Message{}
 	for {
-		err := c.Conn.ReadJSON(&m)
-		fmt.Println("<========*Socket.Read()==========", c.Name, c.Conn.RemoteAddr(), m)
+		err := s.Conn.ReadJSON(&m)
 		if err != nil {
-			log.Println(c.Name, "<<===Conn.ReadJSON Error on:", err)
+			log.Println(s.Name, "<<===Conn.ReadJSON Error on:", err)
 			break
 		}
-		c.Msg = m
+		fmt.Println("<===*Socket.ReadJSON====", s.Name, s.Conn.RemoteAddr(), m)
+		s.Msg = m
 
 		switch {
-		case c.Name == "web":
+		case s.Name == "UI":
 			//fmt.Println("Read::Web UI Connection message")
-			c.WebEvent()
-		case c.Name == "dev":
+			s.onUiEvent()
+		case s.Name == "HW":
 			//fmt.Println("Read::Device Connection message")
-			c.HwEvent()
-		default:
-			fmt.Println("Error: Case default: Message==>", m)
-			m.Type = "response"
-			m.Data = "Hello"
-			c.Send <- m
+			s.onHwEvent()
 		}
 	}
 }
 
 // Write() ส่วนเขียนข้อความไปยัง WebSocket
-func (c *Socket) Write() {
-	//interrupt := make(chan os.Signal, 1)
-	//signal.Notify(interrupt, os.Interrupt)
-
-	fmt.Println("=======*Socket.Write()== START รอส่ง message =", c.Name, c.Conn.RemoteAddr())
-	defer fmt.Println("=====*Socket.Write()=== END ==", c.Name, c.Conn.RemoteAddr())
-	defer c.Conn.Close()
+func (s *Socket) Write() {
+	fmt.Println("###*Socket.Write()### START ###", s.Name, s.Conn.RemoteAddr())
+	defer fmt.Println("###*Socket.Write()### END ###", s.Name, s.Conn.RemoteAddr())
+	defer s.Conn.Close()
 	for {
 		select {
-		case m, ok := <-c.Send:
+		case m, ok := <-s.Send:
 			if !ok {
-				c.Conn.WriteJSON(gin.H{"message": "Cannot send data"})
-				log.Println("===>>>lose WS connection:", c.Conn.RemoteAddr())
+				s.Conn.WriteJSON(gin.H{"message": "Cannot send data"})
+				log.Println("===>>>lose WS connection:", s.Conn.RemoteAddr())
 				return
 			}
-			c.Conn.WriteJSON(m)
-			fmt.Printf("\n====*Socket.Conn.WriteJSON()====> %s:%v %v\n", c.Name, c.Conn.RemoteAddr(), m)
+			s.Conn.WriteJSON(m)
+			fmt.Printf("\n===*Socket.WriteJSON===> %s:%v %v\n", s.Name, s.Conn.RemoteAddr(), m)
 		}
 	}
 }
 
-// WebEvent แยกเส้นทาง Message Request จาก Web Frontend โดยแยกตาม Command ต่างๆ
-func (c *Socket) WebEvent() {
+// onUiEvent แยกเส้นทาง Message Request จาก Web Frontend โดยแยกตาม Command ต่างๆ
+func (s *Socket) onUiEvent() {
 	// ปกติแล้ว  Web จะไม่สั่งการ Device ตรงๆ แต่จะสั่งผ่าน Host ให้ Host ทำงานระดับล่างแทน
 	// แต่ตรงนี้มีไว้สำหรับการ Debug ผ่าน Web GUI fmt.Println("Request message from Web")
-	switch c.Msg.Command {
+	switch s.Msg.Command {
 	case "onhand":
-		PM.sendOnHand(c)
+		PM.sendOnHand(s)
 	case "cancel":
-		PM.Cancel(c)
+		PM.Cancel(s)
 	default:
-		log.Println("WebEvent(): default: Unknown Command for web client=>", c.Msg.Command)
+		log.Println("onUiEvent(): default: Unknown Command for web client=>", s.Msg.Command)
 	}
 }
 
-// HwEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
+// onHwEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
-func (c *Socket) HwEvent() {
-	//fmt.Println("HwEvent():", c.Msg)
-	switch c.Msg.Device {
+func (s *Socket) onHwEvent() {
+	//fmt.Println("onHwEvent():", s.Msg)
+	switch s.Msg.Device {
 	case "coin_hopper":
-		CH.Event(c)
+		CH.event(s)
 	case "coin_acc":
-		CA.Event(c)
+		CA.event(s)
 	case "bill_acc":
-		BA.Event(c)
+		BA.event(s)
 	case "printer":
-		P.Event(c)
+		P.event(s)
 	case "mainboard":
-		MB.Event(c)
+		MB.event(s)
 	default:
-		log.Println("event cannot find function/message=", c.Msg)
+		log.Println("event cannot find function/message=", s.Msg)
 	}
 }

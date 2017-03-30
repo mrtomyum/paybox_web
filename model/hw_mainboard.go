@@ -11,7 +11,7 @@ type MainBoard struct {
 	PinOpen   int
 }
 
-func (mb *MainBoard) Event(c *Socket) {
+func (mb *MainBoard) event(c *Socket) {
 	switch c.Msg.Command {
 	case "machine_id":    // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Main Board
 		mb.Send <- c.Msg

@@ -58,11 +58,11 @@ func (ch *CoinHopper) GetId() {
 	fmt.Println("Got Response from CoinHopper ID:", ch.machineId, "Status:", ch.Status)
 }
 
-func (ch *CoinHopper) Event(c *Socket) {
+func (ch *CoinHopper) event(c *Socket) {
 	switch c.Msg.Command {
 	case "status", "cash_amount", "coin_count", "set_coin_count", "paybout_by_cash", "payout_by_coin", "empty", "reset":
 		ch.Send <- c.Msg
-		log.Println("ch.Send <-c.Msg", c.Msg)
+		log.Println("ch.Send <-s.Msg", c.Msg)
 	case "status_change": // Event น้ีจะเกิดข้ึนเม่ือสถานะใดๆของ Coins hopper มีการเปลี่ยนแปลง
 		ch.StatusChange(c)
 	}

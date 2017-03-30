@@ -13,7 +13,7 @@ type CoinAcceptor struct {
 }
 
 // Event & Response from coin acceptor.
-func (ca *CoinAcceptor) Event(c *Socket) {
+func (ca *CoinAcceptor) event(c *Socket) {
 	switch c.Msg.Command {
 	case "received": // Event น้ีจะเกิดขึ้นเมื่อเคร่ืองรับเหรียญได้รับเหรียญ
 		ca.Received(c)
