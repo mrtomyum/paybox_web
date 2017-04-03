@@ -3,7 +3,7 @@ package model
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"log"
+	"github.com/labstack/gommon/log"
 )
 
 type Socket struct {
@@ -30,10 +30,10 @@ func (s *Socket) Read() {
 	for {
 		err := s.Conn.ReadJSON(&m)
 		if err != nil {
-			log.Println(s.Name, "<<===Conn.ReadJSON Error on:", err)
+			log.Debug(s.Name, "<<===Conn.ReadJSON Error on:", err)
 			break
 		}
-		log.Println("<===*Socket.ReadJSON====", s.Name, s.Conn.RemoteAddr(), m)
+		log.Debug("<===*Socket.ReadJSON====", s.Name, s.Conn.RemoteAddr(), m)
 		s.Msg = m
 
 		switch {
@@ -49,19 +49,19 @@ func (s *Socket) Read() {
 
 // Write() ส่วนเขียนข้อความไปยัง WebSocket
 func (s *Socket) Write() {
-	log.Println("###*Socket.Write()### START ###", s.Name, s.Conn.RemoteAddr())
-	defer log.Println("###*Socket.Write()### END ###", s.Name, s.Conn.RemoteAddr())
+	log.Info("###*Socket.Write()### START ###", s.Name, s.Conn.RemoteAddr())
+	defer log.Info("###*Socket.Write()### END ###", s.Name, s.Conn.RemoteAddr())
 	defer s.Conn.Close()
 	for {
 		select {
 		case m, ok := <-s.Send:
 			if !ok {
 				s.Conn.WriteJSON(gin.H{"message": "Cannot send data"})
-				log.Println("===>>>lose WS connection:", s.Conn.RemoteAddr())
+				log.Debug("===>>>lose WS connection:", s.Conn.RemoteAddr())
 				return
 			}
 			s.Conn.WriteJSON(m)
-			log.Printf("\n===*Socket.WriteJSON===> %s:%v %v\n", s.Name, s.Conn.RemoteAddr(), m)
+			log.Debugf("\n===*Socket.WriteJSON===> %s:%v %v\n", s.Name, s.Conn.RemoteAddr(), m)
 		}
 	}
 }
@@ -76,7 +76,7 @@ func (s *Socket) onUiEvent() {
 	case "cancel":
 		PM.Cancel(s)
 	default:
-		log.Println("onUiEvent(): default: Unknown Command for web client=>", s.Msg.Command)
+		log.Debug("onUiEvent(): default: Unknown Command for web client=>", s.Msg.Command)
 	}
 }
 
@@ -96,6 +96,6 @@ func (s *Socket) onHwEvent() {
 	case "mainboard":
 		MB.event(s)
 	default:
-		log.Println("event cannot find function/message=", s.Msg)
+		log.Debug("event cannot find function/message=", s.Msg)
 	}
 }
