@@ -14,13 +14,19 @@
     function onOpen(evt)
     {
       console.log("CONNECTED HOST Websocket");
-
+      document.getElementById("web_sk").innerHTML = '<img src="/img/web_skconnect.png">';
+      document.getElementById("al_marq").innerHTML = '** ระบบพร้อมทำงานแล้ว';
     }
 
     function onClose(evt)
     {
       console.log("DISCONNECTED HOST Websocket");
-      call_websocket();
+      document.getElementById("web_sk").innerHTML = '<img src="/img/web_sknotconnect.png" onclick="call_websocket()">';
+      document.getElementById("al_marq").innerHTML = '** ระบบเชื่อมต่อ web socket ไม่ได้';
+      setTimeout(function(){
+        window.location.reload();
+      },1500);
+
     }
 
 
@@ -139,8 +145,11 @@
                   $("#datatext").append(evt.data+"<br>");
             }*/
 
-            if(t['command']=="warning"){
-                alert(t['data']);
+            if(t['command']=="alert"){
+                alertify.alert(t['data']);
+            }
+            if(t['command']=="marq"){
+                document.getElementById("al_marq").innerHTML = t['data'];
             }
 
             if(t['command']=="change"){
@@ -175,11 +184,24 @@
                 }
             }
 
+            if(t['command']=="status"){
+                if(t['data']==0){
+                    document.getElementById('de_sta').innerHTML = '<img src="/img/de_connect.png">';
+                }else if(t['data']==1){
+                    document.getElementById('de_sta').innerHTML = '<img src="/img/de_notcomplete.png">';
+                }else if(t['data']==2){
+                    document.getElementById('de_sta').innerHTML = '<img src="/img/de_notconnect.png">';
+                }else{
+                    document.getElementById('de_sta').innerHTML = '<img src="/img/de_notconnect.png">';
+                }
+            }
+
     }
 
     function onError(evt)
     {
       console.log('Error : ' + evt.data);
+      document.getElementById("al_marq").innerHTML = '** ระบบ websocket มีความผิดปกติ!!';
     }
 
     function doSend(message)

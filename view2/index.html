@@ -67,7 +67,79 @@
                                                     style="border: 5px solid #fff;"></a>
             <h1>language </h1>
         </div>
+    </div>
+    <div data-role="none" class="footer">
+        <div id="marq">
+            <marquee>
+                <span id="al_marq">ระบบแจ้งเตือนการทำงานของอุปกรณ์</span>
+            </marquee>
+        </div>
+        <div id="stamachine">
+            <div id="net_sta">
 
+            </div>
+            <div id="web_sk">
+
+            </div>
+            <div id="de_sta">
+                <img src="/img/de_notconnect.png">
+            </div>
+        </div>
+    </div>
+    <div data-role="popup" id="mySetting" class="ui-content" data-dismissible="false" style="width:500px; top:0;">
+        <div data-role="main" class="ui-content" style="padding:2%;">
+            <div style="width:70%; float:left;">
+                <input type="password" name="pwd" id="pwd" placeholder="Enter your password...." readonly style="font-size:32px;">
+            </div>
+            <div style="width:25%; float:left; padding:2%;">
+                <a href="javascript:delete_pwd()" class="number" style="color:#fff; font-size:48px;">Del</a>
+            </div>
+            <div class="ui-grid-b" style="clear:both;">
+                <div class="ui-block-a">
+                    <a href="javascript:enPwd(1)" class="number" style="color:#fff;">1</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="javascript:enPwd(2)" class="number" style="color:#fff;">2</a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="javascript:enPwd(3)" class="number" style="color:#fff;">3</a>
+                </div>
+            </div>
+            <div class="ui-grid-b">
+                <div class="ui-block-a">
+                    <a href="javascript:enPwd(4)" class="number" style="color:#fff;">4</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="javascript:enPwd(5)" class="number" style="color:#fff;">5</a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="javascript:enPwd(6)" class="number" style="color:#fff;">6</a>
+                </div>
+            </div>
+            <div class="ui-grid-b">
+                <div class="ui-block-a">
+                    <a href="javascript:enPwd(7)" class="number" style="color:#fff;">7</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="javascript:enPwd(8)" class="number" style="color:#fff;">8</a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="javascript:enPwd(9)" class="number" style="color:#fff;">9</a>
+                </div>
+            </div>
+            <div class="ui-grid-b">
+                <div class="ui-block-a">
+                    <a href="javascript:enPwd(0)" class="number" style="color:#fff;">0</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="javascript:close_set()" class="number" style="color:#f00;">X</a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="#" class="number" style="color:#fff;">Go!</a>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 
@@ -94,7 +166,6 @@
         </div>
     </div>
     <div class="circle" onclick="$.mobile.changePage('#pageone')"><img src="public/img/back.png"></div>
-
 
     <div data-role="popup" id="select_item">
         <div data-role="header">

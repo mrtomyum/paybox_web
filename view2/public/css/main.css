@@ -541,3 +541,39 @@ a:link{
         height:200px;
         position:absolute;
     }
+
+    .footer{
+        background:#ebebe0;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding:0;
+    }
+        #marq{
+            float:left;
+            width:80%;
+            margin:0;
+            padding:1% 0 0 0;
+        }
+        #stamachine{
+            float:right;
+            width:20%;
+            margin:0;
+            padding:1% 0;
+            text-align:right;
+        }
+            #stamachine img{
+                width:60%;
+            }
+        #al_marq{
+            font-size:40px;
+            color:#000;
+            font-family: 'RSU_BOLD';
+        }
+        #net_sta,#web_sk,#de_sta{
+            float:left;
+            text-align:right;
+            width:30%;
+            padding-right:1%;
+        }
