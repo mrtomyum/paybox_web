@@ -1,5 +1,26 @@
 var num_call = 0;
+document.addEventListener('contextmenu', event => event.preventDefault());
 $(document).ready(function(){
+  if(navigator.onLine)
+  {
+    document.getElementById("net_sta").innerHTML = '<img src="/img/inter_connect.png">';
+    document.getElementById("al_marq").innerHTML = '** ระบบพร้อมทำงานแล้ว';
+  }
+  else
+  {
+    document.getElementById("net_sta").innerHTML = '<img src="/img/inter_notconnect.png">';
+    document.getElementById("al_marq").innerHTML = '** ไม่มีการเชื่อมต่อ Internet';
+     setTimeout(function(){
+        alertify.error("ระบบกำลังพยายามเชื่อมต่อ internet");
+        setTimeout(function(){
+            window.location.reload();
+        },1000);
+     },10000);
+  }
+  $(".img-header").on("taphold",function(){
+    $( "#mySetting" ).popup( "open" );
+    document.getElementById("pwd").value = "";
+  });
 call_websocket();
 /*setInterval(function(){
      $.ajax({
@@ -224,4 +245,25 @@ function active_lang(id){
                }
             }
 
+}
+
+function enPwd(number){
+    //console.log(number);
+    var pwd = document.getElementById("pwd").value;
+    pwd += number;
+
+    document.getElementById("pwd").value = pwd;
+}
+
+function delete_pwd(){
+    var text = document.getElementById("pwd").value;
+
+    var newStr = text.substring(0, text.length-1);
+    //console.log(newStr);
+    document.getElementById("pwd").value = newStr;
+}
+
+function close_set(){
+    document.getElementById("pwd").value = "";
+    $("#mySetting").popup("close");
 }
