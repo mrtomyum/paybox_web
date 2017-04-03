@@ -33,23 +33,18 @@ func (ca *CoinAcceptor) Start() {
 		Device:  "coin_acc",
 		Command: "set_inhibit",
 		Type:    "request",
-		Data:    true,
+		Data:    false,
 	}
 	H.Hw.Send <- m
 	fmt.Println("1. สั่งเปิดรับเหรียญรอ response จาก CA...")
 	//go func() {
 	m = <-ca.Send
 	if !m.Result {
+		log.Println("Error: coin Acceptor cannot start.")
 		m.Command = "warning"
 		m.Data = "Error: coin Acceptor cannot start."
 		H.Web.Send <- m
-		log.Println("Error: coin Acceptor cannot start.")
 	}
-	//ch <- m
-	//return
-	//}()
-	//m = <-ch
-	//close(ch)
 	ca.Status = "START"
 	fmt.Println("2. เปิดรับเหรียญสำเร็จ, CA status:", ca.Status)
 }
@@ -60,23 +55,18 @@ func (ca *CoinAcceptor) Stop() {
 		Device:  "coin_acc",
 		Command: "set_inhibit",
 		Type:    "request",
-		Data:    false,
+		Data:    true,
 	}
 	H.Hw.Send <- m
 	fmt.Println("1. สั่งปิดรับเหรียญรอ response จาก CA...")
 	//go func() {
 	m = <-ca.Send
 	if !m.Result {
+		log.Println("Error: coin Acceptor cannot stop.")
 		m.Command = "warning"
 		m.Data = "Error: coin Acceptor cannot stop."
 		H.Web.Send <- m
-		log.Println("Error: coin Acceptor cannot stop.")
 	}
-	//ch <- m2
-	//return
-	//}()
-	//m = <-ch
-	//close(ch)
 	ca.Status = "STOP"
 	fmt.Println("2. ปิดรับเหรียญสำเร็จ, CA status:", ca.Status)
 }

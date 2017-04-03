@@ -116,17 +116,18 @@ func (ch *CoinHopper) PayoutByCash(v float64) error {
 	H.Hw.Send <- m
 	fmt.Println("Waiting response from coin hopper.")
 	// ดักค่า m.Data == nil
-	for m = <-ch.Send; m.Data == nil; {
-		log.Println("Error message Data from HW_SERVICE is nil:", m)
-		// loop until m.Data != nil
-	}
+	//for m = <-ch.Send; m.Data == nil; {
+	//	log.Println("Error message Data from HW_SERVICE is nil:", m)
+	//	// loop until m.Data != nil
+	//}
 	fmt.Println("Got response from coin hopper:", m)
 	// ตรวจ result == false  และ return error ด้วย เช่นกรณีเหรียญหมด
 	if !m.Result {
 		return errors.New("Error payout from Hopper.")
 	}
 
-	CB.hopper -= m.Data.(float64) //ลดยอดเหรียญใน hopper
+	//CB.hopper -= m.Data.(float64) //ลดยอดเหรียญใน hopper
+	CB.hopper -= v //ลดยอดเหรียญใน hopper
 	return nil
 }
 
