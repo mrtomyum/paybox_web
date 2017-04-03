@@ -68,10 +68,10 @@ func (ba *BillAcceptor) Start() {
 	// I/O blocking รอ HW ตอบกลับ
 	m2 := <-ba.Send
 	if !m2.Result {
+		log.Println("Error: bill Acceptor cannot start. message =", m)
 		m2.Command = "warning"
 		m2.Data = "Error: bill Acceptor cannot start."
 		H.Web.Send <- m2
-		log.Println("Error: bill Acceptor cannot start.")
 	}
 	//	}
 	//	ch <- m2
