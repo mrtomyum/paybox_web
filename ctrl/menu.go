@@ -8,8 +8,8 @@ import (
 )
 
 func GetMenu(ctx *gin.Context) {
-	model.BA.Stop()
-	model.CA.Stop()
+	//model.BA.Stop()
+	//model.CA.Stop()
 	var menu model.Menu
 	langs, err := menu.Index()
 	if err != nil {
