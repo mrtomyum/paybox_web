@@ -32,7 +32,7 @@ func init() {
 		billEscrow: 0,
 		total:      0,
 		remain:     0,
-		//receivedCh: make(chan *Message),
+		receivedCh: make(chan *Message),
 	}
 
 	BA = &BillAcceptor{

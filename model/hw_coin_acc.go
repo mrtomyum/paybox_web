@@ -72,6 +72,6 @@ func (ca *CoinAcceptor) Stop() {
 }
 
 func (ca *CoinAcceptor) Received(c *Socket) {
-	fmt.Println("Start method: ca.receivedCh()")
+	fmt.Println("Start method: ca.Received()")
 	PM.receivedCh <- c.Msg
 }

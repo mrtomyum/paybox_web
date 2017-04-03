@@ -52,7 +52,7 @@ func (pm *Payment) init() {
 	pm.billEscrow = 0
 	pm.total = 0
 	pm.remain = 0
-	pm.receivedCh = make(chan *Message)
+	//pm.receivedCh = make(chan *Message)
 
 	AB = &AcceptedBill{
 		B20:   true,
@@ -81,7 +81,7 @@ func (pm *Payment) New(s *Sale) error {
 		return errors.New("Sale Total is 0 cannot do payment.")
 	}
 	pm.init()
-	defer close(pm.receivedCh)
+	//defer close(pm.receivedCh)
 	pm.remain = s.Total
 	sp := new(SalePay)
 	s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
