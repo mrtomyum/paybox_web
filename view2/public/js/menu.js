@@ -1,5 +1,5 @@
 var num_call = 0;
-document.addEventListener('contextmenu', event => event.preventDefault());
+// document.addEventListener('contextmenu', event => event.preventDefault());
 $(document).ready(function(){
   if(navigator.onLine)
   {

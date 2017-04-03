@@ -1,13 +1,9 @@
 package model
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"log"
-	//"encoding/json"
-	//"os"
-	//"os/signal"
 )
 
 type Socket struct {
@@ -37,7 +33,7 @@ func (s *Socket) Read() {
 			log.Println(s.Name, "<<===Conn.ReadJSON Error on:", err)
 			break
 		}
-		fmt.Println("<===*Socket.ReadJSON====", s.Name, s.Conn.RemoteAddr(), m)
+		log.Println("<===*Socket.ReadJSON====", s.Name, s.Conn.RemoteAddr(), m)
 		s.Msg = m
 
 		switch {
@@ -53,8 +49,8 @@ func (s *Socket) Read() {
 
 // Write() ส่วนเขียนข้อความไปยัง WebSocket
 func (s *Socket) Write() {
-	fmt.Println("###*Socket.Write()### START ###", s.Name, s.Conn.RemoteAddr())
-	defer fmt.Println("###*Socket.Write()### END ###", s.Name, s.Conn.RemoteAddr())
+	log.Println("###*Socket.Write()### START ###", s.Name, s.Conn.RemoteAddr())
+	defer log.Println("###*Socket.Write()### END ###", s.Name, s.Conn.RemoteAddr())
 	defer s.Conn.Close()
 	for {
 		select {
@@ -65,7 +61,7 @@ func (s *Socket) Write() {
 				return
 			}
 			s.Conn.WriteJSON(m)
-			fmt.Printf("\n===*Socket.WriteJSON===> %s:%v %v\n", s.Name, s.Conn.RemoteAddr(), m)
+			log.Printf("\n===*Socket.WriteJSON===> %s:%v %v\n", s.Name, s.Conn.RemoteAddr(), m)
 		}
 	}
 }
