@@ -61,7 +61,7 @@ func (s *Socket) Write() {
 				return
 			}
 			s.Conn.WriteJSON(m)
-			log.Println("\n===*Socket.WriteJSON===> %s:%v %v\n", s.Name, s.Conn.RemoteAddr(), m)
+			log.Printf("\n===*Socket.WriteJSON===> %s:%v %v\n", s.Name, s.Conn.RemoteAddr(), m)
 		}
 	}
 }
