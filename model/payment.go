@@ -15,6 +15,7 @@ type Payment struct {
 	billEscrow float64 // มูลค่าธนบัตรที่พักอยู่ในตัวรับธนบัตร BA
 	total      float64 // มูลค่าเงินพักทั้งหมด
 	remain     float64 // เงินคงค้างชำระ
+	change     float64 // เงินทอน
 	receivedCh chan *Message
 	//Card  float64 // มูลค่าบัตรเครดิตที่รับชำระแล้ว
 }
@@ -47,7 +48,7 @@ type AcceptedBill struct {
 
 // init() ทำการรีเซ็ทค่าที่ควรถูกตั้งใหม่ทุกครั้งที่สร้าง Payment ใหม่ขึ้นมา
 func (pm *Payment) init() {
-	pm.reset()
+	pm.Reset()
 	AB = &AcceptedBill{
 		B20:   true,
 		B50:   true,
@@ -57,8 +58,8 @@ func (pm *Payment) init() {
 	}
 	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
 	fmt.Println("func New() -- 1. Start Payment device:")
-	CA.Start()
 	BA.Start()
+	CA.Start()
 }
 
 // *Payment New() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
@@ -97,9 +98,15 @@ func (pm *Payment) New(s *Sale) error {
 		switch msg.Device {
 		case "bill_acc": //ถ้าเป็นธนบัตร
 			pm.billEscrow = value
+			// แก้ใหญ่
+			// if pm.UnacceptedBill() {
+			// 	rejectBill()
+			//} else {
+			//pm.takeBill(true)
+			// }
 			err := pm.rejectUnacceptedBill()
 			if err != nil {
-				return err
+				log.Println(err)
 			}
 			fmt.Printf("check msg #1. msg =%v msg.Data = %v\n", msg, msg.Data)
 			err = pm.takeBill(true) // ให้เก็บธนบัตรลงถัง
@@ -117,23 +124,26 @@ func (pm *Payment) New(s *Sale) error {
 		//	return err
 		//}
 	}
+
+	// ปิดการรับชำระที่ อุปกรณ์
+	CA.Stop()
+	BA.Stop()
+
 	// ทอนเงิน
-	change := pm.total - s.Total
-	if change > 0 { //ถ้าต้องทอนเงิน
+	pm.change = pm.total - s.Total
+	if pm.change > 0 { //ถ้าต้องทอนเงิน
 		fmt.Println("pm.change()")
-		err := pm.change(change)
+		err := pm.doChange(pm.change)
 		if err != nil {
 			return err
 		}
 	}
-	// ล้างข้อมูล
-	pm.reset()
-	// ส่งยอดที่ล้างแล้วให้ WebUI
-	pm.sendOnHand(H.Web)
-	// ปิดการรับชำระที่อุปกรณ์
-	CA.Stop()
-	BA.Stop()
 
+	// Update ยอดรับเงิน และทอนเงินให้ Sale{}
+	s.Pay = pm.total
+	s.Change = pm.change
+
+	// ส่งยอด Onhand ให้ UI
 	m := &Message{
 		Device:  "web",
 		Command: "payment",
@@ -147,6 +157,7 @@ func (pm *Payment) New(s *Sale) error {
 // OnHand ส่งค่าเงินพัก Escrow ไว้กลับไปให้ web
 func (pm *Payment) sendOnHand(web *Socket) {
 	fmt.Println("method *Host.sendOnHand()... pm.total =", pm.total)
+	web.Msg.Device = "web"
 	web.Msg.Command = "onhand"
 	web.Msg.Result = true
 	web.Msg.Type = "event"
@@ -184,7 +195,7 @@ func (pm *Payment) Cancel(c *Socket) {
 		c.Msg.Result = true
 		c.Msg.Data = "ไม่มีเงินรับ"
 		c.Send <- c.Msg
-		pm.reset()
+		pm.Reset()
 		return
 	}
 	BA.Stop()
@@ -203,7 +214,7 @@ func (pm *Payment) Cancel(c *Socket) {
 	c.Msg.Result = true
 	c.Msg.Data = pm.coin
 	c.Send <- c.Msg
-	pm.reset()
+	pm.Reset()
 }
 
 func (pm *Payment) checkAcceptedBill(s *Sale) {
@@ -247,26 +258,32 @@ func (pm *Payment) rejectUnacceptedBill() error {
 		log.Println(ErrCoinShortage.Error())
 		return ErrNoBillEscrow
 	}
+	ErrRejectBill := errors.New("Error reject bill:")
 	switch pm.billEscrow {
 	case 20.0:
 		if !AB.B20 {
 			pm.takeBill(false)
+			return ErrRejectBill
 		}
 	case 50.0:
 		if !AB.B50 {
 			pm.takeBill(false)
+			return ErrRejectBill
 		}
 	case 100.0:
 		if !AB.B100 {
 			pm.takeBill(false)
+			return ErrRejectBill
 		}
 	case 500:
 		if !AB.B500 {
 			pm.takeBill(false)
+			return ErrRejectBill
 		}
 	case 1000:
 		if !AB.B1000 {
 			pm.takeBill(false)
+			return ErrRejectBill
 		}
 	default:
 		fmt.Printf("มูลค่า BillEscrow = %v ไม่เข้าเงื่อนไข\n", pm.billEscrow)
@@ -291,7 +308,7 @@ func (pm *Payment) refund(total, billEscrow float64) error {
 	return nil
 }
 
-func (pm *Payment) change(value float64) error {
+func (pm *Payment) doChange(value float64) error {
 	fmt.Println("YES -> 6. ต้องทอนเงิน ")
 	// ส่ง Web Socket: "command": "change", "data": value
 	m := &Message{
@@ -339,7 +356,7 @@ func (pm *Payment) coinShortage() error {
 	return nil
 }
 
-func (pm *Payment) reset() {
+func (pm *Payment) Reset() {
 	log.Println("Reset Payment: ล้างยอดรับชำระ")
 	pm.total = 0 // เคลียร์ยอดเงินค้างให้หมด
 	pm.bill = 0
@@ -352,6 +369,8 @@ func (pm *Payment) reset() {
 	resetChannel(CH.Send)
 	resetChannel(MB.Send)
 	resetChannel(P.Send)
+	// ส่งยอดที่ล้างแล้วให้ WebUI
+	pm.sendOnHand(H.Web)
 }
 
 func (pm *Payment) takeBill(action bool) error {
@@ -393,4 +412,8 @@ func (pm *Payment) takeCoin(value float64) {
 	CB.hopper += value
 	CB.total += value
 	fmt.Println("coin receivedCh =", pm.coin, "pm total=", pm.total)
+}
+
+func (pm *Payment) Change() float64 {
+	return pm.change
 }

@@ -170,6 +170,12 @@ func (s *Sale) Save() error {
 	return nil
 }
 
+func (s *Sale) Reset() {
+	s.Total = 0
+	s.Change = 0
+	s.Pay = 0
+}
+
 // Payment เก็บรายละเอียดการชำระเงิน เหรียญ ธนบัตร หรือในอนาคตจะเพิ่มบัตรเครดิต และ Cashless Payment ได้ด้วย
 type SalePay struct {
 	SaleId int64

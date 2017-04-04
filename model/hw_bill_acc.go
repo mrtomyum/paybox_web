@@ -38,15 +38,11 @@ func (ba *BillAcceptor) event(c *Socket) {
 func (ba *BillAcceptor) MachineId(c *Socket) error {
 	m := &Message{Device: "bill_acc", Command: "machine_id", Type: "request"}
 	c.Send <- m
-	//go func() {
 	m = <-ba.Send
-	//ch <- m
-	//}()
-	//m = <-ch
 	if !m.Result {
 		ba.Status = "Error when get machine_id"
-		return errors.New("Error when get machine_id")
 		log.Println("Error when get machine_id")
+		return errors.New("Error when get machine_id")
 	}
 	fmt.Println("bill Acceptor machine id =", m.Data.(string))
 	ba.machineId = m.Data.(string)
@@ -88,7 +84,7 @@ func (ba *BillAcceptor) Stop() {
 		Data:    true,
 	}
 	H.Hw.Send <- m
-	fmt.Println("1. สั่งปิดรับธนบัตรรอ response จาก BA...")
+	//fmt.Println("1. สั่งปิดรับธนบัตรรอ response จาก BA...")
 	// I/O blocking รอ HW ตอบกลับ
 	m2 := <-ba.Send
 	if !m2.Result {

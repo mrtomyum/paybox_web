@@ -11,7 +11,6 @@ import (
 // Order ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง SqLite
 // และส่งข้อมูล Order Post ขึ้น Cloud แต่หาก Network Down Order.completed = false
 func NewSale(c *gin.Context) {
-
 	// รับคำสั่งขายจาก Web ผ่าน JSON REST
 	fmt.Println("NewSale() start")
 	s := new(model.Sale)
@@ -24,8 +23,6 @@ func NewSale(c *gin.Context) {
 
 	// Payment
 	err := model.PM.New(s)
-	//pm := new(model.Payment)
-	//err := pm.New(s)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusConflict, gin.H{"command": "payment", "result": "error", "message": err.Error()})
@@ -55,7 +52,11 @@ func NewSale(c *gin.Context) {
 		c.JSON(http.StatusConflict, gin.H{"command": "post", "result": "error", "message": err.Error()})
 	}
 
+	// Reset Payment data.
+	model.PM.Reset()
+
 
 	c.JSON(http.StatusOK, gin.H{"command": "sale", "result": "success", "data": s, })
 	fmt.Println("NewSale() COMPLETED, sale = ", s)
+	s.Reset()
 }
