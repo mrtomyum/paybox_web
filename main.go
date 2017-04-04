@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/mrtomyum/paybox_web/ctrl"
 	"fmt"
+	"time"
 )
 
 func main() {
@@ -13,7 +14,7 @@ func main() {
 
 	go ctrl.OpenSocket()
 	fmt.Println("2")
-
+	time.Sleep(1 * time.Second)
 	// Run Web Server
 	app.Run(":8888")
 
