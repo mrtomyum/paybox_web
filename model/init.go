@@ -37,12 +37,12 @@ func init() {
 
 	BA = &BillAcceptor{
 		Status: "ok",
-		Send:   make(chan *Message),
+		Send:   make(chan *Message, 10),
 	}
 
 	CA = &CoinAcceptor{
 		Status: "ok",
-		Send:   make(chan *Message),
+		Send:   make(chan *Message, 10),
 	}
 
 	CH = &CoinHopper{
@@ -85,5 +85,18 @@ func init() {
 	H = &Host{
 		Id:          "001",
 		IsNetOnline: true,
+	}
+	resetChannel(PM.receivedCh)
+	resetChannel(BA.Send)
+	resetChannel(CA.Send)
+	resetChannel(CH.Send)
+	resetChannel(MB.Send)
+	resetChannel(P.Send)
+}
+
+func resetChannel(ch chan *Message) {
+	for len(ch) > 0 {
+		m := <-ch
+		log.Println("reset channel message:", m)
 	}
 }

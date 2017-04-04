@@ -72,6 +72,7 @@ func (ba *BillAcceptor) Start() {
 		m2.Command = "warning"
 		m2.Data = "Error: bill Acceptor cannot start."
 		H.Web.Send <- m2
+		return
 	}
 	ba.Inhibit = false
 	ba.Status = "START"
@@ -95,12 +96,8 @@ func (ba *BillAcceptor) Stop() {
 		m2.Command = "warning"
 		m2.Data = "Error: bill Acceptor cannot stop."
 		H.Web.Send <- m2
+		return
 	}
-	//	ch <- m2
-	//	return
-	//}()
-	//m = <-ch
-	//close(ch)
 	ba.Inhibit = true
 	ba.Status = "STOP"
 	fmt.Println("2. ปิดรับธนบัตรสำเร็จ, BA status:", ba.Status)

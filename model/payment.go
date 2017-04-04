@@ -47,13 +47,7 @@ type AcceptedBill struct {
 
 // init() ทำการรีเซ็ทค่าที่ควรถูกตั้งใหม่ทุกครั้งที่สร้าง Payment ใหม่ขึ้นมา
 func (pm *Payment) init() {
-	pm.coin = 0
-	pm.bill = 0
-	pm.billEscrow = 0
-	pm.total = 0
-	pm.remain = 0
-	//pm.receivedCh = make(chan *Message)
-
+	pm.reset()
 	AB = &AcceptedBill{
 		B20:   true,
 		B50:   true,
@@ -63,8 +57,8 @@ func (pm *Payment) init() {
 	}
 	// เปิดการรับชำระธนบัตร และ เหรียญ (Set Inhibit)
 	fmt.Println("func New() -- 1. Start Payment device:")
-	BA.Start()
 	CA.Start()
+	BA.Start()
 }
 
 // *Payment New() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
@@ -83,8 +77,8 @@ func (pm *Payment) New(s *Sale) error {
 	pm.init()
 	//defer close(pm.receivedCh)
 	pm.remain = s.Total
-	sp := new(SalePay)
-	s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
+	//sp := new(SalePay)
+	//s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
 
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน และจะสะสมยอดรับชำระ และส่ง command: "onhand" เป็น event กลับตลอดเวลา
@@ -92,6 +86,7 @@ func (pm *Payment) New(s *Sale) error {
 	for pm.total < s.Total {
 		pm.checkAcceptedBill(s)
 		pm.displayAcceptedBill() // displayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
+		pm.sendOnHand(H.Web)
 		fmt.Println("1. Waiting payment form BA or CA")
 		msg := <-pm.receivedCh // Waiting for message from payment device.
 
@@ -116,12 +111,11 @@ func (pm *Payment) New(s *Sale) error {
 		case "coin_acc":
 			pm.takeCoin(value)
 		}
-		pm.sendOnHand(H.Web)
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
-		err := sp.Add(value)
-		if err != nil {
-			return err
-		}
+		//err := sp.Add(value)
+		//if err != nil {
+		//	return err
+		//}
 	}
 	// ทอนเงิน
 	change := pm.total - s.Total
@@ -133,10 +127,9 @@ func (pm *Payment) New(s *Sale) error {
 		}
 	}
 	// ล้างข้อมูล
-	fmt.Println("Reset Payment: ล้างยอดรับชำระ")
 	pm.reset()
 	// ส่งยอดที่ล้างแล้วให้ WebUI
-	//pm.sendOnHand(H.Web)
+	pm.sendOnHand(H.Web)
 	// ปิดการรับชำระที่อุปกรณ์
 	CA.Stop()
 	BA.Stop()
@@ -347,11 +340,18 @@ func (pm *Payment) coinShortage() error {
 }
 
 func (pm *Payment) reset() {
+	log.Println("Reset Payment: ล้างยอดรับชำระ")
 	pm.total = 0 // เคลียร์ยอดเงินค้างให้หมด
 	pm.bill = 0
 	pm.billEscrow = 0
 	pm.coin = 0
 	pm.remain = 0
+	resetChannel(PM.receivedCh)
+	resetChannel(BA.Send)
+	resetChannel(CA.Send)
+	resetChannel(CH.Send)
+	resetChannel(MB.Send)
+	resetChannel(P.Send)
 }
 
 func (pm *Payment) takeBill(action bool) error {
