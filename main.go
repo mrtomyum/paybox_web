@@ -11,7 +11,6 @@ func main() {
 	fmt.Println("1")
 
 	// Dial to HW_SERVICE
-
 	go ctrl.OpenSocket()
 	fmt.Println("2")
 	time.Sleep(1 * time.Second)

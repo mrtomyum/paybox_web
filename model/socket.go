@@ -21,9 +21,10 @@ type Message struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func (s *Socket) Read() {
+func (s *Socket) Read(done chan bool) {
 	defer func() {
 		s.Conn.Close()
+		done <- true
 	}()
 
 	m := &Message{}
@@ -36,13 +37,15 @@ func (s *Socket) Read() {
 		log.Println("<===*Socket.ReadJSON====", s.Name, s.Conn.RemoteAddr(), m)
 		s.Msg = m
 
-		switch {
-		case s.Name == "UI":
-			//fmt.Println("Read::Web UI Connection message")
+		switch s.Name {
+		case "UI":
+			log.Println("Read::Web UI Connection message")
 			s.onUiEvent()
-		case s.Name == "HW":
-			//fmt.Println("Read::Device Connection message")
+		case "HW":
+			log.Println("Read::Device Connection message")
 			s.onHwEvent()
+		default:
+			log.Println("Read::Unknown message", s.Msg)
 		}
 	}
 }
@@ -74,7 +77,7 @@ func (s *Socket) onUiEvent() {
 	case "onhand":
 		PM.sendOnHand(s)
 	case "cancel":
-		PM.Cancel(s)
+		go PM.Cancel(s)
 	default:
 		log.Println("onUiEvent(): default: Unknown Command for web client=>", s.Msg.Command)
 	}

@@ -36,8 +36,11 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 	}
 	model.H.Web = s
 	fmt.Println("Open WebSocket from Web:", conn.RemoteAddr())
+	done := make(chan bool)
 	go s.Write()
-	s.Read() // ดัก Event message ที่จะส่งมาตอนไหนก็ไม่รู้
+	go s.Read(done) // ดัก Event message ที่จะส่งมาตอนไหนก็ไม่รู้
+
+	<-done
 }
 
 // OpenSocket() เพื่อให้โปรแกรม Host เรียก WebSocket ไปยัง HW_SERVICE ที่พอร์ท 9999
@@ -50,6 +53,9 @@ func OpenSocket() {
 	if err != nil {
 		log.Fatal("Error call HW_SERVICE Websocket:", err)
 	}
+
+	//conn.SetCloseHandler()
+
 	s := &model.Socket{
 		Send: make(chan *model.Message),
 		Name: "HW",
@@ -58,9 +64,12 @@ func OpenSocket() {
 	fmt.Printf("Open Websocket to %v connected: %v\n", s.Name, conn.RemoteAddr())
 	model.H.Hw = s
 	s.Conn = conn
+	done := make(chan bool)
 	defer conn.Close()
 	go s.Write()
-	s.Read()
+	go s.Read(done)
+
+	<-done
 }
 
 

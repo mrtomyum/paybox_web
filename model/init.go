@@ -32,7 +32,7 @@ func init() {
 		billEscrow: 0,
 		total:      0,
 		remain:     0,
-		receivedCh: make(chan *Message),
+		send:       make(chan *Message),
 	}
 
 	BA = &BillAcceptor{
@@ -47,7 +47,7 @@ func init() {
 
 	CH = &CoinHopper{
 		Status: "ok",
-		Send:   make(chan *Message),
+		Send:   make(chan *Message, 10),
 	}
 	//Todo: เพิ่ม Struct เก็บจำนวนเหรียญแต่ละขนาดไว้ด้วย แล้วกำหนดให้ตรวจสอบยอดคงเหลือจาก coin_hopper ตอนเริ่มต้น และทุกขั้นตอนที่มีการรับ coin_acc จ่าย coin_hopper
 	P = &Printer{
@@ -86,7 +86,7 @@ func init() {
 		Id:          "001",
 		IsNetOnline: true,
 	}
-	resetChannel(PM.receivedCh)
+	resetChannel(PM.send)
 	resetChannel(BA.Send)
 	resetChannel(CA.Send)
 	resetChannel(CH.Send)
