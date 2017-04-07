@@ -7,8 +7,7 @@ import (
 )
 
 type BillAcceptor struct {
-	machineId string `json:"machine_id"`
-	Inhibit   bool
+	machineId string
 	Status    string
 	Send      chan *Message
 }
@@ -70,7 +69,6 @@ func (ba *BillAcceptor) Start() {
 		H.Web.Send <- m2
 		return
 	}
-	ba.Inhibit = false
 	ba.Status = "START"
 	fmt.Println("2. เปิดรับธนบัตรสำเร็จ, BA status:", ba.Status)
 }
@@ -89,13 +87,13 @@ func (ba *BillAcceptor) Stop() {
 	m2 := <-ba.Send
 	if !m2.Result {
 		log.Println("Error: bill Acceptor cannot stop.")
+		m2.Device = "web"
 		m2.Command = "warning"
 		m2.Data = "Error: bill Acceptor cannot stop."
 		H.Web.Send <- m2
 		return
 	}
-	//ba.Inhibit = false
-	//ba.Status = "STOP"
+	ba.Status = "STOP"
 	//fmt.Println("2. ปิดรับธนบัตรสำเร็จ, BA status:", ba.Status)
 }
 
@@ -110,12 +108,12 @@ func (ba *BillAcceptor) Take() {
 	}
 	H.Hw.Send <- m
 	//fmt.Printf("pm.Take() action = [%v] 1. รอคำตอบจาก bill Acceptor\n", action)
-	//m = <-ba.Send
-	//if !m.Result {
-	//	ba.Status = "Error cannot take bill"
-	//	log.Println("Error response from bill Acceptor!")
-	//	return errors.New("Error bill Acceptor cannot take bill")
-	//}
+	m = <-ba.Send
+	if !m.Result {
+		ba.Status = "Error cannot take bill"
+		log.Println("Error response from bill Acceptor!")
+		//return errors.New("Error bill Acceptor cannot take bill")
+	}
 	//fmt.Printf("BA.Take() SUCCSS msg %v m.Result= %v, m.Data= %v\n", m, m.Result, m.Data)
 }
 
@@ -127,13 +125,13 @@ func (ba *BillAcceptor) Reject() {
 		Data:    false,
 	}
 	H.Hw.Send <- m
-	//fmt.Printf("ba.reject() 1. รอคำตอบจาก bill Acceptor\n")
-	//	m = <-BA.Send
-	//	if !m.Result {
-	//		BA.Status = "Error cannot take bill"
-	//		log.Println("Error response from bill Acceptor!")
-	//		return errors.New("Error bill Acceptor cannot take bill")
-	//	}
+	fmt.Println("ba.reject() 1. รอคำตอบจาก bill Acceptor")
+	m = <-BA.Send
+	if !m.Result {
+		BA.Status = "Error cannot take bill"
+		log.Println("Error response from bill Acceptor!")
+		//return errors.New("Error bill Acceptor cannot take bill")
+	}
 }
 
 func (ba *BillAcceptor) Received(s *Socket) {

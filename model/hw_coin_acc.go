@@ -6,8 +6,7 @@ import (
 )
 
 type CoinAcceptor struct {
-	machineId string `json:"machine_id"`
-	Inhibit   bool
+	machineId string
 	Status    string
 	Send      chan *Message
 }

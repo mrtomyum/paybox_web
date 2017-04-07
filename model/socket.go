@@ -40,10 +40,10 @@ func (s *Socket) Read(done chan bool) {
 		switch s.Name {
 		case "UI":
 			log.Println("Read::Web UI Connection message")
-			s.onUiEvent()
+			go s.onUiEvent()
 		case "HW":
 			log.Println("Read::Device Connection message")
-			s.onHwEvent()
+			go s.onHwEvent()
 		default:
 			log.Println("Read::Unknown message", s.Msg)
 		}
