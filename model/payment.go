@@ -1,9 +1,9 @@
 package model
 
 import (
+	"errors"
 	"fmt"
 	"log"
-	"errors"
 )
 
 var ErrCoinShortage error = errors.New("Not enough coin to change// ไม่มีเหรียญพอทอน")
@@ -73,25 +73,30 @@ func (pm *Payment) New(s *Sale) error {
 	//defer close(pm.send)
 	//sp := new(SalePay)
 	//s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
-	pm.adjAcceptedBill(s)    // ปรับยอดด้างชำระ เพื่อกำหนดชนิดธนบัตรที่ยอมรับได้
-	pm.displayAcceptedBill() // displayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
-	pm.sendOnHand(H.Web)     // ส่งยอดรับเงินปัจจุบันให้ UI
 
-	fmt.Println("1. Waiting payment form BA or CA")
-	msg := <-pm.send // Waiting for message from payment device.
+	msg := &Message{}
 
-	value := msg.Data.(float64)
-	pm.total += value
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน, สะสมยอดรับชำระ และแจ้ง "onhand" ให้ UI วนไปจนกว่าจะได้ยอด Payment >= Sale
 	for pm.total < s.Total {
 		// Todo: ให้ Cancel() ทำการส่ง pm.send เข้ามาด้วย msg.command: "cancel" แล้วทำการตรวจ if cancel ให้ break ออกจาก loop
+		pm.adjAcceptedBill(s)    // ปรับยอดด้างชำระ เพื่อกำหนดชนิดธนบัตรที่ยอมรับได้
+		pm.displayAcceptedBill() // displayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
+		pm.sendOnHand(H.Web)     // ส่งยอดรับเงินปัจจุบันให้ UI
+
+		fmt.Println("1. Waiting payment form BA or CA")
+		msg = <-pm.send // Waiting for message from payment device.
+
 		fmt.Printf("2. ยอดขาย = %v รับจาก = %v, Payment = %v \n", s.Total, msg.Device, msg.Data)
+		value := msg.Data.(float64)
+		fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 
 		// ตรวจว่ารับเงินเป็นธนบัตร หรือเหรียญ?
 		switch msg.Device {
 		case "bill_acc": // ถ้ารับเป็นธนบัตร
 			pm.billEscrow = value
+			fmt.Println("pm.billEscrow:", pm.billEscrow)
+
 			if pm.billEscrow == 0 { // ถ้าไม่มีธนบัตรพักอยู่
 				return ErrNoBillEscrow
 			}
@@ -99,16 +104,15 @@ func (pm *Payment) New(s *Sale) error {
 			fmt.Printf("check msg #1. msg =%v msg.Data = %v\n", msg, msg.Data)
 			if pm.isAcceptedBill(value) { // ถ้ายอมรับธนบัตรราคานี้
 				BA.Take()         // ให้เก็บธนบัตรลงถัง
-				pm.adjBill(value) // อัพเดตยอดเงินรับ
+				pm.addBill(value) // อัพเดตยอดเงินรับ
+				fmt.Printf("4. เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 			} else { // ถ้าไม่รับ
 				BA.Reject() // ให้คายทิ้ง และล้างยอดรับเงิน/ ยอดค้างรับกลับไปเริ่มต้น รอรับเงินใหม่
 				pm.billEscrow = 0
 			}
-			fmt.Printf("check msg #2. msg =%v msg.Data = %v\n", msg, msg.Data)
-			fmt.Printf("เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v", pm.total, s.Total, pm.remain)
+		case "coin_acc": // ถ้ารับมาเป็นเหรียญ
 			_ = "breakpoint"
-		case "coin_acc":      // ถ้ารับมาเป็นเหรียญ
-			pm.adjCoin(value) // อัพเดตยอดเงินรับ
+			pm.addCoin(value) // อัพเดตยอดเงินรับ
 		}
 
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
@@ -116,19 +120,14 @@ func (pm *Payment) New(s *Sale) error {
 		//if err != nil {
 		//	return err
 		//}
-		pm.adjAcceptedBill(s)    // คำนวณยอดด้างชำระ เพื่อกำหนดชนิดธนบัตรที่ยอมรับได้
-		pm.displayAcceptedBill() // displayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
-		pm.sendOnHand(H.Web)     // ส่งยอดรับเงินปัจจุบันให้ UI
-
-		msg = <-pm.send // รอ msg รับชำระจาก payment device.
-		value = msg.Data.(float64)
-		pm.total += value
+		fmt.Printf("5. footer: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 	}
 
 	// ปิดการรับชำระที่ อุปกรณ์
 	_ = "breakpoint"
 	CA.Stop()
 	BA.Stop()
+	fmt.Printf("6. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 
 	// ทอนเงิน
 	pm.change = pm.total - s.Total
@@ -153,17 +152,6 @@ func (pm *Payment) New(s *Sale) error {
 	}
 	H.Web.Send <- m
 	return nil
-}
-
-// OnHand ส่งค่าเงินพัก Escrow ไว้กลับไปให้ web
-func (pm *Payment) sendOnHand(web *Socket) {
-	fmt.Println("method *Host.sendOnHand()... pm.total =", pm.total)
-	web.Msg.Device = "web"
-	web.Msg.Command = "onhand"
-	web.Msg.Result = true
-	web.Msg.Type = "event"
-	web.Msg.Data = pm.total
-	web.Send <- web.Msg
 }
 
 // Cancel คืนเงินจากทุก Device โดยตรวจสอบเงิน Escrow ใน bill Acceptor ด้วยถ้ามีให้คืนเงิน
@@ -211,6 +199,17 @@ func (pm *Payment) Cancel(c *Socket) {
 	c.Msg.Data = pm.coin
 	c.Send <- c.Msg
 	pm.Reset()
+}
+
+// OnHand ส่งค่าเงินพัก Escrow ไว้กลับไปให้ web
+func (pm *Payment) sendOnHand(web *Socket) {
+	fmt.Println("method *Host.sendOnHand()... pm.total =", pm.total)
+	web.Msg.Device = "web"
+	web.Msg.Command = "onhand"
+	web.Msg.Result = true
+	web.Msg.Type = "event"
+	web.Msg.Data = pm.total
+	web.Send <- web.Msg
 }
 
 func (pm *Payment) adjAcceptedBill(s *Sale) {
@@ -279,7 +278,7 @@ func (pm *Payment) isAcceptedBill(v float64) bool {
 }
 
 // ปรับยอดเงินจากธนบัตรที่รับมา
-func (pm Payment) adjBill(v float64) {
+func (pm *Payment) addBill(v float64) {
 	// อัพเดตยอดเงินสดในตู้ด้วย
 	CB.bill += pm.billEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
 	CB.total += pm.billEscrow // เพิ่มยอดรวมของ CashBox
@@ -289,12 +288,12 @@ func (pm Payment) adjBill(v float64) {
 	pm.billEscrow = 0 // ล้างยอดเงินพัก
 }
 
-func (pm Payment) rejectBill(v float64) {
+func (pm *Payment) rejectBill(v float64) {
 	BA.Reject()
 	pm.billEscrow = 0 // ล้างยอดเงินพัก
 }
 
-func (pm *Payment) adjCoin(value float64) {
+func (pm *Payment) addCoin(value float64) {
 	pm.coin += value
 	pm.total += value
 	pm.remain -= value
@@ -334,11 +333,11 @@ func (pm *Payment) doChange(value float64) error {
 	//	return ErrCoinShortage
 	//}
 	fmt.Println("YES -> 7. มีเหรียญพอทอน")
-	err := CH.PayoutByCash(value) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
-	if err != nil {
-		return err
-		log.Println("Error on CH Payout():", err.Error())
-	}
+	go CH.PayoutByCash(value) // Todo: เพิ่มกลไกวิเคราะห์เงินทอน แล้วสั่งทอนเป็นเหรียญ เพื่อป้องกันเหรียญหมด
+	//if err != nil {
+	//	return err
+	//	log.Println("Error on CH Payout():", err.Error())
+	//}
 	fmt.Println("8.2 SUCCESS -- ทอนเหรียญจาก hopper =", value)
 	return nil
 }

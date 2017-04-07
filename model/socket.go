@@ -14,10 +14,10 @@ type Socket struct {
 }
 
 type Message struct {
-	Device  string `json:"device"`
-	Type    string `json:"type"`
-	Command string `json:"command"`
-	Result  bool `json:"result,omitempty"`
+	Device  string      `json:"device"`
+	Type    string      `json:"type"`
+	Command string      `json:"command"`
+	Result  bool        `json:"result,omitempty"`
 	Data    interface{} `json:"data,omitempty"`
 }
 
@@ -39,11 +39,11 @@ func (s *Socket) Read(done chan bool) {
 
 		switch s.Name {
 		case "UI":
-			log.Println("Read::Web UI Connection message")
-			go s.onUiEvent()
+			//log.Println("Read::Web UI Connection message")
+			s.onUiEvent()
 		case "HW":
-			log.Println("Read::Device Connection message")
-			go s.onHwEvent()
+			//log.Println("Read::Device Connection message")
+			s.onHwEvent()
 		default:
 			log.Println("Read::Unknown message", s.Msg)
 		}

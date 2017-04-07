@@ -1,9 +1,9 @@
 package model
 
 import (
-	"log"
-	"fmt"
 	"errors"
+	"fmt"
+	"log"
 )
 
 type BillAcceptor struct {
@@ -22,6 +22,8 @@ func (ba *BillAcceptor) event(s *Socket) {
 		ba.Received(s)
 	case "time_out":
 		ba.TimeOut(s)
+	case "returned":
+		ba.Returned(s)
 	case "set_inhibit", "machine_id", "inhibit", "recently_inserted", "take_reject": // ตั้งค่า Inhibit (รับ-ไม่รับธนบัตร) ของ bill Acceptor
 		ba.Send <- s.Msg
 	default:
@@ -132,6 +134,7 @@ func (ba *BillAcceptor) Reject() {
 		log.Println("Error response from bill Acceptor!")
 		//return errors.New("Error bill Acceptor cannot take bill")
 	}
+	// todo: Send msg to Ui to ask customer "กรุณาดึงธนบัตรออก" จนกว่าจะส่ง msg "returned" ไปให้ UI ให้ค้างคำเตือนกระพริบไว้
 }
 
 func (ba *BillAcceptor) Received(s *Socket) {
@@ -143,5 +146,10 @@ func (ba *BillAcceptor) Received(s *Socket) {
 func (ba *BillAcceptor) TimeOut(s *Socket) {
 	log.Println("Bill Acceptor -> Time Out")
 	// Todo: send msg to UI to warning User
-	go PM.Cancel(s)
+	//go PM.Cancel(s) // ปิดไว้ก่อนมีบักจาก HW
+}
+
+func (ba *BillAcceptor) Returned(s *Socket) {
+	// Send Message to Web Ui to notified
+	log.Println("Send Message to Web Ui to notified: ", s.Msg)
 }

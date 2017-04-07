@@ -16,3 +16,4 @@ projectFilesBackup/
 /.idea/workspace.xml
 paybox.db-journal
 model/paybox.db
+paybox_web

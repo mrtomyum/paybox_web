@@ -14,10 +14,10 @@
 package model
 
 import (
-	"fmt"
-	"log"
-	"github.com/gin-gonic/gin"
 	"errors"
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"log"
 )
 
 //type CoinHopperStatus int
@@ -69,7 +69,7 @@ func (ch *CoinHopper) event(c *Socket) {
 }
 
 func (ch *CoinHopper) PayoutByCoin(c1, c2, c5, c10 int) error {
-	fmt.Println("==== Send Command to CoinHopper payout_by_coin, Value: c1=%v c2=%v c5=%v c10=%v ", c1, c2, c5, c10)
+	fmt.Printf("==== Send Command to CoinHopper payout_by_coin, Value: c1=%v c2=%v c5=%v c10=%v ", c1, c2, c5, c10)
 	defer fmt.Println("============================================================")
 
 	data := gin.H{
@@ -133,7 +133,7 @@ func (ch *CoinHopper) StatusChange(c *Socket) {
 	fmt.Println("CoinHopper.StatusChange() start")
 	switch c.Msg.Data.(string) {
 	case "ready", "disable", "calibration_fault", "no_key_set", "coin_jammed", "fraud", "hopper_empty", "memory_error", "sensors_not_initialised", "lid_remove": // Legacy
-		H.Web.Send <- c.Msg                                                                                                                                      // ตอนนี้กำหนดให้ทุกสถานะจะส่งไปให้ Web ด้วย
+		H.Web.Send <- c.Msg // ตอนนี้กำหนดให้ทุกสถานะจะส่งไปให้ Web ด้วย
 		ch.Status = c.Msg.Data.(string)
 	default:
 		log.Println("Error CoinHopper.StatusChange: Unknown Msg.Data=>", c.Msg.Data.(string))
