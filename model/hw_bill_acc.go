@@ -146,10 +146,23 @@ func (ba *BillAcceptor) Received(s *Socket) {
 func (ba *BillAcceptor) TimeOut(s *Socket) {
 	log.Println("Bill Acceptor -> Time Out")
 	// Todo: send msg to UI to warning User
-	//go PM.Cancel(s) // ปิดไว้ก่อนมีบักจาก HW
+	go PM.Cancel(s) // ปิดไว้ก่อนมีบักจาก HW
+	m := &Message{
+		Command: "time_out",
+		Type:    "event",
+		Data:    "คืนเงินเนื่องจากเกินเวลาที่กำหนด กรุณาดึงธนบัตรออกและทำรายการใหม่ค่ะ",
+	}
+	H.Web.Send <- m
+	log.Println("Send Notified Message to Web Ui: ", s.Msg)
 }
 
 func (ba *BillAcceptor) Returned(s *Socket) {
 	// Send Message to Web Ui to notified
-	log.Println("Send Message to Web Ui to notified: ", s.Msg)
+	m := &Message{
+		Command: "bill_returned",
+		Type:    "event",
+	}
+	H.Web.Send <- m
+	log.Println("Send Notified Message to Web Ui: ", s.Msg)
+	// todo: Log การคืนธนบัตรด้วย
 }

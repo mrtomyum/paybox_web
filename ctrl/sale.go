@@ -2,9 +2,9 @@ package ctrl
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/mrtomyum/paybox_web/model"
 	"log"
-	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
@@ -15,7 +15,7 @@ func NewSale(c *gin.Context) {
 	fmt.Println("NewSale() start")
 	s := new(model.Sale)
 	if c.Bind(s) != nil {
-		c.JSON(http.StatusOK, gin.H{"command": "bind_sale_data", "result": "error", "data": s, })
+		c.JSON(http.StatusOK, gin.H{"command": "bind_sale_data", "result": "error", "data": s})
 		log.Println("Error JSON from Web client.")
 	}
 	fmt.Printf("[NewSale()] รับค่า Sale จาก web->sale= %v\n", s)
@@ -57,8 +57,7 @@ func NewSale(c *gin.Context) {
 	// Reset Payment data.
 	//model.PM.Reset()
 
-
-	c.JSON(http.StatusOK, gin.H{"command": "sale", "result": "success", "data": s, })
+	c.JSON(http.StatusOK, gin.H{"command": "sale", "result": "success", "data": s})
 	fmt.Println("NewSale() COMPLETED, sale = ", s)
 	s.Reset()
 }
