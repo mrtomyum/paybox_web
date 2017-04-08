@@ -3,8 +3,8 @@ package model
 import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
-	"os"
 	"log"
+	"os"
 )
 
 var (
@@ -32,7 +32,7 @@ func init() {
 		billEscrow: 0,
 		total:      0,
 		remain:     0,
-		send:       make(chan *Message),
+		//send:       make(chan *Message),
 	}
 
 	BA = &BillAcceptor{

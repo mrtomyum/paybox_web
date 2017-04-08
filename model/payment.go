@@ -49,6 +49,7 @@ type AcceptedBill struct {
 // init() ทำการรีเซ็ทค่าที่ควรถูกตั้งใหม่ทุกครั้งที่สร้าง Payment ใหม่ขึ้นมา
 func (pm *Payment) init(s *Sale) {
 	pm.Reset()
+	pm.send = make(chan *Message)
 	pm.remain = s.Total
 	AB = &AcceptedBill{
 		B20:   true,
@@ -71,9 +72,9 @@ func (pm *Payment) New(s *Sale) error {
 		return errors.New("Sale Total is 0 cannot do payment.")
 	}
 	pm.init(s)
-	//defer close(pm.send)
-	//sp := new(SalePay)
-	//s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
+	defer close(pm.send)
+	sp := new(SalePay)
+	s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
 
 	msg := &Message{}
 
@@ -84,7 +85,6 @@ func (pm *Payment) New(s *Sale) error {
 		pm.adjAcceptedBill(s)    // ปรับยอดด้างชำระ เพื่อกำหนดชนิดธนบัตรที่ยอมรับได้
 		pm.displayAcceptedBill() // displayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 		pm.sendOnHand(H.Web)     // ส่งยอดรับเงินปัจจุบันให้ UI
-		fmt.Printf("s.Total = %v, pm.total = %v\n", s.Total, pm.total)
 
 		fmt.Println("1. Waiting payment form BA or CA")
 		msg = <-pm.send              // Waiting for message from payment device.
@@ -99,28 +99,25 @@ func (pm *Payment) New(s *Sale) error {
 		case "bill_acc": // ถ้ารับเป็นธนบัตร
 			pm.billEscrow = value
 			fmt.Println("pm.billEscrow:", pm.billEscrow)
-
 			if pm.billEscrow == 0 { // ถ้าไม่มีธนบัตรพักอยู่
 				return ErrNoBillEscrow
 			}
 			//fmt.Printf("check msg #1. msg =%v msg.Data = %v\n", msg, msg.Data)
 			if pm.isAcceptedBill(value) { // ถ้ายอมรับธนบัตรราคานี้
 				BA.Take() // ให้เก็บธนบัตรลงถัง
-				//pm.addBill(value) // อัพเดตยอดเงินรับ
 				fmt.Printf("4. เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 			} else { // ถ้าไม่รับ
 				BA.Reject() // ให้คายทิ้ง และล้างยอดรับเงิน/ ยอดค้างรับกลับไปเริ่มต้น รอรับเงินใหม่
 				pm.billEscrow = 0
 			}
 		case "coin_acc": // ถ้ารับมาเป็นเหรียญ
-			//pm.addCoin(value) // อัพเดตยอดเงินรับ ย้ายไปใน CA.received() แล้ว
 		}
 
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
-		//err := sp.Add(value)
-		//if err != nil {
-		//	return err
-		//}
+		err := sp.Add(value)
+		if err != nil {
+			return err
+		}
 		fmt.Printf("5. footer: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 	}
 
