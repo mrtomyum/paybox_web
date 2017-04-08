@@ -2,11 +2,11 @@ package ctrl
 
 import (
 	"fmt"
-	"net/http"
+	"github.com/gorilla/websocket"
 	"github.com/mrtomyum/paybox_web/model"
 	"log"
+	"net/http"
 	"net/url"
-	"github.com/gorilla/websocket"
 )
 
 var (
@@ -47,7 +47,7 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 // ใช้สั่งงาน Request และรับ Event/Response จาก Device ต่างๆ
 func OpenSocket() {
 	//u := url.URL{Scheme: "ws", Host: "127.0.0.1:9999", Path: "/"}
-	u := url.URL{Scheme:"ws", Host:"192.168.10.64:9999", Path: "/"}
+	u := url.URL{Scheme: "ws", Host: "192.168.10.64:9999", Path: "/"}
 	log.Printf("connecting to %s", u.String())
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
@@ -57,7 +57,7 @@ func OpenSocket() {
 	//conn.SetCloseHandler()
 
 	s := &model.Socket{
-		Send: make(chan *model.Message),
+		Send: make(chan *model.Message, 1),
 		Name: "HW",
 		Msg:  &model.Message{},
 	}
@@ -71,5 +71,3 @@ func OpenSocket() {
 
 	<-done
 }
-
-

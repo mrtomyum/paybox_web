@@ -36,9 +36,9 @@ func (ba *BillAcceptor) event(s *Socket) {
 }
 
 // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ bill Acceptor
-func (ba *BillAcceptor) MachineId(c *Socket) error {
+func (ba *BillAcceptor) MachineId(s *Socket) error {
 	m := &Message{Device: "bill_acc", Command: "machine_id", Type: "request"}
-	c.Send <- m
+	s.Send <- m
 	m = <-ba.Send
 	if !m.Result {
 		ba.Status = "Error when get machine_id"

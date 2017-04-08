@@ -22,10 +22,12 @@ func NewSale(c *gin.Context) {
 	//s.HostId = model.MB.MachineId()
 
 	// Payment
+	fmt.Println("Sale.Total = ", s.Total)
 	err := model.PM.New(s)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusConflict, gin.H{"command": "payment", "result": "error", "message": err.Error()})
+		return
 	}
 
 	// พิมพ์ตั๋ว และใบเสร็จ
@@ -53,7 +55,7 @@ func NewSale(c *gin.Context) {
 	}
 
 	// Reset Payment data.
-	model.PM.Reset()
+	//model.PM.Reset()
 
 
 	c.JSON(http.StatusOK, gin.H{"command": "sale", "result": "success", "data": s, })

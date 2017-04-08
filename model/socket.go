@@ -70,9 +70,9 @@ func (s *Socket) Write() {
 }
 
 // onUiEvent แยกเส้นทาง Message Request จาก Web Frontend โดยแยกตาม Command ต่างๆ
+// ปกติแล้ว  Web จะไม่สั่งการ Device ตรงๆ แต่จะสั่งผ่าน Host ให้ Host ทำงานระดับล่างแทน
+// แต่ตรงนี้มีไว้สำหรับการ Debug ผ่าน Web GUI fmt.Println("Request message from Web")
 func (s *Socket) onUiEvent() {
-	// ปกติแล้ว  Web จะไม่สั่งการ Device ตรงๆ แต่จะสั่งผ่าน Host ให้ Host ทำงานระดับล่างแทน
-	// แต่ตรงนี้มีไว้สำหรับการ Debug ผ่าน Web GUI fmt.Println("Request message from Web")
 	switch s.Msg.Command {
 	case "onhand":
 		PM.sendOnHand(s)
@@ -86,7 +86,6 @@ func (s *Socket) onUiEvent() {
 // onHwEvent เป็นการแยกเส้นทาง Message จาก Device Event และ Response
 // โดย Function นี้จะแยก message ตาม Device ก่อน แล้วจึงแยกเส้นทางตาม Command
 func (s *Socket) onHwEvent() {
-	//fmt.Println("onHwEvent():", s.Msg)
 	switch s.Msg.Device {
 	case "coin_hopper":
 		CH.event(s)

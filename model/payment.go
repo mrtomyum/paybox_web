@@ -65,6 +65,7 @@ func (pm *Payment) init(s *Sale) {
 
 // *Payment New() ทำหน้าที่จัดการกระบวนการรับเงิน ทอนเงิน ให้สมบูรณ์
 func (pm *Payment) New(s *Sale) error {
+	fmt.Printf("s.Total = %v, pm.total = %v\n", s.Total, pm.total)
 	CheckSocketConnected()
 	if s.Total == 0 {
 		return errors.New("Sale Total is 0 cannot do payment.")
@@ -79,15 +80,23 @@ func (pm *Payment) New(s *Sale) error {
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน, สะสมยอดรับชำระ และแจ้ง "onhand" ให้ UI วนไปจนกว่าจะได้ยอด Payment >= Sale
 	for pm.total < s.Total {
+		fmt.Printf("s.Total = %v, pm.total = %v\n", s.Total, pm.total)
 		// Todo: ให้ Cancel() ทำการส่ง pm.send เข้ามาด้วย msg.command: "cancel" แล้วทำการตรวจ if cancel ให้ break ออกจาก loop
-		pm.adjAcceptedBill(s)    // ปรับยอดด้างชำระ เพื่อกำหนดชนิดธนบัตรที่ยอมรับได้
+		pm.adjAcceptedBill(s) // ปรับยอดด้างชำระ เพื่อกำหนดชนิดธนบัตรที่ยอมรับได้
+		fmt.Printf("s.Total = %v, pm.total = %v\n", s.Total, pm.total)
 		pm.displayAcceptedBill() // displayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
-		pm.sendOnHand(H.Web)     // ส่งยอดรับเงินปัจจุบันให้ UI
+		fmt.Printf("s.Total = %v, pm.total = %v\n", s.Total, pm.total)
+		pm.sendOnHand(H.Web) // ส่งยอดรับเงินปัจจุบันให้ UI
+		fmt.Printf("s.Total = %v, pm.total = %v\n", s.Total, pm.total)
 
 		fmt.Println("1. Waiting payment form BA or CA")
 		msg = <-pm.send // Waiting for message from payment device.
 
-		fmt.Printf("2. ยอดขาย = %v รับจาก = %v, Payment = %v \n", s.Total, msg.Device, msg.Data)
+		fmt.Printf("msg.Command = %v\n", msg.Command)
+		if msg.Command == "cancel" {
+			return errors.New("cancel")
+		}
+		fmt.Printf("2. ยอดขาย = %v รับจาก = %v, Payment = %v \n", s.Total, msg.Device, msg)
 		value := msg.Data.(float64)
 		fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 
@@ -131,8 +140,8 @@ func (pm *Payment) New(s *Sale) error {
 
 	// ทอนเงิน
 	pm.change = pm.total - s.Total
+	fmt.Printf("pm.change = %v pm.total = %v s.Total = %v", pm.change, pm.total, s.Total)
 	if pm.change > 0 { //ถ้าต้องทอนเงิน
-		fmt.Println("pm.change()")
 		err := pm.doChange(pm.change)
 		if err != nil {
 			return err
@@ -155,7 +164,7 @@ func (pm *Payment) New(s *Sale) error {
 }
 
 // Cancel คืนเงินจากทุก Device โดยตรวจสอบเงิน Escrow ใน bill Acceptor ด้วยถ้ามีให้คืนเงิน
-func (pm *Payment) Cancel(c *Socket) {
+func (pm *Payment) Cancel(s *Socket) {
 	fmt.Println("call *Payment.Cancel()")
 
 	// ตรวจสอบก่อนว่าหากคืนธนบัตรใบล่าสุดใบเดียว เหรียญใน hopper จะพอคืนตามยอดเงินรับชำระหรือไม่?
@@ -173,10 +182,15 @@ func (pm *Payment) Cancel(c *Socket) {
 		BA.Reject() // คายธนบัตร
 		BA.Stop()
 		CA.Stop()
-		c.Msg.Type = "response"
-		c.Msg.Result = true
-		c.Msg.Data = "ไม่มีเงินรับ"
-		c.Send <- c.Msg
+		//s.Msg.Device = "web"
+		//s.Msg.Type = "response"
+		//s.Msg.Result = true
+		//s.Msg.Data = "ไม่มีเงินรับ"
+		//s.Send <- s.Msg
+		msg := &Message{
+			Command: "cancel",
+		}
+		pm.send <- msg
 		pm.Reset()
 		return
 	}
@@ -193,23 +207,27 @@ func (pm *Payment) Cancel(c *Socket) {
 	}
 
 	// Send message response back to Web Socket
-	c.Msg.Device = "web"
-	c.Msg.Type = "response"
-	c.Msg.Result = true
-	c.Msg.Data = pm.coin
-	c.Send <- c.Msg
+	//s.Msg.Device = "web"
+	//s.Msg.Type = "response"
+	//s.Msg.Result = true
+	//s.Msg.Data = pm.coin
+	//s.Send <- s.Msg
+	msg := &Message{
+		Command: "cancel",
+	}
+	pm.send <- msg
 	pm.Reset()
 }
 
 // OnHand ส่งค่าเงินพัก Escrow ไว้กลับไปให้ web
-func (pm *Payment) sendOnHand(web *Socket) {
+func (pm *Payment) sendOnHand(s *Socket) {
 	fmt.Println("method *Host.sendOnHand()... pm.total =", pm.total)
-	web.Msg.Device = "web"
-	web.Msg.Command = "onhand"
-	web.Msg.Result = true
-	web.Msg.Type = "event"
-	web.Msg.Data = pm.total
-	web.Send <- web.Msg
+	s.Msg.Device = "web"
+	s.Msg.Command = "onhand"
+	s.Msg.Result = true
+	s.Msg.Type = "event"
+	s.Msg.Data = pm.total
+	s.Send <- s.Msg
 }
 
 func (pm *Payment) adjAcceptedBill(s *Sale) {
@@ -338,7 +356,7 @@ func (pm *Payment) doChange(value float64) error {
 	//	return err
 	//	log.Println("Error on CH Payout():", err.Error())
 	//}
-	fmt.Println("8.2 SUCCESS -- ทอนเหรียญจาก hopper =", value)
+	//fmt.Println("8.2 SUCCESS -- ทอนเหรียญจาก hopper =", value)
 	return nil
 }
 
@@ -366,6 +384,7 @@ func (pm *Payment) Reset() {
 	pm.billEscrow = 0
 	pm.coin = 0
 	pm.remain = 0
+	pm.change = 0
 	resetChannel(PM.send)
 	resetChannel(BA.Send)
 	resetChannel(CA.Send)
