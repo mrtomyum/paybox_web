@@ -80,23 +80,17 @@ func (pm *Payment) New(s *Sale) error {
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน, สะสมยอดรับชำระ และแจ้ง "onhand" ให้ UI วนไปจนกว่าจะได้ยอด Payment >= Sale
 	for pm.total < s.Total {
-		fmt.Printf("s.Total = %v, pm.total = %v\n", s.Total, pm.total)
 		// Todo: ให้ Cancel() ทำการส่ง pm.send เข้ามาด้วย msg.command: "cancel" แล้วทำการตรวจ if cancel ให้ break ออกจาก loop
-		pm.adjAcceptedBill(s) // ปรับยอดด้างชำระ เพื่อกำหนดชนิดธนบัตรที่ยอมรับได้
-		fmt.Printf("s.Total = %v, pm.total = %v\n", s.Total, pm.total)
+		pm.adjAcceptedBill(s)    // ปรับยอดด้างชำระ เพื่อกำหนดชนิดธนบัตรที่ยอมรับได้
 		pm.displayAcceptedBill() // displayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
-		fmt.Printf("s.Total = %v, pm.total = %v\n", s.Total, pm.total)
-		pm.sendOnHand(H.Web) // ส่งยอดรับเงินปัจจุบันให้ UI
+		pm.sendOnHand(H.Web)     // ส่งยอดรับเงินปัจจุบันให้ UI
 		fmt.Printf("s.Total = %v, pm.total = %v\n", s.Total, pm.total)
 
 		fmt.Println("1. Waiting payment form BA or CA")
-		msg = <-pm.send // Waiting for message from payment device.
-
-		fmt.Printf("msg.Command = %v\n", msg.Command)
-		if msg.Command == "cancel" {
+		msg = <-pm.send              // Waiting for message from payment device.
+		if msg.Command == "cancel" { // หากมีคำสั่ง cancel ให้ออก
 			return errors.New("cancel")
 		}
-		fmt.Printf("2. ยอดขาย = %v รับจาก = %v, Payment = %v \n", s.Total, msg.Device, msg)
 		value := msg.Data.(float64)
 		fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 
@@ -109,19 +103,17 @@ func (pm *Payment) New(s *Sale) error {
 			if pm.billEscrow == 0 { // ถ้าไม่มีธนบัตรพักอยู่
 				return ErrNoBillEscrow
 			}
-			_ = "breakpoint"
-			fmt.Printf("check msg #1. msg =%v msg.Data = %v\n", msg, msg.Data)
+			//fmt.Printf("check msg #1. msg =%v msg.Data = %v\n", msg, msg.Data)
 			if pm.isAcceptedBill(value) { // ถ้ายอมรับธนบัตรราคานี้
-				BA.Take()         // ให้เก็บธนบัตรลงถัง
-				pm.addBill(value) // อัพเดตยอดเงินรับ
+				BA.Take() // ให้เก็บธนบัตรลงถัง
+				//pm.addBill(value) // อัพเดตยอดเงินรับ
 				fmt.Printf("4. เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 			} else { // ถ้าไม่รับ
 				BA.Reject() // ให้คายทิ้ง และล้างยอดรับเงิน/ ยอดค้างรับกลับไปเริ่มต้น รอรับเงินใหม่
 				pm.billEscrow = 0
 			}
 		case "coin_acc": // ถ้ารับมาเป็นเหรียญ
-			_ = "breakpoint"
-			pm.addCoin(value) // อัพเดตยอดเงินรับ
+			//pm.addCoin(value) // อัพเดตยอดเงินรับ ย้ายไปใน CA.received() แล้ว
 		}
 
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
@@ -133,7 +125,6 @@ func (pm *Payment) New(s *Sale) error {
 	}
 
 	// ปิดการรับชำระที่ อุปกรณ์
-	_ = "breakpoint"
 	CA.Stop()
 	BA.Stop()
 	fmt.Printf("6. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)

@@ -202,6 +202,12 @@ func (ch *CoinHopper) Empty() error {
 		return errors.New("Error from EMPTY coin hopper.")
 	}
 	fmt.Println("SUCCESS EMPTY coin hopper.")
+	// Update CashBox
+	CB.coin += m.Data.(float64)
+	CB.total += m.Data.(float64)
+	CB.hopper -= m.Data.(float64)
+	// Send Event to Cloud API
+
 	return nil
 }
 

@@ -72,7 +72,14 @@ func (ca *CoinAcceptor) Stop() {
 	fmt.Println("2. ปิดรับเหรียญสำเร็จ, CA status:", ca.Status)
 }
 
-func (ca *CoinAcceptor) Received(c *Socket) {
+func (ca *CoinAcceptor) Received(s *Socket) {
 	fmt.Println("Start method: ca.Received()")
-	PM.send <- c.Msg
+	value := s.Msg.Data.(float64)
+	PM.coin += value
+	PM.total += value
+	PM.remain -= value
+	CB.hopper += value
+	CB.total += value
+	fmt.Println("coin send =", PM.coin, "PM total=", PM.total)
+	PM.send <- s.Msg
 }

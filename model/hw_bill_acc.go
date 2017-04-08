@@ -117,6 +117,13 @@ func (ba *BillAcceptor) Take() {
 		//return errors.New("Error bill Acceptor cannot take bill")
 	}
 	//fmt.Printf("BA.Take() SUCCSS msg %v m.Result= %v, m.Data= %v\n", m, m.Result, m.Data)
+	// อัพเดตยอดเงินสดในตู้ด้วย
+	CB.bill += PM.billEscrow  // เพิ่มยอดธนบัตรในถังธนบัตร
+	CB.total += PM.billEscrow // เพิ่มยอดรวมของ CashBox
+	PM.bill += PM.billEscrow
+	PM.total += PM.billEscrow
+	PM.remain -= PM.billEscrow
+	PM.billEscrow = 0 // ล้างยอดเงินพัก
 }
 
 func (ba *BillAcceptor) Reject() {
@@ -148,9 +155,9 @@ func (ba *BillAcceptor) TimeOut(s *Socket) {
 	// Todo: send msg to UI to warning User
 	go PM.Cancel(s) // ปิดไว้ก่อนมีบักจาก HW
 	m := &Message{
-		Command: "time_out",
+		Command: "alert",
 		Type:    "event",
-		Data:    "คืนเงินเนื่องจากเกินเวลาที่กำหนด กรุณาดึงธนบัตรออกและทำรายการใหม่ค่ะ",
+		Data:    "คืนเงินเนื่องจากเป็นธนบัตรรุ่นใหม่ที่ไม่รู้จัก กรุณาเปลี่ยนธนบัตรใหม่ค่ะ",
 	}
 	H.Web.Send <- m
 	log.Println("Send Notified Message to Web Ui: ", s.Msg)
@@ -159,8 +166,9 @@ func (ba *BillAcceptor) TimeOut(s *Socket) {
 func (ba *BillAcceptor) Returned(s *Socket) {
 	// Send Message to Web Ui to notified
 	m := &Message{
-		Command: "bill_returned",
+		Command: "alert",
 		Type:    "event",
+		Data:    "ลูกค้ารับธนบัตรคืนไปแล้ว",
 	}
 	H.Web.Send <- m
 	log.Println("Send Notified Message to Web Ui: ", s.Msg)
