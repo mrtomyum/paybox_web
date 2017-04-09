@@ -1,10 +1,10 @@
 package model
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"log"
-	"fmt"
 )
 
 type Socket struct {
@@ -38,6 +38,15 @@ func (s *Socket) Read(done chan bool) {
 		}
 		log.Println("<===*Socket.ReadJSON====", s.Name, s.Conn.RemoteAddr(), m)
 		s.Msg = m
+
+		// Detect Ghost Message!!
+		count := 0
+		if m.Command == "received" {
+			count++
+			if count > 1 {
+				continue
+			}
+		}
 
 		switch s.Name {
 		case "UI":
