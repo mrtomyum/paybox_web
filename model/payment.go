@@ -170,11 +170,6 @@ func (pm *Payment) Cancel(s *Socket) {
 		BA.Reject() // คายธนบัตร
 		BA.Stop()
 		CA.Stop()
-		//s.Msg.Device = "web"
-		//s.Msg.Type = "response"
-		//s.Msg.Result = true
-		//s.Msg.Data = "ไม่มีเงินรับ"
-		//s.Send <- s.Msg
 		msg := &Message{
 			Command: "cancel",
 		}
@@ -193,13 +188,6 @@ func (pm *Payment) Cancel(s *Socket) {
 			log.Println(err.Error())
 		}
 	}
-
-	// Send message response back to Web Socket
-	//s.Msg.Device = "web"
-	//s.Msg.Type = "response"
-	//s.Msg.Result = true
-	//s.Msg.Data = pm.coin
-	//s.Send <- s.Msg
 	msg := &Message{
 		Command: "cancel",
 	}

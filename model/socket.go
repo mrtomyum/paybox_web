@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"log"
+	"fmt"
 )
 
 type Socket struct {
@@ -28,6 +29,7 @@ func (s *Socket) Read(done chan bool) {
 	}()
 
 	m := &Message{}
+	fmt.Println("###*Socket.Read()### START ###", s.Name, s.Conn.RemoteAddr())
 	for {
 		err := s.Conn.ReadJSON(&m)
 		if err != nil {
