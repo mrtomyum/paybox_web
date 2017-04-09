@@ -15,7 +15,7 @@ type CoinAcceptor struct {
 func (ca *CoinAcceptor) event(c *Socket) {
 	switch c.Msg.Command {
 	case "received": // Event น้ีจะเกิดขึ้นเมื่อเคร่ืองรับเหรียญได้รับเหรียญ
-		ca.Received(c)
+		go ca.Received(c)
 	case "set_inhibit", "machine_id", "inhibit", "recently_inserted": // ตั้งค่า Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
 		ca.Send <- c.Msg
 	default:

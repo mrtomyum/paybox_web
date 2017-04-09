@@ -44,6 +44,7 @@ func (s *Socket) Read(done chan bool) {
 		if m.Command == "received" {
 			count++
 			if count == 1 {
+				log.Println("bypass this message", m)
 				continue
 			}
 		}
