@@ -29,6 +29,7 @@ func (s *Socket) Read(done chan bool) {
 	}()
 
 	m := &Message{}
+	count := 0
 	fmt.Println("###*Socket.Read()### START ###", s.Name, s.Conn.RemoteAddr())
 	for {
 		err := s.Conn.ReadJSON(&m)
@@ -40,10 +41,9 @@ func (s *Socket) Read(done chan bool) {
 		s.Msg = m
 
 		// Detect Ghost Message!!
-		count := 0
 		if m.Command == "received" {
 			count++
-			if count > 1 {
+			if count == 1 {
 				continue
 			}
 		}
