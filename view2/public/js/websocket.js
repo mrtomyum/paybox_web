@@ -94,11 +94,11 @@
                     document.getElementById("list_item").innerHTML = "";
                     alertify.error("ยกเลิกรายการ "+JSON.stringify(t['data']));
 
-                    if(t['result']==true){
+                      /*if(t['result']==true){
                         $.mobile.changePage("#pageone");
                     }else if(t['result']==false){
                         alertify.success(JSON.stringify(t['data']));
-                    }
+                       }*/
                   }else if(t['command']=='accepted_bill'){
                     var bank = "";
                     var b20 = t['data'].b20;
