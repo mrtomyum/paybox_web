@@ -41,7 +41,7 @@ func (s *Socket) Read(done chan bool) {
 		s.Msg = m
 
 		// Detect Ghost Message!!
-		if m.Command == "received" {
+		if m.Command == "received" || m.Command == "payout_by_coin" {
 			count++
 			if count == 1 {
 				log.Println("bypass this message", m)
