@@ -248,7 +248,8 @@ function bill(){
 }
 
 function cancel(){
-    $.mobile.changePage("#pageone");
+    //$.mobile.changePage("#pageone");
+    $("#pop_payment").popup('close');
     var cancel = '{"device":"host",';
                  cancel += '"type":"request",';
                  cancel += '"command":"cancel"';
