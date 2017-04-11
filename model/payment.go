@@ -97,9 +97,13 @@ func (pm *Payment) New(s *Sale) error {
 		fmt.Println("1. Waiting payment form BA or CA")
 		//var value float64
 		select {
-		case <-pm.cancelCh:
-			return errors.New("cancel")
+		case cancel := <-pm.cancelCh:
+			fmt.Println("case <-pm.cancelCh return...")
+			if cancel {
+				return errors.New("cancel")
+			}
 		case msg = <-pm.billCh:
+			fmt.Println("case <-pm.billCh return... msg = ", msg)
 			value := msg.Data.(float64)
 			fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 			pm.billEscrow = value
@@ -171,30 +175,22 @@ func (pm *Payment) Cancel(s *Socket) {
 	//	return ErrCoinShortage
 	//}
 	//fmt.Printf("pm.billEscrow: %v pm.total: %v ", pm.billEscrow, pm.total)
-	if pm.billEscrow != 0 { //มีธนบัตร
+	change := pm.total - pm.billEscrow
+	switch {
+	case pm.billEscrow != 0: //มีธนบัตร
 		// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
 		BA.Reject() // คายธนบัตร
-		BA.Stop()
-		CA.Stop()
-		pm.cancelCh <- true
-		pm.Reset()
-		return
-	}
-	BA.Stop()
-	CA.Stop()
-
-	// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.coin ออกด้านหน้า
-	change := pm.total - pm.billEscrow
-	if change != 0 {
+		fallthrough
+	case change != 0:
+		// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.coin ออกด้านหน้า
 		err := CH.PayoutByCash(change)
 		if err != nil {
 			log.Println(err.Error())
 		}
 	}
-	msg := &Message{
-		Command: "cancel",
-	}
-	pm.billCh <- msg
+	BA.Stop()
+	CA.Stop()
+	pm.cancelCh <- true
 	pm.Reset()
 }
 

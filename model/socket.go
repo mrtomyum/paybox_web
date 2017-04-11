@@ -98,13 +98,10 @@ func (s *Socket) onUiEvent() {
 func (s *Socket) onHwEvent() {
 	switch s.Msg.Device {
 	case "coin_hopper":
-		log.Println("*Socket.Read 3 coin_hopper")
 		CH.event(s)
 	case "coin_acc":
-		log.Println("*Socket.Read 3 coin_acc")
 		CA.event(s)
 	case "bill_acc":
-		log.Println("*Socket.Read 3 bill_acc")
 		BA.event(s)
 	case "printer":
 		P.event(s)
