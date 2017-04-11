@@ -179,17 +179,17 @@ func (s *Sale) Reset() {
 // Payment เก็บรายละเอียดการชำระเงิน เหรียญ ธนบัตร หรือในอนาคตจะเพิ่มบัตรเครดิต และ Cashless Payment ได้ด้วย
 type SalePay struct {
 	SaleId int64
-	C025   int `json:"c025,omitempty"`  // จำนวนเหรียญ 25 สตางค์
-	C050   int `json:"c050,omitempty"`  // จำนวนเหรียญ 50 สตางค์
-	C1     int `json:"c1,omitempty"`    // จำนวนเหรียญ 1 บาท
-	C2     int `json:"c2,omitempty"`    // จำนวนเหรียญ 2 บาท
-	C5     int `json:"c5,omitempty"`    // จำนวนเหรียญ 5 บาท
-	C10    int `json:"c10,omitempty"`   // จำนวนเหรียญ 10 บาท
-	B20    int `json:"b20,omitempty"`   // จำนวนธนบัตรใบละ 20 บาท
-	B50    int `json:"b50,omitempty"`   // จำนวนธนบัตรใบละ 50 บาท
-	B100   int `json:"b100,omitempty"`  // จำนวนธนบัตรใบละ 100 บาท
-	B500   int `json:"b500,omitempty"`  // จำนวนธนบัตรใบละ 500 บาท
-	B1000  int `json:"b1000,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
+	C025   int `json:"C025,omitempty"`  // จำนวนเหรียญ 25 สตางค์
+	C050   int `json:"C050,omitempty"`  // จำนวนเหรียญ 50 สตางค์
+	C1     int `json:"C1,omitempty"`    // จำนวนเหรียญ 1 บาท
+	C2     int `json:"C2,omitempty"`    // จำนวนเหรียญ 2 บาท
+	C5     int `json:"C5,omitempty"`    // จำนวนเหรียญ 5 บาท
+	C10    int `json:"C10,omitempty"`   // จำนวนเหรียญ 10 บาท
+	B20    int `json:"B20,omitempty"`   // จำนวนธนบัตรใบละ 20 บาท
+	B50    int `json:"B50,omitempty"`   // จำนวนธนบัตรใบละ 50 บาท
+	B100   int `json:"B100,omitempty"`  // จำนวนธนบัตรใบละ 100 บาท
+	B500   int `json:"B500,omitempty"`  // จำนวนธนบัตรใบละ 500 บาท
+	B1000  int `json:"B1000,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
 }
 
 // *SalePay.Add() นี้แก้ไขชั่วคราว รับ value ของเงินเข้ามาบันทึก ซึ่งจะผิดพลาดได้หากมีการออกเหรียญ 20 บาท ระบบจะคิดว่าเป็น Bank20 (B20) หมด
