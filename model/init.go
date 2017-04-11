@@ -27,6 +27,9 @@ func init() {
 	db = sqlx.MustConnect("sqlite3", pwd+"/paybox.db")
 
 	PM = &Payment{
+		billCh:     make(chan *Message),
+		coinCh:     make(chan *Message),
+		cancelCh:   make(chan bool),
 		coin:       0,
 		bill:       0,
 		billEscrow: 0,

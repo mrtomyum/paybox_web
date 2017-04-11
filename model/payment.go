@@ -52,9 +52,6 @@ type AcceptedBill struct {
 // init() ทำการรีเซ็ทค่าที่ควรถูกตั้งใหม่ทุกครั้งที่สร้าง Payment ใหม่ขึ้นมา
 func (pm *Payment) init(s *Sale) {
 	pm.Reset()
-	pm.billCh = make(chan *Message)
-	pm.coinCh = make(chan *Message)
-	pm.cancelCh = make(chan bool)
 	pm.remain = s.Total
 	pm.isOpen = true
 	AB = &AcceptedBill{
@@ -78,9 +75,10 @@ func (pm *Payment) New(s *Sale) error {
 		return errors.New("Sale Total is 0 cannot do payment.")
 	}
 	pm.init(s)
-	defer close(pm.billCh)
-	defer close(pm.coinCh)
-	defer close(pm.cancelCh)
+	//defer close(pm.billCh)
+	//defer close(pm.coinCh)
+	//defer close(pm.cancelCh)
+
 	//sp := new(SalePay)
 	//s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
 
