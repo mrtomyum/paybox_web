@@ -104,7 +104,7 @@ func (ch *CoinHopper) PayoutByCoin(c1, c2, c5, c10 int) error {
 
 // PayoutByCash จ่ายเหรียญออกจาก Hopper โดยระบุยอดเงิน
 func (ch *CoinHopper) PayoutByCash(v float64) error {
-	// command to send to devClient for "payout" value = v
+	// command to billCh to devClient for "payout" value = v
 	fmt.Println("====Send Command to CoinHopper payout_by_cash, Value:", v, "====")
 	defer fmt.Println("============================================================")
 	m := &Message{

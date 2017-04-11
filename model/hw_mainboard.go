@@ -13,7 +13,7 @@ type MainBoard struct {
 
 func (mb *MainBoard) event(c *Socket) {
 	switch c.Msg.Command {
-	case "machine_id":    // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Main Board
+	case "machine_id": // ใช้สาหรับการร้องขอหมายเลข Serial Number ของ อุปกรณ์ Main Board
 		mb.Send <- c.Msg
 	case "set_ex_output": // สั่งงาน External Output ของ Main board
 		mb.Send <- c.Msg
@@ -62,7 +62,7 @@ func (mb *MainBoard) IsOnline() bool {
 
 	// Todo: Check Server Endpoint response this request.
 	var response bool
-	// Try send REST req.
+	// Try billCh REST req.
 	// if no response for within timeout sec. then return false.
 
 	switch {

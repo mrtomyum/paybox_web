@@ -145,14 +145,13 @@ func (ba *BillAcceptor) Reject() {
 }
 
 func (ba *BillAcceptor) Received(s *Socket) {
-	fmt.Println("Start method: ba.send()")
-	// todo: ตรวจ AcceptedBill ถ้า false ให้ BA.Reject()
-	PM.send <- s.Msg
+	fmt.Println("Start method: ba.Received()")
+	PM.billCh <- s.Msg
 }
 
 func (ba *BillAcceptor) TimeOut(s *Socket) {
 	log.Println("Bill Acceptor -> Time Out")
-	// Todo: send msg to UI to warning User
+	// Todo: billCh msg to UI to warning User
 	go PM.Cancel(s) // ปิดไว้ก่อนมีบักจาก HW
 	m := &Message{
 		Command: "alert",

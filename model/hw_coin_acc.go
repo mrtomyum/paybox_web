@@ -12,17 +12,17 @@ type CoinAcceptor struct {
 }
 
 // Event & Response from coin acceptor.
-func (ca *CoinAcceptor) event(c *Socket) {
-	switch c.Msg.Command {
+func (ca *CoinAcceptor) event(s *Socket) {
+	switch s.Msg.Command {
 	case "received": // Event น้ีจะเกิดขึ้นเมื่อเคร่ืองรับเหรียญได้รับเหรียญ
-		go ca.Received(c)
+		ca.Received(s)
 	case "set_inhibit", "machine_id", "inhibit", "recently_inserted": // ตั้งค่า Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
-		ca.Send <- c.Msg
+		ca.Send <- s.Msg
 	default:
 		// "machine_id": 		// ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins Acceptor
 		// "inhibit":           // ร้องขอ สถานะ Inhibit (รับ-ไม่รับเหรียญ) ของ Coins Acceptor
 		// "recently_inserted": // ร้องขอจานวนเงินของเหรียญล่าสุดที่ได้รับ
-		ca.Send <- c.Msg
+		ca.Send <- s.Msg
 	}
 }
 
@@ -80,6 +80,8 @@ func (ca *CoinAcceptor) Received(s *Socket) {
 	PM.remain -= value
 	CB.hopper += value
 	CB.total += value
-	fmt.Println("coin send =", PM.coin, "PM total=", PM.total)
-	PM.send <- s.Msg
+	fmt.Println("PM.coin =", PM.coin, "PM total=", PM.total)
+
+	PM.coinCh <- s.Msg
+
 }

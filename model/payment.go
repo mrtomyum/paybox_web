@@ -16,7 +16,10 @@ type Payment struct {
 	total      float64 // มูลค่าเงินพักทั้งหมด
 	remain     float64 // เงินคงค้างชำระ
 	change     float64 // เงินทอน
-	send       chan *Message
+	billCh     chan *Message
+	coinCh     chan *Message
+	cancelCh   chan bool
+	isOpen     bool // เปิดรับชำระหรือยัง?
 	//Card  float64 // มูลค่าบัตรเครดิตที่รับชำระแล้ว
 }
 
@@ -49,8 +52,11 @@ type AcceptedBill struct {
 // init() ทำการรีเซ็ทค่าที่ควรถูกตั้งใหม่ทุกครั้งที่สร้าง Payment ใหม่ขึ้นมา
 func (pm *Payment) init(s *Sale) {
 	pm.Reset()
-	pm.send = make(chan *Message)
+	pm.billCh = make(chan *Message)
+	pm.coinCh = make(chan *Message)
+	pm.cancelCh = make(chan bool)
 	pm.remain = s.Total
+	pm.isOpen = true
 	AB = &AcceptedBill{
 		B20:   true,
 		B50:   true,
@@ -72,37 +78,35 @@ func (pm *Payment) New(s *Sale) error {
 		return errors.New("Sale Total is 0 cannot do payment.")
 	}
 	pm.init(s)
-	defer close(pm.send)
-	sp := new(SalePay)
-	s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
+	defer close(pm.billCh)
+	defer close(pm.coinCh)
+	defer close(pm.cancelCh)
+	//sp := new(SalePay)
+	//s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
 
 	msg := &Message{}
 
 	// หากธนบัตร หรือเหรียญที่ชำระยังมีมูลค่าน้อยกว่ายอดขาย (Payment < Sale)
 	// ระบบจะ Take เงิน, สะสมยอดรับชำระ และแจ้ง "onhand" ให้ UI วนไปจนกว่าจะได้ยอด Payment >= Sale
 	for pm.total < s.Total {
-		// Todo: ให้ Cancel() ทำการส่ง pm.send เข้ามาด้วย msg.command: "cancel" แล้วทำการตรวจ if cancel ให้ break ออกจาก loop
+		// Todo: ให้ Cancel() ทำการส่ง pm.billCh เข้ามาด้วย msg.command: "cancel" แล้วทำการตรวจ if cancel ให้ break ออกจาก loop
 		pm.adjAcceptedBill(s)    // ปรับยอดด้างชำระ เพื่อกำหนดชนิดธนบัตรที่ยอมรับได้
 		pm.displayAcceptedBill() // displayAcceptedBill() ส่งรายการธนบัตรที่รับได้ไปแสดงบนหน้าจอ
 		pm.sendOnHand(H.Web)     // ส่งยอดรับเงินปัจจุบันให้ UI
 
 		fmt.Println("1. Waiting payment form BA or CA")
-		msg = <-pm.send              // Waiting for message from payment device.
-		if msg.Command == "cancel" { // หากมีคำสั่ง cancel ให้ออก
+		//var value float64
+		select {
+		case <-pm.cancelCh:
 			return errors.New("cancel")
-		}
-		value := msg.Data.(float64)
-		fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
-
-		// ตรวจว่ารับเงินเป็นธนบัตร หรือเหรียญ?
-		switch msg.Device {
-		case "bill_acc": // ถ้ารับเป็นธนบัตร
+		case msg = <-pm.billCh:
+			value := msg.Data.(float64)
+			fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 			pm.billEscrow = value
 			fmt.Println("pm.billEscrow:", pm.billEscrow)
 			if pm.billEscrow == 0 { // ถ้าไม่มีธนบัตรพักอยู่
 				return ErrNoBillEscrow
 			}
-			//fmt.Printf("check msg #1. msg =%v msg.Data = %v\n", msg, msg.Data)
 			if pm.isAcceptedBill(value) { // ถ้ายอมรับธนบัตรราคานี้
 				BA.Take() // ให้เก็บธนบัตรลงถัง
 				fmt.Printf("4. เก็บธนบัตรสำเร็จ: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
@@ -110,14 +114,16 @@ func (pm *Payment) New(s *Sale) error {
 				BA.Reject() // ให้คายทิ้ง และล้างยอดรับเงิน/ ยอดค้างรับกลับไปเริ่มต้น รอรับเงินใหม่
 				pm.billEscrow = 0
 			}
-		case "coin_acc": // ถ้ารับมาเป็นเหรียญ
+		case <-pm.coinCh:
+			fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
+			//default:
+			//	fmt.Println("no message sent")
 		}
-
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
-		err := sp.Add(value)
-		if err != nil {
-			return err
-		}
+		//err := sp.Add(value)
+		//if err != nil {
+		//	return err
+		//}
 		fmt.Printf("5. footer: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 	}
 
@@ -170,10 +176,7 @@ func (pm *Payment) Cancel(s *Socket) {
 		BA.Reject() // คายธนบัตร
 		BA.Stop()
 		CA.Stop()
-		msg := &Message{
-			Command: "cancel",
-		}
-		pm.send <- msg
+		pm.cancelCh <- true
 		pm.Reset()
 		return
 	}
@@ -191,7 +194,7 @@ func (pm *Payment) Cancel(s *Socket) {
 	msg := &Message{
 		Command: "cancel",
 	}
-	pm.send <- msg
+	pm.billCh <- msg
 	pm.Reset()
 }
 
@@ -293,7 +296,7 @@ func (pm *Payment) addCoin(value float64) {
 	pm.remain -= value
 	CB.hopper += value
 	CB.total += value
-	fmt.Println("coin send =", pm.coin, "pm total=", pm.total)
+	fmt.Println("coin billCh =", pm.coin, "pm total=", pm.total)
 }
 
 // refund() เมื่อต้องการพิมพ์ใบคืนเงิน ในกรณีเงินทอนไม่พอ
@@ -361,7 +364,8 @@ func (pm *Payment) Reset() {
 	pm.coin = 0
 	pm.remain = 0
 	pm.change = 0
-	resetChannel(PM.send)
+	pm.isOpen = false
+	resetChannel(PM.billCh)
 	resetChannel(BA.Send)
 	resetChannel(CA.Send)
 	resetChannel(CH.Send)

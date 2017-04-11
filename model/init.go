@@ -32,7 +32,7 @@ func init() {
 		billEscrow: 0,
 		total:      0,
 		remain:     0,
-		//send:       make(chan *Message),
+		isOpen:     false,
 	}
 
 	BA = &BillAcceptor{
@@ -86,7 +86,8 @@ func init() {
 		Id:          "001",
 		IsNetOnline: true,
 	}
-	resetChannel(PM.send)
+	resetChannel(PM.billCh)
+	resetChannel(PM.coinCh)
 	resetChannel(BA.Send)
 	resetChannel(CA.Send)
 	resetChannel(CH.Send)

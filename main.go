@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/mrtomyum/paybox_web/ctrl"
 	"fmt"
+	"github.com/mrtomyum/paybox_web/ctrl"
 	"time"
 )
 
@@ -11,7 +11,7 @@ func main() {
 	fmt.Println("1")
 
 	// Dial to HW_SERVICE
-	go ctrl.OpenSocket()
+	go ctrl.ConnectToHW()
 	fmt.Println("2")
 	time.Sleep(1 * time.Second)
 	// Run Web Server

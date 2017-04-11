@@ -29,7 +29,7 @@ func (s *Socket) Read(done chan bool) {
 	}()
 
 	m := &Message{}
-	count := 0
+	//count := 0
 	fmt.Println("###*Socket.Read()### START ###", s.Name, s.Conn.RemoteAddr())
 	for {
 		err := s.Conn.ReadJSON(&m)
@@ -41,23 +41,21 @@ func (s *Socket) Read(done chan bool) {
 		s.Msg = m
 
 		// Detect Ghost Message!!
-		if m.Command == "received" || m.Command == "payout_by_coin" {
-			count++
-			if count == 1 {
-				log.Println("bypass this message", m)
-				continue
-			}
-		}
+		//count++
+		//if count == 1 {
+		//	log.Println("bypass first message", m)
+		//	continue
+		//}
 
 		switch s.Name {
 		case "UI":
-			//log.Println("Read::Web UI Connection message")
-			s.onUiEvent()
+			//log.Println("*Socket.Read::Web UI Connection message 2")
+			go s.onUiEvent()
 		case "HW":
-			//log.Println("Read::Device Connection message")
-			s.onHwEvent()
+			//log.Println("*Socket.Read::Detectevice Connection message 2")
+			go s.onHwEvent()
 		default:
-			log.Println("Read::Unknown message", s.Msg)
+			log.Println("*Socket.Read::Unknown message", s.Msg)
 		}
 	}
 }
@@ -71,7 +69,7 @@ func (s *Socket) Write() {
 		select {
 		case m, ok := <-s.Send:
 			if !ok {
-				s.Conn.WriteJSON(gin.H{"message": "Cannot send data"})
+				s.Conn.WriteJSON(gin.H{"message": "Cannot billCh data"})
 				log.Println("===>>>lose WS connection:", s.Conn.RemoteAddr())
 				return
 			}
@@ -89,7 +87,7 @@ func (s *Socket) onUiEvent() {
 	case "onhand":
 		PM.sendOnHand(s)
 	case "cancel":
-		go PM.Cancel(s)
+		PM.Cancel(s)
 	default:
 		log.Println("onUiEvent(): default: Unknown Command for web client=>", s.Msg.Command)
 	}
@@ -100,10 +98,13 @@ func (s *Socket) onUiEvent() {
 func (s *Socket) onHwEvent() {
 	switch s.Msg.Device {
 	case "coin_hopper":
+		log.Println("*Socket.Read 3 coin_hopper")
 		CH.event(s)
 	case "coin_acc":
+		log.Println("*Socket.Read 3 coin_acc")
 		CA.event(s)
 	case "bill_acc":
+		log.Println("*Socket.Read 3 bill_acc")
 		BA.event(s)
 	case "printer":
 		P.event(s)
