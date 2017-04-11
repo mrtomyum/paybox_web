@@ -102,10 +102,12 @@ func (pm *Payment) New(s *Sale) error {
 			if cancel {
 				return errors.New("cancel")
 			}
+			//case <-pm.cancelCh:
+			//	fmt.Println("case <-pm.cancelCh return...")
+			//	return errors.New("cancel")
 		case msg = <-pm.billCh:
-			fmt.Println("case <-pm.billCh return... msg = ", msg)
 			value := msg.Data.(float64)
-			fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
+			fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v msg = %v\n", pm.total, s.Total, pm.remain, msg)
 			pm.billEscrow = value
 			fmt.Println("pm.billEscrow:", pm.billEscrow)
 			if pm.billEscrow == 0 { // ถ้าไม่มีธนบัตรพักอยู่
@@ -181,8 +183,7 @@ func (pm *Payment) Cancel(s *Socket) {
 		// สั่งให้ BillAcceptor คืนเงินที่พักไว้ ซึ่งจะคืนได้เพียงใบล่าสุด
 		BA.Reject() // คายธนบัตร
 		fallthrough
-	case change != 0:
-		// CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.coin ออกด้านหน้า
+	case change != 0: // CoinHopper สั่งให้จ่ายเหรียญที่คงค้างตามยอดคงเหลือ PM.coin ออกด้านหน้า
 		err := CH.PayoutByCash(change)
 		if err != nil {
 			log.Println(err.Error())

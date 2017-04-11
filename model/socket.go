@@ -41,11 +41,8 @@ func (s *Socket) Read(done chan bool) {
 		s.Msg = m
 
 		// Detect Ghost Message!!
-		//count++
-		//if count == 1 {
-		//	log.Println("bypass first message", m)
-		//	continue
-		//}
+		// ดัก device = "bill_acc" || "coin_acc"
+		// ถ้า payment.isOpen() false  ให้ bypass continue
 
 		switch s.Name {
 		case "UI":

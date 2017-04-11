@@ -60,11 +60,13 @@ func (ch *CoinHopper) GetId() {
 
 func (ch *CoinHopper) event(c *Socket) {
 	switch c.Msg.Command {
-	case "status", "cash_amount", "coin_count", "set_coin_count", "paybout_by_cash", "payout_by_coin", "empty", "reset":
+	case "status", "cash_amount", "coin_count", "set_coin_count", "payout_by_cash", "payout_by_coin", "empty", "reset":
 		ch.Send <- c.Msg
 		log.Println("ch.Send <-s.Msg", c.Msg)
 	case "status_change": // Event น้ีจะเกิดข้ึนเม่ือสถานะใดๆของ Coins hopper มีการเปลี่ยนแปลง
 		ch.StatusChange(c)
+	default:
+		log.Println("Message no match command:", c.Msg.Command)
 	}
 }
 
