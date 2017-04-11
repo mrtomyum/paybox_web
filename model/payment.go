@@ -79,8 +79,8 @@ func (pm *Payment) New(s *Sale) error {
 	//defer close(pm.coinCh)
 	//defer close(pm.cancelCh)
 
-	//sp := new(SalePay)
-	//s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
+	sp := new(SalePay)
+	s.SalePay = sp // ล้างข้อมูลเดิมถ้ามี
 
 	msg := &Message{}
 
@@ -118,16 +118,15 @@ func (pm *Payment) New(s *Sale) error {
 				BA.Reject() // ให้คายทิ้ง และล้างยอดรับเงิน/ ยอดค้างรับกลับไปเริ่มต้น รอรับเงินใหม่
 				pm.billEscrow = 0
 			}
-		case <-pm.coinCh:
+
+		case msg = <-pm.coinCh:
 			fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
-			//default:
-			//	fmt.Println("no message sent")
 		}
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
-		//err := sp.Add(value)
-		//if err != nil {
-		//	return err
-		//}
+		err := sp.Add(msg.Data.(float64))
+		if err != nil {
+			return err
+		}
 		fmt.Printf("5. footer: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 	}
 
