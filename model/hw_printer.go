@@ -1,8 +1,8 @@
 package model
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 	"time"
 )
 
@@ -41,14 +41,14 @@ func (p *Printer) event(c *Socket) {
 func (p *Printer) makeTicket(s *Sale) doGroup {
 	var g doGroup
 	g.setTextSize(0)
-	g.printLine("============ ร้านกาแฟ สุขใจขายได้สบายดี ============")
+	g.printLine("=========== ร้านกาแฟ สุขใจขายได้สบายดี ===========")
 	var today = time.Now()
 	date := fmt.Sprintf("%s", today.Format(time.RFC3339Nano))
 	g.printLine(date)
 	ss := s.SaleSubs
 	for _, sub := range ss {
 		item := fmt.Sprintf("%2dx%-17s%5s", sub.Qty, sub.ItemName, sub.PriceName)
-		detail := fmt.Sprintf("@%3.2f฿ = %4.2f฿", sub.Price, float64(sub.Qty)*sub.Price)
+		detail := fmt.Sprintf("@%3.2f %4.2f฿", float64(sub.Qty), sub.Price)
 		g.setTextSize(1)
 		g.printLine(item)
 		g.setTextSize(0)
@@ -58,7 +58,7 @@ func (p *Printer) makeTicket(s *Sale) doGroup {
 	sum := fmt.Sprintf("%6s%4.2f%6s%6.2f%6s%6.2f", "Total:", s.Total, "Payment:", s.Pay, "Change:", s.Change)
 	g.print(sum)
 	g.newline()
-	g.printLine("================================================")
+	g.printLine("==============================================")
 	//g.printBarcode("CODE39", "12345678")
 	g.paperCut("full_cut", 90)
 	fmt.Println(&g.actions)
@@ -107,7 +107,7 @@ func (p *Printer) makeRefund(value float64) error {
 
 //=============== ACTION ====================
 type action struct {
-	Name string `json:"action"`
+	Name string      `json:"action"`
 	Data interface{} `json:"action_data"`
 }
 
@@ -156,8 +156,8 @@ func (g *doGroup) printBarcode(t, d string) {
 
 //=========== QR_CODE =============
 type qrCode struct {
-	Mag      int `json:"mag"`
-	Ecl      int `json:"ect"`
+	Mag      int    `json:"mag"`
+	Ecl      int    `json:"ect"`
 	DataType string `json:"data_type"`
 	Data     string `json:"data"`
 }
@@ -174,7 +174,7 @@ func (g *doGroup) printQr(mag, ecl int, data_type, data string) {
 //=========== PAPER_CUT =============
 type paperCut struct {
 	Type string `json:"type"`
-	Feed int `json:"feed"`
+	Feed int    `json:"feed"`
 }
 
 func (g *doGroup) paperCut(t string, f int) {
