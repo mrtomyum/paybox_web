@@ -64,10 +64,10 @@
                         document.getElementById("texttotal").innerHTML = "เงินทอน";
                         console.log("document.getElementById('pri2').value = "+t['data']);
                         document.getElementById("pri2").value = t['data'];
-                        document.getElementById("textpri2").innerHTML = t['data'];
+                        document.getElementById("textpri2").innerHTML = addCommas(t['data']);
 
                         document.getElementById("pri3").value = total;
-                        document.getElementById("textpri3").innerHTML = total;
+                        document.getElementById("textpri3").innerHTML = addCommas(total);
 
                       /*  if(total!=0){
                             document.getElementById("coinbill").innerHTML = "และเงินทอน "+total+" บาท";
@@ -82,8 +82,8 @@
                         document.getElementById("texttotal").innerHTML = "ค้างชำระ";
                         console.log("document.getElementById('pri2').value = "+t['data']);//
                         document.getElementById("pri2").value = t['data'];
-                        document.getElementById("textpri2").innerHTML = t['data'];
-                        document.getElementById("textpri3").innerHTML = total;
+                        document.getElementById("textpri2").innerHTML = addCommas(t['data']);
+                        document.getElementById("textpri3").innerHTML = addCommas(total);
                         document.getElementById("pri3").value = total;
                     }
 

@@ -138,7 +138,7 @@ function addQty(){
 		addQty = parseInt(qty)+1;
 	}
 	document.getElementById("mo_qty").value = addQty;
-	document.getElementById("pop-pri").innerHTML = size_pri*addQty+' ฿';
+	document.getElementById("pop-pri").innerHTML = addCommas(size_pri*addQty)+' ฿';
     document.getElementById("mo-pri").value = size_pri*addQty;
 }
 
@@ -159,12 +159,12 @@ function removeQty(){
 
 	if(addQty<1){
 		document.getElementById("mo_qty").value = 1;
-		document.getElementById("pop-pri").innerHTML = size_pri*1+' ฿';
+		document.getElementById("pop-pri").innerHTML = addCommas(size_pri*1)+' ฿';
         document.getElementById("mo-pri").value = size_pri*1;
 	//	document.getElementById("mo-pri").value = size_pri*1+' ฿';
 	}else{
 		document.getElementById("mo_qty").value = addQty;
-		document.getElementById("pop-pri").innerHTML = size_pri*addQty+' ฿';
+		document.getElementById("pop-pri").innerHTML = addCommas(size_pri*addQty)+' ฿';
         document.getElementById("mo-pri").value = size_pri*addQty;
 		//document.getElementById("mo-pri").value = size_pri*addQty+' ฿';
 	}
@@ -191,7 +191,7 @@ function active_size(name,price,id){
 		var totalPrice = qty*price;
 
 		console.log("ราคา " + totalPrice+", nameSize = "+name);
-		document.getElementById("pop-pri").innerHTML = totalPrice+" ฿";
+		document.getElementById("pop-pri").innerHTML = addCommas(totalPrice)+" ฿";
 		document.getElementById("mo-pri").value = totalPrice;
 }
 
@@ -206,7 +206,7 @@ function send_order(){
         var size = document.getElementById("Msize").value;
 
         document.getElementById("pri3").value = price;
-        document.getElementById("textpri3").innerHTML = price;
+        document.getElementById("textpri3").innerHTML = addCommas(price);
 
 
         price = price.split(" ");
@@ -264,4 +264,17 @@ function pop_back(){
     for(var i = 0; i < img_ac.length; i++){
         img_ac[i].style.display = "none";
     }
+}
+
+function addCommas(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
 }
