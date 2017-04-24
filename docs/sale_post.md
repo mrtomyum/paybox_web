@@ -14,29 +14,32 @@ Post sale transaction to cloud api.
 
 ```
 {
-    "terminal_id": "123",
-    "sale_id": 1,
-  	"total": 120,
-  	"type": "take_home",
-  	"sale_pay":{"th20b":0, "th50b":0, "th100b":0,"th500b":0,"th1000b":0, "th1c":0, "th2c":0, "th5c":0, "th10c":2}
-  	"sale_subs": [{
-  		"line": 1,
-  		"item_id": 1,
-  		"item_name": "Capuchino Hot",
-  		"price_id": 1,
-  		"price": 60,
-  		"qty": 1,
-  		"unit": "แก้ว"
-  	}, {
-  		"line": 2,
-  		"item_id": 2,
-  		"item_name": "Capuchino Ice",
-  		"price_id": 2,
-  		"price": 80,
-  		"qty ": 2,
-  		"unit": "แก้ว"
-  	}]
-  }
+	"total": 120,
+	"payment": 200,
+	"change": 80,
+	"type": "take_home",
+	"sale_pay": {
+		"B50": 2,
+		"B100": 1
+	},
+	"sale_sub": [{
+		"line": 1,
+		"item_id": 0,
+		"item_name": "Capuchino Hot",
+		"qty": 1,
+		"price_name": "small",
+		"price": 60,
+		"unit": "แก้ว"
+	}, {
+		"line": 2,
+		"item_id": 1,
+		"item_name": "Capuchino Ice",
+		"qty": 2,
+		"price_name": "large",
+		"price": 80,
+		"unit": "แก้ว"
+	}]
+}
 ```
 
 ===

@@ -1,41 +1,41 @@
 package model
 
 import (
-	"fmt"
-	"time"
-	"net/http"
-	"errors"
 	"bytes"
-	"io/ioutil"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"github.com/jmoiron/sqlx"
+	"io/ioutil"
+	"net/http"
+	"time"
 )
 
 // Sale เป็นหัวเอกสารขายแต่ละครั้ง
 type Sale struct {
 	Id       uint64
 	Created  *time.Time
-	HostId   string `json:"host_id" db:"host_id"`
-	Total    float64 `json:"total"`
-	Pay      float64 `json:"payment"`
-	Change   float64 `json:"change"`
-	Type     string `json:"type" db:"type"`
-	IsPosted bool `json:"is_posted" db:"is_posted"`
+	HostId   string     `json:"host_id" db:"host_id"`
+	Total    float64    `json:"total"`
+	Pay      float64    `json:"payment"`
+	Change   float64    `json:"change"`
+	Type     string     `json:"type" db:"type"`
+	IsPosted bool       `json:"is_posted" db:"is_posted"`
 	SaleSubs []*SaleSub `json:"sale_subs"`
 	SalePay  *SalePay
 }
 
 // SaleSub เป็นรายการสินค้าที่ขายใน Sale
 type SaleSub struct {
-	SaleId    uint64 `json:"sale_id" db:"sale_id"`
-	Line      uint64 `json:"line"`
+	SaleId    uint64  `json:"sale_id" db:"sale_id"`
+	Line      uint64  `json:"line"`
 	ItemId    uint64  `json:"item_id" db:"item_id"`
 	ItemName  string  `json:"item_name" db:"item_name"`
-	PriceId   int `json:"price_id" db:"price_id"`
-	PriceName string `json:"price_name" db:"price_name"`
+	PriceId   int     `json:"price_id" db:"price_id"`
+	PriceName string  `json:"price_name" db:"price_name"`
 	Price     float64 `json:"price"`
 	Qty       int     `json:"qty"`
-	Unit      string `json:"unit"`
+	Unit      string  `json:"unit"`
 }
 
 // *ไม่น่าได้ใช้* GetSaleSubFK เพราะ WebUI อาจส่งชื่อสินค้า/ราคามาผิด เลยตรวจใหม่ซ้ำ
