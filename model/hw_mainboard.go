@@ -56,19 +56,7 @@ func (mb *MainBoard) IsOnline() bool {
 	}
 	H.Hw.Send <- m
 	m = <-mb.Send
-	if !m.Result {
-		return false
-	}
-
-	// Todo: Check Server Endpoint response this request.
-	var response bool
-	// Try billCh REST req.
-	// if no response for within timeout sec. then return false.
-
-	switch {
-	case m.Data == "offline":
-		return false
-	case m.Data == "online" && !response:
+	if !m.Result || m.Data == "offline" {
 		return false
 	}
 	return true

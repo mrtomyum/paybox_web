@@ -152,7 +152,7 @@ func (ba *BillAcceptor) Received(s *Socket) {
 func (ba *BillAcceptor) TimeOut(s *Socket) {
 	log.Println("Bill Acceptor -> Time Out")
 	// Todo: billCh msg to UI to warning User
-	go PM.Cancel(s) // ปิดไว้ก่อนมีบักจาก HW
+	go PM.Cancel() // ปิดไว้ก่อนมีบักจาก HW
 	m := &Message{
 		Command: "alert",
 		Type:    "event",

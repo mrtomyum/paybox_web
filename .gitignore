@@ -9,7 +9,7 @@ config/sample/
 .idea/dictionaries/
 .idea/inspectionProfiles/
 .idea/*
-docs/paybox.db
+doc/paybox.db
 projectFilesBackup/
 /.idea/
 /paybox.iml

@@ -1,9 +1,9 @@
 package model_test
 
 import (
-	"testing"
 	"github.com/mrtomyum/paybox_web/model"
 	"log"
+	"testing"
 )
 
 var sale model.Sale = model.Sale{

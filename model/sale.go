@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"time"
 )
@@ -216,5 +217,6 @@ func (sp *SalePay) Add(value float64) error {
 	default:
 		return errors.New("Received payment data incorrect. No payment media found. //น่าจะระบุประเภทธนบัตรหรือเหรียญผิด")
 	}
+	log.Println("SalePay Add value = ", sp)
 	return nil
 }

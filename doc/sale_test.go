@@ -1,9 +1,9 @@
 package test
 
 import (
-	"testing"
-	"github.com/mrtomyum/paybox_web/model"
 	"github.com/matryer/silk/runner"
+	"github.com/mrtomyum/paybox_web/model"
+	"testing"
 )
 
 //func TestPrinter_makeSaleSlip(t *testing.T) {

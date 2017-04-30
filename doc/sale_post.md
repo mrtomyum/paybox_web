@@ -1,6 +1,6 @@
 # Post Sale to Cloud.
 
-This can be run with `silk -silk.url="http://api.nava.work/sell"`
+This can be run with `silk -silk.url="http://paybox.work/api/v1/vending/sell"`
 
 ## POST /sell
 

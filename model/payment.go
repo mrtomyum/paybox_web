@@ -49,6 +49,19 @@ type AcceptedBill struct {
 	B1000 bool `json:"b1000"`
 }
 
+//func (pm *Payment) Order(s *Socket) {
+//	BA.Start()
+//	CA.Start()
+//	msg := &Message{}
+//	for {
+//		select {
+//		case msg = <-pm.billCh:
+//			//pm.New()
+//		case msg = <-pm.coinCh:
+//		}
+//	}
+//}
+
 // init() ทำการรีเซ็ทค่าที่ควรถูกตั้งใหม่ทุกครั้งที่สร้าง Payment ใหม่ขึ้นมา
 func (pm *Payment) init(s *Sale) {
 	pm.Reset()
@@ -93,7 +106,7 @@ func (pm *Payment) New(s *Sale) error {
 		pm.sendOnHand(H.Web)     // ส่งยอดรับเงินปัจจุบันให้ UI
 
 		fmt.Println("1. Waiting payment form BA or CA")
-		//var value float64
+		var value float64
 		select {
 		case cancel := <-pm.cancelCh:
 			fmt.Println("case <-pm.cancelCh return...")
@@ -104,8 +117,8 @@ func (pm *Payment) New(s *Sale) error {
 			//	fmt.Println("case <-pm.cancelCh return...")
 			//	return errors.New("cancel")
 		case msg = <-pm.billCh:
-			value := msg.Data.(float64)
-			fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v msg = %v\n", pm.total, s.Total, pm.remain, msg)
+			value = msg.Data.(float64)
+			fmt.Printf("3. Bill Accepted: pm.total= %v sale.total= %v pm.remain= %v msg = %v\n", pm.total, s.Total, pm.remain, msg)
 			pm.billEscrow = value
 			fmt.Println("pm.billEscrow:", pm.billEscrow)
 			if pm.billEscrow == 0 { // ถ้าไม่มีธนบัตรพักอยู่
@@ -120,10 +133,11 @@ func (pm *Payment) New(s *Sale) error {
 			}
 
 		case msg = <-pm.coinCh:
-			fmt.Printf("3. pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
+			fmt.Printf("3. Coin Accepted: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 		}
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
-		err := sp.Add(msg.Data.(float64))
+		fmt.Println("value=", value)
+		err := sp.Add(value)
 		if err != nil {
 			return err
 		}
@@ -161,7 +175,7 @@ func (pm *Payment) New(s *Sale) error {
 }
 
 // Cancel คืนเงินจากทุก Device โดยตรวจสอบเงิน Escrow ใน bill Acceptor ด้วยถ้ามีให้คืนเงิน
-func (pm *Payment) Cancel(s *Socket) {
+func (pm *Payment) Cancel() {
 	fmt.Println("call *Payment.Cancel()")
 
 	// ตรวจสอบก่อนว่าหากคืนธนบัตรใบล่าสุดใบเดียว เหรียญใน hopper จะพอคืนตามยอดเงินรับชำระหรือไม่?

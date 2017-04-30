@@ -84,7 +84,9 @@ func (s *Socket) onUiEvent() {
 	case "onhand":
 		PM.sendOnHand(s)
 	case "cancel":
-		PM.Cancel(s)
+		PM.Cancel()
+		//case "order":
+		//	go PM.Order(s)
 	default:
 		log.Println("onUiEvent(): default: Unknown Command for web client=>", s.Msg.Command)
 	}
