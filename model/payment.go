@@ -133,6 +133,7 @@ func (pm *Payment) New(s *Sale) error {
 			}
 
 		case msg = <-pm.coinCh:
+			value = msg.Data.(float64)
 			fmt.Printf("3. Coin Accepted: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 		}
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay

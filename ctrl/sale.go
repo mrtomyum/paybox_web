@@ -6,6 +6,7 @@ import (
 	"github.com/mrtomyum/paybox_web/model"
 	"log"
 	"net/http"
+	"time"
 )
 
 // Order ทำการบันทึกรับชำระเงิน โดยตรวจสอบการ ทอนเงิน บันทึกลง SqLite
@@ -18,6 +19,9 @@ func NewSale(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"command": "bind_sale_data", "result": "error", "data": s})
 		log.Println("Error JSON from Web client.")
 	}
+	t := time.Now()
+	s.Created = &t
+	s.Type = "take_home"
 	fmt.Printf("[NewSale()] รับค่า Sale จาก web->sale= %v\n", s)
 	//s.HostId = model.MB.MachineId()
 

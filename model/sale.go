@@ -14,21 +14,21 @@ import (
 
 // Sale เป็นหัวเอกสารขายแต่ละครั้ง
 type Sale struct {
-	Id       uint64
-	Created  *time.Time
-	HostId   string     `json:"host_id" db:"host_id"`
+	Id       uint64     `json:"-" db:"id"`
+	Created  *time.Time `json:"-" db:"created"`
+	HostId   string     `json:"-" db:"host_id"`
 	Total    float64    `json:"total"`
 	Pay      float64    `json:"payment"`
 	Change   float64    `json:"change"`
 	Type     string     `json:"type" db:"type"`
 	IsPosted bool       `json:"is_posted" db:"is_posted"`
 	SaleSubs []*SaleSub `json:"sale_subs"`
-	SalePay  *SalePay
+	SalePay  *SalePay   `json:"sale_pay"`
 }
 
 // SaleSub เป็นรายการสินค้าที่ขายใน Sale
 type SaleSub struct {
-	SaleId    uint64  `json:"sale_id" db:"sale_id"`
+	SaleId    uint64  `json:"-" db:"sale_id"`
 	Line      uint64  `json:"line"`
 	ItemId    uint64  `json:"item_id" db:"item_id"`
 	ItemName  string  `json:"item_name" db:"item_name"`
@@ -73,6 +73,7 @@ func (s *Sale) Post() error {
 
 	b := new(bytes.Buffer)
 	json.NewEncoder(b).Encode(s)
+	fmt.Println(b)
 	//req, err := http.NewRequest("POST", url, b)
 	//req.Header.Set("X-Custom-Header", "myvalue")
 	//req.Header.Set("Content-Type", "application/json")
@@ -84,10 +85,10 @@ func (s *Sale) Post() error {
 	//}
 	resp, _ := http.Post(url, "application/json; charset=utf-8", b)
 	defer resp.Body.Close()
-	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
+	fmt.Println("Response Status:", resp.Status)
+	fmt.Println("Response Headers:", resp.Header)
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("response Body:", string(body))
+	fmt.Println("Response Body:", string(body))
 	if string(body) == "post error" { // todo: น่าจะใช้ JSON response ไหม?
 		s.IsPosted = false
 	}
@@ -179,18 +180,17 @@ func (s *Sale) Reset() {
 
 // Payment เก็บรายละเอียดการชำระเงิน เหรียญ ธนบัตร หรือในอนาคตจะเพิ่มบัตรเครดิต และ Cashless Payment ได้ด้วย
 type SalePay struct {
-	SaleId int64
-	C025   int `json:"C025,omitempty"`  // จำนวนเหรียญ 25 สตางค์
-	C050   int `json:"C050,omitempty"`  // จำนวนเหรียญ 50 สตางค์
-	C1     int `json:"C1,omitempty"`    // จำนวนเหรียญ 1 บาท
-	C2     int `json:"C2,omitempty"`    // จำนวนเหรียญ 2 บาท
-	C5     int `json:"C5,omitempty"`    // จำนวนเหรียญ 5 บาท
-	C10    int `json:"C10,omitempty"`   // จำนวนเหรียญ 10 บาท
-	B20    int `json:"B20,omitempty"`   // จำนวนธนบัตรใบละ 20 บาท
-	B50    int `json:"B50,omitempty"`   // จำนวนธนบัตรใบละ 50 บาท
-	B100   int `json:"B100,omitempty"`  // จำนวนธนบัตรใบละ 100 บาท
-	B500   int `json:"B500,omitempty"`  // จำนวนธนบัตรใบละ 500 บาท
-	B1000  int `json:"B1000,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
+	C025  int `json:"C025,omitempty"`  // จำนวนเหรียญ 25 สตางค์
+	C050  int `json:"C050,omitempty"`  // จำนวนเหรียญ 50 สตางค์
+	C1    int `json:"C1,omitempty"`    // จำนวนเหรียญ 1 บาท
+	C2    int `json:"C2,omitempty"`    // จำนวนเหรียญ 2 บาท
+	C5    int `json:"C5,omitempty"`    // จำนวนเหรียญ 5 บาท
+	C10   int `json:"C10,omitempty"`   // จำนวนเหรียญ 10 บาท
+	B20   int `json:"B20,omitempty"`   // จำนวนธนบัตรใบละ 20 บาท
+	B50   int `json:"B50,omitempty"`   // จำนวนธนบัตรใบละ 50 บาท
+	B100  int `json:"B100,omitempty"`  // จำนวนธนบัตรใบละ 100 บาท
+	B500  int `json:"B500,omitempty"`  // จำนวนธนบัตรใบละ 500 บาท
+	B1000 int `json:"B1000,omitempty"` // จำนวนธนบัตรใบละ 1000 บาท
 }
 
 // *SalePay.Add() นี้แก้ไขชั่วคราว รับ value ของเงินเข้ามาบันทึก ซึ่งจะผิดพลาดได้หากมีการออกเหรียญ 20 บาท ระบบจะคิดว่าเป็น Bank20 (B20) หมด
