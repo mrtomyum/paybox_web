@@ -22,7 +22,7 @@ Post sale transaction to cloud api.
 		"B50": 2,
 		"B100": 1
 	},
-	"sale_sub": [{
+	"sale_subs": [{
 		"line": 1,
 		"item_id": 0,
 		"item_name": "Capuchino Hot",

@@ -21,7 +21,7 @@ type Sale struct {
 	Pay      float64    `json:"payment"`
 	Change   float64    `json:"change"`
 	Type     string     `json:"type" db:"type"`
-	IsPosted bool       `json:"is_posted" db:"is_posted"`
+	IsPosted bool       `json:"-" db:"is_posted"`
 	SaleSubs []*SaleSub `json:"sale_subs"`
 	SalePay  *SalePay   `json:"sale_pay"`
 }
@@ -74,15 +74,6 @@ func (s *Sale) Post() error {
 	b := new(bytes.Buffer)
 	json.NewEncoder(b).Encode(s)
 	fmt.Println(b)
-	//req, err := http.NewRequest("POST", url, b)
-	//req.Header.Set("X-Custom-Header", "myvalue")
-	//req.Header.Set("Content-Type", "application/json")
-
-	//client := &http.Client{}
-	//resp, err := client.Do(req)
-	//if err != nil {
-	//	return err
-	//}
 	resp, _ := http.Post(url, "application/json; charset=utf-8", b)
 	defer resp.Body.Close()
 	fmt.Println("Response Status:", resp.Status)
@@ -92,7 +83,6 @@ func (s *Sale) Post() error {
 	if string(body) == "post error" { // todo: น่าจะใช้ JSON response ไหม?
 		s.IsPosted = false
 	}
-	// IsNetOnline => Post Order ขึ้น Cloud
 	s.IsPosted = true
 	fmt.Println("Post ยอดขายขึ้น Cloud -> sale.Post()")
 	return nil
@@ -220,3 +210,5 @@ func (sp *SalePay) Add(value float64) error {
 	log.Println("SalePay Add value = ", sp)
 	return nil
 }
+
+// Todo: เพิ่ม sp.Subtract(value) สำหรับลดเหรียญที่ทอนออกไป

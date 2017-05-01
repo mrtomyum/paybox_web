@@ -47,15 +47,16 @@ func (p *Printer) makeTicket(s *Sale) doGroup {
 	g.printLine(date)
 	ss := s.SaleSubs
 	for _, sub := range ss {
-		item := fmt.Sprintf("%2dx%-17s%5s", sub.Qty, sub.ItemName, sub.PriceName)
-		detail := fmt.Sprintf("@%3.2f %4.2f฿", float64(sub.Qty), sub.Price)
+		item := fmt.Sprintf("%2dx%-17s%4s", sub.Qty, sub.ItemName, sub.PriceName)
+		//detail := fmt.Sprintf("@%3.2f %4.2f฿", float64(sub.Qty), sub.Price)
+		detail := fmt.Sprintf("@%3.2d %4.2f฿", sub.Qty, sub.Price)
 		g.setTextSize(1)
 		g.printLine(item)
 		g.setTextSize(0)
 		g.print(detail)
 		g.newline()
 	}
-	sum := fmt.Sprintf("%6s%4.2f%6s%6.2f%6s%6.2f", "Total:", s.Total, "Payment:", s.Pay, "Change:", s.Change)
+	sum := fmt.Sprintf("%6s%4.2f%6s%6.2f%6s%6.2f", "Total:", s.Total, " Payment:", s.Pay, " Change:", s.Change)
 	g.print(sum)
 	g.newline()
 	g.printLine("==============================================")

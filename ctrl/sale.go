@@ -22,7 +22,7 @@ func NewSale(c *gin.Context) {
 	t := time.Now()
 	s.Created = &t
 	s.Type = "take_home"
-	fmt.Printf("[NewSale()] รับค่า Sale จาก web->sale= %v\n", s)
+	fmt.Printf("NewSale()รับค่า Sale จาก web->sale= %v saleSub = %v\n", s, &s.SaleSubs)
 	//s.HostId = model.MB.MachineId()
 
 	// Payment
