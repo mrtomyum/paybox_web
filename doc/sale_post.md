@@ -43,7 +43,7 @@ Post sale transaction to cloud api.
 ```
 
 ===
-* Status:201
+* Status:200
 * Content-Type: "application/json"
 ```
 {
