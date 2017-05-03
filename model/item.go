@@ -1,29 +1,31 @@
 package model
 
 import (
-	"log"
 	"fmt"
+	"log"
 )
 
 type Item struct {
 	Id      int
-	Name    string  `json:"name" db:"name"`
-	NameEn  string  `json:"name_en,omitempty" db:"name_en"`
-	NameCn  string  `json:"name_cn,omitempty" db:"name_cn"`
-	Unit    string  `json:"unit"`
-	UnitEn  string  `json:"unit_en,omitempty" db:"unit_en"`
-	UnitCn  string  `json:"unit_cn,omitempty" db:"unit_cn"`
-	MenuId  uint64  `json:"menu_id,omitempty" db:"menu_id"`
-	MenuSeq int     `json:"menu_seq,omitempty" db:"menu_seq"`
-	Image   string  `json:"image" db:"image"`
+	Name    string   `json:"name" db:"name"`
+	NameEn  string   `json:"name_en,omitempty" db:"name_en"`
+	NameCn  string   `json:"name_cn,omitempty" db:"name_cn"`
+	Unit    string   `json:"unit"`
+	UnitEn  string   `json:"unit_en,omitempty" db:"unit_en"`
+	UnitCn  string   `json:"unit_cn,omitempty" db:"unit_cn"`
+	MenuId  uint64   `json:"menu_id,omitempty" db:"menu_id"`
+	MenuSeq int      `json:"menu_seq,omitempty" db:"menu_seq"`
+	Image   string   `json:"image" db:"image"`
 	Prices  []*Price `json:"prices"`
 }
 
 type Price struct {
 	Id     int     `json:"id"`
 	ItemId int64   `json:"-" db:"item_id"`
-	Name   string  `json:"name"`
-	Price  float32 `json:"price"`
+	Name   string  `json:"name" db:"name"`
+	NameEn string  `json:"name_en" db:"name_en"`
+	NameCn string  `json:"name_cn" db:"name_cn"`
+	Price  float32 `json:"price" db:"price"`
 }
 
 func (i *Item) Get(id int64) (err error) {
