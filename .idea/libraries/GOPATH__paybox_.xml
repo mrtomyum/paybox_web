@@ -8,6 +8,7 @@
       <root url="file://$PROJECT_DIR$/../../../golang.org" />
       <root url="file://$PROJECT_DIR$/../../../google.golang.org" />
       <root url="file://$PROJECT_DIR$/../.." />
+      <root url="file://$PROJECT_DIR$/../../../engo.io" />
     </CLASSES>
     <SOURCES>
       <root url="file://$PROJECT_DIR$/../../../gopkg.in" />
@@ -17,6 +18,7 @@
       <root url="file://$PROJECT_DIR$/../../../golang.org" />
       <root url="file://$PROJECT_DIR$/../../../google.golang.org" />
       <root url="file://$PROJECT_DIR$/../.." />
+      <root url="file://$PROJECT_DIR$/../../../engo.io" />
     </SOURCES>
     <excluded>
       <root url="file://$PROJECT_DIR$" />
