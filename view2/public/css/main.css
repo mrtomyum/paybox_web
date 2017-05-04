@@ -531,9 +531,13 @@ a:link{
         width:100%;
     }
 
-    .block-3 a:active img{
-            display:block
-        }
+.block-3 a:active span {
+    background: #DCDCDC;
+}
+
+.block-3 a:active {
+    background: #DCDCDC;
+}
 
     .active_menu{
         display:none;

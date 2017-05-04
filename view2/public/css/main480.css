@@ -56,9 +56,9 @@
             width:100%;
         }
 
-        .block-3 a:active img{
-                display:block
-        }
+    /* .block-3 a:active img{
+             display:block
+     }*/
 
         .item-name{
             float: left;

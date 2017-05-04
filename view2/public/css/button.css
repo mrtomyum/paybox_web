@@ -95,13 +95,14 @@
     color:#fff;
     line-height:60px;
     text-align:center;
-   /* background:#000;*/
     position: absolute;
     top:85%;
     left:90%;
     }
         .circle img{
             width:100%;
+            border-radius: 50%;
+            border: 2px solid #fff;
         }
         .circle img:active{
             width:99%;
