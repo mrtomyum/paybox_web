@@ -74,8 +74,8 @@ call_websocket();
 
         switch (parseInt(id)) {
             case 1:
-                document.getElementById("version").innerHTML = "เวอร์ชั่น 0.1";
-                document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
+                document.getElementById("version").innerHTML = "เวอร์ชั่น 0.9";
+                document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.9 ";
 
                 //    document.getElementById("bt_back").innerHTML = "ย้อนกลับ";
 
@@ -84,8 +84,8 @@ call_websocket();
 
                 break;
             case 2:
-                document.getElementById("version").innerHTML = "version 0.1";
-                document.getElementById("version2").innerHTML = "version 0.1 ";
+                document.getElementById("version").innerHTML = "version 0.9";
+                document.getElementById("version2").innerHTML = "version 0.9 ";
 
                 // document.getElementById("bt_back").innerHTML = "back";
 
@@ -93,8 +93,8 @@ call_websocket();
                 document.getElementById("Name_time2").innerHTML = "time ";
                 break;
             case 3:
-                document.getElementById("version").innerHTML = "版本 0.1";
-                document.getElementById("version2").innerHTML = "版本 0.1 ";
+                document.getElementById("version").innerHTML = "版本 0.9";
+                document.getElementById("version2").innerHTML = "版本 0.9 ";
 
                 //	document.getElementById("bt_back").innerHTML = "背部";
 
@@ -121,7 +121,7 @@ call_websocket();
                         window.location = "#page_screen";
                         wk.postMessage(0);
                     }
-                }
+                };
         //start Worker และส่ง message ให้ Worker ด้วย postMessage
 
 
