@@ -74,23 +74,24 @@ function show_modal(c_id,id,name,line,img,unit,s,m,l){
 	var lName = l[0];
 	var lPrice = l[1];
 	var size = "";
-    if(localStorage.OrgCode == 0){
+	//console.log("Org "+localStorage.OrgCode);
+   // if(localStorage.OrgCode == 0){
 		if( sPrice != "0"){
 		size += '<button class="ui-btn ui-shadow" style="font-size: 24px; color:#fff; background:#66a3ff; border-radius:10px;" id="'+sName+'"';
 		size += 'onclick="active_size(\''+sName+'\',\''+sPrice+'\',0)">';
-		size += 'Small</button>';
+		size += sName+'</button>';
 		}
 
 		if( mPrice != "0"){
    		size += '<button class="ui-btn ui-shadow" style="font-size: 24px; color:#fff; background:#66a3ff; border-radius:10px;" id="'+mName+'"';
         size += 'onclick="active_size(\''+mName+'\',\''+mPrice+'\',1)">';
-        size += 'Medium</button>';
+        size += mName+'</button>';
         }
 
         if( lPrice != "0"){
         size += '<button class="ui-btn ui-shadow" style="font-size: 24px; color:#fff; background:#66a3ff; border-radius:10px;" id="'+lName+'"';
         size += ' onclick="active_size(\''+lName+'\',\''+lPrice+'\',2)">';
-        size += 'large</button>';
+        size += lName+'</button>';
         }
         setTimeout(function(){
             if(sPrice!=0){
@@ -102,9 +103,9 @@ function show_modal(c_id,id,name,line,img,unit,s,m,l){
             }
         },300);
 
-    }else{
+    //}else{
 
-    }
+   // }
 
     var totalPrice = 1*sPrice;
 

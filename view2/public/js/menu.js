@@ -65,7 +65,7 @@ call_websocket();
         // var id = 2;
 
 
-        var worker = new Worker('js/time.js');
+        var worker = new Worker('js/worker/time.js');
         worker.onmessage = function (event) {
             document.getElementById('timer').innerHTML = event.data;
             document.getElementById('timer2').innerText = event.data;
@@ -108,6 +108,27 @@ call_websocket();
         detailmenu(id);
         console.log("screen width : " + screen.width);
         active_lang(id);
+
+        //** screen server ***//
+        //new Worker object
+        var wk=new Worker("js/worker/worker.js");
+        //ใช้ addEventListener เพื่อรับ message จาก Woker --> self.postMessage('worker got : '+data);
+                wk.onmessage = function(oEvent){
+                    //document.getElementById('display').textContent = "เวลา " + oEvent.data + " วินาที";
+                    //จะ print 'worker got : Hello'
+                    if(oEvent.data==300){
+                        console.log("screen");
+                        window.location = "#page_screen";
+                        wk.postMessage(0);
+                    }
+                }
+        //start Worker และส่ง message ให้ Worker ด้วย postMessage
+
+
+        $('html').click(function(){
+            wk.postMessage(0);
+        });
+        ////////////////////////
 
     }, 1000);
 });
