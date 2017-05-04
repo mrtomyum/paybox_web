@@ -17,6 +17,7 @@ $(document).ready(function(){
         },1000);
      },10000);
   }
+
   $(".img-header").on("taphold",function(){
     $( "#mySetting" ).popup( "open" );
     document.getElementById("pwd").value = "";
@@ -108,7 +109,7 @@ call_websocket();
         console.log("screen width : " + screen.width);
         active_lang(id);
 
-    }, 300);
+    }, 1000);
 });
 
 function detailmenu(id){
@@ -158,7 +159,9 @@ function active_menu(menuId,mName,lName){
 
     console.log("active " +localStorage.language);
     menu_detail(localStorage.language,menuId);
-
+    setTimeout(function () {
+        voice_say(localStorage.language, mName);
+    }, 500);
 }
 
 function voice_say(lang,content){
@@ -171,16 +174,17 @@ function voice_say(lang,content){
                 break;
      }
      console.log(content);
-     console.log(lang);
+    console.log("vioce say " + lang);
      responsiveVoice.setDefaultVoice(language);
      responsiveVoice.speak(content);
 }
 
 function onsayeng(id){
-//    responsiveVoice.setDefaultVoice("UK English Female");
-//    responsiveVoice.speak("English language");
+    responsiveVoice.setDefaultVoice("UK English Female");
+    responsiveVoice.speak("English language");
  
     active_lang(id);
+    //console.log("active _ id "+id);
 
     document.getElementById("version").innerHTML = "version 0.1";
     document.getElementById("version2").innerHTML = "version 0.1 ";
@@ -195,8 +199,9 @@ function onsayeng(id){
 }
 
 function onsaythai(id){
-//    responsiveVoice.setDefaultVoice("Thai Female");
-//    responsiveVoice.speak("ภาษาไทย");
+
+    responsiveVoice.setDefaultVoice("Thai Female");
+    responsiveVoice.speak("ภาษาไทย");
 
     active_lang(id);
 
@@ -216,8 +221,8 @@ function onsaythai(id){
 }
 
 function onsaychina(id){
-//    responsiveVoice.setDefaultVoice("Chinese Female");
-//    responsiveVoice.speak("中國");
+    responsiveVoice.setDefaultVoice("Chinese Female");
+    responsiveVoice.speak("中國");
 
     active_lang(id);
 
