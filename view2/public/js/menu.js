@@ -116,7 +116,7 @@ call_websocket();
                 wk.onmessage = function(oEvent){
                     //document.getElementById('display').textContent = "เวลา " + oEvent.data + " วินาที";
                     //จะ print 'worker got : Hello'
-                    if(oEvent.data==300){
+                    if(oEvent.data==5){
                         console.log("screen");
                         window.location = "#page_screen";
                         wk.postMessage(0);
