@@ -207,8 +207,8 @@ function onsayeng(id){
     active_lang(id);
     //console.log("active _ id "+id);
 
-    document.getElementById("version").innerHTML = "version 0.1";
-    document.getElementById("version2").innerHTML = "version 0.1 ";
+    document.getElementById("version").innerHTML = "version 0.9";
+    document.getElementById("version2").innerHTML = "version 0.9 ";
 
   //  document.getElementById("bt_back").innerHTML = "back";
 
@@ -226,8 +226,8 @@ function onsaythai(id){
 
     active_lang(id);
 
-    document.getElementById("version").innerHTML = "เวอร์ชั่น 0.1";
-	document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.1 ";
+    document.getElementById("version").innerHTML = "เวอร์ชั่น 0.9";
+    document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.9 ";
 
 	//document.getElementById("bt_back").innerHTML = "ย้อนกลับ";
 
@@ -247,8 +247,8 @@ function onsaychina(id){
 
     active_lang(id);
 
-    document.getElementById("version").innerHTML = "版本 0.1";
-    document.getElementById("version2").innerHTML = "版本 0.1 ";
+    document.getElementById("version").innerHTML = "版本 0.9";
+    document.getElementById("version2").innerHTML = "版本 0.9 ";
 
   //  document.getElementById("bt_back").innerHTML = "背部";
 
