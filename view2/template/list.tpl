@@ -106,7 +106,7 @@
         <div style="width:50%; float: left; line-height:14px; text-align: right; padding-right: 5%;">
             <font size="5">language : </font>
             <br style="padding-right: 2%;">เวลา 08.00 น.
-            <br style="padding-right: 2%;">version 0.1
+            <br style="padding-right: 2%;">version 0.9
         </div>
         <div style="width:50%; float: left;">
             <img src="img/uk-flag.png" class="lang">
