@@ -73,15 +73,56 @@ func (ca *CoinAcceptor) Stop() {
 }
 
 func (ca *CoinAcceptor) Received(s *Socket) {
-	fmt.Println("Start method: ca.Received()")
-	value := s.Msg.Data.(float64)
+	fmt.Println("Start method: ca.Received() s.Msg.Data=", s.Msg.Data)
+	//value := s.Msg.Data.(float64)
+	value := ca.checkId(s.Msg.Data.(int))
 	PM.coin += value
 	PM.total += value
 	PM.remain -= value
 	CB.hopper += value
 	CB.total += value
 	fmt.Println("PM.coin =", PM.coin, "PM total=", PM.total)
+	PM.coinCh <- value
 
-	PM.coinCh <- s.Msg
+}
 
+// checkId ตรวจเทียบ Id ที่ได้รับจากเครืื่องรับเหรียญ เทียบกับข้อมูลของผู้ผลิตส่งยอดเงินรับกลับ ปัจจุบันใช้เครื่อง MicroCoin SP115
+func (ca *CoinAcceptor) checkId(data int) float64 {
+	var value float64
+	switch data {
+	case 1:
+		value = 1.0
+	case 2:
+		value = 2.0
+	case 3:
+		value = 5.0
+	case 4:
+		value = 10.0
+	case 5:
+		value = 10.0
+	case 6:
+		value = 10.0
+	case 7:
+		value = 10.0
+	case 8:
+		value = 10.0
+	case 9:
+		value = 10.0
+	case 10:
+		value = 10.0
+	case 11:
+		value = 10.0
+	case 12:
+		value = 10.0
+	case 13:
+		value = 10.0
+	case 14:
+		value = 10.0
+	case 15:
+		value = 10.0
+	case 16:
+		value = 10.0
+		// มี 1-16
+	}
+	return value
 }

@@ -16,8 +16,10 @@ type Payment struct {
 	total      float64 // มูลค่าเงินพักทั้งหมด
 	remain     float64 // เงินคงค้างชำระ
 	change     float64 // เงินทอน
-	billCh     chan *Message
-	coinCh     chan *Message
+	//billCh     chan *Message
+	billCh     chan float64
+	//coinCh     chan *Message
+	coinCh     chan float64
 	cancelCh   chan bool
 	isOpen     bool // เปิดรับชำระหรือยัง?
 	//Card  float64 // มูลค่าบัตรเครดิตที่รับชำระแล้ว
@@ -116,8 +118,8 @@ func (pm *Payment) New(s *Sale) error {
 			//case <-pm.cancelCh:
 			//	fmt.Println("case <-pm.cancelCh return...")
 			//	return errors.New("cancel")
-		case msg = <-pm.billCh:
-			value = msg.Data.(float64)
+		case value = <-pm.billCh:
+			//value = msg.Data.(float64)
 			fmt.Printf("3. Bill Accepted: pm.total= %v sale.total= %v pm.remain= %v msg = %v\n", pm.total, s.Total, pm.remain, msg)
 			pm.billEscrow = value
 			fmt.Println("pm.billEscrow:", pm.billEscrow)
@@ -132,8 +134,7 @@ func (pm *Payment) New(s *Sale) error {
 				pm.billEscrow = 0
 			}
 
-		case msg = <-pm.coinCh:
-			value = msg.Data.(float64)
+		case value = <-pm.coinCh:
 			fmt.Printf("3. Coin Accepted: pm.total= %v sale.total= %v pm.remain= %v\n", pm.total, s.Total, pm.remain)
 		}
 		// บันทึกประเภทเหรียญและธนบัตรที่รับมาลง s.SalePay
