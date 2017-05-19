@@ -75,7 +75,7 @@ func (ca *CoinAcceptor) Stop() {
 func (ca *CoinAcceptor) Received(s *Socket) {
 	fmt.Println("Start method: ca.Received() s.Msg.Data=", s.Msg.Data)
 	//value := s.Msg.Data.(float64)
-	value := ca.checkId(s.Msg.Data.(int))
+	value := ca.checkId(s.Msg.Data.(float64))
 	PM.coin += value
 	PM.total += value
 	PM.remain -= value
@@ -87,7 +87,7 @@ func (ca *CoinAcceptor) Received(s *Socket) {
 }
 
 // checkId ตรวจเทียบ Id ที่ได้รับจากเครืื่องรับเหรียญ เทียบกับข้อมูลของผู้ผลิตส่งยอดเงินรับกลับ ปัจจุบันใช้เครื่อง MicroCoin SP115
-func (ca *CoinAcceptor) checkId(data int) float64 {
+func (ca *CoinAcceptor) checkId(data float64) float64 {
 	var value float64
 	switch data {
 	case 1:

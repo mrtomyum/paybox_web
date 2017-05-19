@@ -146,7 +146,7 @@ func (ba *BillAcceptor) Reject() {
 
 func (ba *BillAcceptor) Received(s *Socket) {
 	fmt.Println("Start method: ba.Received()")
-	value := ba.checkId(s.Msg.Data.(int))
+	value := ba.checkId(s.Msg.Data.(float64))
 	PM.billCh <- value
 }
 
@@ -177,42 +177,41 @@ func (ba *BillAcceptor) Returned(s *Socket) {
 
 // checkId ตรวจเทียบ Id ที่ได้รับจากเครืื่องรับธนบัตรเทียบกับข้อมูลของผู้ผลิตส่งยอดเงินกลับ
 // ปัจจุบันใช้เครื่อง Global Bill Acceptors GBA ST2
-func (ba *BillAcceptor) checkId(data int) float64 {
+func (ba *BillAcceptor) checkId(data float64) float64 {
 	var value float64
 	switch data {
 	case 1:
-		value = 1.0
+		value = 0.0
 	case 2:
-		value = 2.0
+		value = 0.0
 	case 3:
-		value = 5.0
+		value = 100.0
 	case 4:
-		value = 10.0
+		value = 0.0
 	case 5:
-		value = 10.0
+		value = 0.0
 	case 6:
-		value = 10.0
+		value = 0.0
 	case 7:
-		value = 10.0
+		value = 0.0
 	case 8:
-		value = 10.0
+		value = 50.0
 	case 9:
-		value = 10.0
+		value = 20.0
 	case 10:
-		value = 10.0
+		value = 500.0
 	case 11:
-		value = 10.0
+		value = 100.0
 	case 12:
-		value = 10.0
+		value = 1000.0
 	case 13:
-		value = 10.0
+		value = 0.0
 	case 14:
-		value = 10.0
+		value = 0.0
 	case 15:
-		value = 10.0
+		value = 0.0
 	case 16:
-		value = 10.0
-		// มี 1-16
+		value = 0.0
 	}
 	return value
 }

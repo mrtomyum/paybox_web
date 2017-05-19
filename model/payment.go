@@ -375,7 +375,7 @@ func (pm *Payment) Reset() {
 	pm.remain = 0
 	pm.change = 0
 	pm.isOpen = false
-	resetChannel(PM.billCh)
+	//resetChannel(PM.billCh)
 	resetChannel(BA.Send)
 	resetChannel(CA.Send)
 	resetChannel(CH.Send)

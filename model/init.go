@@ -27,8 +27,8 @@ func init() {
 	db = sqlx.MustConnect("sqlite3", pwd+"/paybox.db")
 
 	PM = &Payment{
-		billCh:     make(chan *Message),
-		coinCh:     make(chan *Message),
+		billCh:     make(chan float64),
+		coinCh:     make(chan float64),
 		cancelCh:   make(chan bool),
 		coin:       0,
 		bill:       0,
@@ -89,8 +89,8 @@ func init() {
 		Id:          "001",
 		IsNetOnline: true,
 	}
-	resetChannel(PM.billCh)
-	resetChannel(PM.coinCh)
+	//resetChannel(PM.billCh)
+	//resetChannel(PM.coinCh)
 	resetChannel(BA.Send)
 	resetChannel(CA.Send)
 	resetChannel(CH.Send)
