@@ -18,10 +18,6 @@ $(document).ready(function(){
      },10000);
   }
 
-  $(".img-header").on("taphold",function(){
-    $( "#mySetting" ).popup( "open" );
-    document.getElementById("pwd").value = "";
-  });
 call_websocket();
 /*setInterval(function(){
      $.ajax({
@@ -111,27 +107,77 @@ call_websocket();
 
         //** screen server ***//
         //new Worker object
-        var wk=new Worker("js/worker/worker.js");
+        var wk = new Worker("js/worker/worker.js");
         //ใช้ addEventListener เพื่อรับ message จาก Woker --> self.postMessage('worker got : '+data);
                 wk.onmessage = function(oEvent){
                     //document.getElementById('display').textContent = "เวลา " + oEvent.data + " วินาที";
                     //จะ print 'worker got : Hello'
                     if(oEvent.data==300){
                         console.log("screen");
-                        window.location = "#page_screen";
+                        $.mobile.changePage("#page_screen");
                         wk.postMessage(0);
                     }
                 };
         //start Worker และส่ง message ให้ Worker ด้วย postMessage
-
-
         $('html').click(function(){
             wk.postMessage(0);
         });
         ////////////////////////
 
     }, 1000);
+
 });
+
+var wksetting = new Worker("js/worker/setting.js");
+//ใช้ addEventListener เพื่อรับ message จาก Woker --> self.postMessage('worker got : '+data);
+wksetting.onmessage = function (oEvent) {
+    //document.getElementById('display').textContent = "เวลา " + oEvent.data + " วินาที";
+    //จะ print 'worker got : Hello'
+    // console.log("setting step "+oEvent.data);
+    document.getElementById("stepst").innerHTML = oEvent.data;
+
+    showDialog();
+    if (oEvent.data >= 5) {
+        $("#mySetting").popup("open");
+        document.getElementById("pwd").value = "";
+        closeDialog();
+        clearInterval(timeclick);
+        stepclick = 0;
+    }
+    //wk.postMessage(0);
+    //var len = document.getElementById("myDialog").length;
+
+};
+var stepclick = 0;
+var timeclick = "";
+function setting_ck() {
+    // console.log("setting");
+    wksetting.postMessage(1);
+
+    stepclick = 0;
+    clearInterval(timeclick);
+    timeclick = setInterval(function () {
+        stepclick += 1;
+        if (stepclick == 2) {
+            stepclick = 0;
+            clearInterval(timeclick);
+            closeDialog();
+            wksetting.postMessage(0);
+        }
+        console.log("stepck " + stepclick);
+    }, 1000);
+
+}
+
+var x = document.getElementById("myDialog");
+
+function showDialog() {
+    x.show();
+}
+
+function closeDialog() {
+    x.close({hide: {effect: "fade", duration: 200}});
+}
 
 function detailmenu(id){
 
@@ -292,4 +338,8 @@ function delete_pwd(){
 function close_set(){
     document.getElementById("pwd").value = "";
     $("#mySetting").popup("close");
+}
+
+function setting_page() {
+    $.mobile.changePage("#page_setting");
 }

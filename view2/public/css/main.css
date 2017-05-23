@@ -559,6 +559,7 @@ a:link{
             width:80%;
             margin:0;
             padding:1% 0 0 0;
+            /* border:1px solid #1d1d1d;*/
         }
         #stamachine{
             float:right;
@@ -581,3 +582,11 @@ a:link{
             width:30%;
             padding-right:1%;
         }
+
+dialog {
+    background: #404040;
+    color: #ffffff;
+    border-radius: 10px;
+    border: 0;
+    position: absolute;
+}

@@ -18,7 +18,7 @@
 <div data-role="page" id="pageone">
 
     <div data-role="none" class="nav-bar">
-        <img src="public/img/logo_paybox.png" class="img-header">
+        <img src="public/img/logo_paybox.png" class="img-header" onclick="setting_ck()">
         <div id="time"><span id="version"></span> <br/> <span id="N_time"></span> <span id="timer"></span></div>
     </div>
 
@@ -67,6 +67,7 @@
                                                     style="border: 5px solid #fff;"></a>
             <h1>language </h1>
         </div>
+        <dialog id="myDialog">step setting <span id="stepst"></span></dialog>
     </div>
     <div data-role="none" class="footer">
         <div id="marq">
@@ -135,7 +136,7 @@
                     <a href="javascript:close_set()" class="number" style="color:#f00;">X</a>
                 </div>
                 <div class="ui-block-c">
-                    <a href="#" class="number" style="color:#fff;">Go!</a>
+                    <a href="#" class="number" style="color:#fff;" onclick="setting_page()">Go!</a>
                 </div>
             </div>
 
@@ -265,18 +266,226 @@
 
 
 </div>
+<!-- setting page over -->
+<div data-role="page" id="page_setting">
+    <div data-role="none" class="nav-bar">
+        <img src="public/img/logo_paybox.png" class="img-header">
+        <div id="time"><span id="version2"></span> <br/> <span id="Name_time2"></span> <span id="timer2"></span></div>
+    </div>
 
+    <div data-role="main" class="ui-content" style="height: 530px;">
+        <h1>ตั้งค่าระบบ</h1>
+        <div class="ui-grid-b">
+            <div class="ui-block-a" onclick="$.mobile.changePage('#page_sttheme')">
+                <img src="img/menu_color.png"><br>
+                <span style="font-size: 35px;">Theme</span>
+            </div>
+            <div class="ui-block-b" onclick="$.mobile.changePage('#page_storgin')">
+                <img src="img/menu_orgin.png"><br>
+                <span style="font-size: 35px;">Orgin</span>
+            </div>
+            <div class="ui-block-c" onclick="$.mobile.changePage('#page_stmoney')">
+                <img src="img/menu_money.png"><br>
+                <span style="font-size: 35px;">Money</span>
+            </div>
+        </div>
+        <div class="circle" onclick="$.mobile.changePage('#pageone')"><img src="public/img/back.png"></div>
+    </div>
+</div>
+
+<div data-role="page" id="page_sttheme">
+    <div data-role="none" class="nav-bar">
+        <img src="public/img/logo_paybox.png" class="img-header">
+        <div id="time"><span id="version2"></span> <br/> <span id="Name_time2"></span> <span id="timer2"></span></div>
+    </div>
+
+    <div data-role="main" class="ui-content" style="height: 530px;">
+        <h1 style="padding-bottom: 0; margin-bottom: 0; font-size: 50px;">ตั้งค่าสีของหน้าจอ</h1>
+        <div class="ui-grid-b" style="margin-top: 0; padding-bottom: 0; padding-top: 0;">
+            <div class="ui-block-a">
+                <a href="#" class="ui-btn ui-corner-all ui-shadow" style="height: 130px; background: red; color: #fff;">
+                    <h1 style="font-size: 100px; padding: 0; margin: 0;">red</h1>
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#" class="ui-btn ui-corner-all ui-shadow"
+                   style="height: 130px; background: green; color: #fff;">
+                    <h1 style="font-size: 100px; padding: 0; margin: 0;">green</h1>
+                </a>
+            </div>
+            <div class="ui-block-c">
+                <a href="#" class="ui-btn ui-corner-all ui-shadow"
+                   style="height: 130px; background: blue; color: #fff;">
+                    <h1 style="font-size: 100px; padding: 0; margin: 0;">blue</h1>
+                </a>
+            </div>
+        </div>
+        <div class="ui-grid-b" style="margin-top: 0; padding-bottom: 0; padding-top: 0;">
+            <div class="ui-block-a">
+                <a href="#" class="ui-btn ui-corner-all ui-shadow"
+                   style="height: 130px; background: yellow; color: #fff;">
+                    <h1 style="font-size: 100px; padding: 0; margin: 0;">yellow</h1>
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#" class="ui-btn ui-corner-all ui-shadow"
+                   style="height: 130px; background: lightgray; color: #fff;">
+                    <h1 style="font-size: 100px; padding: 0; margin: 0;">gray</h1>
+                </a>
+            </div>
+            <div class="ui-block-c">
+                <a href="#" class="ui-btn ui-corner-all ui-shadow"
+                   style="height: 130px; background: dimgray; color: #fff;">
+                    <h1 style="font-size: 100px; padding: 0; margin: 0;">dimgray</h1>
+                </a>
+            </div>
+        </div>
+        <div class="circle" onclick="$.mobile.changePage('#page_setting')"><img src="public/img/back.png"></div>
+    </div>
+</div>
+
+<div data-role="page" id="page_storgin">
+    <div data-role="none" class="nav-bar">
+        <img src="public/img/logo_paybox.png" class="img-header">
+        <div id="time"><span id="version2"></span> <br/> <span id="Name_time2"></span> <span id="timer2"></span></div>
+    </div>
+
+    <div data-role="main" class="ui-content" style="height: 530px;">
+        <h1 style="padding-bottom: 0; margin-bottom: 0; font-size: 50px;">ตั้งค่าประเภทธุรกิจ</h1>
+        <h1 style="padding-bottom: 0; margin-bottom: 0;">ประเภทธุรกิจ : ร้านกาแฟ</h1>
+        <div class="ui-grid-a" style="margin-top: 0; padding-bottom: 0; padding-top: 0;">
+            <div class="ui-block-a">
+                <a href="#" class="ui-btn ui-corner-all ui-shadow" style="background: black; color: #fff;">
+                    <h1 style="font-size: 100px; margin: 0;">ร้านกาแฟ</h1>
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#" class="ui-btn ui-corner-all ui-shadow">
+                    <h1 style="font-size: 100px; margin: 0;">สวนน้ำ</h1>
+                </a>
+            </div>
+        </div>
+        <div class="circle" onclick="$.mobile.changePage('#page_setting')"><img src="public/img/back.png"></div>
+    </div>
+</div>
+
+<div data-role="page" id="page_stmoney">
+    <div data-role="none" class="nav-bar">
+        <img src="public/img/logo_paybox.png" class="img-header">
+        <div id="time"><span id="version2"></span> <br/> <span id="Name_time2"></span> <span id="timer2"></span></div>
+    </div>
+
+    <div data-role="main" class="ui-content" style="height: 530px;">
+        <h1 style="padding-bottom: 0; margin-bottom: 0; font-size: 50px;">ตั้งค่าเงินภายในตู้</h1>
+        <div class="ui-grid-a" style="margin-top: 0; padding-bottom: 0; padding-top: 0;">
+            <div class="ui-block-a">
+                <a href="#cnt_coin" data-rel="popup" class="ui-btn ui-corner-all ui-shadow">
+                    <h1 style="font-size: 50px; margin: 0;">
+                        เหรียญ 1 บาท <br>
+                        ยอดในตู้ 1000 เหรียญ
+                    </h1>
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#cnt_coin" data-rel="popup" class="ui-btn ui-corner-all ui-shadow">
+                    <h1 style="font-size: 50px; margin: 0;">
+                        เหรียญ 2 บาท <br>
+                        ยอดในตู้ 1000 เหรียญ
+                    </h1>
+                </a>
+            </div>
+        </div>
+        <div class="ui-grid-a" style="margin-top: 0; padding-bottom: 0; padding-top: 0;">
+            <div class="ui-block-a">
+                <a href="#cnt_coin" data-rel="popup" class="ui-btn ui-corner-all ui-shadow">
+                    <h1 style="font-size: 50px; margin: 0;">
+                        เหรียญ 5 บาท <br>
+                        ยอดในตู้ 1000 เหรียญ
+                    </h1>
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#cnt_coin" data-rel="popup" class="ui-btn ui-corner-all ui-shadow">
+                    <h1 style="font-size: 50px; margin: 0;">
+                        เหรียญ 10 บาท <br>
+                        ยอดในตู้ 1000 เหรียญ
+                    </h1>
+                </a>
+            </div>
+        </div>
+
+        <div data-role="popup" id="cnt_coin" class="ui-content" data-dismissible="false" data-position-to="window"
+             style="width:500px; top:0;">
+            <div data-role="main" class="ui-content" style="padding:2%;">
+                <div style="width:70%; float:left;">
+                    <input type="number" name="cnt_coin" id="cnt_coin" placeholder="กรอกจำนวนเหรียญ" readonly
+                           style="font-size:32px;">
+                </div>
+                <div style="width:25%; float:left; padding:2%;">
+                    <a href="javascript:delete_pwd()" class="number" style="color:#fff; font-size:48px;">Del</a>
+                </div>
+                <div class="ui-grid-b" style="clear:both;">
+                    <div class="ui-block-a">
+                        <a href="javascript:enPwd(1)" class="number" style="color:#fff;">1</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="javascript:enPwd(2)" class="number" style="color:#fff;">2</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="javascript:enPwd(3)" class="number" style="color:#fff;">3</a>
+                    </div>
+                </div>
+                <div class="ui-grid-b">
+                    <div class="ui-block-a">
+                        <a href="javascript:enPwd(4)" class="number" style="color:#fff;">4</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="javascript:enPwd(5)" class="number" style="color:#fff;">5</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="javascript:enPwd(6)" class="number" style="color:#fff;">6</a>
+                    </div>
+                </div>
+                <div class="ui-grid-b">
+                    <div class="ui-block-a">
+                        <a href="javascript:enPwd(7)" class="number" style="color:#fff;">7</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="javascript:enPwd(8)" class="number" style="color:#fff;">8</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="javascript:enPwd(9)" class="number" style="color:#fff;">9</a>
+                    </div>
+                </div>
+                <div class="ui-grid-b">
+                    <div class="ui-block-a">
+                        <a href="javascript:enPwd(0)" class="number" style="color:#fff;">0</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="number" style="color:#f00;">X</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" class="number" style="color:#fff;">OK!</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="circle" onclick="$.mobile.changePage('#page_setting')"><img src="public/img/back.png"></div>
+    </div>
+</div>
+<!-- -->
 <div data-role="page" id="page_screen">
     <div data-role="main" class="ui-content"  style="overflow: hidden;" onclick="hide()">
         <img src="img/eye.gif" style="width: 100%; position: absolute; top: -33%; left:0%; overflow: hidden; background: #000;">
         <script type="text/javascript">
             function hide(){
-                window.location = "#pageone";
+                $.mobile.changePage("#");
             }
         </script>
     </div>
 </div>
-
 
 <script src="public/js/jquery-1.11.3.min.js"></script>
 <script src="public/js/jquery.mobile-1.4.5.min.js"></script>
