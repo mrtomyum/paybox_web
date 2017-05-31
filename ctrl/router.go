@@ -11,13 +11,13 @@ func Router() *gin.Engine {
 	pwd, _ := os.Getwd()
 	// for Static HTML template
 
-	r.LoadHTMLGlob(pwd + "/view2/**/*.tpl")
-	r.Static("/html", pwd+"/view2/html")
-	r.Static("/js", pwd+"/view2/public/js")
-	r.Static("/css", pwd+"/view2/public/css")
-	r.Static("/img", pwd+"/view2/public/img")
-	r.Static("/json", pwd+"/view2/public/json")
-	r.Use(static.Serve("/", static.LocalFile("view2", true)))
+	//r.LoadHTMLGlob(pwd + "/view3/**/*.tpl")
+	r.Static("/html", pwd+"/view3/html")
+	r.Static("/js", pwd+"/view3/public/js")
+	r.Static("/css", pwd+"/view3/public/css")
+	r.Static("/img", pwd+"/view3/public/img")
+	r.Static("/json", pwd+"/view3/public/json")
+	r.Use(static.Serve("/", static.LocalFile("view3", true)))
 
 	// WebService endpoint for web UI
 	r.GET("/menu", GetMenu)
