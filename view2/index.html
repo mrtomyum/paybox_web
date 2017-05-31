@@ -377,103 +377,69 @@
 
     <div data-role="main" class="ui-content" style="height: 530px;">
         <h1 style="padding-bottom: 0; margin-bottom: 0; font-size: 50px;">ตั้งค่าเงินภายในตู้</h1>
-        <div class="ui-grid-a" style="margin-top: 0; padding-bottom: 0; padding-top: 0;">
+        <table style="width: 100%; font-size: 24px;" border="0">
+            <tr>
+                <td style="position: relative;">
+                    <a href="#" class="ui-btn ui-btn-inline ui-corner-all" onclick="AddM(0)">
+                        <img src="public/img/c1.png">
+                    </a>
+                    <div class="addM"><b class="C">0</b></div>
+                    <div class="removeM" onclick="RemoveM(0,'cc1')">-</div>
+                </td>
+                <td style="position: relative;">
+                    <a href="#" class="ui-btn ui-btn-inline ui-corner-all" onclick="AddM(1)">
+                        <img src="public/img/c2.png">
+                    </a>
+                    <div class="addM"><b class="C">0</b></div>
+                    <div class="removeM" onclick="RemoveM(1,'cc2')">-</div>
+                </td>
+                <td style="position: relative;">
+                    <a href="#" class="ui-btn ui-btn-inline ui-corner-all" onclick="AddM(2)">
+                        <img src="public/img/c5.png">
+                    </a>
+                    <div class="addM"><b class="C">0</b></div>
+                    <div class="removeM" onclick="RemoveM(2,'cc5')">-</div>
+                </td>
+                <td style="position: relative;">
+                    <a href="#" class="ui-btn ui-btn-inline ui-corner-all" onclick="AddM(3)">
+                        <img src="public/img/c10.png">
+                    </a>
+                    <div class="addM"><b class="C">0</b></div>
+                    <div class="removeM" onclick="RemoveM(3,'cc10')">-</div>
+                </td>
+            </tr>
+            <tr>
+                <td><b class="tc">0</b> ฿</td>
+                <td><b class="tc">0</b> ฿</td>
+                <td><b class="tc">0</b> ฿</td>
+                <td><b class="tc">0</b> ฿</td>
+            </tr>
+        </table>
+        <hr style="text-align: center; width: 90%;">
+        <div class="ui-grid-b">
             <div class="ui-block-a">
-                <a href="#cnt_coin" data-rel="popup" class="ui-btn ui-corner-all ui-shadow">
-                    <h1 style="font-size: 50px; margin: 0;">
-                        เหรียญ 1 บาท <br>
-                        ยอดในตู้ 1000 เหรียญ
-                    </h1>
-                </a>
+                <h1 style="text-align: left;">Now</h1>
+                <span style="font-size: 70px;" id="scMN">฿ 6,000</span>
             </div>
             <div class="ui-block-b">
-                <a href="#cnt_coin" data-rel="popup" class="ui-btn ui-corner-all ui-shadow">
-                    <h1 style="font-size: 50px; margin: 0;">
-                        เหรียญ 2 บาท <br>
-                        ยอดในตู้ 1000 เหรียญ
-                    </h1>
-                </a>
+                <h1 style="text-align: left;">Add</h1>
+                <span style="font-size: 70px;" id="addMN">฿ 0</span>
+            </div>
+            <div class="ui-block-c">
+                <h1 style="text-align: left;">Total</h1>
+                <span style="font-size: 70px;" id="ttMN">฿ 0</span>
             </div>
         </div>
-        <div class="ui-grid-a" style="margin-top: 0; padding-bottom: 0; padding-top: 0;">
-            <div class="ui-block-a">
-                <a href="#cnt_coin" data-rel="popup" class="ui-btn ui-corner-all ui-shadow">
-                    <h1 style="font-size: 50px; margin: 0;">
-                        เหรียญ 5 บาท <br>
-                        ยอดในตู้ 1000 เหรียญ
-                    </h1>
-                </a>
-            </div>
-            <div class="ui-block-b">
-                <a href="#cnt_coin" data-rel="popup" class="ui-btn ui-corner-all ui-shadow">
-                    <h1 style="font-size: 50px; margin: 0;">
-                        เหรียญ 10 บาท <br>
-                        ยอดในตู้ 1000 เหรียญ
-                    </h1>
-                </a>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#page_setting" data-icon="back">Back</a></li>
+                    <li><a href="#page_setting" data-icon="edit">Save</a></li>
+                </ul>
             </div>
         </div>
-
-        <div data-role="popup" id="cnt_coin" class="ui-content" data-dismissible="false" data-position-to="window"
-             style="width:500px; top:0;">
-            <div data-role="main" class="ui-content" style="padding:2%;">
-                <div style="width:70%; float:left;">
-                    <input type="number" name="cnt_coin" id="cnt_coin" placeholder="กรอกจำนวนเหรียญ" readonly
-                           style="font-size:32px;">
-                </div>
-                <div style="width:25%; float:left; padding:2%;">
-                    <a href="javascript:delete_pwd()" class="number" style="color:#fff; font-size:48px;">Del</a>
-                </div>
-                <div class="ui-grid-b" style="clear:both;">
-                    <div class="ui-block-a">
-                        <a href="javascript:enPwd(1)" class="number" style="color:#fff;">1</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="javascript:enPwd(2)" class="number" style="color:#fff;">2</a>
-                    </div>
-                    <div class="ui-block-c">
-                        <a href="javascript:enPwd(3)" class="number" style="color:#fff;">3</a>
-                    </div>
-                </div>
-                <div class="ui-grid-b">
-                    <div class="ui-block-a">
-                        <a href="javascript:enPwd(4)" class="number" style="color:#fff;">4</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="javascript:enPwd(5)" class="number" style="color:#fff;">5</a>
-                    </div>
-                    <div class="ui-block-c">
-                        <a href="javascript:enPwd(6)" class="number" style="color:#fff;">6</a>
-                    </div>
-                </div>
-                <div class="ui-grid-b">
-                    <div class="ui-block-a">
-                        <a href="javascript:enPwd(7)" class="number" style="color:#fff;">7</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="javascript:enPwd(8)" class="number" style="color:#fff;">8</a>
-                    </div>
-                    <div class="ui-block-c">
-                        <a href="javascript:enPwd(9)" class="number" style="color:#fff;">9</a>
-                    </div>
-                </div>
-                <div class="ui-grid-b">
-                    <div class="ui-block-a">
-                        <a href="javascript:enPwd(0)" class="number" style="color:#fff;">0</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#" class="number" style="color:#f00;">X</a>
-                    </div>
-                    <div class="ui-block-c">
-                        <a href="#" class="number" style="color:#fff;">OK!</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="circle" onclick="$.mobile.changePage('#page_setting')"><img src="public/img/back.png"></div>
     </div>
+
 </div>
 <!-- -->
 <div data-role="page" id="page_screen">
@@ -494,6 +460,7 @@
 <script src="public/js/websocket.js"></script>
 <script src="public/js/menu.js"></script>
 <script src="public/js/item.js"></script>
+<script src="js/setting.js"></script>
 
 </body>
 </html>
