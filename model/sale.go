@@ -186,6 +186,10 @@ type SalePay struct {
 // *SalePay.Add() นี้แก้ไขชั่วคราว รับ value ของเงินเข้ามาบันทึก ซึ่งจะผิดพลาดได้หากมีการออกเหรียญ 20 บาท ระบบจะคิดว่าเป็น Bank20 (B20) หมด
 func (sp *SalePay) Add(value float64) error {
 	switch value {
+	case 0.25:
+		sp.C025++
+	case 0.50:
+		sp.C050++
 	case 1:
 		sp.C1++
 	case 2:
