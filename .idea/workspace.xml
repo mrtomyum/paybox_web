@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="16e7f75d-936a-491e-9e71-2e525f465925" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view3/public/img/menu1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view3/public/img/menu2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view3/public/img/singha_water.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view3/public/img/water.jpg" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/GOPATH__paybox_.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/paybox.db.bak" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/view3/public/img/iced-lemon-tea.jpg" afterPath="" />
+    <list default="true" id="16e7f75d-936a-491e-9e71-2e525f465925" name="Default" comment="copy ภาพจาก view2 -&gt; view3 และ git rm -rf .idea">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paybox.db" afterPath="$PROJECT_DIR$/paybox.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ctrl/router.go" afterPath="$PROJECT_DIR$/ctrl/router.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/hw_coin_acc.go" afterPath="$PROJECT_DIR$/model/hw_coin_acc.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/sale.go" afterPath="$PROJECT_DIR$/model/sale.go" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,12 +17,82 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="router.go" pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="router.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ctrl/router.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+            <state relative-caret-position="270">
+              <caret line="19" column="51" lean-forward="false" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="item.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/view2/public/js/item.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="52">
+              <caret line="217" column="0" lean-forward="true" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hw_coin_acc.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/hw_coin_acc.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="616">
+              <caret line="103" column="20" lean-forward="true" selection-start-line="103" selection-start-column="20" selection-end-line="103" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="payment.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/payment.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="93" column="26" lean-forward="false" selection-start-line="93" selection-start-column="26" selection-end-line="93" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hw_bill_acc.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/hw_bill_acc.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="326">
+              <caret line="201" column="21" lean-forward="true" selection-start-line="201" selection-start-column="21" selection-end-line="201" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/menu.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="item.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/item.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1242">
+              <caret line="72" column="57" lean-forward="false" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sale.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/model/sale.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="191" column="17" lean-forward="false" selection-start-line="191" selection-start-column="17" selection-end-line="191" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -35,8 +100,41 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>view2</find>
+      <find>select</find>
+      <find>view3</find>
+      <find>r</find>
+      <find>received</find>
+      <find>received p</find>
+      <find>received pa</find>
+      <find>received pay</find>
+      <find>received paym</find>
+      <find>received payme</find>
+      <find>received paymen</find>
+      <find>received payment</find>
+      <find>incorrect</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>view3</replace>
+      <replace>view2</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/model</dir>
+    </dirStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/ctrl/router.go" />
+        <option value="$PROJECT_DIR$/model/hw_coin_acc.go" />
+        <option value="$PROJECT_DIR$/model/sale.go" />
+      </list>
+    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -46,7 +144,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="width" value="1440" />
-    <option name="height" value="896" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -63,6 +161,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -76,10 +175,96 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paybox_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ctrl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GO_FMT" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -100,10 +285,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view2/index.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view2/public/css/button.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view2/public/css/main.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view2/public/js/menu.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -111,187 +292,9 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view2/public/js/worker/setting.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/index.html</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/alertify.core.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/alertify.default.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/bootstrap-theme.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/bootstrap-theme.css.map</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/bootstrap-theme.min.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/bootstrap.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/bootstrap.css.map</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/bootstrap.min.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/button.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/font_page/Arabica-Italic.ttf</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/font_page/Arabica.ttf</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/font_page/RSU_BOLD.ttf</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/font_page/RSU_Regular.ttf</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/font_page/RSU_light.ttf</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/font_page/WR Tish Smile.ttf</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/font_page/paaymaay_regular.ttf</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/images/ajax-loader.gif</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile-1.4.5.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile-1.4.5.min.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.external-png-1.4.5.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.external-png-1.4.5.min.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.icons-1.4.5.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.icons-1.4.5.min.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.inline-png-1.4.5.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.inline-png-1.4.5.min.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.inline-svg-1.4.5.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.inline-svg-1.4.5.min.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.structure-1.4.5.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.structure-1.4.5.min.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.theme-1.4.5.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/jquery.mobile.theme-1.4.5.min.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/main.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/main1024.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/css/main480.css</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Capu.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/China.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Hot-cocoa.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Hot-milk-tea.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Iced-americano.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Iced-cappu.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Iced-cocoa.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Iced-cocoa2.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Iced-espres.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Iced-latte.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Iced-milk-tea.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Iced-mocha.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Latte.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Mocha.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/Settings.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/add.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/americano.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/b1000_false.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/b1000_true.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/b100_false.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/b100_true.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/b20_false.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/b20_true.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/b500_false.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/b500_true.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/b50_false.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/b50_true.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/back.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/ben.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/bill.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/bread.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/c1.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/c10.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/c2.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/c5.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/cancel.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/cappuccino_frappe.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/cappuccino_hot.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/cappuccino_ice.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/chocolate.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/cocoa_frappe.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/cocoa_hot.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/cocoa_ice.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/coin.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/color.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/de_connect.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/de_notcomplete.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/de_notconnect.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/delete.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/espresso.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/espresso_frappe.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/espresso_hot.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/espresso_ice.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/eye.gif</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/fresh_milk.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/fried.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/fried_cheese.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/garlic_bread.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/green_tea.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/hot.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/hot_chocolate.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/hot_list.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/ice.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/ice_list.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/iced-lemon-tea.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/img_colormap.gif</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/inter_connect.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/inter_notconnect.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/kids.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/kids_list.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/l.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/latte_frappe.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/latte_hot.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/latte_ice.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/lemon-tea.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/life.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/logo.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/logo_paybox.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/m.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/milk_honey.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/milk_tea.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/mocha_frappe.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/mocha_hot.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/mocha_ice.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/no.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/noimg.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/ok.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/ordelete.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/pin.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/pink_milk.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/pizza_ham.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/plus.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/potatoes_dipped_chocolate.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/s.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/smoothies.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/snack.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/snack_list.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/tackout.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/tackout_ch.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/tackout_th.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/tackthis.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/tackthis_ch.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/tackthis_th.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/thaiflag.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/tiket_foreigner.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/tiket_thai.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/uk-flag.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/upgrade_data.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/vanilla_latte_frappe.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/vanilla_latte_hot.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/vanilla_latte_ice.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/water_adult.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/water_adult_plus.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/water_child.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/water_child_plus.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/water_fer.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/water_fer_child.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/water_fer_child_plus.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/water_fer_plus.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/web_skconnect.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/web_sknotconnect.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/img/yes.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/alertify.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/bootstrap.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/bootstrap.min.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/item.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/jquery-1.11.3.min.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/jquery.mobile-1.4.5.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/jquery.mobile-1.4.5.min.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/jquery.mobile-1.4.5.min.map</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/menu.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/numberFormat.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/sweetalert-dev.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/sweetalert.min.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/voice.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/websocket.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/worker/time.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/js/worker/worker.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/json/menu1.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/json/menu2.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/json/menu3.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/json/menu4.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/json/menu5.json</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/view3/public/json/menu_all.json</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/view2/public/img/menu_color.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/view2/public/img/menu_money.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/view2/public/img/menu_orgin.png</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -443,6 +446,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -466,25 +475,26 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="896" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4654162" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282532" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -494,6 +504,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="copy ภาพจาก view2 -&gt; view3 และ git rm -rf .idea" />
+    <option name="LAST_COMMIT_MESSAGE" value="copy ภาพจาก view2 -&gt; view3 และ git rm -rf .idea" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
@@ -501,8 +515,136 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/ctrl/router.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+        <state relative-caret-position="288">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/menu.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/item.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1242">
+          <caret line="72" column="57" lean-forward="false" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/sale.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2160">
+          <caret line="130" column="24" lean-forward="true" selection-start-line="130" selection-start-column="24" selection-end-line="130" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ctrl/router.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/menu.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/item.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1242">
+          <caret line="72" column="57" lean-forward="false" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ctrl/router.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/menu.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/item.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1242">
+          <caret line="72" column="57" lean-forward="false" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ctrl/router.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="19" column="51" lean-forward="false" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view2/public/js/item.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="217" column="0" lean-forward="true" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/hw_bill_acc.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="201" column="21" lean-forward="true" selection-start-line="201" selection-start-column="21" selection-end-line="201" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/hw_coin_acc.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="103" column="20" lean-forward="true" selection-start-line="103" selection-start-column="20" selection-end-line="103" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ctrl/item.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-253">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/payment.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="93" column="26" lean-forward="false" selection-start-line="93" selection-start-column="26" selection-end-line="93" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/sale.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="191" column="17" lean-forward="false" selection-start-line="191" selection-start-column="17" selection-end-line="191" selection-end-column="17" />
           <folding />
         </state>
       </provider>

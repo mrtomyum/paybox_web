@@ -91,37 +91,37 @@ func (ca *CoinAcceptor) checkId(data float64) float64 {
 	var value float64
 	switch data {
 	case 1:
-		value = 1.0
+		value = 0.0
 	case 2:
-		value = 2.0
+		value = 0.0
 	case 3:
-		value = 5.0
+		value = 0.0
 	case 4:
-		value = 10.0
+		value = 0.0
 	case 5:
-		value = 10.0
+		value = 0.25
 	case 6:
-		value = 10.0
+		value = 0.50
 	case 7:
-		value = 10.0
+		value = 0.50
 	case 8:
-		value = 10.0
+		value = 1.0
 	case 9:
-		value = 10.0
+		value = 1.0
 	case 10:
-		value = 10.0
+		value = 0.0
 	case 11:
-		value = 10.0
+		value = 0.0
 	case 12:
-		value = 10.0
+		value = 2.0
 	case 13:
-		value = 10.0
+		value = 5.0
 	case 14:
-		value = 10.0
+		value = 5.0
 	case 15:
 		value = 10.0
 	case 16:
-		value = 10.0
+		value = 0.0
 		// มี 1-16
 	}
 	return value
