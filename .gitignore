@@ -13,7 +13,7 @@ doc/paybox.db
 projectFilesBackup/
 /.idea/
 /paybox.iml
-/.idea/workspace.xml
+.idea/workspace.xml
 paybox.db-journal
 model/paybox.db
 paybox_web
