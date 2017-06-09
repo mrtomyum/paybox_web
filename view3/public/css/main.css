@@ -225,39 +225,79 @@ a:link {
 }
 
 #pop-left {
-    width: 35%;
+    width: 30%;
+    /*border: 1px red solid;*/
+    float: left;
+    height: 280px;
+}
+
+#pop-center {
+    width: 68%;
     /*border: 1px red solid;*/
     float: left;
     height: 280px;
     margin-top: 0.5%;
+    text-align: center;
+    padding-left: 2%;
 }
 
-#pop-center {
-    width: 30%;
-    /* border: 1px red solid;*/
-    float: left;
-    height: 280px;
-    margin-top: 0.5%;
-}
-
-#pop-img {
+.choice {
+    width: 150px;
+    height: 150px;
     position: relative;
-    width: 95%;
-    height: 270px;
+    float: left;
+    /* border:1px solid red;*/
+    margin: 2%;
+}
+
+.pop-img {
+    position: relative;
+    width: 100%;
+    height: 150px;
     overflow: hidden;
-    margin: 2% 2% 4% 0%;
+    /* margin: 2% 2% 4% 0%;*/
     border-radius: 10px;
 }
 
-#pop-center img {
+.unit {
+    width: 50px;
+    height: 50px;
+    display: none;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    height: 100%;
-    width: auto;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    left: 80%;
+    top: -3%;
+    background: red;
+    color: #fff;
+    font-size: 50px;
+    padding-top: 1%;
+    line-height: 50px;
+    border-radius: 50%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.removeunit {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    display: none;
+    left: 80%;
+    top: 75%;
+    background: red;
+    color: #fff;
+    font-size: 50px;
+    padding-top: 1%;
+    line-height: 50px;
+    border-radius: 50%;
+}
+
+.name-choice {
+    width: 90%;
+    position: absolute;
+    top: 60%;
+    font-size: 25px;
+    word-wrap: break-word;
+    color: #fff;
+    text-shadow: black 0.1em 0.1em 0.2em
 }
 
 #pop-right {
@@ -266,6 +306,11 @@ a:link {
     float: left;
     height: 280px;
     margin-top: 0.5%;
+}
+
+#order-list {
+    padding-left: 5%;
+    height: 350px;
 }
 
 #pop-qty {
@@ -387,7 +432,7 @@ a:link {
 }
 
 #pay-right {
-    height: 430px;
+    height: 500px;
     width: 100%;
     /* border: 1px solid blue;*/
     float: left;
@@ -396,12 +441,12 @@ a:link {
 
 #textpri2, #textpri3 {
     width: 90%;
-    height: 80px;
+    height: 60px;
     border: 5px solid red;
     background: #000;
     border-radius: 9px;
-    font-size: 105px;
-    line-height: 90px;
+    font-size: 95px;
+    line-height: 65px;
     padding: 0;
     margin: 0;
     margin-left: 3.5%;

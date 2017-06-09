@@ -301,19 +301,32 @@
                     <div id="pay-right">
                         <h4 style="line-height: 0;">
                             <span id="txtmacPri"
-                                  style="width:100%; font-size: 40px; line-height: 14px; margin-bottom: 0; text-align: center;">ยอดชำระ</span>
+                                  style="width:100%; font-size: 30px; line-height: 14px; margin-bottom: 0; text-align: center;">ยอดชำระ</span>
                         </h4>
                         <div id="textpri2">0</div>
                         <input type="hidden" name="pri2" id="pri2" readonly>
                         <span id="txtUnit2"></span>
 
                         <h4 style="line-height: 0;"><span id="texttotal"
-                                                          style="width:100%; font-size: 40px; line-height: 14px;">ค้างชำระ</span>
+                                                          style="width:100%; font-size: 30px; line-height: 14px;">ค้างชำระ</span>
                         </h4>
                         <div id="textpri3">0</div>
                         <input type="hidden" name="pri3" id="pri3" readonly>
                         <span id="txtUnit3"></span>
+                        <hr>
+                        <div style="clear: both; margin-bottom: 5%;">
+                            <button class="bt-cancel" data-role="none" onclick="cancel()">
+                                <h1 style="margin: 5% 0 0 5%; padding: 0; font-size:70px; width:80%;">&#x2718;</h1>
+                            </button>
+                        </div>
 
+                        <div style="float:left; border-top:1px solid black; text-align: left; margin-top: 5%; padding-top: 5%;">
+                            <b><u>เงินที่ชำระได้ :</u></b><br>
+                            <img src="img/c1.png" width="18%" style="float:left; margin-left:2%;">
+                            <img src="img/c2.png" width="20%" style="float:left; margin-left:2%;">
+                            <img src="img/c5.png" width="22%" style="float:left; margin-left:2%;">
+                            <img src="img/c10.png" width="23%" style="float:left; margin-left:2%;">
+                        </div>
                     </div>
 
                 </div>
@@ -321,8 +334,29 @@
             <div id="pop-center">
                 <h1 id="Mitem_title"
                     style="background: #ccffcc; width: 95%; border-radius:9px; padding: 3% 0; margin: 0; font-size:40px;"></h1>
-                <div id="pop-img">
-                    <div id="Mimg"></div><!--<img src="public/img/cocoa_frappe.jpg">-->
+                <div id="order-list"></div>
+                <div style="position: relative; text-align: left;">
+                    <img src="img/b20_true.png" width="15%" style="float:left; margin-left:2%;">
+                    <img src="img/b50_true.png" width="16%" style="float:left; margin-left:2%;">
+                    <img src="img/b100_true.png" width="18%" style="float:left; margin-left:2%;">
+                    <img src="img/b500_true.png" width="18%" style="float:left; margin-left:2%;">
+                    <img src="img/b1000_true.png" width="19%" style="float:left; margin-left:2%;">
+
+                </div>
+                <!--<div class="choice">
+                    <img src="img/150.png" class="pop-img">
+                    <div class="name-choice">name</div>
+                    <div class="unit">0</div>
+                    <div class="removeunit">-</div>
+                </div>
+                <div class="choice">
+                    <img src="img/150.png" class="pop-img">
+                </div>
+                <div class="choice">
+                    <img src="img/150.png" class="pop-img">
+                </div>
+                <!--<div id="pop-img">
+                    <div id="Mimg"></div><!--<img src="public/img/cocoa_frappe.jpg">
                 </div>
                 <button class="bt-cancel" data-role="none" onclick="cancel()">
                     <h1 style="margin: 1% 0 0 0; padding: 0; font-size:80px;">&#x2718;</h1>
@@ -333,28 +367,28 @@
                     </div>
                     <input type="hidden" value="1" id="mo-pri">
                 </div>
-                <!-- <div id="f-right">
+                 <div id="f-right">
                      <a href="#" class="payC" onclick="pop_back()">&#x2718;</a>
                      <a href="#" class="payK" onclick="send_order()">&#10004;</a>
                  </div>-->
             </div>
 
-            <div id="pop-right">
-                <div id="pop-qty">
-                    <img src="public/img/delete.png" onclick="removeQty()">
-                    <input type="number" id="mo_qty" readonly data-role="none">
-                    <img src="public/img/add.png" onclick="addQty()">
-                </div>
+            <!-- <div id="pop-right">
+                 <div id="pop-qty">
+                     <img src="public/img/delete.png" onclick="removeQty()">
+                     <input type="number" id="mo_qty" readonly data-role="none">
+                     <img src="public/img/add.png" onclick="addQty()">
+                 </div>
 
-                <div id="pop-size" data-role="controlgroup" data-type="vertical">
-                    <div id="menusize">
-                        <!--<button class="ui-btn ui-shadow " style="font-size: 24px;">Small</button>
-                        <button class="ui-btn ui-shadow" style="font-size: 24px;">Medium</button>
-                        <button class="ui-btn ui-shadow" style="font-size: 24px;">Large</button>-->
+                 <div id="pop-size" data-role="controlgroup" data-type="vertical">
+                     <div id="menusize">
+                     <!--<button class="ui-btn ui-shadow " style="font-size: 24px;">Small</button>
+                         <button class="ui-btn ui-shadow" style="font-size: 24px;">Medium</button>
+                         <button class="ui-btn ui-shadow" style="font-size: 24px;">Large</button>
                     </div>
                     <input type="hidden" id="Msize">
                 </div>
-            </div>
+            </div>-->
 
         </div>
     </div>
@@ -375,7 +409,7 @@
              style="width: 100%; position: absolute; top: -33%; left:0%; overflow: hidden; background: #000;">
         <script type="text/javascript">
             function hide() {
-                window.location = "#pageone";
+                $.mobile.changePage("#pageone");
             }
         </script>
     </div>

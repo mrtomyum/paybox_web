@@ -74,10 +74,7 @@ function show_modal(c_id, id, name, line, img, unit, price) {
     setTimeout(function () {
         voice_say(localStorage.language, name);
     }, 300);
-    var img_ac = document.getElementsByClassName("active_menu");
-    for (var i = 0; i < img_ac.length; i++) {
-        img_ac[c_id].style.display = "block";
-    }
+
 
     var Mitem = id + ' : ' + name;
     var Mimg = '<img src="' + img + '" onError="this.src = \'/img/noimg.jpg\'" width="100%"/>';
@@ -114,133 +111,92 @@ function show_modal(c_id, id, name, line, img, unit, price) {
      size += lName+'</button>';
      }*/
     for (s = 0; s < price.length; s++) {
-        size += '<button class="ui-btn ui-shadow" style="font-size: 24px; color:#fff; background:#66a3ff; border-radius:10px;" id="' + price[s].name + '"';
-        size += 'onclick="active_size(\'' + price[s].name + '\',\'' + price[s].price + '\',' + s + ')">';
-        size += price[s].name + '</button>';
+        //console.log(s);
+        size += '<div class="choice">';
+        size += '<img src="img/150.png" class="pop-img" onclick="addQty(' + s + ',' + price[s].price + ')">';
+        size += '<div class="name-choice" onclick="addQty(' + s + ',' + price[s].price + ')">' + price[s].name + '</div>';
+        size += '<div class="unit">0</div>';
+        size += '<div class="removeunit" onclick="removeQty(' + s + ',' + price[s].price + ')">-</div>';
+        size += '</div>';
     }
-    for (s = 0; s < price.length; s++) {
-        if (price[s].price > 0) {
-            var totalPrice = 1 * price[s].price;
-            // console.log("รอบ "+s);
-            s = price.length;
-        }
-    }
+
     setTimeout(function () {
-        for (s = 0; s < price.length; s++) {
-            if (price[s].price > 0) {
-                active_size(price[s].name, price[s].price, 0);
-                document.getElementById("Msize").value = price[s].name;
-                // console.log("รอบ active "+s);
-                s = price.length;
-            }
-        }
+        addQty(0, price[0].price);
     }, 300);
-    /*setTimeout(function(){
-     if(sPrice!=0){
 
-     }else if(mPrice!=0){
-     active_size(mName,mPrice,1);
-     }else if(lPrice!=0){
-     active_size(lName,lPrice,2);
-     }
-     },300);
-
-     //}else{
-
-     // }*/
-
-    //
     document.getElementById("MitemNo").value = id;
     document.getElementById("MitemName").value = name;
     document.getElementById("line").value = line;
     document.getElementById("Munit").value = unit;
-    document.getElementById("mo_qty").value = 1;
-    if (Mitem.length < 25) {
-        document.getElementById("Mitem_title").innerHTML = Mitem;
-    } else {
-        document.getElementById("Mitem_title").innerHTML = Mitem.substring(0, 15) + "...";
-    }
+    //document.getElementById("mo_qty").value = 1;
 
-    document.getElementById("Mimg").innerHTML = Mimg;
-    document.getElementById("menusize").innerHTML = size;
-    document.getElementById("pri3").value = totalPrice;
+    document.getElementById("Mitem_title").innerHTML = Mitem;
+
+
+    //document.getElementById("Mimg").innerHTML = Mimg;
+    document.getElementById("order-list").innerHTML = size;
+
+    /*document.getElementById("pri3").value = totalPrice;
     document.getElementById("textpri3").innerHTML = addCommas(totalPrice);
-
+     */
     //$("#select_item").popup('open');
     $.mobile.changePage("#page_selectitem");
 }
 
 
-function addQty() {
-    var qty = document.getElementById("mo_qty").value;
-    var pri = document.getElementById("pri3").value;
-
-    var price = "";
-    price = pri.split(" ");
-    price = price[0];
-
-    var size_pri = parseInt(price) / parseInt(qty);
-
-    var addQty = 0;
-    if (qty >= 1) {
-        addQty = parseInt(qty) + 1;
-    }
-    document.getElementById("mo_qty").value = addQty;
-    document.getElementById("textpri3").innerHTML = addCommas(size_pri * addQty);
-    document.getElementById("pri3").value = size_pri * addQty;
-}
-
-function removeQty() {
-    var qty = document.getElementById("mo_qty").value;
-    var pri = document.getElementById("pri3").value;
-
-    var price = "";
-    price = pri.split(" ");
-    price = price[0];
-
-    var size_pri = parseInt(price) / parseInt(qty);
-
-    var addQty = 0;
-    if (qty >= 1) {
-        addQty = qty - 1;
-    }
-
-    if (addQty < 1) {
-        document.getElementById("mo_qty").value = 1;
-        document.getElementById("textpri3").innerHTML = addCommas(size_pri * 1);
-        document.getElementById("pri3").value = size_pri * 1;
-        //	document.getElementById("mo-pri").value = size_pri*1+' ฿';
-    } else {
-        document.getElementById("mo_qty").value = addQty;
-        document.getElementById("textpri3").innerHTML = addCommas(size_pri * addQty);
-        document.getElementById("pri3").value = size_pri * addQty;
-        //document.getElementById("mo-pri").value = size_pri*addQty+' ฿';
-    }
-}
-
-function active_size(name, price, id) {
-    /*$("h1").removeClass("acsize");
-     $("#"+id).addClass("acsize");*/
-    console.log(name + "," + price + "," + id);
-
-    var x = document.getElementsByClassName("ui-shadow");
-    for (i = 0; i < x.length; i++) {
-        if (id == i) {
-            x[i].style.background = "#0052cc";
+function addQty(id, price) {
+    //console.log(id+","+price);
+    var unit = document.getElementsByClassName("unit");
+    var runit = document.getElementsByClassName("removeunit");
+    unit[id].innerHTML = parseInt(unit[id].innerText) + 1;
+    for (var i = 0; i < unit.length; i++) {
+        if (i == id) {
+            unit[i].style.display = "block";
+            runit[i].style.display = "block";
         } else {
-            x[i].style.background = "#66a3ff";
+            unit[i].style.display = "none";
+            runit[i].style.display = "none";
+            unit[i].innerHTML = 0;
         }
-        //   console.log("ui-shadow length "+ x.length)
+
+    }
+    if (parseInt(unit[id].innerText) == 1) {
+        runit[id].style.display = "none";
     }
 
-    var qty = document.getElementById("mo_qty").value;
-    document.getElementById("Msize").value = name;
-
-    var totalPrice = qty * price;
-
-    console.log("ราคา " + totalPrice + ", nameSize = " + name);
+    var totalPrice = parseInt(unit[id].innerText) * parseInt(price);
     document.getElementById("textpri3").innerHTML = addCommas(totalPrice);
     document.getElementById("pri3").value = totalPrice;
+
+}
+
+function removeQty(id, price) {
+    var unit = document.getElementsByClassName("unit");
+    var runit = document.getElementsByClassName("removeunit");
+    unit[id].innerHTML = parseInt(unit[id].innerText) - 1;
+    for (var i = 0; i < unit.length; i++) {
+        if (i == id) {
+            unit[i].style.display = "block";
+            runit[i].style.display = "block";
+        } else {
+            unit[i].style.display = "none";
+            runit[i].style.display = "none";
+            unit[i].innerHTML = 0;
+        }
+
+    }
+    if (parseInt(unit[id].innerText) == 1) {
+        runit[id].style.display = "none";
+    }
+    var totalPrice = parseInt(unit[id].innerText) * parseInt(price);
+    document.getElementById("textpri3").innerHTML = addCommas(totalPrice);
+    document.getElementById("pri3").value = totalPrice;
+}
+
+function active_size() {
+    console.log(id + "," + price);
+    /* document.getElementById("textpri3").innerHTML = addCommas(totalPrice);
+     document.getElementById("pri3").value = totalPrice;*/
 }
 
 function send_order() {
