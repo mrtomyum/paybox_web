@@ -25,6 +25,15 @@ func Router() *gin.Engine {
 	r.GET("/item/:id", GetItemById)
 	r.POST("/sale", NewSale)
 
+	coin := r.Group("/coin")
+	{
+		coin.GET("/count", GetCoinCount)
+		coin.POST("/count", SetCoinCount)
+		coin.GET("/empty", EmptyCoin)
+		coin.POST("/payout", PayoutCoin)
+	}
+
+
 	// WebSocket endpoint for web UI
 	r.GET("/web", func(c *gin.Context) {
 		ServWeb(c.Writer, c.Request)
