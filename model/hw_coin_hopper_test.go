@@ -26,11 +26,11 @@ func TestCoinHopper_CoinCount(t *testing.T) {
 	}
 
 	// Assert
-	if model.CH.C1 != c[1].expect ||
-		model.CH.C2 != c[2].expect ||
-		model.CH.C5 != c[3].expect ||
-		model.CH.C5 != c[4].expect {
+	if model.CH.c1 != c[1].expect ||
+		model.CH.c2 != c[2].expect ||
+		model.CH.c5 != c[3].expect ||
+		model.CH.c5 != c[4].expect {
 		t.Fail()
-		t.Logf("Expected C1 = %v , but got: %v\n", c[1].expect, model.CH.C1)
+		t.Logf("Expected C1 = %v , but got: %v\n", c[1].expect, model.CH.c1)
 	}
 }

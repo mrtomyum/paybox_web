@@ -80,6 +80,7 @@ func (ca *CoinAcceptor) Received(s *Socket) {
 	PM.total += value
 	PM.remain -= value
 	CB.hopper += value
+	CH.AddCoin(value)
 	CB.total += value
 	fmt.Println("PM.coin =", PM.coin, "PM total=", PM.total)
 	PM.coinCh <- value

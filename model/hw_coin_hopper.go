@@ -38,15 +38,55 @@ type CoinHopper struct {
 	machineId string `json:"machine_id"`
 	Status    string
 	Send      chan *Message
-	C1        int
-	C2        int
-	C5        int
-	C10       int
+	c025      int //จำนวนเหรียญคงเหลือ
+	c050      int
+	c1        int
+	c2        int
+	c5        int
+	c10       int
 }
 
-//ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins hopper
+// AddCoin เพิ่มจำนวนเหรียญและปรับมูลค่าตาม Event CoinAcc.Received()
+func (ch *CoinHopper) AddCoin(v float64) {
+	fmt.Println("CoinHopper.AddCoin()")
+	switch v {
+	case 0.25:
+		ch.c025++
+	case 0.50:
+		ch.c050++
+	case 1:
+		ch.c1++
+	case 2:
+		ch.c2++
+	case 5:
+		ch.c5++
+	case 10:
+		ch.c10++
+	}
+}
+
+// SubtractCoin เพิ่มจำนวนเหรียญและปรับมูลค่าตาม Event CoinAcc.Received()
+func (ch *CoinHopper) SubtractCoin(v float64) {
+	fmt.Println("CoinHopper.AddCoin()")
+	switch v {
+	case 0.25:
+		ch.c025--
+	case 0.50:
+		ch.c050--
+	case 1:
+		ch.c1--
+	case 2:
+		ch.c2--
+	case 5:
+		ch.c5--
+	case 10:
+		ch.c10--
+	}
+}
+
+// GetId ร้องขอหมายเลข Serial Number ของ อุปกรณ์ Coins hopper
 func (ch *CoinHopper) GetId() {
-	fmt.Println("CoinHopper.GetId() start")
+	fmt.Println("CoinHopper.GetId()")
 	m := &Message{
 		Device:  "coin_hopper",
 		Type:    "request",
@@ -55,7 +95,7 @@ func (ch *CoinHopper) GetId() {
 	H.Hw.Send <- m
 	m = <-ch.Send
 	ch.machineId = m.Data.(string)
-	fmt.Println("Got Response from CoinHopper ID:", ch.machineId, "Status:", ch.Status)
+	fmt.Println("Got Response from CoinHopper ID:", ch.machineId)
 }
 
 func (ch *CoinHopper) event(c *Socket) {
@@ -124,7 +164,8 @@ func (ch *CoinHopper) PayoutByCash(v float64) error {
 	if !m2.Result {
 		return errors.New("Error payout from Hopper.")
 	}
-	CB.hopper -= v //ลดยอดเหรียญใน hopper
+	CB.hopper -= v //ลดยอดเหรียญใน CoinBox
+	ch.SubtractCoin(v) //ลดจำนวนเหรียญใน CoinHopper
 	return nil
 }
 
@@ -135,7 +176,7 @@ func (ch *CoinHopper) StatusChange(c *Socket) {
 	fmt.Println("CoinHopper.StatusChange() start")
 	switch c.Msg.Data.(string) {
 	case "ready", "disable", "calibration_fault", "no_key_set", "coin_jammed", "fraud", "hopper_empty", "memory_error", "sensors_not_initialised", "lid_remove": // Legacy
-		H.Web.Send <- c.Msg // ตอนนี้กำหนดให้ทุกสถานะจะส่งไปให้ Web ด้วย
+		H.Web.Send <- c.Msg                                                                                                                                      // ตอนนี้กำหนดให้ทุกสถานะจะส่งไปให้ Web ด้วย
 		ch.Status = c.Msg.Data.(string)
 	default:
 		log.Println("Error CoinHopper.StatusChange: Unknown Msg.Data=>", c.Msg.Data.(string))
@@ -156,10 +197,10 @@ func (ch *CoinHopper) CoinCount() error {
 		return errors.New("Error response from command coin_hopper.coin_count")
 	}
 	data := m.Data.(map[string]interface{})
-	ch.C1 = data["coin_1"].(int)
-	ch.C2 = data["coin_2"].(int)
-	ch.C5 = data["coin_5"].(int)
-	ch.C10 = data["coin_10"].(int)
+	ch.c1 = data["coin_1"].(int)
+	ch.c2 = data["coin_2"].(int)
+	ch.c5 = data["coin_5"].(int)
+	ch.c10 = data["coin_10"].(int)
 	return nil
 }
 
