@@ -21,7 +21,6 @@ var (
 
 // ServWeb ทำงานเมื่อ Web Socket เรียกเพจ /ws ระบบ Host จะทำตัวเป็น Server ให้ Socket จาก WebUI เชื่อมต่อเข้ามาคุย
 func ServWeb(w http.ResponseWriter, r *http.Request) {
-	//fmt.Println("start ServWeb Websocket for Web...")
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		fmt.Println(err)
