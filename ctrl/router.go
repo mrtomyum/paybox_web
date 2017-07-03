@@ -11,7 +11,7 @@ func Router() *gin.Engine {
 	pwd, _ := os.Getwd()
 	// for Static HTML template
 
-	//r.LoadHTMLGlob(pwd + "/view2/**/*.tpl")
+	//r.LoadHTMLGlob(pwd + "/view3/**/*.tpl")
 	r.Static("/html", pwd+"/view2/html")
 	r.Static("/js", pwd+"/view2/public/js")
 	r.Static("/css", pwd+"/view2/public/css")

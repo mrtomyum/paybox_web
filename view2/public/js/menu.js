@@ -1,5 +1,4 @@
 var num_call = 0;
-// document.addEventListener('contextmenu', event => event.preventDefault());
 $(document).ready(function(){
   if(navigator.onLine)
   {
@@ -19,25 +18,6 @@ $(document).ready(function(){
   }
 
 call_websocket();
-/*setInterval(function(){
-     $.ajax({
-             url: "http://"+window.location.host+"/menu/1",
-             contentType: "application/json; charset=utf-8",
-             dataType: "json",
-             type: "GET",
-             cache: false,
-                 success: function(result){
-                   num_call++;
-                   console.log("API Sample ready!! " + num_call);
-
-                 },
-                 error: function (err){
-                    console.log("API Sample Not ready!! ERROR "+ JSON.stringify(err));
-                 }
-           });
- }, 1000);*/
-
-
     setTimeout(function () {
         if (localStorage.language) {
             var id = localStorage.language;
@@ -47,34 +27,23 @@ call_websocket();
         switch (parseInt(id)) {
             case 0 :
                 onsaythai(id);
-                console.log("ไทย");
                 break;
             case 1 :
                 onsayeng(id);
-                console.log("อังกฤษ");
                 break;
             case 2 :
                 onsaychina(id);
-                console.log("จีน");
                 break;
         }
-        // var id = 2;
-
-
         var worker = new Worker('js/worker/time.js');
         worker.onmessage = function (event) {
             document.getElementById('timer').innerHTML = event.data;
             document.getElementById('timer2').innerText = event.data;
         };
-
-
         switch (parseInt(id)) {
             case 1:
                 document.getElementById("version").innerHTML = "เวอร์ชั่น 0.9";
                 document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.9 ";
-
-                //    document.getElementById("bt_back").innerHTML = "ย้อนกลับ";
-
                 document.getElementById("N_time").innerHTML = "เวลา ";
                 document.getElementById("Name_time2").innerHTML = "เวลา ";
 
@@ -82,60 +51,36 @@ call_websocket();
             case 2:
                 document.getElementById("version").innerHTML = "version 0.9";
                 document.getElementById("version2").innerHTML = "version 0.9 ";
-
-                // document.getElementById("bt_back").innerHTML = "back";
-
                 document.getElementById("N_time").innerHTML = "time ";
                 document.getElementById("Name_time2").innerHTML = "time ";
                 break;
             case 3:
                 document.getElementById("version").innerHTML = "版本 0.9";
                 document.getElementById("version2").innerHTML = "版本 0.9 ";
-
-                //	document.getElementById("bt_back").innerHTML = "背部";
-
                 document.getElementById("N_time").innerHTML = "時間 ";
                 document.getElementById("Name_time2").innerHTML = "時間 ";
 
                 break;
         }
-
-        // console.log(id);
         detailmenu(id);
-        console.log("screen width : " + screen.width);
         active_lang(id);
-
-        //** screen server ***//
-        //new Worker object
         var wk = new Worker("js/worker/worker.js");
-        //ใช้ addEventListener เพื่อรับ message จาก Woker --> self.postMessage('worker got : '+data);
                 wk.onmessage = function(oEvent){
-                    //document.getElementById('display').textContent = "เวลา " + oEvent.data + " วินาที";
-                    //จะ print 'worker got : Hello'
                     if(oEvent.data==300){
-                        console.log("screen");
                         $.mobile.changePage("#page_screen");
                         wk.postMessage(0);
                     }
                 };
-        //start Worker และส่ง message ให้ Worker ด้วย postMessage
         $('html').click(function(){
             wk.postMessage(0);
         });
-        ////////////////////////
-
-    }, 1000);
+    }, 500);
 
 });
 
 var wksetting = new Worker("js/worker/setting.js");
-//ใช้ addEventListener เพื่อรับ message จาก Woker --> self.postMessage('worker got : '+data);
 wksetting.onmessage = function (oEvent) {
-    //document.getElementById('display').textContent = "เวลา " + oEvent.data + " วินาที";
-    //จะ print 'worker got : Hello'
-    // console.log("setting step "+oEvent.data);
     document.getElementById("stepst").innerHTML = oEvent.data;
-
     showDialog();
     if (oEvent.data >= 5) {
         $("#mySetting").popup("open");
@@ -144,16 +89,11 @@ wksetting.onmessage = function (oEvent) {
         clearInterval(timeclick);
         stepclick = 0;
     }
-    //wk.postMessage(0);
-    //var len = document.getElementById("myDialog").length;
-
 };
 var stepclick = 0;
 var timeclick = "";
 function setting_ck() {
-    // console.log("setting");
     wksetting.postMessage(1);
-
     stepclick = 0;
     clearInterval(timeclick);
     timeclick = setInterval(function () {
@@ -166,7 +106,6 @@ function setting_ck() {
         }
         console.log("stepck " + stepclick);
     }, 1000);
-
 }
 
 var x = document.getElementById("myDialog");
@@ -180,18 +119,14 @@ function closeDialog() {
 }
 
 function detailmenu(id){
-
      $.ajax({
             url: "http://"+window.location.host+"/menu",
-          //  data: '{"barcode":"'+barcode+'","docno":"'+DocNo+'","type":"1"}',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             type: "GET",
             cache: false,
                 success: function(result){
-                  //  console.log(JSON.stringify(result));
                     var listmenu = result[id].menus;
-                  //  console.log(JSON.stringify(listmenu));
                     var menu = '<ul class="block-2">';
                     for (var i = 0; i < listmenu.length; i++) {
                           menu += '<li>';
@@ -200,7 +135,6 @@ function detailmenu(id){
                           menu += '<p>'+listmenu[i].name+'</p>';
                           menu += '</a>';
                           menu += '</li>';
-
                         }
                     menu += '</ul>';
                     document.getElementById("list_menu").innerHTML = menu;
@@ -209,26 +143,14 @@ function detailmenu(id){
                     console.log(JSON.stringify(err));
                 }
             });
-  //var mydata = jQuery.parseJSON(data);
-   //
-    //console.log(JSON.stringify(mydata));
-   // console.log(mydata[0].langId);
-    //
-    //console.log(listmenu);
-   /* */
 }
 
 function active_menu(menuId,mName,lName){
-    console.log("menu_id"+ menuId);
     localStorage.menuId = menuId;
     localStorage.nName = mName;
     localStorage.lName = lName;
-
-    console.log("active " +localStorage.language);
     menu_detail(localStorage.language,menuId);
-    setTimeout(function () {
-        voice_say(localStorage.language, mName);
-    }, 500);
+    voice_say(localStorage.language, mName);
 }
 
 function voice_say(lang,content){
@@ -240,8 +162,6 @@ function voice_say(lang,content){
          case 2 : var language = "Chinese Female";
                 break;
      }
-     console.log(content);
-    console.log("vioce say " + lang);
      responsiveVoice.setDefaultVoice(language);
      responsiveVoice.speak(content);
 }
@@ -249,89 +169,59 @@ function voice_say(lang,content){
 function onsayeng(id){
     responsiveVoice.setDefaultVoice("UK English Female");
     responsiveVoice.speak("English language");
- 
     active_lang(id);
-    //console.log("active _ id "+id);
-
     document.getElementById("version").innerHTML = "version 0.9";
     document.getElementById("version2").innerHTML = "version 0.9 ";
-
-  //  document.getElementById("bt_back").innerHTML = "back";
-
     document.getElementById("N_time").innerHTML = "time ";
     document.getElementById("Name_time2").innerHTML = "time ";
-
     localStorage.language = 1;
     detailmenu(id);
 }
 
 function onsaythai(id){
-
     responsiveVoice.setDefaultVoice("Thai Female");
     responsiveVoice.speak("ภาษาไทย");
-
     active_lang(id);
-
     document.getElementById("version").innerHTML = "เวอร์ชั่น 0.9";
     document.getElementById("version2").innerHTML = "เวอร์ชั่น 0.9 ";
-
-	//document.getElementById("bt_back").innerHTML = "ย้อนกลับ";
-
     document.getElementById("N_time").innerHTML = "เวลา ";
     document.getElementById("Name_time2").innerHTML = "เวลา ";
-
-    setTimeout(function(){
-        localStorage.language = 0;
-        detailmenu(id);
-    }, 1000);
-
+    localStorage.language = 0;
+    detailmenu(id);
 }
 
 function onsaychina(id){
     responsiveVoice.setDefaultVoice("Chinese Female");
     responsiveVoice.speak("中國");
-
     active_lang(id);
-
     document.getElementById("version").innerHTML = "版本 0.9";
     document.getElementById("version2").innerHTML = "版本 0.9 ";
-
-  //  document.getElementById("bt_back").innerHTML = "背部";
-
 	document.getElementById("N_time").innerHTML = "時間 ";
     document.getElementById("Name_time2").innerHTML = "時間 ";
-
     localStorage.language = 2;
     detailmenu(id);
 }
 
 function active_lang(id){
-
         var x = document.getElementsByClassName("lang");
         for (i = 0; i < x.length; i++) {
                 if(id==i){
                     x[i].style.borderColor = "#f00";
-                    console.log("lang red"+id);
                 }else{
                     x[i].style.borderColor = "#fff";
                }
             }
-
 }
 
 function enPwd(number){
-    //console.log(number);
     var pwd = document.getElementById("pwd").value;
     pwd += number;
-
     document.getElementById("pwd").value = pwd;
 }
 
 function delete_pwd(){
     var text = document.getElementById("pwd").value;
-
     var newStr = text.substring(0, text.length-1);
-    //console.log(newStr);
     document.getElementById("pwd").value = newStr;
 }
 
