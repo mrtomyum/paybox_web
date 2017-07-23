@@ -11,7 +11,7 @@ func main() {
 	fmt.Println("1")
 
 	// Dial to HW_SERVICE
-	//go ctrl.ConnectToHW()
+	go ctrl.ConnectToHW()
 	fmt.Println("2")
 	time.Sleep(1 * time.Second)
 	// Run Web Server
