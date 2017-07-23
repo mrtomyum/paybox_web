@@ -45,8 +45,8 @@ func ServWeb(w http.ResponseWriter, r *http.Request) {
 // ConnectToHW() เพื่อให้โปรแกรม Host เรียก WebSocket ไปยัง HW_SERVICE ที่พอร์ท 9999
 // ใช้สั่งงาน Request และรับ Event/Response จาก Device ต่างๆ
 func ConnectToHW() {
-	u := url.URL{Scheme: "ws", Host: "127.0.0.1:9999", Path: "/"}
-	//u := url.URL{Scheme: "ws", Host: "192.168.10.64:9999", Path: "/"}
+	//u := url.URL{Scheme: "ws", Host: "127.0.0.1:9999", Path: "/"}
+	u := url.URL{Scheme: "ws", Host: "192.168.10.64:9999", Path: "/"}
 	log.Printf("connecting to %s", u.String())
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
