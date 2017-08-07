@@ -10,6 +10,8 @@ import (
 func GetMenu(ctx *gin.Context) {
 	//model.BA.Stop()
 	//model.CA.Stop()
+	ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	ctx.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type,Token")
 	var menu model.Menu
 	langs, err := menu.Index()
 	if err != nil {

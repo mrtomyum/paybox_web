@@ -11,6 +11,9 @@ import (
 
 func GetItemById(ctx *gin.Context) {
 	var item model.Item
+	ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	ctx.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type,Token")
+
 	strId := ctx.Param("id")
 	id, _ := strconv.ParseInt(strId, 10, 64)
 	err := item.Get(id)
@@ -24,6 +27,9 @@ func GetItemById(ctx *gin.Context) {
 }
 
 func GetItemsByMenuId(ctx *gin.Context) {
+	ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	ctx.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type,Token")
+
 	fmt.Println("call GetItemsByMenuId")
 	idStr := ctx.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
