@@ -65,3 +65,21 @@ func NewSale(c *gin.Context) {
 	fmt.Println("NewSale() COMPLETED, sale = ", s)
 	s.Reset()
 }
+
+func SaleTest(c *gin.Context){
+	fmt.Println("start test ctrl")
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type,Token")
+
+	s := new(model.Sale)
+	if c.Bind(s) != nil {
+		c.JSON(http.StatusOK, gin.H{"command": "bind_sale_data", "result": "error", "data": s})
+		log.Println("Error JSON from Web client.")
+	}
+	t := time.Now()
+	s.Created = &t
+	s.Type = "take_home"
+
+	c.JSON(http.StatusOK, gin.H{"command": "sale", "result": "success", "data": s})
+}
+

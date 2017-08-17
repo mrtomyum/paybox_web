@@ -24,7 +24,7 @@ func Router() *gin.Engine {
 	r.GET("/menu/:id/", GetItemsByMenuId)
 	r.GET("/item/:id", GetItemById)
 	r.POST("/sale", NewSale)
-
+	r.POST("/saletest", SaleTest)
 	coin := r.Group("/coin")
 	{
 		coin.GET("/count", GetCoinCount)
