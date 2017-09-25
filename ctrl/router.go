@@ -12,13 +12,13 @@ func Router() *gin.Engine {
 	// for Static HTML template
 
 	//r.LoadHTMLGlob(pwd + "/view3/**/*.tpl")
-	r.Static("/html", pwd+"/view4/html")
-	r.Static("/js", pwd+"/view4/static/js")
-	r.Static("/css", pwd+"/view4/static/css")
-	r.Static("/img", pwd+"/view4/static/img")
-	r.Static("/fonts", pwd+"/view4/static/fonts")
-	r.Static("/voice", pwd+"/view4/static/voice")
-	r.Use(static.Serve("/", static.LocalFile("view4", true)))
+	r.Static("/html", pwd+"/view5/html")
+	r.Static("/js", pwd+"/view5/static/js")
+	r.Static("/css", pwd+"/view5/static/css")
+	r.Static("/img", pwd+"/view5/static/img")
+	r.Static("/fonts", pwd+"/view5/static/fonts")
+	r.Static("/voice", pwd+"/view5/static/voice")
+	r.Use(static.Serve("/", static.LocalFile("view5", true)))
 
 	// WebService endpoint for web UI
 	r.GET("/menu", GetMenu)
